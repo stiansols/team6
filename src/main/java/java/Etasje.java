@@ -5,7 +5,7 @@
  */
 package java;
 import java.util.ArrayList;
-
+import database.DbConnection;
 /**
  *
  * @author Sondre
@@ -33,6 +33,11 @@ public class Etasje {
 
     public void setEtasjenr(int etasjenr) {
         this.etasjenr = etasjenr;
+    }
+    
+    public void hentRom(){
+        DbConnection conn = new DbConnection();
+        
     }
     
 }
