@@ -10,5 +10,5 @@ package java;
  * @author Archimedes
  */
 public class Ansatt extends Bruker {
-    
+      
 }
