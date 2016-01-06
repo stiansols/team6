@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  
 
 public class DbConnection {
+    
     public static void main(String[] args) throws Exception {
  
         ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
@@ -35,5 +36,13 @@ public class DbConnection {
         }
         return query;
     }
+        public void executeQuery(String query)throws Exception {
+            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            
+        }
  
 }
