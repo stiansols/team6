@@ -11,7 +11,7 @@ package java;
  */
 public class Bruker {
     String brukernavn;
-    String navn;
+    String navnene;
     String passord;
     String mail;
 }
