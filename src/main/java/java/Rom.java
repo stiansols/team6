@@ -18,7 +18,7 @@ public class Rom {
     boolean harProsjektor;
     int tilgang;
     
-    public Rom() {
+    public Rom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang) {
         
     }
 
@@ -76,7 +76,7 @@ public class Rom {
 
     public void setTilgang(int tilgang) {
         this.tilgang = tilgang;
-    }
+    }    
 }
 
 
