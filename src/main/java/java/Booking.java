@@ -11,9 +11,59 @@ import java.util.Date;
  */
 public class Booking {
     int bookingId;
-    String bukernavn;
+    String brukernavn;
     String romNummer;
     Date fratid;
     Date tiltid;
+    
+    public Booking(int bookingId, String brukernavn, String romNummer, Date fratid, Date tiltid){
+        this.bookingId = bookingId;
+        this.brukernavn = brukernavn;
+        this.romNummer = romNummer;
+        this.fratid = fratid;
+        this.tiltid = tiltid;
+        
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public void setBrukernavn(String brukernavn) {
+        this.brukernavn = brukernavn;
+    }
+
+    public void setRomNummer(String romNummer) {
+        this.romNummer = romNummer;
+    }
+
+    public void setFratid(Date fratid) {
+        this.fratid = fratid;
+    }
+
+    public void setTiltid(Date tiltid) {
+        this.tiltid = tiltid;
+    }
+
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public String getBrukernavn() {
+        return brukernavn;
+    }
+
+    public String getRomNummer() {
+        return romNummer;
+    }
+
+    public Date getFratid() {
+        return fratid;
+    }
+
+    public Date getTiltid() {
+        return tiltid;
+    }
+    
     
 }
