@@ -51,7 +51,7 @@ public class Administrator extends Bruker {
     
     public void RegBruker(String brukernavn, String navn,String passord,String email,int type)throws Exception{
         DbConnection conn = new DbConnection();
-        conn.executeQuery("Insert into bruker (brukernavn,navn,passord,mail) values('"+brukernavn+"'"+",'"+navn+"'"+",'"+passord+"'"+",'"+email+"'"+","+type+""+")");
+        conn.executeQuery("Insert into bruker (brukernavn,navn,passord,mail) values('"+brukernavn+"'"+",'"+navn+"'"+",'"+passord+"'"+",'"+email+"'"+")");  //","+type+""+")");
     }
     
     public void slettBruker(String brukernavn)throws Exception{
@@ -59,6 +59,7 @@ public class Administrator extends Bruker {
         conn.executeQuery("delete from bruker where brukernavn = '"+brukernavn+"'");
     }
     
+   
     
     
 }
