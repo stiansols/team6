@@ -5,7 +5,9 @@
  */
 package Klasser;
 
+import database.DbConnection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,9 +16,15 @@ import java.sql.SQLException;
 public class Test {
     public static void main(String[] args)throws Exception{
         Administrator a = new Administrator();
+        DbConnection et = new DbConnection();
+        
+        ArrayList q = new ArrayList<>();
         try{
             
-        a.RegBruker("sondre",1, "sondre", "123", "epost",0);
+            et.hentRom(q);
+            
+        
+                
         }catch(SQLException e ){
             System.out.println(e + " fail");
         }
