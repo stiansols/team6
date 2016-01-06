@@ -78,7 +78,7 @@ public class Rom {
 
     public void setTilgang(int tilgang) {
         this.tilgang = tilgang;
-    }    
+    }   
 }
 
 
