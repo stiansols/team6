@@ -41,7 +41,8 @@ public class DbConnection {
             DataSource dataSource = (DataSource) appContext.getBean("dataSource");
             Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            statement.executeUpdate(query);
+            System.out.println("success");
             
         }
  

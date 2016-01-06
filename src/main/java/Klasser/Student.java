@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
+package Klasser;
+
+import java.*;
 
 /**
  *
  * @author Archimedes
  */
-public class Ansatt extends Bruker {
-      
+public class Student extends Bruker {
+    
 }

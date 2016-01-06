@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
+package Klasser;
+
+import java.*;
+import database.DbConnection;
 
 /**
  *
  * @author Archimedes
  */
-public class Bruker {
-    String brukernavn;
-    String navn;
-    String passord;
-    String mail;
+public class Administrator extends Bruker {
     
-    public Bruker(){
-    
+    public Administrator(){
+
     }
 
     public String getBrukernavn() {
@@ -50,5 +49,18 @@ public class Bruker {
     public void setMail(String mail) {
         this.mail = mail;
     }
+    
+    public void RegBruker(String brukernavn,int brukertype, String navn,String passord,String email,int type)throws Exception{
+        DbConnection conn = new DbConnection();
+        conn.executeQuery("Insert into bruker (brukernavn,brukertype,navn,passord,mail) values('"+brukernavn+"'"+",'"+brukertype+"','"+navn+"'"+",'"+passord+"'"+",'"+email+"'"+")");  //","+type+""+")");
+    }
+    
+    public void slettBruker(String brukernavn)throws Exception{
+        DbConnection conn = new DbConnection();
+        conn.executeQuery("delete from bruker where brukernavn = '"+brukernavn+"'");
+    }
+    
+   
+    
     
 }

@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
-
+package Klasser;
+import java.*;
+import java.util.Date;
 /**
  *
  * @author Archimedes
  */
-public class RomKalender extends Kalender {
-    Rom rom;
+public class Dag {
+    int dagId;
+    String navn;
+    Date dato;
+    boolean helligdag;
 }

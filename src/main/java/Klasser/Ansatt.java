@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
-import java.util.ArrayList;
-import java.util.Calendar;
+package Klasser;
+
+import java.*;
 
 /**
  *
  * @author Archimedes
  */
-public class Kalender {
-    ArrayList<Uke> uker = new ArrayList<Uke>();
-    int år = Calendar.YEAR;
+public class Ansatt extends Bruker {
+      
 }
