@@ -45,16 +45,23 @@ public class Etasje {
         boolean harSkjerm;
         boolean harProsjektor;
         int tilgang;
-        int k = conn.executeQueryInt("Select count(distinct romnr) from rom");
+        System.out.println("kkkk");
+        
+        String q = conn.executeQueryString("SELECT romnr FROM rom LIMIT 0,1");
+        
+        System.out.println(q);
+        
+        int k = conn.executeQueryInt("SELECT COUNT(DISTINCT romnr) FROM rom");
+        System.out.println(k);
         
         for(int i = 0; i<k; i++){
-            romnr = conn.executeQueryString("Select romnr from rom LIMIT"+(k+1)+",1");
-            etasje = conn.executeQueryInt("Select etasje from rom LIMIT"+(k+1)+",1");
-            plasser = conn.executeQueryInt("Select plasser from rom LIMIT"+(k+1)+",1");
-            harSmartboard = conn.executeQueryBoolean("Select harSmartboard from rom LIMIT"+(k+1)+",1", 4);
-            harSkjerm = conn.executeQueryBoolean("Select harSmartboard from rom LIMIT"+(k+1)+",1", 5);
-            harProsjektor = conn.executeQueryBoolean("Select harSmartboard from rom LIMIT"+(k+1)+",1", 6);
-            tilgang = conn.executeQueryInt("Select tilgang from rom LIMIT"+(k+1)+",1");
+            romnr = conn.executeQueryString("SELECT romnr FROM rom LIMIT"+(i)+",1");
+            etasje = conn.executeQueryInt("SELECT etasje FROM rom LIMIT"+(i)+",1");
+            plasser = conn.executeQueryInt("SELECT plasser FROM rom LIMIT"+(i)+",1");
+            harSmartboard = conn.executeQueryBoolean("SELECT harSmartboard FROM rom LIMIT"+(i)+",1", 4);
+            harSkjerm = conn.executeQueryBoolean("SELECT harSmartboard FROM rom LIMIT"+(i)+",1", 5);
+            harProsjektor = conn.executeQueryBoolean("SELECT harSmartboard FROM rom LIMIT"+(i)+",1", 6);
+            tilgang = conn.executeQueryInt("SELECT tilgang FROM rom LIMIT"+(i)+",1");
             
             System.out.println(romnr);
             
