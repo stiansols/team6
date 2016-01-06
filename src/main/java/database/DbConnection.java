@@ -46,7 +46,7 @@ public class DbConnection {
             
         }
         
-            public int executeQuery(String query)throws Exception {
+            public int executeQueryInt(String query)throws Exception {
             ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
             DataSource dataSource = (DataSource) appContext.getBean("dataSource");
             Connection connection = dataSource.getConnection();
@@ -57,5 +57,25 @@ public class DbConnection {
             int count = (int)countLong;
             return count;
         }
+            
+            public String executeQueryString(String query)throws Exception {
+            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
+            System.out.println("success");
+            return res.toString();
+        }
+            
+            public boolean executeQueryBoolean(String query, int k)throws Exception {
+            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
+            System.out.println("success");
+            return res.getBoolean(k);
+            }
  
 }
