@@ -12,12 +12,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DbConnection {
     
+    private static Connection connection;
+    private static DataSource dataSource;
+    private static ApplicationContext appContext;
+    private static Statement statement;
+    
     public static void main(String[] args) throws Exception {
  
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-        DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+        appContext = new ClassPathXmlApplicationContext("beans.xml");
+        dataSource = (DataSource) appContext.getBean("dataSource");
  
-        Connection connection = dataSource.getConnection();
+        connection = dataSource.getConnection();
         System.out.println("Database with data source connected!");
         String result = query(connection);
         System.out.println(result);
@@ -26,7 +31,7 @@ public class DbConnection {
         private static String query(Connection connection) throws SQLException{
  
         String query="";
-         Statement statement = connection.createStatement();
+         statement = connection.createStatement();
  
         ResultSet resultSet = statement.executeQuery("SELECT * FROM rom");
  
@@ -39,52 +44,20 @@ public class DbConnection {
         return query;
     }
         public void executeUpdate(String query)throws Exception {
-            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
+         //   ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+         //   DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+         //   Connection connection = dataSource.getConnection();
+         //   Statement statement = connection.createStatement();
             statement.executeUpdate(query);
             System.out.println("success");
             
         }
-        
-            public int executeQueryInt(String query)throws Exception {
-            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet res = statement.executeQuery(query);
-            System.out.println("success");
-            long countLong = res.getLong(1);
-            int count = (int)countLong;
-            return count;
-        }
-            
-            public String executeQueryString(String query)throws Exception {
-            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet res = statement.executeQuery(query);
-            System.out.println("success");
-            return res.toString();
-        }
-            
-            public boolean executeQueryBoolean(String query, int k)throws Exception {
-            ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-            DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet res = statement.executeQuery(query);
-            System.out.println("success");
-            return res.getBoolean(k);
-            }
             
             public ArrayList hentRom(ArrayList a)throws Exception{
-                ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-                DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-                Connection connection = dataSource.getConnection();
-                Statement statement = connection.createStatement();
+                //ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+               // DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+              //  Connection connection = dataSource.getConnection();
+              //  Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM rom");
                 Rom r ;
                 while(resultSet.next()) {
