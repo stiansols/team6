@@ -36,7 +36,7 @@ public class DbConnection {
         System.out.println(result);
     }*/
  
-        private static String query(Connection connection) throws SQLException{
+      /*  private static String query(Connection connection) throws SQLException{
  
         String query="";
          statement = connection.createStatement();
@@ -50,7 +50,7 @@ public class DbConnection {
             query = query + id + "\t" + nimi + "\n";
         }
         return query;
-    }
+    }*/
         public void executeUpdate(String query)throws Exception {
          //   ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
          //   DataSource dataSource = (DataSource) appContext.getBean("dataSource");
