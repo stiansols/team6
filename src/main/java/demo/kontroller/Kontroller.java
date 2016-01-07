@@ -18,7 +18,7 @@ public class Kontroller {
     @RequestMapping("/")
     public String visStartView(){
         System.out.println("FEil ****************************");
-     return "/WEB-INF/jsp/index.jsp";   
+     return "index";   
     }
     
     
