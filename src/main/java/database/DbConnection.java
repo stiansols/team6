@@ -11,13 +11,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  
 
 public class DbConnection {
+
+        Statement statement;
+        Connection connection;
+        DataSource dataSource;
+        ApplicationContext appContext;
+        public DbConnection()throws SQLException{
+            appContext = new ClassPathXmlApplicationContext("beans.xml");
+            dataSource = (DataSource) appContext.getBean("dataSource");
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+        
+        }
+               
     
-    private static Connection connection;
-    private static DataSource dataSource;
-    private static ApplicationContext appContext;
-    private static Statement statement;
-    
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
  
         appContext = new ClassPathXmlApplicationContext("beans.xml");
         dataSource = (DataSource) appContext.getBean("dataSource");
@@ -26,7 +34,7 @@ public class DbConnection {
         System.out.println("Database with data source connected!");
         String result = query(connection);
         System.out.println(result);
-    }
+    }*/
  
         private static String query(Connection connection) throws SQLException{
  
@@ -54,10 +62,12 @@ public class DbConnection {
         }
             
             public ArrayList hentRom(ArrayList a)throws Exception{
-                //ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-               // DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-              //  Connection connection = dataSource.getConnection();
-              //  Statement statement = connection.createStatement();
+                ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
+                DataSource dataSource = (DataSource) appContext.getBean("dataSource");
+               Connection connection = dataSource.getConnection();
+              Statement statement = connection.createStatement();
+               
+
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM rom");
                 Rom r ;
                 while(resultSet.next()) {
