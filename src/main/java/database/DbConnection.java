@@ -119,4 +119,32 @@ public class DbConnection {
                  }
                  
              }
+             
+        public void slett(String tabell, String pr_key, String keyValue) {
+            try{
+                String query = "DELETE FROM " + tabell + " WHERE " + pr_key + " = '" + keyValue + "'";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.executeUpdate();
+            } catch(SQLException e){
+                // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
+                 System.out.println("FEIL: " + e);
+            }
+        }
+        
+        public void leggTil(String tabell, String[] values) {
+            try{
+                String query = "INSERT INTO " + tabell + " values( '" + values[0];
+                for(int i=1; i<values.length; i++) {
+                    query += "', ";
+                    query += "'" + values[i] +  "'";
+                }
+                query += ")";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.executeUpdate();
+            } catch(SQLException e){
+                // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
+                 System.out.println("FEIL: " + e);
+            }
+        }
 }
