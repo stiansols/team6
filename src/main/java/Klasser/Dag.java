@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Klasser;
-import java.*;
 import java.util.Date;
 /**
  *
@@ -15,4 +14,37 @@ public class Dag {
     String navn;
     Date dato;
     boolean helligdag;
+
+    public int getDagId() {
+        return dagId;
+    }
+
+    public void setDagId(int dagId) {
+        this.dagId = dagId;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
+    public Date getDato() {
+        return dato;
+    }
+
+    public void setDato(Date dato) {
+        this.dato = dato;
+    }
+
+    public boolean isHelligdag() {
+        return helligdag;
+    }
+
+    public void setHelligdag(boolean helligdag) {
+        this.helligdag = helligdag;
+    }
+    
 }
