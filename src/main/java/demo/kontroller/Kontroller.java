@@ -5,11 +5,13 @@
  */
 package demo.kontroller;
 
+import Klasser.Rom;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import database.DbConnection;
+import java.sql.SQLException;
 /**
  *
  * @author Benjamin
@@ -29,14 +31,17 @@ public class Kontroller {
     }
     
     @ModelAttribute("alleRom")
-    public ArrayList getHobby()
+    public ArrayList getHobby() throws SQLException, Exception
     {
             ArrayList alleRom = new ArrayList();
             
-            //placeholder, skal hentes fra databasen
-            alleRom.add("K353");
-            alleRom.add("103");
-            alleRom.add("G256");
+            DbConnection db = new DbConnection();
+            ArrayList<Rom> r = new ArrayList();
+            r = db.hentRom(r);
+            for(int i=0; i<r.size(); i++) {
+                alleRom.add(r.get(i).getRomnr());
+            }
+
             return alleRom;
     }
 }
