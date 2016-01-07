@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Kontroller {
     
-    @RequestMapping("/")
+    @RequestMapping("/*")
     public String visStartView(){
         System.out.println("FEil ****************************");
      return "index";   
     }
-    
     
 }
