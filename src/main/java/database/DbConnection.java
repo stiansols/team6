@@ -94,10 +94,20 @@ public class DbConnection {
                      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
                      preparedStatement.executeUpdate();
                  } catch(SQLException s){
-                     // Gi en feilmelding til bruker......
+                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
                       System.out.println("FEIL: " + s);
                  }
              
             }
+             
+             public void slettFag(String fagkode){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
+                     preparedStatement.executeUpdate();
+                 } catch(SQLException s){
+                     // Gi en feilmelding til bruker...... 
+                      System.out.println("FEIL: " + s);
+                 }
+             }
            
 }
