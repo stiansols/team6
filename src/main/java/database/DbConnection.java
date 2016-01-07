@@ -163,6 +163,93 @@ public class DbConnection {
                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
                      System.out.println("FEIL: " + e);
                 }
+                
+            }
+            public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception{
+            ArrayList arr = new ArrayList();     
+            try{
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
+                Rom r ;
+                while(resultSet.next()) {
+                    String romnr = resultSet.getString("romnr");           
+                    int etasje = resultSet.getInt("etasje");                     
+                    int plasser = resultSet.getInt("plasser");
+                    boolean harSmart =resultSet.getBoolean("harSmartboard");
+                    boolean harSkjerm = resultSet.getBoolean("harSkjerm");
+                    boolean harProsjektor = resultSet.getBoolean("harProsjektor");
+                    int tilgn = resultSet.getInt("tilgang");
+                    
+                    r = new Rom(romnr, etasje, plasser, harSmart, harSkjerm, harProsjektor, tilgn);
+                    r.toString();
+                    arr.add(r);
+                }
+                }catch(Exception e){
+                        
+                }
+            return arr;
+            }
+            
+            public ArrayList<Rom> romSok(String romnavn)throws Exception{
+            ArrayList arr = new ArrayList();     
+            try{
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%"+romnavn+"%'");
+                Rom r ;
+                while(resultSet.next()) {
+                    String romnr = resultSet.getString("romnr");           
+                    int etasje = resultSet.getInt("etasje");                     
+                    int plasser = resultSet.getInt("plasser");
+                    boolean harSmart =resultSet.getBoolean("harSmartboard");
+                    boolean harSkjerm = resultSet.getBoolean("harSkjerm");
+                    boolean harProsjektor = resultSet.getBoolean("harProsjektor");
+                    int tilgn = resultSet.getInt("tilgang");
+                    
+                    r = new Rom(romnr, etasje, plasser, harSmart, harSkjerm, harProsjektor, tilgn);
+                    r.toString();
+                    arr.add(r);
+                }
+                }catch(Exception e){
+                        
+                }
+            return arr;
+            }
+            
+            public ArrayList<Rom> romSok2(int etasje,int plasser,boolean harSmart,boolean harSkjerm,boolean harProsjektor)throws Exception{
+                String query="select* from rom";
+            if(etasje == 0)query += " where etasje >0";
+            else query += " where etasje = "+etasje;
+            
+            
+            if(plasser == 0)query += " and plasser >0";
+            else query+=" and plasser >= "+plasser + " and plasser <=" +(plasser+5) ;
+            
+            if(harSmart)query+=" and harSmartboard = true";
+            
+            if(harSkjerm)query+= " and harSkjerm = true";
+            
+            if(harProsjektor)query+= " and harProsjektor = true";
+              
+            ArrayList arr = new ArrayList();     
+            try{
+                ResultSet resultSet = statement.executeQuery(query);
+                Rom r ;
+                while(resultSet.next()) {
+                    String romnr = resultSet.getString("romnr");           
+                    etasje = resultSet.getInt("etasje");                     
+                    plasser = resultSet.getInt("plasser");
+                    harSmart =resultSet.getBoolean("harSmartboard");
+                    harSkjerm = resultSet.getBoolean("harSkjerm");
+                     harProsjektor = resultSet.getBoolean("harProsjektor");
+                    int tilgn = resultSet.getInt("tilgang");
+                    
+                    r = new Rom(romnr, etasje, plasser, harSmart, harSkjerm, harProsjektor, tilgn);
+                    r.toString();
+                    arr.add(r);
+                }
+                }catch(Exception e){
+                    System.out.println(e);
+                        
+                }
+            return arr;
             }
             
 }
