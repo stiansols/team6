@@ -33,19 +33,8 @@ public class Kontroller {
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
     {
-            ArrayList alleRom = new ArrayList();
-            
-        /*    DbConnection db = new DbConnection();
-            ArrayList<Rom> r = new ArrayList();
-            db.hentRom(r);
-            for(int i=0; i<r.size(); i++) {
-                alleRom.add(r.get(i).getRomnr());
-            }
-          */  
-        /*    for(int i=0; i<5; i++) {
-                alleRom.add("Test");
-            }
-*/
+        ArrayList alleRom = new ArrayList();
+
         DbConnection et = new DbConnection();
         
         ArrayList<Rom> q = new ArrayList<>();
@@ -54,7 +43,8 @@ public class Kontroller {
             q = et.hentRom(q);
             
          for(int i = 0; i < q.size(); i++){
-            alleRom.add(q.get(0).getRomnr());
+            alleRom.add(q.get(i).getRomnr());
+            
         }
                  
         }catch(SQLException e ){
