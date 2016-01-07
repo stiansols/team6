@@ -47,7 +47,7 @@ public class Etasje {
         int tilgang;
         System.out.println("kkkk");
         
-        String q = conn.executeQueryString("SELECT romnr FROM rom LIMIT 0,1");
+  /*      String q = conn.executeQueryString("SELECT romnr FROM rom LIMIT 0,1");
         
         System.out.println(q);
         
@@ -67,9 +67,9 @@ public class Etasje {
             
             Rom rom = new Rom(romnr, etasje, plasser, harSmartboard, harSkjerm, harProsjektor, tilgang);
             romliste.add(rom);
-           
+          
         }
-        
+     */   
     }
     
 }
