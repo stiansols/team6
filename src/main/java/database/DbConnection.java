@@ -93,9 +93,9 @@ public class DbConnection {
                  try{
                      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
                      preparedStatement.executeUpdate();
-                 } catch(SQLException s){
+                 } catch(SQLException e){
                      // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
-                      System.out.println("FEIL: " + s);
+                      System.out.println("FEIL: " + e);
                  }
              
             }
@@ -104,10 +104,19 @@ public class DbConnection {
                  try{
                      PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
                      preparedStatement.executeUpdate();
-                 } catch(SQLException s){
+                 } catch(SQLException e){
                      // Gi en feilmelding til bruker...... 
-                      System.out.println("FEIL: " + s);
+                      System.out.println("FEIL: " + e);
                  }
              }
            
+             public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('"+ brukernavn +"','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '"+ mail +"')");                                                             
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL: " + e);
+                 }
+                 
+             }
 }
