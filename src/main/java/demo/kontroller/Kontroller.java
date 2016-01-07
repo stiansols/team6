@@ -35,12 +35,32 @@ public class Kontroller {
     {
             ArrayList alleRom = new ArrayList();
             
-            DbConnection db = new DbConnection();
+        /*    DbConnection db = new DbConnection();
             ArrayList<Rom> r = new ArrayList();
-            r = db.hentRom(r);
+            db.hentRom(r);
             for(int i=0; i<r.size(); i++) {
                 alleRom.add(r.get(i).getRomnr());
             }
+          */  
+        /*    for(int i=0; i<5; i++) {
+                alleRom.add("Test");
+            }
+*/
+        DbConnection et = new DbConnection();
+        
+        ArrayList<Rom> q = new ArrayList<>();
+        try{
+            
+            q = et.hentRom(q);
+            
+         for(int i = 0; i < q.size(); i++){
+            alleRom.add(q.get(0).getRomnr());
+        }
+                 
+        }catch(SQLException e ){
+            System.out.println(e + " fail");
+        }
+        
 
             return alleRom;
     }
