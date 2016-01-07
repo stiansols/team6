@@ -119,4 +119,21 @@ public class DbConnection {
                  }
                  
              }
+             
+             public void slettBruker(String brukernavn){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '"+ brukernavn +"'");                                             
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL: " + e);
+                 }  
+             }
+             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', passord = SHA1('" + passord + "'), mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL oppdater bruker: " + e);
+                 }  
+             }
 }
