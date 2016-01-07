@@ -61,25 +61,23 @@ public class DbConnection {
             
         }
             
-            public ArrayList hentRom(ArrayList a)throws Exception{
-                ApplicationContext appContext = new ClassPathXmlApplicationContext("beans.xml");
-                DataSource dataSource = (DataSource) appContext.getBean("dataSource");
-               Connection connection = dataSource.getConnection();
-              Statement statement = connection.createStatement();
-               
+            public ArrayList hentRom(ArrayList<Rom> a)throws Exception{
+             
 
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM rom");
                 Rom r ;
                 while(resultSet.next()) {
-                    int etasje = resultSet.getInt("etasje");
-                    String romnr = resultSet.getString("romnr");  
+                    String romnr = resultSet.getString("romnr");           
+                    int etasje = resultSet.getInt("etasje");                     
                     int plasser = resultSet.getInt("plasser");
                     boolean harSmart =resultSet.getBoolean("harSmartboard");
+                    System.out.println(harSmart);
                     boolean harSkjerm = resultSet.getBoolean("harSkjerm");
                     boolean harProsjektor = resultSet.getBoolean("harProsjektor");
                     int tilgn = resultSet.getInt("tilgang");
                     
                     r = new Rom(romnr, etasje, plasser, harSmart, harSkjerm, harProsjektor, tilgn);
+                    r.toString();
                     a.add(r);
                     
                 }

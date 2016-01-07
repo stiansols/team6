@@ -12,7 +12,7 @@ import java.*;
  * @author Archimedes
  */
 public class Rom {
-    String romnr;
+    String romnr; 
     int etasje;
     int plasser;
     boolean harSmartboard;
@@ -21,7 +21,13 @@ public class Rom {
     int tilgang;
     
     public Rom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang) {
-        
+        this.romnr = romnr;
+        this.etasje=etasje;
+        this.plasser = plasser;
+        this.harSmartboard = harSmartboard;
+        this.harSkjerm = harSkjerm;
+        this.harProsjektor=harProsjektor;
+        this.tilgang = tilgang;
     }
 
     public String getRomnr() {
@@ -78,7 +84,10 @@ public class Rom {
 
     public void setTilgang(int tilgang) {
         this.tilgang = tilgang;
-    }   
+    }
+    public String toString(){
+        return romnr + " " +etasje+ " "+  " " + plasser+" "+ harSmartboard+" "+ harSkjerm+" "+ harProsjektor+" "+ tilgang;
+    }
 }
 
 
