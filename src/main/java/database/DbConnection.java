@@ -1,6 +1,7 @@
 package database;
 import Klasser.Rom;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -87,5 +88,16 @@ public class DbConnection {
                 return a;        
             
             }
- 
+            
+             public void leggTilFag(String fagkode, String navn){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
+                     preparedStatement.executeUpdate();
+                 } catch(SQLException s){
+                     // Gi en feilmelding til bruker......
+                      System.out.println("FEIL: " + s);
+                 }
+             
+            }
+           
 }
