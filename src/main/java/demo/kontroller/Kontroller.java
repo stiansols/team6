@@ -5,7 +5,9 @@
  */
 package demo.kontroller;
 
+import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -21,4 +23,20 @@ public class Kontroller {
      return "index";   
     }
     
+    @RequestMapping("/romOversikt")
+    public String visRomOversikt(){
+        return "romOversikt";   
+    }
+    
+    @ModelAttribute("alleRom")
+    public ArrayList getHobby()
+    {
+            ArrayList alleRom = new ArrayList();
+            
+            //placeholder, skal hentes fra databasen
+            alleRom.add("K353");
+            alleRom.add("103");
+            alleRom.add("G256");
+            return alleRom;
+    }
 }

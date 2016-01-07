@@ -16,5 +16,10 @@
         <put-attribute name="title"  value="Oversikt"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
     </definition>
+    
+    <definition name="romOversikt" extends="baseLayout">
+        <put-attribute name="title"  value="Oversikt"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/romOversikt.jsp"/>      
+    </definition>
 
 </tiles-definitions>
