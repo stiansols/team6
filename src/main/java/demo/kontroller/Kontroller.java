@@ -5,6 +5,7 @@
  */
 package demo.kontroller;
 
+import Klasser.Booking;
 import Klasser.Rom;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import database.DbConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import javax.validation.Valid;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 /**
  *
@@ -105,5 +109,24 @@ public class Kontroller {
         
 
             return alleRom;
+    }
+    
+    @RequestMapping("/addBooking")
+    public String visBooking(Model model){
+        model.addAttribute("booking", new Booking());
+        System.out.println("232");
+        return "addBooking";   
+    }
+    
+    @RequestMapping(value="/nyBooking")
+    public String leggTilBooking(@Valid @ModelAttribute(value="booking") Booking nyBooking, BindingResult error) throws SQLException{
+        if (error.hasErrors()) return "index";
+        
+        DbConnection et = new DbConnection();
+        System.out.println("addBooking");
+        String[] verdier = {"brukernavn1", nyBooking.getRomNummer(), ""+nyBooking.getFratid(), ""+nyBooking.getTiltid()};
+        et.leggTil("booking", verdier); //brukernavn skal hentes fra sesjonen
+        
+        return "index";
     }
 }

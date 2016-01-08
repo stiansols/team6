@@ -27,6 +27,8 @@ public class Booking {
         innsjekket = false;
         
     }
+    
+    public Booking() {}
 
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
