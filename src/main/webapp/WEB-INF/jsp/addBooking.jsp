@@ -11,14 +11,6 @@
 <form:form method="POST" modelAttribute="booking" action="nyBooking">
    <table>
        <tr>
-               <td>id: </td>
-               <td><form:input path="bookingId" /></td>
-       </tr>
-       <tr>
-               <td>Brukernavn: </td>
-               <td><form:input path="brukernavn" /></td>
-       </tr>
-       <tr>
                <td>Rom Nummer: </td>
                <td><form:input path="romNummer" /></td>
        </tr>
