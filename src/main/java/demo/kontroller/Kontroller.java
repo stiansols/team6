@@ -6,6 +6,7 @@
 package demo.kontroller;
 
 import Klasser.Booking;
+import Klasser.Bruker;
 import Klasser.Rom;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
@@ -57,17 +58,22 @@ public class Kontroller {
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn,String passord) throws SQLException, Exception{
         
-        System.out.println("Her starter metoden");
         DbConnection db = new DbConnection();
-       
-        String pass1 = db.hentPassord(brukernavn);
-        System.out.println("Her er passordet hentet ut");
-        System.out.println("Her skall det ligg ett passord:  "+pass1);
+        Bruker bruker = null;
+        
         try{
-            System.out.println(""+sha1(passord));
-        if(pass1.equals(sha1(passord))){
-            return "index";
-        }
+           bruker = db.loggInn(brukernavn, passord);
+           if(bruker != null){
+               switch(bruker.getBrukertype()){
+                
+                   case 1: System.out.println("Student"); break; //return studentGUI
+                   case 2: System.out.println("Ansatt"); break;  //return ansattGUI
+                   case 3: System.out.println("Admin"); break;   //return adminGUI
+               }
+               
+               return "index";
+           }
+        
         else{
             System.out.println("ikke lik");
         }
