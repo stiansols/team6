@@ -15,16 +15,11 @@ import java.util.ArrayList;
  */
 public class Test {
     public static void main(String[] args)throws Exception{
-        Administrator a = new Administrator();
-        DbConnection et = new DbConnection();
-        
-        ArrayList q = new ArrayList<>();
         try{
-            
-            et.hentRom(q);
-            
-        
-                
+            Administrator a = new Administrator();
+            DbConnection et = new DbConnection();
+            String[] verdier = {"brukernavn1", "2", "2013-04-13", "2014-06-07"};
+            et.leggTil("booking", verdier);
         }catch(SQLException e ){
             System.out.println(e + " fail");
         }

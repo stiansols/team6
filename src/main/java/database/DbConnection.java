@@ -171,10 +171,13 @@ public class DbConnection {
                                                                 "    AND `TABLE_NAME`='" + tabell + "';");
                     String felt = "";
                     resultSet.next();
-
+                    resultSet.next();
                     felt += resultSet.getString(1);
+                    while(resultSet.next()) {
+                        felt += ", " + resultSet.getString(1);
+                    }
                     
-                    String query = "INSERT INTO " + tabell + "(brukernavn, romnummer, fratid, tiltid) values( '" + values[0] + "'";
+                    String query = "INSERT INTO " + tabell + "(" + felt + ") values( '" + values[0] + "'";
                     for(int i=1; i<values.length; i++) {
                         query += ", ";
                         query += "'" + values[i] +  "'";
