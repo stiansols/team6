@@ -11,11 +11,12 @@ import java.util.Date;
  * @author Archimedes
  */
 public class Booking {
-    int bookingId;
-    String brukernavn;
-    String romNummer;
-    Date fratid;
-    Date tiltid;
+    private int bookingId;
+    private String brukernavn;
+    private String romNummer;
+    private Date fratid;
+    private Date tiltid;
+    private boolean innsjekket;
     
     public Booking(int bookingId, String brukernavn, String romNummer, Date fratid, Date tiltid){
         this.bookingId = bookingId;
@@ -23,6 +24,7 @@ public class Booking {
         this.romNummer = romNummer;
         this.fratid = fratid;
         this.tiltid = tiltid;
+        innsjekket = false;
         
     }
 
@@ -66,5 +68,8 @@ public class Booking {
         return tiltid;
     }
     
+    public void sjekkInn() {
+        innsjekket = true;
+    }
     
 }
