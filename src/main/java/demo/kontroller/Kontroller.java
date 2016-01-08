@@ -49,11 +49,6 @@ public class Kontroller {
         return "romOversikt";   
     }
     
-    @RequestMapping("/booking")
-    public String visBooking(){
-        return "booking";   
-    }
-    
     @RequestMapping("/test")
     public String test(){
         return "test";   
@@ -118,9 +113,8 @@ public class Kontroller {
         return "addBooking";   
     }
     
-    @RequestMapping(value="/nyBooking")
-    public String leggTilBooking(@Valid @ModelAttribute(value="booking") Booking nyBooking, BindingResult error) throws SQLException{
-        if (error.hasErrors()) return "index";
+    @RequestMapping(value="nyBooking")
+    public String leggTilBooking(@ModelAttribute(value="booking") Booking nyBooking) throws SQLException{
         
         DbConnection et = new DbConnection();
         System.out.println("addBooking");

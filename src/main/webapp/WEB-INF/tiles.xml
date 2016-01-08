@@ -22,9 +22,9 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/romOversikt.jsp"/>      
     </definition>
     
-    <definition name="booking" extends="baseLayout">
+    <definition name="addBooking" extends="baseLayout">
         <put-attribute name="title"  value="Booking"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/booking.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/addBooking.jsp"/>      
     </definition>
     
     <definition name="test" extends="baseLayout">
