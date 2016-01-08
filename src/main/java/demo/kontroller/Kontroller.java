@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 /**
  *
@@ -40,7 +41,6 @@ public class Kontroller {
     
     @RequestMapping("/*")
     public String visStartView(){
-        System.out.println("FEil ****************************");
      return "index";   
     }
     
@@ -113,11 +113,11 @@ public class Kontroller {
         return "addBooking";   
     }
     
-    @RequestMapping(value="nyBooking")
-    public String leggTilBooking(@ModelAttribute(value="booking") Booking nyBooking) throws SQLException{
-        
+    @RequestMapping(value="/nyBooking", method=RequestMethod.POST)
+    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking) throws SQLException{
+
         DbConnection et = new DbConnection();
-        System.out.println("addBooking");
+        
         String[] verdier = {"brukernavn1", nyBooking.getRomNummer(), ""+nyBooking.getFratid(), ""+nyBooking.getTiltid()};
         et.leggTil("booking", verdier); //brukernavn skal hentes fra sesjonen
         

@@ -14,19 +14,8 @@ public class Booking {
     private int bookingId;
     private String brukernavn;
     private String romNummer;
-    private Date fratid;
-    private Date tiltid;
-    private boolean innsjekket;
-    
-    public Booking(int bookingId, String brukernavn, String romNummer, Date fratid, Date tiltid){
-        this.bookingId = bookingId;
-        this.brukernavn = brukernavn;
-        this.romNummer = romNummer;
-        this.fratid = fratid;
-        this.tiltid = tiltid;
-        innsjekket = false;
-        
-    }
+    private String fratid;
+    private String tiltid;
     
     public Booking() {}
 
@@ -42,11 +31,11 @@ public class Booking {
         this.romNummer = romNummer;
     }
 
-    public void setFratid(Date fratid) {
+    public void setFratid(String fratid) {
         this.fratid = fratid;
     }
 
-    public void setTiltid(Date tiltid) {
+    public void setTiltid(String tiltid) {
         this.tiltid = tiltid;
     }
 
@@ -62,16 +51,11 @@ public class Booking {
         return romNummer;
     }
 
-    public Date getFratid() {
+    public String getFratid() {
         return fratid;
     }
 
-    public Date getTiltid() {
+    public String getTiltid() {
         return tiltid;
     }
-    
-    public void sjekkInn() {
-        innsjekket = true;
-    }
-    
 }

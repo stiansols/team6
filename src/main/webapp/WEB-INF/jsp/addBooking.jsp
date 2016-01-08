@@ -9,26 +9,30 @@
 
 
 <form:form method="POST" modelAttribute="booking" action="nyBooking">
-   <form:errors path="*" />
    <table>
+       <tr>
+               <td>id: </td>
+               <td><form:input path="bookingId" /></td>
+       </tr>
+       <tr>
+               <td>Brukernavn: </td>
+               <td><form:input path="brukernavn" /></td>
+       </tr>
        <tr>
                <td>Rom Nummer: </td>
                <td><form:input path="romNummer" /></td>
-               <td><form:errors path="romNummer" /></td>
        </tr>
        <tr>
                <td>Fra: </td>
                <td><form:input path="fratid" /></td>
-               <td><form:errors path="fratid" /></td>
        </tr>
        <tr>
                <td>Til: </td>
                <td><form:input path="tiltid" /></td>
-               <td><form:errors path="tiltid" /></td>
        </tr> 
 
        <tr>
-               <td> <input type='submit' value="SEND"> </td>
+               <td> <input type='SUBMIT' value="SEND"> </td>
        </tr>
    </table>        
 
