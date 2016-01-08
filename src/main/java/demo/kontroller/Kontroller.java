@@ -30,6 +30,11 @@ public class Kontroller {
         return "romOversikt";   
     }
     
+    @RequestMapping("/booking")
+    public String visBooking(){
+        return "booking";   
+    }
+    
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
     {
