@@ -12,10 +12,10 @@
          
         <table>
             <tr>
-                <td>Brukernavn:<input path="bruker.brukernavn" name="brukernavn"> </input></td> 
+                <td>Brukernavn:<input type="text" path="bruker.brukernavn" name="brukernavn"> </input></td> 
             </tr>
             <tr>
-                <td>Passord: <input path="bruker.passord" name="passord"></input></td>                
+                <td>Passord: <input type="password" path="bruker.passord" name="passord"></input></td>                
             </tr>
             <tr>
                 <td><input type="submit" value="Send"</td>
