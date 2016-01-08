@@ -148,6 +148,19 @@ public class DbConnection {
                      System.out.println("FEIL: " + e);
                 }
             }
+            
+            public String hentPassord(String brukernavn) throws Exception{
+                String pass = "";
+                try{
+                    ResultSet resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '"+brukernavn+"'");
+                    resultSet.next();
+                    pass = resultSet.getString("passord");                             
+                }catch(Exception e){
+                        
+                }
+                return pass;
+            }
+            
         
             public void leggTil(String tabell, String[] values) {
                 try{
