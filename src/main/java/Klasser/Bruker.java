@@ -13,12 +13,20 @@ import java.*;
  */
 public class Bruker {
     String brukernavn;
+    int brukertype;
     String navn;
     String passord;
     String mail;
     
     public Bruker(){
     
+    }
+    public Bruker(String brukernavn, int brukertype, String navn, String passord, String mail){
+            this.brukernavn = brukernavn; 
+            this.brukertype = brukertype;
+            this.navn = navn;
+            this.passord = passord;
+            this.mail = mail;
     }
 
     public String getBrukernavn() {
@@ -51,6 +59,14 @@ public class Bruker {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public int getBrukertype() {
+        return brukertype;
+    }
+
+    public void setBrukertype(int brukertype) {
+        this.brukertype = brukertype;
     }
     
 }
