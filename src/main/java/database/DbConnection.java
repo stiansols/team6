@@ -164,20 +164,31 @@ public class DbConnection {
         
             public void leggTil(String tabell, String[] values) {
                 try{
-                    String query = "INSERT INTO " + tabell + " values( '" + values[0];
+                     
+                    ResultSet resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n" +
+                                                                "FROM `INFORMATION_SCHEMA`.`COLUMNS` \n" +
+                                                                "WHERE `TABLE_SCHEMA`='g_scrum_t6' \n" +
+                                                                "    AND `TABLE_NAME`='" + tabell + "';");
+                    String felt = "";
+                    resultSet.next();
+
+                    felt += resultSet.getString(1);
+                    
+                    String query = "INSERT INTO " + tabell + "(brukernavn, romnummer, fratid, tiltid) values( '" + values[0] + "'";
                     for(int i=1; i<values.length; i++) {
-                        query += "', ";
+                        query += ", ";
                         query += "'" + values[i] +  "'";
                     }
                     query += ")";
+                    System.out.println(query);
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
                 } catch(SQLException e){
                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
                      System.out.println("FEIL: " + e);
                 }
-                
             }
+            
             public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception{
             ArrayList arr = new ArrayList();     
             try{
