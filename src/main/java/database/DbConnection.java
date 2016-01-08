@@ -1,5 +1,8 @@
 package database;
+import Klasser.Bruker;
 import Klasser.Rom;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -278,5 +281,42 @@ public class DbConnection {
                 }
             return arr;
             }
+            
+        static String sha1(String input) throws NoSuchAlgorithmException {
+        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+        byte[] result = mDigest.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         
+        return sb.toString();
+    }
+            
+    
+    public Bruker loggInn(String brukernavn, String passord){
+                try{
+                    String pass = hentPassord(brukernavn);
+                Bruker bruker = null;
+                if(pass.equals(sha1(passord))){
+                    ResultSet res = statement.executeQuery("SELECT * from bruker where brukernavn = '" +brukernavn + "'");
+                    
+                    while(res.next()){
+                        int brukertype = res.getInt("brukertype");
+                        String navn = res.getString("navn");
+                        String pw = res.getString("passord");
+                        String mail = res.getString("mail");
+                    
+                    bruker = new Bruker(brukernavn, brukertype, navn, pw, mail);
+                    
+                   return bruker;
+                    }
+                }
+                    
+                } catch(Exception e){
+                    
+            }
+                return null;
+    }
             
 }
