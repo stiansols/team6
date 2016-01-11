@@ -25,10 +25,9 @@
         
         <style>
     body {
-    background-image: url('https://www.google.no/search?q=background&safe=off&espv=2&biw=1920&bih=893&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiNyMu1lqDKAhWEFywKHWZdDp8Q_AUIBigB#imgrc=QNZGpknDasQkdM%3A'); 
-      
-    background-size: cover    } 
-    
+    background: url('http://www.planwallpaper.com/static/images/744081-background-wallpaper.jpg') no-repeat center center fixed;
+    background-size: cover
+    } 
     .container {
         padding-top: 10%;
     }
