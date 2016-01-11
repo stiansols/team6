@@ -5,7 +5,6 @@
 <a href="<c:url value="index"/>" >Index </a><br>
 <a href="<c:url value="romOversikt"/>" >Rom Oversikt </a><br>
 <a href="<c:url value="addBooking"/>" >Booking </a><br>
-<a href="<c:url value="test"/>" >Logg inn for Eirik </a><br>
 <a href="<c:url value="login"/>" >Login </a><br>
 
 
