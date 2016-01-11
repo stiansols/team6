@@ -6,6 +6,8 @@
 <a href="<c:url value="romOversikt"/>" >Rom Oversikt </a><br>
 <a href="<c:url value="addBooking"/>" >Booking </a><br>
 <a href="<c:url value="login"/>" >Login </a><br>
+<a href="<c:url value="oppdaterBruker"/>" >Oppdater bruker </a><br>
+<a href="<c:url value="registrerBruker"/>" >Registrer bruker </a><br>
 
 
 

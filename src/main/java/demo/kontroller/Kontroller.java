@@ -55,6 +55,16 @@ public class Kontroller {
         return "test";   
     }
     
+    @RequestMapping("/registrerBruker")
+    public String regBruker(){
+        return "registrerBruker";   
+    }
+    
+    @RequestMapping("/oppdaterBruker")
+    public String oppBruker(){
+        return "oppdaterBruker";   
+    }
+    
    
     
     @RequestMapping("/spam")
