@@ -16,13 +16,13 @@
         
     <div class="form-group">
         <label for="brukerLabel" class="col-sm-2 control-label">Brukernavn</label>
-    <div class="col-sm-10">
+    <div class="col-sm-6">
         <input type="brukernavn" path="bruker.brukernavn" name="brukernavn" class="form-control" id="inputEmail3" placeholder="Brukernavn">
      </div>
      </div>
     <div class="form-group">
         <label for="passLabel"  class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
+    <div class="col-sm-6">
         <input type="password" path="bruker.passord" name="passord" class="form-control" id="inputPassword3" placeholder="Passord">
     </div>
     </div>

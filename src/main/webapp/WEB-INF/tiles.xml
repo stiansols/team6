@@ -7,29 +7,47 @@
 <tiles-definitions>
 
     <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
-        <put-attribute name="title"  value="BaseLayout"/>
-        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="title"  value=""/>
+        <put-attribute name="menu"   value=""/>
         <put-attribute name="body"   value=""/>
     </definition>
     
+    <definition name="emptyLayout" template="/WEB-INF/tiles/emptyLayout.jsp">
+        <put-attribute name="title"  value=""/>
+        <put-attribute name="menu"   value=""/>
+        <put-attribute name="body"   value=""/>
+    </definition>
+  
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Oversikt"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
     </definition>
     
     <definition name="romOversikt" extends="baseLayout">
         <put-attribute name="title"  value="Oversikt"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/romOversikt.jsp"/>      
     </definition>
     
     <definition name="addBooking" extends="baseLayout">
         <put-attribute name="title"  value="Booking"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/addBooking.jsp"/>      
     </definition>
     
     <definition name="test" extends="baseLayout">
         <put-attribute name="title"  value="Logg inn"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/test.jsp"/>      
     </definition>
+    
+    <definition name="login" extends="emptyLayout">
+        <put-attribute name="title"  value="Logg inn"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/>      
+    </definition>
+    
+    
+
 
 </tiles-definitions>

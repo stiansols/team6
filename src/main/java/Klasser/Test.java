@@ -18,8 +18,17 @@ public class Test {
         try{
             Administrator a = new Administrator();
             DbConnection et = new DbConnection();
-            String[] verdier = {"brukernavn1", "2", "2013-04-13", "2014-06-07"};
+ /*           String[] verdier = {"brukernavn1", "2", "2013-04-13", "2014-06-07"};
             et.leggTil("booking", verdier);
+*/
+ 
+        //Bruker bruker = et.loggInn("brukernavn2", "passord");
+        Bruker bruker = et.loggInn("brukernavn2", "passord");
+        
+        for(int i = 0; i< 10; i++){
+            System.out.println(bruker.getBrukertype());
+        }
+        
         }catch(SQLException e ){
             System.out.println(e + " fail");
         }

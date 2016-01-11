@@ -42,7 +42,7 @@ public class Kontroller {
     
     @RequestMapping("/*")
     public String visStartView(){
-     return "index";   
+     return "login";   
     }
     
     @RequestMapping("/romOversikt")
@@ -54,6 +54,8 @@ public class Kontroller {
     public String test(){
         return "test";   
     }
+    
+   
     
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn,String passord) throws SQLException, Exception{
@@ -82,7 +84,7 @@ public class Kontroller {
             System.out.println("Noe gikk galt: "+ e);
         }
         System.out.println("Feil brukernavn eller passord" + brukernavn);
-        return "test";
+        return "login";
         
     }
     
