@@ -30,5 +30,8 @@
                 <td><input type="submit" value="Send">Registrer</input></td>
             </tr>
         </table>
+        <style>
+
+        </style>
         </form:form>
     
