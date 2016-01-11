@@ -31,6 +31,14 @@
     .container {
         padding-top: 10%;
     }
+    h1 {
+            text-align: center;
+            color: white;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            font-family: "Tahoma", sans-serif;
+            font-size: 300%;
+            padding-bottom: 2%
+    }
         </style>
             
 
@@ -42,6 +50,7 @@
     <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam">
           
             <div class="container">
+                <h1>StudyEasy</h1>
         <div class="row">
             <div class ="col-lg-4 col-lg-offset-4 well">
      <div class="form-group">
