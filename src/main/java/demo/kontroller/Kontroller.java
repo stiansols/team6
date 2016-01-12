@@ -68,10 +68,6 @@ public class Kontroller {
     public String admin(){
         return "admin";   
     }
-    @RequestMapping("/innstillinger")
-    public String innstillinger(){
-        return "innstillinger";
-    }
     
    
     
@@ -171,4 +167,41 @@ public class Kontroller {
         
         return "index";
     }
+    
+    @RequestMapping(value="/nyBruker", method=RequestMethod.POST)
+    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws SQLException{
+        DbConnection db = new DbConnection();
+        
+        db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
+        
+        
+        return "admin";
+        
+    }
+    
+    @RequestMapping(value="/oppdater", method=RequestMethod.POST)
+    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        
+       
+        et.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getMail());
+        
+        return "admin";
+    }
+    
+    @RequestMapping(value="/slett", method=RequestMethod.POST)
+    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        
+       
+        et.slettBruker(bruker.getBrukernavn());
+        
+        return "admin";
+    }
+    
+    
+    
+
 }
