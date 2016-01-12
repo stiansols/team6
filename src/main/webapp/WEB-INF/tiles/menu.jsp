@@ -33,5 +33,8 @@
 </html>
 
 
-
-
+<a href="<c:url value="index"/>"><img src="http://bildr.no/image/dnc1Ykla.jpeg" alt="Hjem" width="150" height="180"/> <a/><br>
+<a href="<c:url value="addBooking"/>"><img src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking" width="150" height="180"/> <a/><br/>
+<a href="<c:url value="oppdaterBruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker" width="150" height="180"/> <a/><br>
+<a href="<c:url value="registrerBruker"/>"><img src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger" width="150" height="180"/> <a/><br>
+<a href="<c:url value="login"/>"><img src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut" width="150" height="180"/> <a/><br>

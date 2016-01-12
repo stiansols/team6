@@ -36,10 +36,16 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/addBooking.jsp"/>      
     </definition>
     
-    <definition name="test" extends="baseLayout">
-        <put-attribute name="title"  value="Logg inn"/>
+    <definition name="oppdaterBruker" extends="baseLayout">
+        <put-attribute name="title"  value="OppdaterBruker"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/test.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/oppdaterBruker.jsp"/>      
+    </definition>
+    
+    <definition name="registrerBruker" extends="baseLayout">
+        <put-attribute name="title"  value="RegistrerBruker"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/registrerBruker.jsp"/>      
     </definition>
     
     <definition name="admin" extends="baseLayout">

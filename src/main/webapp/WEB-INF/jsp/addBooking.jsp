@@ -1,58 +1,45 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
 
-   <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-	
     </head>
-    
     <body>
+        <form:form method="POST" modelAttribute="booking" action="nyBooking">
+            <div class="container">
+                <div class="row">
+                    <div class ="col-lg-4 col-lg-offset-4 well">
+                        <div id="romNummer" class="form-group">
+                            <label>Rom Nummer</label>
+                            <form:input path="romNummer" class="form-control" id="romnr"/>
+                        </div>
+                        <div class="form-group input-daterange">
+                            <label>Fra</label>
+                            <form:input type="text" path="fratid" class="form-control" value="2012-04-05" id="datoFra"/>
+                            <span class="input-group-addon">to</span>
+                            <label>Til</label>
+                            <form:input type="text" path="tiltid" class="form-control" value="2012-04-19" id="datoTil"/>
+                        </div>
 
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="romnrlabel" class="col-sm-2 control-label">Romnummer</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="romnrInput" placeholder="">
+
+
+                        <div class="form-group">
+                            <div class="col-xs-5 col-xs-offset-3">
+                                <button type="submit" class="btn btn-primary">Validate</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="fratidLabel" class="col-sm-2 control-label">Fratid</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="fratidInput" placeholder="">
-                </div>
-              </div>
-               <div class="form-group">
-                <label for="tiltidLabel" class="col-sm-2 control-label">Tiltid</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="tilTidInput" placeholder="">
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Send</button>
-                </div>
-              </div>
-            </form>
+            </div>
+        </form:form>
         
-        
-                          <!-- Latest compiled and minified JavaScript -->
-	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        
-           </body>
-</html>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
