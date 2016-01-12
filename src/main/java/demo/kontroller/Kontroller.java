@@ -50,11 +50,6 @@ public class Kontroller {
         return "romOversikt";   
     }
     
-    @RequestMapping("/test")
-    public String test(){
-        return "test";   
-    }
-    
     @RequestMapping("/registrerBruker")
     public String regBruker(){
         return "registrerBruker";   
@@ -68,40 +63,6 @@ public class Kontroller {
     public String admin(){
         return "admin";   
     }
-    
-   
-    
-    @RequestMapping("/spam")
-    public String loggInn(@RequestParam String brukernavn,String passord) throws SQLException, Exception{
-        
-        DbConnection db = new DbConnection();
-        Bruker bruker = null;
-        
-        try{
-           bruker = db.loggInn(brukernavn, passord);
-           if(bruker != null){
-               switch(bruker.getBrukertype()){
-                
-                   case 1: System.out.println("Student"); break; //return studentGUI
-                   case 2: System.out.println("Ansatt"); break;  //return ansattGUI
-                   case 3: System.out.println("Admin"); break;   //return adminGUI
-               }
-               
-               return "index";
-           }
-        
-        else{
-            System.out.println("ikke lik");
-        }
-        }
-        catch(Exception e){
-            System.out.println("Noe gikk galt: "+ e);
-        }
-        System.out.println("Feil brukernavn eller passord" + brukernavn);
-        return "login";
-        
-    }
-    
     
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
