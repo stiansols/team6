@@ -129,7 +129,7 @@ public class DbConnection {
                      preparedStatement.executeUpdate();
                  } catch(SQLException e){
                      // Gi en feilmelding til bruker...... 
-                      System.out.println("FEIL: " + e);
+                      System.out.println("FEIL!: " + e);
                  }
              }
            
