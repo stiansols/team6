@@ -11,33 +11,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <html>
-<head>
-    <title><tiles:insertAttribute name="title" ignore="true" /></title>
-</head>
-<body>
-<div class="panel panel-default">
-    <div class="panel-body">Kalender
-        <button type="button" class="btn btn-default col-lg-12 col-xs-12">Endre farge</button>
-        <button type="button" class="btn btn-default col-lg-12 col-xs-12">Endre oppsett</button>
+    <head>
+        <title><tiles:insertAttribute name="title" ignore="true" /></title>
+    </head>
+    <body>
+    <div class="panel panel-default">
+        <div class="panel-body">Kalender
+            <button type="button" class="btn btn-default col-lg-12 col-xs-12">Endre farge</button>
+            <button type="button" class="btn btn-default col-lg-12 col-xs-12">Endre oppsett</button>
+        </div>
     </div>
-</div>
-<br>
-<div class="panel panel-default">
-    <div class="panel-body">Booking
-        <button type="button" class="btn btn-default col-lg-12 col-xs-12">...</button>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">Booking
+            <button type="button" class="btn btn-default col-lg-12 col-xs-12">...</button>
+        </div>
     </div>
-</div>
-<br>
-<div class="panel panel-default">
-    <div class="panel-body">Bruker
-        <button type="button" class="btn btn-default col-lg-12 col-xs-12">...</button>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">Bruker
+            <button type="button" class="btn btn-default col-lg-12 col-xs-12">...</button>
+        </div>
     </div>
-</div>
-<br>
-<div class="panel panel-default">
-    <div class="panel-body">Generelt
-        <button type="button" class="btn btn-default col-lg-12 col-xs-12">Skift språk</button>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">Generelt
+            <button type="button" class="btn btn-default col-lg-12 col-xs-12">Skift språk</button>
+        </div>
     </div>
-</div>
-</body>
+    </body>
 </html>

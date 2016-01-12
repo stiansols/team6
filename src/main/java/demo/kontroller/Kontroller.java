@@ -64,10 +64,14 @@ public class Kontroller {
     public String oppBruker(){
         return "oppdaterBruker";   
     }
+
      @RequestMapping("/admin")
     public String admin(){
         return "admin";   
     }
+
+    @RequestMapping("/innstillinger")
+    public String innstillinger(){return "innstillinger";}
     
    
     
