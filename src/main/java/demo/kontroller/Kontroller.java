@@ -175,7 +175,7 @@ public class Kontroller {
         db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         
         
-        return "admin";
+        return "redirect:admin";
         
     }
     
