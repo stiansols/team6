@@ -22,13 +22,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 /**
  *
  * @author Benjamin
  */
 @Controller
+@SessionAttributes("person")
 public class Kontroller {
     
+    @ModelAttribute("person")
+    public Bruker getPerson(){
+        return new Bruker();
+    }
     
     static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
@@ -80,7 +86,7 @@ public class Kontroller {
    
     
     @RequestMapping("/spam")
-    public String loggInn(@RequestParam String brukernavn,String passord) throws SQLException, Exception{
+    public String loggInn(@RequestParam String brukernavn,String passord, @ModelAttribute(value="person") Bruker person) throws SQLException, Exception{
         
         DbConnection db = new DbConnection();
         Bruker bruker = null;
@@ -94,6 +100,10 @@ public class Kontroller {
                    case 2: System.out.println("Ansatt"); break;  //return ansattGUI
                    case 3: System.out.println("Admin"); break;   //return adminGUI
                }
+               Bruker b = db.hentBruker(brukernavn);
+               person.setBrukernavn(b.getBrukernavn());
+               person.setNavn(b.getNavn());
+               person.setMail(b.getMail());
                db.close();
                return "index";
            }
