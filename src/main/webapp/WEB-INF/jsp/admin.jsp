@@ -60,7 +60,7 @@
                                 <th>Brukernavn</th>
                                 <th>Brukertype</th>
                                 <th>Navn</th>
-                                <th>Passord</th>
+                                <th>Passord</th> 
                                 <th>Email</th>
                             </tr>
                             
@@ -77,7 +77,7 @@
                                 <td>${brukere.getBrukernavn()}</td>
                                 <td>${brukere.getBrukertype()}</td>
                                 <td>${brukere.getNavn()}</td>
-                                <td>${brukere.getPassord()}</td>
+                                <td>${brukere.getPassord()}</td> 
                                 <td>${brukere.getMail()}</td>
                             </tr>  
                                 
@@ -102,6 +102,7 @@
                   </div>
                   <div class="modal-body">
                       
+                      <form:form class = "form-horizontal" method="POST" modelAttribute="brukerForm" name="oppdaterBruker" action="admin">
                           <div class="row">
                             <label for="brukerLabel" class="col-lg-4 control-label">Brukernavn</label>
                                 <div class="col-lg-8">
@@ -136,13 +137,20 @@
                                                 <input type="text" name="mail" id="mail" value=""/>
                                             </div>
                                   </div>
+                          
+                       
              
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-default" onClick="oppdaterBruker(brukernavn.value, brukertype.value, navn.value, passord.value, mail.value);">Oppdater bruker</button> 
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Slett bruker</button>
+                      <button type="submit" class="btn btn-default">Oppdater bruker</button> 
+             <!--        <button type="submit" class="btn btn-default" value="Slett bruker">Slett bruker</button> -->
+                      
+                    
+           
                     <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                   </div>
+                          
+                         </form:form> 
                 </div>
 
               </div>
@@ -163,7 +171,7 @@
   $(".search").keyup(function () {
     var searchTerm = $(".search").val();
     var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+    var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
     
   $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
         return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;

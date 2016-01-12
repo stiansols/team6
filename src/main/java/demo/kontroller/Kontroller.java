@@ -167,4 +167,19 @@ public class Kontroller {
         
         return "index";
     }
+    
+    
+    @RequestMapping(value="/admin", method=RequestMethod.POST)
+    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        
+       
+        et.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getMail());
+        
+        return "admin";
+    }
+    
+    
+
 }
