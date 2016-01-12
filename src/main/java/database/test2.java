@@ -15,8 +15,9 @@ public class test2 {
         try{
         DbConnection db = new DbConnection();
         
-        String bruker = db.hentPassord("brukernavn1");
-        System.out.println("Her skal det være ett passord: " +bruker);
+        db.oppdaterBruker("amunde", 2, "nytt navn", "ny mail");
+        
+        
         }
         catch(Exception e){
             System.out.println("feilmelding: ************" +e);

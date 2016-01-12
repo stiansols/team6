@@ -55,6 +55,11 @@ public class Kontroller {
         return "test";   
     }
     
+     @RequestMapping("/admin")
+    public String admin(){
+        return "admin";   
+    }
+    
    
     
     @RequestMapping("/spam")
@@ -112,6 +117,28 @@ public class Kontroller {
         
 
             return alleRom;
+    }
+    
+    @ModelAttribute("alleBrukere")
+    public ArrayList getBrukere() throws SQLException, Exception
+    {
+        ArrayList<Bruker> alleBrukere = new ArrayList();
+
+        DbConnection et = new DbConnection();
+        
+        
+        try{
+            
+            alleBrukere = et.hentAlleBrukere();
+            
+
+                 
+        }catch(SQLException e ){
+            System.out.println(e + " fail");
+        }
+        
+
+            return alleBrukere;
     }
     
     @RequestMapping("/addBooking")

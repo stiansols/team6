@@ -92,6 +92,24 @@ public class DbConnection {
             
             }
             
+            public ArrayList<Bruker> hentAlleBrukere() throws Exception{
+                ArrayList<Bruker> liste = new ArrayList();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM bruker");
+                Bruker b;
+                while(resultSet.next()){
+                    String brukernavn = resultSet.getString("brukernavn");
+                    int brukertype = resultSet.getInt("brukertype");
+                    String navn = resultSet.getString("navn");
+                    String passord = resultSet.getString("passord");
+                    String mail = resultSet.getString("mail");
+                    
+                    b = new Bruker(brukernavn, brukertype, navn, passord, mail);
+                    liste.add(b);
+                }
+                return liste;
+            }
+            
+            
              public void leggTilFag(String fagkode, String navn){
                  try{
                      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
@@ -131,9 +149,18 @@ public class DbConnection {
                      System.out.println("FEIL: " + e);
                  }  
              }
-             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail){
+             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', passord = SHA1('" + passord + "'), mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL oppdater bruker: " + e);
+                 }  
+             }
+             
+              public void oppdaterPassord(String brukernavn, String passord){
+                 try{
+                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
                  } catch(SQLException e){
                      System.out.println("FEIL oppdater bruker: " + e);
