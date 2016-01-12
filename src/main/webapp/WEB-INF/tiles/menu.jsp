@@ -24,7 +24,7 @@
             <a class="btn btn-default col-lg-12 col-xs-12 well" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater Personlig </a>
             <a href="<c:url value="romOversikt"/>"><img src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>
             <a href="<c:url value="addBooking"/>"><img src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking"/> </a><br/>
-            <a href="<c:url value="oppdaterBruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
+            <a href="<c:url value="bruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
             <a href="<c:url value="innstillinger"/>"><img src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger"/> </a><br>
             <a href="<c:url value="login"/>"><img src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut"/> </a><br>
         </div>

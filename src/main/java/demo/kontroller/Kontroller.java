@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -68,6 +69,13 @@ public class Kontroller {
     public String admin(){
         return "admin";   
     }
+
+    @RequestMapping("/bruker")
+    public String bruker(){return "bruker";}
+
+    @RequestMapping("/innstillinger")
+    public String innstillinger(){return "innstillinger";}
+
     
    
     

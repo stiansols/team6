@@ -15,6 +15,7 @@
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
     <body>
+    <div class="jumbotron vertical-center">
     <div class="panel panel-default">
         <div class="panel-body">Kalender
             <button type="button" class="btn btn-default col-lg-12 col-xs-12">Endre farge</button>
@@ -38,6 +39,7 @@
         <div class="panel-body">Generelt
             <button type="button" class="btn btn-default col-lg-12 col-xs-12">Skift språk</button>
         </div>
+    </div>
     </div>
     </body>
 </html>
