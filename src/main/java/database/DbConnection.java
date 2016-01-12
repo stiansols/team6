@@ -111,6 +111,21 @@ public class DbConnection {
                 return liste;
             }
             
+            public Bruker hentBruker(String brukernavn) throws Exception{
+                resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '"+brukernavn+"'");
+                Bruker b = null;
+                while(resultSet.next()){
+                    String brukernavn1 = resultSet.getString("brukernavn");
+                    int brukertype = resultSet.getInt("brukertype");
+                    String navn = resultSet.getString("navn");
+                    String passord = resultSet.getString("passord");
+                    String mail = resultSet.getString("mail");
+                    
+                    b = new Bruker(brukernavn1, brukertype, navn, passord, mail);
+                }
+                return b;
+            }
+            
             
              public void leggTilFag(String fagkode, String navn){
                  try{
