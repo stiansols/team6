@@ -29,8 +29,6 @@
                             <form:input type="text" path="tiltid" class="form-control" value="2012-04-19" id="datoTil"/>
                         </div>
 
-
-
                         <div class="form-group">
                             <div class="col-xs-5 col-xs-offset-3">
                                 <button type="submit" class="btn btn-primary">Validate</button>
@@ -43,3 +41,15 @@
         
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+
+        <script type="text/javascript">
+            
+            $('.input-daterange input').each(function() {
+                $(this).datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+            });
+            
+        </script>
+    </body>
+</html>
