@@ -68,6 +68,10 @@ public class Kontroller {
     public String admin(){
         return "admin";   
     }
+    @RequestMapping("/innstillinger")
+    public String innstillinger(){
+        return "innstillinger";
+    }
     
    
     
