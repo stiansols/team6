@@ -53,13 +53,16 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin.jsp"/>      
     </definition>
+
+    <definition name="innstillinger" extends="baseLayout">
+        <put-attribute name="title"  value="Innstillinger"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/innstillinger.jsp"/>
+    </definition>
     
     <definition name="login" extends="emptyLayout">
         <put-attribute name="title"  value="Logg inn"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/>      
     </definition>
-    
-    
-
 
 </tiles-definitions>
