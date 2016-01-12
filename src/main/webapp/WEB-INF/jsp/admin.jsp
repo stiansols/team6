@@ -86,7 +86,7 @@
                         </tbody>
             </table>
         
-     
+     <a class="btn btn-default col-lg-6 col-xs-6 well" role="button" href="<c:url value="registrerBruker"/>">Registrer ny bruker</a>
         
         
         <div class="container">
@@ -142,11 +142,9 @@
              
                   </div>
                   <div class="modal-footer">
-                      <button type="submit" class="btn btn-default">Oppdater bruker</button> 
-             <!--        <button type="submit" class="btn btn-default" value="Slett bruker">Slett bruker</button> -->
-                      
-                    
-           
+                      <button type="submit" class="btn btn-default" formaction="oppdater">Oppdater bruker</button> 
+                      <button type="submit" class="btn btn-default" formaction="slett">Slett bruker</button>
+                     
                     <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                   </div>
                           
@@ -194,29 +192,9 @@
 		  });
 });
   
-    function oppdaterBruker(brukernavn, brukertype, navn, passord, mail){
+    function oppdaterSide(){
         
-       /* 
-        try{
-            DbConnection db = new DbConnection();
-        }
-        catch(Exception e){
-            alert("Kunne ikke koble opp mot databasen");
-            
-        }
-        
-        if(brukertype !== "" && navn !== "" && mail !== ""){
-            db.oppdaterBruker(brukernavn, brukertype, navn, mail);
-        }
-        else{
-            alert("Feltene brukertype, navn og mail må fylles ut!");
-        }
-       
-        if(passord.value !== ""){
-            db.oppdaterBruker(brukernavn, passord);
-        }
-        */
-       alert(brukernavn + " " + brukertype + " " + navn + " " + mail);
+      location.reload(true);
     }
     
     

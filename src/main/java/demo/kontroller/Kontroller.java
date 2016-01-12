@@ -168,8 +168,18 @@ public class Kontroller {
         return "index";
     }
     
+    @RequestMapping(value="/nyBruker", method=RequestMethod.POST)
+    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws SQLException{
+        DbConnection db = new DbConnection();
+        
+        db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
+        
+        
+        return "admin";
+        
+    }
     
-    @RequestMapping(value="/admin", method=RequestMethod.POST)
+    @RequestMapping(value="/oppdater", method=RequestMethod.POST)
     public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
 
         DbConnection et = new DbConnection();
@@ -179,6 +189,18 @@ public class Kontroller {
         
         return "admin";
     }
+    
+    @RequestMapping(value="/slett", method=RequestMethod.POST)
+    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        
+       
+        et.slettBruker(bruker.getBrukernavn());
+        
+        return "admin";
+    }
+    
     
     
 
