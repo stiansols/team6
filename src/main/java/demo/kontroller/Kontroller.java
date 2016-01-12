@@ -60,9 +60,9 @@ public class Kontroller {
         return "registrerBruker";   
     }
     
-    @RequestMapping("/oppdaterBruker")
+    @RequestMapping("/oppdaterPersonlig")
     public String oppBruker(){
-        return "oppdaterBruker";   
+        return "oppdaterPersonlig";   
     }
      @RequestMapping("/admin")
     public String admin(){
