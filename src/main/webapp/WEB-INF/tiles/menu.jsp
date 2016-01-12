@@ -22,7 +22,6 @@
             <a class="btn btn-default col-lg-12 col-xs-12" role="button" href="<c:url value="index"/>" >Index </a>
             <a class="btn btn-default col-lg-12 col-xs-12" role="button" href="<c:url value="romOversikt"/>" >Rom Oversikt </a>
             <a class="btn btn-default col-lg-12 col-xs-12" role="button" href="<c:url value="addBooking"/>" >Booking </a>
-            <a class="btn btn-default col-lg-12 col-xs-12" role="button" href="<c:url value="test"/>" >Logg inn for Eirik </a>
             <a class="btn btn-default col-lg-12 col-xs-12" role="button" href="<c:url value="login"/>" >Login </a>
       
           
