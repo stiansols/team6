@@ -22,7 +22,8 @@
         
         <style>
             body{
-  padding:20px 20px;
+               
+            padding:20px 20px;
 }
 
 .results tr[visible='false'],
@@ -37,26 +38,43 @@
 .counter{
   padding:8px; 
   color:#ccc;
-}
-            
+}  
+
+.table-striped tbody tr.highlight td { background-color: #0066cc }
+
         </style>
-	
+	<style type="text/css">
+	.bs-example{
+		margin: 20px;
+	}
+</style>
     </head>
     
     <body>
-        <div class="form-group pull-right">
+        
+        
+        <div class="bs-example">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#brukerFane">Brukere</a></li>
+        <li><a href="#fagFane">Fag</a></li>
+        
+    </ul>
+    <div class="tab-content">
+        <div id="brukerFane" class="tab-pane fade in active">
+            <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+            
+             <div class="form-group pull-right">
             <input type="text" class="search form-control" placeholder="Søk...">
         </div>
         <span class="counter pull-right"></span>
         
             <table id="brukerTabell" class="table table-hover table-bordered results">
-                <caption class="text-left"><b>Brukere</b></caption>  
-                   
+   
                     <thead>
                         <tr class="warning no-result">
                             <td colspan="4"><i class="fa fa-warning"></i> Fant ingen resultater</td>
                         </tr>
-                            <tr>
+                        <tr>
                                 <th>Brukernavn</th>
                                 <th>Brukertype</th>
                                 <th>Navn</th>
@@ -91,7 +109,7 @@
         
         <div class="container">
             <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal fade" id="visBrukerModal" role="dialog">
               <div class="modal-dialog">
 
                 <!-- Modal content-->
@@ -155,7 +173,44 @@
             </div>
 
           </div>
+                      
+        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+            
+        </div>
+        <div id="fagFane" class="tab-pane fade">
+            
+        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->  
         
+        <table id="fagTabell" class="table table-striped table-bordered results">
+   
+                    <thead>
+                        <tr>
+                                <th>Fagkode</th>
+                                <th>navn</th>
+                        </tr>
+        
+                    </thead>
+                    
+                        <tbody>
+                            
+           <c:forEach items="${alleFag}" var="fag">                 
+                            <tr>
+                                <td>${fag.getFagkode()}</td>
+                                <td>${fag.getNavn()}</td>
+                            </tr>  
+                                
+        </c:forEach>
+                                
+                        </tbody>
+            </table>
+        
+   <!--  <a class="btn btn-default col-lg-6 col-xs-6" role="button" href="<c:url value="registrerBruker"/>">Legg til fag</a> -->
+        
+     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->   
+        
+        </div>
+        
+    </div>
         
         
                           <!-- Latest compiled and minified JavaScript -->
@@ -190,16 +245,17 @@
   if(jobCount === '0') {$('.no-result').show();}
     else {$('.no-result').hide();}
 		  });
+   
+   //tab bytteren
+   $("#myTab a").click(function(e){
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+                  
 });
   
-    function oppdaterSide(){
-        
-      location.reload(true);
-    }
     
-    
-    
-    function addRowHandlers() {
+    function onClickBrukertabell() {
     var table = document.getElementById("brukerTabell");
     var rows = table.getElementsByTagName("tr");
     for (i = 0; i < rows.length; i++) {
@@ -226,7 +282,7 @@
                                         $(".modal-body #navn").val( navn );
                                        // $(".modal-body #passord").val( passord );
                                         $(".modal-body #mail").val( mail );
-                                        $('#myModal').modal('show');
+                                        $('#visBrukerModal').modal('show');
                                         
                                         
                                  };
@@ -235,6 +291,41 @@
         currentRow.onclick = createClickHandler(currentRow);
     }
 }
-window.onload = addRowHandlers();
-    
+window.onload = onClickBrukertabell();
+ 
+ 
+ function onClickFagtabell() {
+    var table = document.getElementById("fagTabell");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = 
+            function(row) 
+            {
+                return function() { 
+                                        var cell = row.getElementsByTagName("td")[0];
+                                        var cell2 = row.getElementsByTagName("td")[1];
+          
+                                        var fagkode = cell.innerHTML;
+                                        var navn = cell2.innerHTML;
+   
+   
+
+                        /*                //alert("id:" + id);
+                                        $(".modal-body #brukernavn").val( fagkode );
+                                        $(".modal-body #brukertype").val( navn );
+                                        
+                                        $('#visFagModal').modal('show');
+                          */              
+                                        
+                                 };
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+ window.onload = onClickFagtabell();
+ 
+
+ 
 </script>

@@ -8,6 +8,7 @@ package demo.kontroller;
 
 import Klasser.Booking;
 import Klasser.Bruker;
+import Klasser.Fag;
 import Klasser.Rom;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
@@ -166,6 +167,23 @@ public class Kontroller {
         
 
             return alleBrukere;
+    }
+    
+    @ModelAttribute("alleFag")
+    public ArrayList getFag() throws SQLException, Exception
+    {
+        ArrayList<Fag> alleFag = new ArrayList();
+        DbConnection db = new DbConnection();
+    
+        try{
+            alleFag = db.hentAlleFag();
+            db.close();
+                 
+        }catch(SQLException e ){
+            System.out.println(e + " fail");
+        }
+        
+       return alleFag;
     }
     
     @RequestMapping("/addBooking")

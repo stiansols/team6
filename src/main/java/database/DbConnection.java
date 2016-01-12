@@ -1,5 +1,6 @@
 package database;
 import Klasser.Bruker;
+import Klasser.Fag;
 import Klasser.Rom;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -125,7 +126,20 @@ public class DbConnection {
                 }
                 return b;
             }
-            
+             public ArrayList<Fag> hentAlleFag() throws Exception {
+                 
+                 resultSet = statement.executeQuery("SELECT * FROM fag");
+                 Fag fag = null;
+                 ArrayList<Fag> alleFag = new ArrayList();
+                 while(resultSet.next()){
+                    String fagkode = resultSet.getString("fagkode");
+                    String navn = resultSet.getString("navn");
+                    
+                    fag = new Fag(fagkode, navn);
+                    alleFag.add(fag);
+                 }
+                 return alleFag;
+             }
             
              public void leggTilFag(String fagkode, String navn){
                  try{
