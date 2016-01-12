@@ -187,7 +187,7 @@ public class Kontroller {
        
         et.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getMail());
         
-        return "admin";
+        return "redirect:admin";
     }
     
     @RequestMapping(value="/slett", method=RequestMethod.POST)
@@ -198,7 +198,7 @@ public class Kontroller {
        
         et.slettBruker(bruker.getBrukernavn());
         
-        return "admin";
+        return "redirect:admin";
     }
     
     
