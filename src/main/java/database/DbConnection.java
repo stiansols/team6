@@ -15,11 +15,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  
 
 public class DbConnection {
-
-        Statement statement;
-        Connection connection;
-        DataSource dataSource;
-        ApplicationContext appContext;
+        private final Statement statement;
+        private final Connection connection;
+        private final DataSource dataSource;
+        private final ApplicationContext appContext;
+        private ResultSet resultSet = null;
+        private PreparedStatement preparedStatement = null;
+        
         public DbConnection()throws SQLException{
             appContext = new ClassPathXmlApplicationContext("beans.xml");
             dataSource = (DataSource) appContext.getBean("dataSource");
@@ -68,7 +70,7 @@ public class DbConnection {
             public ArrayList hentRom(ArrayList<Rom> a)throws Exception{
              
 
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM rom");
+                resultSet = statement.executeQuery("SELECT * FROM rom");
                 Rom r ;
                 while(resultSet.next()) {
                     String romnr = resultSet.getString("romnr");           
@@ -94,7 +96,7 @@ public class DbConnection {
             
             public ArrayList<Bruker> hentAlleBrukere() throws Exception{
                 ArrayList<Bruker> liste = new ArrayList();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM bruker");
+                resultSet = statement.executeQuery("SELECT * FROM bruker");
                 Bruker b;
                 while(resultSet.next()){
                     String brukernavn = resultSet.getString("brukernavn");
@@ -112,7 +114,7 @@ public class DbConnection {
             
              public void leggTilFag(String fagkode, String navn){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
+                     preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
                      preparedStatement.executeUpdate();
                  } catch(SQLException e){
                      // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
@@ -123,7 +125,7 @@ public class DbConnection {
              
              public void slettFag(String fagkode){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
+                     preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
                      preparedStatement.executeUpdate();
                  } catch(SQLException e){
                      // Gi en feilmelding til bruker...... 
@@ -133,7 +135,7 @@ public class DbConnection {
            
              public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('"+ brukernavn +"','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '"+ mail +"')");                                                             
+                     preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('"+ brukernavn +"','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '"+ mail +"')");                                                             
                      preparedStatement.executeUpdate();  
                  } catch(SQLException e){
                      System.out.println("FEIL: " + e);
@@ -143,24 +145,26 @@ public class DbConnection {
              
              public void slettBruker(String brukernavn){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '"+ brukernavn +"'");                                             
+                     preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '"+ brukernavn +"'");                                             
                      preparedStatement.executeUpdate();  
                  } catch(SQLException e){
                      System.out.println("FEIL: " + e);
                  }  
              }
              public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail){
+                 preparedStatement = null;
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
                  } catch(SQLException e){
                      System.out.println("FEIL oppdater bruker: " + e);
                  }  
+                 
              }
              
               public void oppdaterPassord(String brukernavn, String passord){
                  try{
-                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
                  } catch(SQLException e){
                      System.out.println("FEIL oppdater bruker: " + e);
@@ -171,7 +175,7 @@ public class DbConnection {
                 try{
                     String query = "DELETE FROM " + tabell + " WHERE " + pr_key + " = '" + keyValue + "'";
 
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
                 } catch(SQLException e){
                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
@@ -182,7 +186,7 @@ public class DbConnection {
             public String hentPassord(String brukernavn) throws Exception{
                 String pass = "";
                 try{
-                    ResultSet resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '"+brukernavn+"'");
+                    resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '"+brukernavn+"'");
                     resultSet.next();
                     pass = resultSet.getString("passord");                             
                 }catch(Exception e){
@@ -195,7 +199,7 @@ public class DbConnection {
             public void leggTil(String tabell, String[] values) {
                 try{
                      
-                    ResultSet resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n" +
+                    resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n" +
                                                                 "FROM `INFORMATION_SCHEMA`.`COLUMNS` \n" +
                                                                 "WHERE `TABLE_SCHEMA`='g_scrum_t6' \n" +
                                                                 "    AND `TABLE_NAME`='" + tabell + "';");
@@ -214,7 +218,7 @@ public class DbConnection {
                     }
                     query += ")";
                     System.out.println(query);
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
                 } catch(SQLException e){
                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
@@ -225,7 +229,7 @@ public class DbConnection {
             public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception{
             ArrayList arr = new ArrayList();     
             try{
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
+                resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
                 Rom r ;
                 while(resultSet.next()) {
                     String romnr = resultSet.getString("romnr");           
@@ -249,7 +253,7 @@ public class DbConnection {
             public ArrayList<Rom> romSok(String romnavn)throws Exception{
             ArrayList arr = new ArrayList();     
             try{
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%"+romnavn+"%'");
+                resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%"+romnavn+"%'");
                 Rom r ;
                 while(resultSet.next()) {
                     String romnr = resultSet.getString("romnr");           
@@ -287,7 +291,7 @@ public class DbConnection {
               
             ArrayList arr = new ArrayList();     
             try{
-                ResultSet resultSet = statement.executeQuery(query);
+                resultSet = statement.executeQuery(query);
                 Rom r ;
                 while(resultSet.next()) {
                     String romnr = resultSet.getString("romnr");           
@@ -345,5 +349,48 @@ public class DbConnection {
             }
                 return null;
     }
+    
+    public void close(){
+        if(connection != null){
+        try{
+            connection.close();
             
+        }catch(SQLException e){
+            
+        }
+       }
+      
+        if(statement != null){
+        try{
+            statement.close();
+            
+        }catch(SQLException e){
+            
+        }
+        
+        try{
+                     if(preparedStatement != null){
+                        preparedStatement.close();
+                        
+                     }
+                 }
+                 catch(SQLException e){
+                             
+                             }
+        
+        try{
+                     if(resultSet != null){
+                        resultSet.close();
+                        
+                     }
+                 }
+                 catch(SQLException e){
+                             
+                             }
+        
+       }
+        
+       
+        
+   }    
 }
