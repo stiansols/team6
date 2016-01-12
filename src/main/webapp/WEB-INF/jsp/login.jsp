@@ -47,7 +47,7 @@
     <body>
         
         
-    <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" action="innlogging">
+    <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam">
           
             <div class="container">
                 <h1>StudyEasy</h1>
