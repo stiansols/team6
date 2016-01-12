@@ -86,7 +86,7 @@ public class Kontroller {
                    case 2: System.out.println("Ansatt"); break;  //return ansattGUI
                    case 3: System.out.println("Admin"); break;   //return adminGUI
                }
-               
+               db.close();
                return "index";
            }
         
@@ -114,7 +114,7 @@ public class Kontroller {
         try{
             
             q = et.hentRom(q);
-            
+            et.close();
          for(int i = 0; i < q.size(); i++){
             alleRom.add(q.get(i).getRomnr());
             
@@ -140,7 +140,7 @@ public class Kontroller {
             
             alleBrukere = et.hentAlleBrukere();
             
-
+            et.close();
                  
         }catch(SQLException e ){
             System.out.println(e + " fail");
@@ -164,6 +164,7 @@ public class Kontroller {
         
         String[] verdier = {"brukernavn1", nyBooking.getRomNummer(), ""+nyBooking.getFratid(), ""+nyBooking.getTiltid()};
         et.leggTil("booking", verdier); //brukernavn skal hentes fra sesjonen
+        et.close();
         
         return "index";
     }
@@ -173,7 +174,7 @@ public class Kontroller {
         DbConnection db = new DbConnection();
         
         db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
-        
+        db.close();
         
         return "redirect:admin";
         
@@ -184,8 +185,8 @@ public class Kontroller {
 
         DbConnection et = new DbConnection();
         
-       
         et.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getMail());
+        et.close();
         
         return "redirect:admin";
     }
@@ -197,7 +198,7 @@ public class Kontroller {
         
        
         et.slettBruker(bruker.getBrukernavn());
-        
+        et.close();
         return "redirect:admin";
     }
     
