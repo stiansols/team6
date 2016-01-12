@@ -167,4 +167,16 @@ public class Kontroller {
         
         return "index";
     }
+    @RequestMapping(value="/nyBruker", method=RequestMethod.POST)
+    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws SQLException{
+        DbConnection db = new DbConnection();
+        
+        db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
+        
+        
+        return "admin";
+        
+    }
+
+    
 }
