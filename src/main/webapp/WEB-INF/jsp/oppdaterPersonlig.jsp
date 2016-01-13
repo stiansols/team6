@@ -81,6 +81,9 @@ if (document.getElementById('nymail1') !== null && document.getElementById('nyma
         <label for="nymail2">Gjenta Ny Mail</label>
         <input type="email" class="form-control" class="compare" id="nymail2" required placeholder="Gjenta ny mail her..">
     </div>
+    <div>
+        <button class="btn btn-primary" type="submit" class="form-control" onclick="return checkGjenta('email1','email2')">Send Inn</button>
+    </div> <br>   
     <div class="compare">
         <label for="nyttpw">Nytt Passord</label>
         <input type="password" class="form-control" class="compare" id="nyttpw1" required placeholder="Fyll inn nytt passord her..">
@@ -92,7 +95,7 @@ if (document.getElementById('nymail1') !== null && document.getElementById('nyma
     </div>    
     
     <div>
-        <button class="btn btn-primary" type="submit" class="form-control" onclick="return checkGjenta('email1','email2','nyttpw1', 'nyttpw2')">Send Inn</button>
+        <button class="btn btn-primary" type="submit" class="form-control" onclick="return checkGjenta('nyttpw1', 'nyttpw2')">Send Inn</button>
     </div>
 
   </form>
