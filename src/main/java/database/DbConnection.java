@@ -223,6 +223,17 @@ public class DbConnection {
                      System.out.println("FEIL oppdater bruker: " + e);
                  }  
              }
+              
+              public void oppdaterMail(String brukernavn, String mail){
+                 preparedStatement = null;
+                 try{
+                     preparedStatement = connection.prepareStatement("UPDATE bruker SET mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL oppdater bruker: " + e);
+                 }  
+             }                
+              
              
             public void slett(String tabell, String pr_key, String keyValue) {
                 try{
