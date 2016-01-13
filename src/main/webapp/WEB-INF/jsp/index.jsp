@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam">
+            <h2>Velkommen ${person.getNavn()} håper du trives med det nye booking systemet<small>Work in progress</small></h2>
+            <h3>${person.getBookingerTekst()}</h3>
+        </form:form>
     </body>
 </html>

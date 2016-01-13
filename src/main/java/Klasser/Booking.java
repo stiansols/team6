@@ -5,6 +5,7 @@
  */
 package Klasser;
 import java.*;
+import java.sql.Timestamp;
 import java.util.Date;
 /**
  *
@@ -14,8 +15,8 @@ public class Booking {
     private int bookingId;
     private String brukernavn;
     private String romNummer;
-    private String fratid;
-    private String tiltid;
+    private Timestamp fratid;
+    private Timestamp tiltid;
     
     public Booking() {}
 
@@ -31,11 +32,11 @@ public class Booking {
         this.romNummer = romNummer;
     }
 
-    public void setFratid(String fratid) {
+    public void setFratid(Timestamp fratid) {
         this.fratid = fratid;
     }
 
-    public void setTiltid(String tiltid) {
+    public void setTiltid(Timestamp tiltid) {
         this.tiltid = tiltid;
     }
 
@@ -51,11 +52,16 @@ public class Booking {
         return romNummer;
     }
 
-    public String getFratid() {
+    public Timestamp getFratid() {
         return fratid;
     }
 
-    public String getTiltid() {
+    public Timestamp getTiltid() {
         return tiltid;
+    }
+    
+    public String toString(){
+        String res = "Booking: "+bookingId+" \n Romnr: "+romNummer+" \n Fra: "+fratid+" \n Til: "+tiltid+" \n";
+        return res;
     }
 }

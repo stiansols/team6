@@ -6,6 +6,7 @@
 
 package Klasser;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -14,23 +15,31 @@ import java.util.Date;
  */
 public class Hendelse {
     
-    private Date startTid;
-    private Date sluttTid;
+    private int id;
+    private Timestamp startTid;
+    private Timestamp sluttTid;
     private String beskrivelse;    
 
-    public Date getStartTid() {
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int nyId){
+        this.id = nyId;
+    }
+    public Timestamp getStartTid() {
         return startTid;
     }
 
-    public void setStartTid(Date startTid) {
+    public void setStartTid(Timestamp startTid) {
         this.startTid = startTid;
     }
 
-    public Date getSluttTid() {
+    public Timestamp getSluttTid() {
         return sluttTid;
     }
 
-    public void setSluttTid(Date sluttTid) {
+    public void setSluttTid(Timestamp sluttTid) {
         this.sluttTid = sluttTid;
     }
 

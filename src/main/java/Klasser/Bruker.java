@@ -6,6 +6,7 @@
 package Klasser;
 
 import java.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,9 @@ public class Bruker {
     String navn;
     String passord;
     String mail;
+    ArrayList<Booking> bookinger = new ArrayList();
+    ArrayList<Avtale> avtaler = new ArrayList();
+    ArrayList<UndervisningsTime> timer = new ArrayList();
     
     public Bruker(){
     
@@ -27,6 +31,38 @@ public class Bruker {
             this.navn = navn;
             this.passord = passord;
             this.mail = mail;
+    }
+    
+    public String getBookingerTekst(){
+        String res = "";
+        for(int i = 0; i < bookinger.size(); i++){
+            res += bookinger.get(i).toString();
+        }
+        return res;
+    }
+    
+    public ArrayList<Booking> getBookingerListe(){
+        return bookinger;
+    }
+    
+    public void setBookinger(Booking nyBooking){
+        bookinger.add(nyBooking);
+    }
+    
+    public ArrayList<Avtale> getAvtaler(){
+        return avtaler;
+    }
+    
+    public void setAvtaler(Avtale nyAvtale){
+        avtaler.add(nyAvtale);
+    }
+    
+    public ArrayList<UndervisningsTime> getUndervisningsTimer(){
+        return timer;
+    }
+    
+    public void setUndervisningsTime(UndervisningsTime nyTime){
+        timer.add(nyTime);
     }
 
     public String getBrukernavn() {

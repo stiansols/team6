@@ -105,6 +105,14 @@ public class Kontroller {
                person.setBrukernavn(b.getBrukernavn());
                person.setNavn(b.getNavn());
                person.setMail(b.getMail());
+               person.setBrukertype(b.getBrukertype());
+               for(int i = 0; i < b.getBookingerListe().size(); i++){
+                   person.setBookinger(b.getBookingerListe().get(i));
+               }
+               for(int i = 0; i < b.getAvtaler().size(); i++){
+                   person.setAvtaler(b.getAvtaler().get(i));
+               }
+               
                db.close();
                return "index";
            }

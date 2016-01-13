@@ -1,4 +1,5 @@
 package database;
+import Klasser.Avtale;
 import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
@@ -126,8 +127,29 @@ public class DbConnection {
                     
                     b = new Bruker(brukernavn1, brukertype, navn, passord, mail);
                 }
+                resultSet = statement.executeQuery("SELECT * FROM booking where brukernavn = '"+brukernavn+"'");
+                while(resultSet.next()){
+                    Booking nyBooking = new Booking();
+                    nyBooking.setBookingId(resultSet.getInt("bookingID"));
+                    nyBooking.setFratid(resultSet.getTimestamp("fratid"));
+                    nyBooking.setTiltid(resultSet.getTimestamp("tiltid"));
+                    nyBooking.setBrukernavn(brukernavn);
+                    nyBooking.setRomNummer(resultSet.getString("romnr"));
+                    b.setBookinger(nyBooking);
+                }
+                resultSet = statement.executeQuery("SELECT * FROM personligavtale where brukernavn = '"+brukernavn+"'");
+                while(resultSet.next()){
+                    Avtale nyAvtale = new Avtale();
+                    nyAvtale.setId(resultSet.getInt("avtaleId"));
+                    nyAvtale.setStartTid(resultSet.getTimestamp("fratid"));
+                    nyAvtale.setSluttTid(resultSet.getTimestamp("tiltid"));
+                    nyAvtale.setBeskrivelse(resultSet.getString("beskrivelse"));
+                    nyAvtale.setRomNr(resultSet.getString("romnr"));
+                    b.setAvtaler(nyAvtale);
+                }
                 return b;
             }
+            
              public ArrayList<Fag> hentAlleFag() throws Exception {
                  
                  resultSet = statement.executeQuery("SELECT * FROM fag");

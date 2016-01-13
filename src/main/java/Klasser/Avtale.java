@@ -13,6 +13,15 @@ package Klasser;
 public class Avtale extends Hendelse{
     
     private boolean hemmelig;
+    private String romNr;
+    
+    public String getRomNr(){
+        return romNr;
+    }
+    
+    public void setRomNr(String nyttRomNr){
+        this.romNr = nyttRomNr;
+    }
 
     public boolean isHemmelig() {
         return hemmelig;
