@@ -31,18 +31,47 @@
     </style>
     
 <script type="text/javascript">
-function checkGjenta(theForm) {
+function sjekkMail(theForm){
 if (document.getElementById('nymail1') !== null && document.getElementById('nymail1').value !== document.getElementById('nymail2').value){
     alert('Mailadressen ble ikke gjentatt korrekt');
     return false;
-}
-    if(document.getElementById('nyttpw1') !== null && document.getElementById('nyttpw1').value !== document.getElementById('nyttpw2').value){
-        alert('Passordet ble ikke gjentatt korrekt');
-        return false;
     }
+   
     else {
     return true;
     }
+}
+</script>
+
+<script type="text/javascript">
+    function sjekkPassord(theForm){
+         if(document.getElementById('nyttpw1') !== null && document.getElementById('nyttpw1').value !== document.getElementById('nyttpw2').value){
+        alert('Passordet ble ikke gjentatt korrekt');
+        return false;
+        }
+        else{
+            return true;
+        }
+    }
+</script>
+
+<script> 
+function validerMail(nymail1, nymail2) {
+if (nymail1.value !== nymail2.value || nymail1.value === '' || nymail2.value === '') {
+    nymail2.setCustomValidity('Feil E-Mail');
+} else {
+    nymail2.setCustomValidity('');
+}
+}
+</script>
+
+<script> 
+function validerPassord(nyttpw1, nyttpw2) {
+if (nyttpw1.value !== nyttpw2.value || nyttpw1.value === '' || nyttpw2.value === '') {
+    nyttpw2.setCustomValidity('Feil passord');
+} else {
+    nyttpw2.setCustomValidity('');
+}
 }
 </script>
 
@@ -74,28 +103,31 @@ if (document.getElementById('nymail1') !== null && document.getElementById('nyma
       <input type="email" class="form-control" id="mail" readonly placeholder="${person.getMail()}">
     </div>
     <div class="compare">
-        <label for="nymail">Ny Mail</label>
+        <label for="nymail">Ny E-Mail</label>
         <input type="email" class="form-control" class="compare" id="nymail1"  required placeholder="Fyll inn ny mail her..">
     </div> 
     <div class="compare">
-        <label for="nymail2">Gjenta Ny Mail</label>
-        <input type="email" class="form-control" class="compare" id="nymail2" required placeholder="Gjenta ny mail her..">
+        <label for="nymail2">Gjenta Ny E-Mail</label>
+        <input type="email" class="form-control" class="compare" id="nymail2" onfocus="validerMail(document.getElementById('nymail1'), this);" oninput="validerMail(document.getElementById('nymail1'), this);" required placeholder="Gjenta ny mail her..">
     </div>
     <div>
-        <button class="btn btn-primary" type="submit" class="form-control" onclick="return checkGjenta('email1','email2')">Send Inn</button>
-    </div> <br>   
+        <button class="btn btn-primary" type="submit" class="form-control" onclick="return sjekkMail('nymail1','nymail2')">Oppdater E-Mail</button>
+    </div>
+  </form><br> 
+
+  <form role="form2">
     <div class="compare">
         <label for="nyttpw">Nytt Passord</label>
-        <input type="password" class="form-control" class="compare" id="nyttpw1" required placeholder="Fyll inn nytt passord her..">
+        <input type="password" class="form-control" class="compare" id="nyttpw1" required placeholder="Fyll inn nytt passord her.." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Må inneholde minst en stor bokstav, ett tall og minst 8 tegn totalt">
     </div>
     
     <div class="compare">
         <label for="nyttpw2">Gjenta Nytt Passord</label>
-        <input type="password" class="form-control" class="compare" id="nyttpw2" placeholder="Gjenta nytt passord her..">
+        <input type="password" class="form-control" class="compare" id="nyttpw2" placeholder="Gjenta nytt passord her.." onload="validerPassord(document.getElementById('nyttpw1'), this);" onfocus="validerPassord(document.getElementById('nyttpw1'), this);" oninput="validerPassord(document.getElementById('nyttpw1'), this);"title="Må være identisk med det forrige" required>
     </div>    
     
     <div>
-        <button class="btn btn-primary" type="submit" class="form-control" onclick="return checkGjenta('nyttpw1', 'nyttpw2')">Send Inn</button>
+        <button class="btn btn-primary" type="submit" class="form-control" onclick="return sjekkPassord('nyttpw1', 'nyttpw2')">Oppdater Passord</button>
     </div>
 
   </form>
