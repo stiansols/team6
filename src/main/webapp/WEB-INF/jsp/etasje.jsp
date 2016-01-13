@@ -13,7 +13,7 @@
     </head>
     <body>
         
-        <img id='eta' src="${etasjeLink}" style="width: 70%" />
+        <img id='eta' src="" style="width: 70%" />
         
         
         <canvas id="romstatus">
