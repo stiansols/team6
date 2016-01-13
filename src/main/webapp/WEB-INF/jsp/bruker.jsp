@@ -24,7 +24,7 @@
                 <div>Brukernavn: ${person.getBrukernavn()} </div>
                 <div>E-post: ${person.getMail()} </div>
                 <div>Brukertype: ${person.printBrukerType()}</div>
-                <div>Passord:<input type="password" disabled="true" placeholder="*************"></div>
+                <div hidden="true">Passord:<input type="password" disabled="true" placeholder="*************"></div>
             <br>
             <br>
                 <div class="panel-group">

@@ -26,8 +26,24 @@
             <a href="<c:url value="addBooking"/>"><img src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking"/> </a><br/>
             <a href="<c:url value="bruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
             <a href="<c:url value="innstillinger"/>"><img src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger"/> </a><br>
-            <a href="<c:url value="login"/>"><img src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut"/> </a><br>
+            <a data-toggle="modal" data-target="#logoff"><img src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut"/> </a><br>
         </div>
     </div>
 </nav>
+<div id="logoff" class="modal" role="dialog" style="z-index: auto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Logg ut</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil logge ut?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
