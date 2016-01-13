@@ -246,6 +246,32 @@ public class Kontroller {
         return "redirect:admin";
     }
     
+    @RequestMapping(value="/oppdaterMail", method=RequestMethod.POST)
+    public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        Bruker bruker = new Bruker();
+        bruker.setMail(email);
+        
+        et.oppdaterMail(person.getBrukernavn(), bruker.getMail());
+        et.close();
+        
+        return "redirect:admin";
+    }
+    
+    @RequestMapping(value="/oppdaterPassord", method=RequestMethod.POST)
+    public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        Bruker bruker = new Bruker();
+        bruker.setPassord(passord);
+        
+        et.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
+        et.close();
+        
+        return "redirect:admin";
+    }      
+    
     
     
 
