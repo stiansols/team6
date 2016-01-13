@@ -1,6 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +13,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+       
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form:form method="POST" modelAttribute="personForm" name="innlogging" action="oppPersonlig">
     
     <style>
         .form-group{
@@ -32,7 +39,7 @@
     
 <script type="text/javascript">
 function sjekkMail(theForm){
-if (document.getElementById('nymail1') !== null && document.getElementById('nymail1').value !== document.getElementById('nymail2').value){
+if (document.getElementById('passord') !== null && document.getElementById('mail').value !== document.getElementById('nymail2').value){
     alert('Mailadressen ble ikke gjentatt korrekt');
     return false;
     }
@@ -45,7 +52,7 @@ if (document.getElementById('nymail1') !== null && document.getElementById('nyma
 
 <script type="text/javascript">
     function sjekkPassord(theForm){
-         if(document.getElementById('nyttpw1') !== null && document.getElementById('nyttpw1').value !== document.getElementById('nyttpw2').value){
+         if(document.getElementById('passord') !== null && document.getElementById('passord').value !== document.getElementById('nyttpw2').value){
         alert('Passordet ble ikke gjentatt korrekt');
         return false;
         }
@@ -56,8 +63,8 @@ if (document.getElementById('nymail1') !== null && document.getElementById('nyma
 </script>
 
 <script> 
-function validerMail(nymail1, nymail2) {
-if (nymail1.value !== nymail2.value || nymail1.value === '' || nymail2.value === '') {
+function validerMail(mail, nymail2) {
+if (mail.value !== nymail2.value || mail.value === '' || nymail2.value === '') {
     nymail2.setCustomValidity('Feil E-Mail');
 } else {
     nymail2.setCustomValidity('');
@@ -66,8 +73,8 @@ if (nymail1.value !== nymail2.value || nymail1.value === '' || nymail2.value ===
 </script>
 
 <script> 
-function validerPassord(nyttpw1, nyttpw2) {
-if (nyttpw1.value !== nyttpw2.value || nyttpw1.value === '' || nyttpw2.value === '') {
+function validerPassord(passord, nyttpw2) {
+if (passord.value !== nyttpw2.value || passord.value === '' || nyttpw2.value === '') {
     nyttpw2.setCustomValidity('Feil passord');
 } else {
     nyttpw2.setCustomValidity('');
@@ -89,51 +96,52 @@ if (nyttpw1.value !== nyttpw2.value || nyttpw1.value === '' || nyttpw2.value ===
   }
 
 </style>
-              
+            
 <div class="container">
   <h2>${person.getNavn()}</h2>
   <p>Her kan du endre din brukerinformasjon:</p>
-  <form role="form">
     <div class="form-group">
       <label for="usr">Brukernavn</label>
-      <input type="text" class="form-control" id="usr" disabled="disabled" placeholder="${person.getBrukernavn()}">
+      <input type="brukernavn" name="brukernavn" path="bruker.brukernavn" class="form-control" id="usr" readonly value="${person.getBrukernavn()}">
     </div>
     <div class="form-group">
       <label for="pwd">E-Mail</label>
-      <input type="email" class="form-control" id="mail" readonly placeholder="${person.getMail()}">
-    </div>
-    <div class="compare">
-        <label for="nymail">Ny E-Mail</label>
-        <input type="email" class="form-control" class="compare" id="nymail1"  required placeholder="Fyll inn ny mail her..">
+      <input type="email" class="form-control" id="gammelmail" readonly placeholder="${person.getMail()}">
     </div> 
-    <div class="compare">
+    <form:form method="POST" modelAttribute="personlig" action="oppdaterMail"> 
+    <div class="form-group">
+        <label for="nymail">Ny E-Mail</label>
+        <input type="email" name="email" path="bruker.mail" class="form-control" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Fyll inn ny mail her..">
+    </div> 
+    <div class="form-group">
         <label for="nymail2">Gjenta Ny E-Mail</label>
-        <input type="email" class="form-control" class="compare" id="nymail2" onfocus="validerMail(document.getElementById('nymail1'), this);" oninput="validerMail(document.getElementById('nymail1'), this);" required placeholder="Gjenta ny mail her..">
-    </div>
-    <div>
-        <button class="btn btn-primary" type="submit" class="form-control" onclick="return sjekkMail('nymail1','nymail2')">Oppdater E-Mail</button>
-    </div>
-  </form><br> 
-
-  <form role="form2">
-    <div class="compare">
-        <label for="nyttpw">Nytt Passord</label>
-        <input type="password" class="form-control" class="compare" id="nyttpw1" required placeholder="Fyll inn nytt passord her.." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Må inneholde minst en stor bokstav, ett tall og minst 8 tegn totalt">
+        <input type="email" class="form-control" id="nymail2" onfocus="validerMail(document.getElementById('mail'), this);" oninput="validerMail(document.getElementById('mail'), this);" required placeholder="Gjenta ny mail her..">
     </div>
     
-    <div class="compare">
+    <div class="form-group">
+    <button class="btn btn-primary" type="submit">Oppdater E-Mail</button>
+    </div>  
+    </form:form>
+    
+    <br> 
+     <form:form method="POST" modelAttribute="personlig" action="oppdaterPassord"> 
+    <div class="form-group">
+        <label for="nyttpw">Nytt Passord</label>
+        <input type="password" path="bruker.passord" name="passord" class="form-control" id="passord" required placeholder="Fyll inn nytt passord her.." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Må inneholde minst en stor bokstav, ett tall og minst 8 tegn totalt">
+    </div>
+    
+    <div class="form-group">
         <label for="nyttpw2">Gjenta Nytt Passord</label>
-        <input type="password" class="form-control" class="compare" id="nyttpw2" placeholder="Gjenta nytt passord her.." onload="validerPassord(document.getElementById('nyttpw1'), this);" onfocus="validerPassord(document.getElementById('nyttpw1'), this);" oninput="validerPassord(document.getElementById('nyttpw1'), this);"title="Må være identisk med det forrige" required>
+        <input type="password" name="passord2" class="form-control" id="nyttpw2" placeholder="Gjenta nytt passord her.." onfocus="validerPassord(document.getElementById('passord'), this);" oninput="validerPassord(document.getElementById('passord'), this);" title="Må være identisk med det forrige" required>
     </div>    
     
-    <div>
-        <button class="btn btn-primary" type="submit" class="form-control" onclick="return sjekkPassord('nyttpw1', 'nyttpw2')">Oppdater Passord</button>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" onclick="return sjekkPassord('passord', 'nyttpw2')">Oppdater Passord</button>
     </div>
-
-  </form>
+     </form:form>
+    
+    
 </div>
-                            
-    </form:form>
-
+                           
 </body>
 </html>
