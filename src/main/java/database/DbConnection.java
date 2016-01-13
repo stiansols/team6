@@ -1,4 +1,5 @@
 package database;
+import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
@@ -421,5 +423,61 @@ public class DbConnection {
         
        
         
-   }    
-}
+   }
+  public ArrayList<Booking> hentBooking(String romnr){
+               
+               ArrayList bookinger = new ArrayList();
+               
+               try{
+                ResultSet resultSet = statement.executeQuery("select* from booking where romnummer = '" + romnr + "'");
+                
+                while(resultSet.next()){
+                    int bookingId = resultSet.getInt("bookingId");
+                    String brukernavn = resultSet.getString("brukernavn");
+                    Timestamp fratid = resultSet.getTimestamp("fratid");
+                    String romNummer = resultSet.getString("romnummer");
+                    Timestamp tiltid = resultSet.getTimestamp("tiltid");
+                    
+                   Booking b= new Booking();
+                   b.setBookingId(bookingId);
+                   b.setBrukernavn(brukernavn);
+                   b.setFratid(fratid);
+                   b.setRomNummer(romNummer);
+                   b.setTiltid(tiltid);
+                   bookinger.add(b);
+                   System.out.println(b.getTiltid());
+                }
+                return bookinger;
+               }catch(SQLException e){
+                   System.out.println(e);
+               }
+              return null; 
+           }
+    
+        public boolean regBooking(String brukernavn,Booking b){
+            ArrayList<Booking> booking = hentBooking(b.getRomNummer());
+            
+            for(int i =0; i<booking.size(); i++){
+               //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
+                
+                if(b.getFratid().after(booking.get(i).getFratid()) && b.getTiltid().before(booking.get(i).getTiltid())){
+                  /*if(bruker.getBrukertype() < b.getBrukertype(){
+                       String sql = "INSERT INTO booking (`bookingId`, `brukernavn`, `romNummer`, `fratid`, `tiltid`)values( NULL,'"+ brukernavn+ " ' , '"  + b.getRomNummer() + "'," +"'"+b.getFratid()+"', '"+b.getTiltid()+"')";
+                    }
+                    else return false;
+                    */ 
+                  return false;
+                }
+            }
+            try{
+                Statement statement = connection.createStatement();
+                String sql = "INSERT INTO booking (`bookingId`, `brukernavn`, `romNummer`, `fratid`, `tiltid`)values( NULL,'"+ brukernavn+ " ' , '"  + b.getRomNummer() + "'," +"'"+b.getFratid()+"', '"+b.getTiltid()+"')";
+                statement.executeUpdate(sql);
+            }catch(SQLException e){
+                System.out.println(e);
+            }
+           return true;         
+        }
+           
+}    
+

@@ -68,5 +68,19 @@ public class Bruker {
     public void setBrukertype(int brukertype) {
         this.brukertype = brukertype;
     }
-    
+
+
+    public String printBrukerType(){
+        if (getBrukertype()==1) {
+            return "Administrator";
+        }else if (getBrukertype()==2){
+            return "Student";
+        }else if (getBrukertype()==3){
+            return "Ansatt";
+        }else if (getBrukertype()==4){
+            return "Timeplanadministrator";
+        }else {
+            return null;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Klasser.Bruker" %><%--
   Created by IntelliJ IDEA.
   User: Roger
   Date: 12.01.2016
@@ -21,9 +21,11 @@
                 <br>
                 <br>
                 <br>
-                <div>Brukernavn...:<input type="text" disabled="true"> ${brukerForm.getBrukernavn()}</div>
-                <div>E-post...........:<input type="email" disabled="true"> ${brukerForm.mail()}</div>
-                <div>Passord.........:<input type="password" disabled="true" placeholder="***********"></div>
+                <div>Brukernavn: ${person.getBrukernavn()} </div>
+                <div>E-post: ${person.getMail()} </div>
+                <div>Brukertype: ${person.printBrukerType()}</div>
+                <div>Passord:<input type="password" disabled="true" placeholder="*************"></div>
+            <br>
             <br>
                 <div class="panel-group">
                     <button href="#" class="btn btn-default">  Endre E-Post  </button>
