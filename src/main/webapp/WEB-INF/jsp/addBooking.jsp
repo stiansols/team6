@@ -18,14 +18,14 @@
                     <div class ="col-lg-4 col-lg-offset-4 well">
                         <div id="romNummer" class="form-group">
                             <label>Rom Nummer</label>
-                            <form:input path="romNummer" class="form-control" id="romnr"/>
+                            <input path="romNummer" class="form-control" id="romnr" name ="romnr"/>
                         </div>
-                        <div class="form-group input-daterange">
+                        <div class="form-group">
                             <label>Fra</label>
-                            <form:input type="text" path="fratid" class="form-control" value="2012-04-05" id="datoFra"/>
+                            <input type="text" path="fratid" name = "fratid" class="form-control"  id="datoFra"/>
                             <span class="input-group-addon">to</span>
                             <label>Til</label>
-                            <form:input type="text" path="tiltid" class="form-control" value="2012-04-19" id="datoTil"/>
+                            <input type="text" path="tiltid" name = "tiltid" class="form-control"  id="datoTil"/>
                         </div>
 
                         <div class="form-group">

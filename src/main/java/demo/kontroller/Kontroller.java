@@ -229,12 +229,21 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/nyBooking", method=RequestMethod.POST)
-    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking) throws Exception{
+    public String leggTilBooking(@RequestParam String romnr,@RequestParam String fratid,@RequestParam String tiltid,@ModelAttribute(value = "booking") Booking nyBooking,@ModelAttribute(value="person") Bruker person) throws Exception{
 
         DbConnection et = new DbConnection();
-        
-        String[] verdier = {"brukernavn1", nyBooking.getRomNummer(), ""+nyBooking.getFratid(), ""+nyBooking.getTiltid()};
-        et.leggTil("booking", verdier); //brukernavn skal hentes fra sesjonen
+        nyBooking.setBookingId(80);
+        nyBooking.setBrukernavn(person.getBrukernavn());
+        nyBooking.setBrukertype(person.getBrukertype());
+        nyBooking.setFratid(fratid);
+        nyBooking.setTiltid(tiltid);
+        nyBooking.setRomNummer(romnr);
+        System.out.println("hei1");
+
+        //String[] verdier = {"brukernavn1", nyBooking.getRomNummer(), ""+nyBooking.getFratid(), ""+nyBooking.getTiltid()};
+        //et.leggTil("booking", verdier); //brukernavn skal hentes fra sesjonen
+        et.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
+        System.out.println("hei2");
         et.close();
         
         return "index";

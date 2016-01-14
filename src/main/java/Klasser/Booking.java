@@ -15,13 +15,22 @@ public class Booking {
     private int bookingId;
     private String brukernavn;
     private String romNummer;
-    private Timestamp fratid;
-    private Timestamp tiltid;
+    private String fratid;
+    private String tiltid;
+    private int brukertype;
     
     public Booking() {}
 
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public int getBrukertype() {
+        return brukertype;
+    }
+
+    public void setBrukertype(int brukertype) {
+        this.brukertype = brukertype;
     }
 
     public void setBrukernavn(String brukernavn) {
@@ -32,11 +41,11 @@ public class Booking {
         this.romNummer = romNummer;
     }
 
-    public void setFratid(Timestamp fratid) {
+    public void setFratid(String fratid) {
         this.fratid = fratid;
     }
 
-    public void setTiltid(Timestamp tiltid) {
+    public void setTiltid(String tiltid) {
         this.tiltid = tiltid;
     }
 
@@ -52,11 +61,11 @@ public class Booking {
         return romNummer;
     }
 
-    public Timestamp getFratid() {
+    public String getFratid() {
         return fratid;
     }
 
-    public Timestamp getTiltid() {
+    public String getTiltid() {
         return tiltid;
     }
     
