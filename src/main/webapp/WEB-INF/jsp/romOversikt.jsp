@@ -38,7 +38,7 @@
         </form>
             
         <script>
-            function visEtasje(int etasje) {
+            function visEtasje(etasje) {
                 window.alert("Du trykket på " + etasje);
                 oFormObject.elements["valg"].value = etasje;
                 document.forms["valg"].submit();
