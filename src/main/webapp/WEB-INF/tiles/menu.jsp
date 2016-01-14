@@ -19,8 +19,7 @@
         <div class="collapse navbar-collapse col-lg-12" id="liste">
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="admin"/>">Admin </a>
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="index"/>" >Index </a>
-            <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="romOversikt"/>" >Rom Oversikt </a>
-            <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="addBooking"/>" >Booking </a>
+            <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="romOversikt"/>" >Booking </a>
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="login"/>" >Login </a>
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater Personlig </a>
             <a href="<c:url value="romOversikt"/>"><img src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>

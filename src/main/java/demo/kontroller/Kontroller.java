@@ -75,7 +75,7 @@ public class Kontroller {
             case "4": url = "http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg";
                       break;
         }
-        ModelAndView etasjeMV = new ModelAndView("testEtasje","etasjeLink", url);
+        ModelAndView etasjeMV = new ModelAndView("visEtasjePlan","etasjeLink", url);
         return etasjeMV;
     }
     
