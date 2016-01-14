@@ -43,42 +43,6 @@ public class DbConnection {
 
     }
 
-    public void executeUpdate(String query) throws Exception {
-
-        try {
-            statement.executeUpdate(query);
-
-        } catch (SQLException e) {
-
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-
-    }
-
     public ArrayList hentRom(ArrayList<Rom> a) {
         return new ArrayList(jdbcTemplateObject.query("SELECT * FROM rom", new RomMapper()));
     }
@@ -244,17 +208,7 @@ public class DbConnection {
         Bruker bruker = null;
         String pass = hentPassord(brukernavn);
         if (pass.equals(sha1(passord))) {
-            ResultSet res = statement.executeQuery("SELECT * from bruker where brukernavn = '" + brukernavn + "'");
-
-            while (res.next()) {
-                int brukertype = res.getInt("brukertype");
-                String navn = res.getString("navn");
-                String pw = res.getString("passord");
-                String mail = res.getString("mail");
-
-                bruker = new Bruker(brukernavn, brukertype, navn, pw, mail);
-
-            }
+            bruker = hentBruker("brukernavn");
         }
 
         return bruker;
@@ -269,34 +223,6 @@ public class DbConnection {
             studenter.add(brukernavn);
         }
         return studenter;
-    }
-
-    public void close() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-            }
-        }
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-            }
-        }
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-            }
-        }
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-            }
-        }
-
     }
 
     public ArrayList<Booking> hentBooking(String romnr) {
