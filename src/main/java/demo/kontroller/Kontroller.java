@@ -58,6 +58,31 @@ public class Kontroller {
         return "romOversikt";   
     }
     
+    /*
+    @ModelAttribute("etasjeLink")
+    public String getEtasje(HttpServletRequest request) throws Exception {
+        String url = "";
+        switch ((String)request.getAttribute("etasje")) {
+            case "1": url = "http://download1494.mediafire.com/rhyf8xwlqbcg/736fif9tr2s21zc/Plan1.png";
+                      break;
+            case "2": url = "http://download1499.mediafire.com/gni7oayaybjg/670c89ehc1w9b2o/Plan2.png";
+                      break;
+            case "3": url = "http://download1508.mediafire.com/dlgbhd8hg4gg/ate3wife1pm8ysk/Plan3.png";
+                      break;
+            case "4": url = "http://download1511.mediafire.com/dugykf55tsmg/kbjzj4ijm88nlv4/Plan4.png";
+                      break;
+        }
+        return url;
+    }
+    */
+    
+    // public String visEtasje(@ModelAttribute("etasjeNr") String etasjeNr) {
+    
+    @RequestMapping(value = "/etasje", method = RequestMethod.POST)
+    public String visEtasje() {
+        return "etasje";
+    }
+    
     @RequestMapping("/test")
     public String test(){
         return "test";   
