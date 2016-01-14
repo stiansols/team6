@@ -253,10 +253,22 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/nyBruker", method=RequestMethod.POST)
-    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws Exception{
+    public String leggTilBruker(@RequestParam(value="brukertypen") String brukertypen, @ModelAttribute(value= "nyBrukerForm")Bruker bruker)throws Exception{
         DbConnection db = new DbConnection();
+        if(brukertypen.equals("Student")){
+            bruker.setBrukertype(0);
+        }
+        if(brukertypen.equals("Ansatt")){
+            bruker.setBrukertype(1);
+        }
+        if(brukertypen.equals("TimeplanAnsvarlig")){
+            bruker.setBrukertype(2);
+        }
+        if(brukertypen.equals("Administrator")){
+            bruker.setBrukertype(3);
+        }
         
-        db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
+        db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         db.close();
         
         return "redirect:admin";

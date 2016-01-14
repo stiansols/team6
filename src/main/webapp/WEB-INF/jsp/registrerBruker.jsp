@@ -8,7 +8,10 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>RegBruker</title>
     </head>
     <body>
@@ -86,11 +89,18 @@ if (inputPassword.value !== inputPassword2.value || inputPassword.value === '' |
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="BrukertypeLabel"  class="col-lg-2 control-label">Brukertype</label>
-                            <div class="col-lg-10">
-                                <input path="bruker.brukertype" name="brukertype" class="form-control" id="inputBrukertype" placeholder="Brukertype" pattern="[0-3]{1}" required>
+                            <label for="BrukertypeLabel"  class="col-lg-2 control-label">Brukertype</label>                                                                            
+                                     <div class="dropdown col-lg-4 ">
+                                       <select class="form-control" name="brukertypen" value="gsdgs">
+                                            <option value="Student">Student</option>
+                                            <option value="Ansatt">Ansatt</option>
+                                            <option value="TimeplanAansvarlig">TimeplanAansvarlig</option>
+                                            <option value="Administrator">Administrator</option>
+                                        </select>
+                                   </div>  
                             </div>
-                        </div>
+                                                           
+                        
                         <div class="form-group">
                             <label for="NavnLabel"  class="col-lg-2 control-label">Navn</label>
                             <div class="col-lg-10">
@@ -126,7 +136,10 @@ if (inputPassword.value !== inputPassword2.value || inputPassword.value === '' |
                             <div class="col-sm-6 col-sm-offset-2">
                                 <button type="submit" class="btn btn-primary">Send</button>
                             </div>
-                        </div>  
+                        </div>
+                </div>
+            </div>
+            </div>
 
 
                     </form:form>
