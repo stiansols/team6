@@ -1070,20 +1070,26 @@ public class DbConnection {
             Date dateTil = formatter.parse(b.getTiltid());
             for(int i =0; i<booking.size(); i++){
                //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
-                
-                if((dateFra.after(formatter.parse(booking.get(i).getFratid())) || dateFra.equals(formatter.parse(booking.get(i).getFratid()))) && (dateTil.before(formatter.parse(booking.get(i).getTiltid())) || dateTil.equals(formatter.parse(booking.get(i).getTiltid())))){
-                  if(brukerType < b.getBrukertype()){
-                      String sql = "INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 60,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')";
-                    }
-                  else if(brukerType == b.getBrukertype()) return false;
-                  else return false;
-                    
+                Date gammelFra = formatter.parse(booking.get(i).getFratid());
+                Date gammelTil = formatter.parse(booking.get(i).getTiltid());
+                if((dateFra.after(gammelFra) || dateFra.equals(gammelFra)) && dateFra.before(gammelTil) || (dateTil.after(gammelFra)|| dateTil.equals(gammelFra)) && dateTil.before(gammelTil)){
+    
                   return false;
                 }
+             
+                else if((gammelFra.after(dateFra) || dateFra.equals(gammelFra)) && gammelTil.before(dateFra) || (gammelFra.after(dateTil)|| dateTil.equals(gammelFra)) && gammelTil.before(dateTil)){
+    
+                  return false;
+                }
+                
+                else if (dateFra.before(gammelFra) && dateTil.after(gammelTil)){
+                    return false;
+                }
+                
             }
             try{
                 Statement statement = connection.createStatement();
-                String sql = "INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 60,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')";
+                String sql = "INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 90,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')";
                 statement.executeUpdate(sql);
             }catch(SQLException e){
                 System.out.println(e);
