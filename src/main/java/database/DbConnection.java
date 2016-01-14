@@ -19,10 +19,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  
 
 public class DbConnection {
-        private final Statement statement;
-        private final Connection connection;
-        private final DataSource dataSource;
-        private final ApplicationContext appContext;
+        private Statement statement;
+        private Connection connection;
+        private DataSource dataSource;
+        private ApplicationContext appContext;
         private ResultSet resultSet = null;
         private PreparedStatement preparedStatement = null;
         
@@ -33,8 +33,15 @@ public class DbConnection {
             statement = connection.createStatement();
         
         }
+        
+        public void opprettForbindelse() throws SQLException{
+            appContext = new ClassPathXmlApplicationContext("beans.xml");
+            dataSource = (DataSource) appContext.getBean("dataSource");
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+        }
    
-        public void executeUpdate(String query)throws Exception {
+        public void executeUpdate(String query)throws Exception, SQLException {
        
          try{
              statement.executeUpdate(query);
@@ -73,7 +80,7 @@ public class DbConnection {
             
         }
             
-            public ArrayList hentRom(ArrayList<Rom> a){
+            public ArrayList hentRom(ArrayList<Rom> a) throws Exception, SQLException{
              
                 try{
                     resultSet = statement.executeQuery("SELECT * FROM rom");
@@ -131,7 +138,7 @@ public class DbConnection {
             
             }
             
-            public ArrayList<Bruker> hentAlleBrukere(){
+            public ArrayList<Bruker> hentAlleBrukere() throws Exception, SQLException{
                 ArrayList<Bruker> liste = new ArrayList();
                 try{
                     resultSet = statement.executeQuery("SELECT * FROM bruker");
@@ -180,7 +187,7 @@ public class DbConnection {
                 return null;
             }
             
-            public Bruker hentBruker(String brukernavn){
+            public Bruker hentBruker(String brukernavn) throws Exception, SQLException{
                 try{
                     resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '"+brukernavn+"'");
                 Bruker b = null;
@@ -248,7 +255,7 @@ public class DbConnection {
                 return null;
             }
             
-             public ArrayList<Fag> hentAlleFag() {
+             public ArrayList<Fag> hentAlleFag() throws Exception, SQLException {
                  try{
                      resultSet = statement.executeQuery("SELECT * FROM fag");
                  Fag fag = null;
@@ -295,7 +302,7 @@ public class DbConnection {
                  return null;
              }
             
-             public void leggTilFag(String fagkode, String navn){
+             public void leggTilFag(String fagkode, String navn) throws Exception, SQLException{
                  try{
                      preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
                      preparedStatement.executeUpdate();
@@ -333,7 +340,7 @@ public class DbConnection {
              
             }
              
-             public void slettFag(String fagkode){
+             public void slettFag(String fagkode) throws Exception, SQLException{
                  try{
                      preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
                      preparedStatement.executeUpdate();
@@ -370,7 +377,7 @@ public class DbConnection {
                  }
              }
            
-             public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail){
+             public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException{
                  try{
                      preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('"+ brukernavn +"','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '"+ mail +"')");                                                             
                      preparedStatement.executeUpdate();  
@@ -407,7 +414,7 @@ public class DbConnection {
                  
              }
              
-             public void slettBruker(String brukernavn){
+             public void slettBruker(String brukernavn) throws Exception, SQLException{
                  try{
                      preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '"+ brukernavn +"'");                                             
                      preparedStatement.executeUpdate();  
@@ -442,7 +449,7 @@ public class DbConnection {
                            }
                  }
              }
-             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail){
+             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail) throws Exception, SQLException{
                  preparedStatement = null;
                  try{
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
@@ -480,7 +487,7 @@ public class DbConnection {
                  
              }
              
-              public void oppdaterPassord(String brukernavn, String passord){
+              public void oppdaterPassord(String brukernavn, String passord) throws Exception, SQLException{
                  try{
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
@@ -516,7 +523,7 @@ public class DbConnection {
                  }
              }
               
-              public void oppdaterMail(String brukernavn, String mail){
+              public void oppdaterMail(String brukernavn, String mail) throws Exception, SQLException{
                  preparedStatement = null;
                  try{
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
@@ -554,7 +561,7 @@ public class DbConnection {
              }                
               
              
-            public void slett(String tabell, String pr_key, String keyValue) {
+            public void slett(String tabell, String pr_key, String keyValue) throws Exception, SQLException {
                 try{
                     String query = "DELETE FROM " + tabell + " WHERE " + pr_key + " = '" + keyValue + "'";
 
@@ -593,7 +600,7 @@ public class DbConnection {
                 }
             }
             
-            public String hentPassord(String brukernavn) throws Exception{
+            public String hentPassord(String brukernavn) throws Exception, SQLException{
                 String pass = "";
                 try{
                     resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '"+brukernavn+"'");
@@ -633,7 +640,7 @@ public class DbConnection {
             }
             
         
-            public void leggTil(String tabell, String[] values) {
+            public void leggTil(String tabell, String[] values) throws Exception, SQLException{
                 try{
                      
                     resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n" +
@@ -690,7 +697,7 @@ public class DbConnection {
                 }
             }
             
-            public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception{
+            public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception, SQLException{
             ArrayList arr = new ArrayList();     
             try{
                 resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
@@ -741,7 +748,7 @@ public class DbConnection {
             return arr;
             }
             
-            public ArrayList<Rom> romSok(String romnavn)throws Exception{
+            public ArrayList<Rom> romSok(String romnavn)throws Exception, SQLException{
             ArrayList arr = new ArrayList();     
             try{
                 resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%"+romnavn+"%'");
@@ -792,7 +799,7 @@ public class DbConnection {
             return arr;
             }
             
-            public ArrayList<Rom> romSok2(int etasje,int plasser,boolean harSmart,boolean harSkjerm,boolean harProsjektor){
+            public ArrayList<Rom> romSok2(int etasje,int plasser,boolean harSmart,boolean harSkjerm,boolean harProsjektor) throws Exception, SQLException{
                 String query="select* from rom";
             if(etasje == 0)query += " where etasje >0";
             else query += " where etasje = "+etasje;
@@ -870,11 +877,12 @@ public class DbConnection {
     }
             
     
-    public Bruker loggInn(String brukernavn, String passord) throws Exception{
+    public Bruker loggInn(String brukernavn, String passord) throws Exception, SQLException{
+                Bruker bruker = null;
                 try{
                     String pass = hentPassord(brukernavn);
-                Bruker bruker = null;
                 if(pass.equals(sha1(passord))){
+                    opprettForbindelse();
                     ResultSet res = statement.executeQuery("SELECT * from bruker where brukernavn = '" +brukernavn + "'");
                     
                     while(res.next()){
@@ -918,11 +926,11 @@ public class DbConnection {
                                      catch(SQLException e){           
                                                  }
                            }
+                            return bruker;
                 }
-                return null;
     }
     
-    public ArrayList<String> hentStudenterIFag(String fagkode){
+    public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception, SQLException{
                 ArrayList<String> studenter = new ArrayList();
                 try{
                     resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
@@ -995,7 +1003,7 @@ public class DbConnection {
        }
  
    }
-  public ArrayList<Booking> hentBooking(String romnr){
+  public ArrayList<Booking> hentBooking(String romnr) throws Exception, SQLException{
                
                ArrayList bookinger = new ArrayList();
                
@@ -1052,7 +1060,7 @@ public class DbConnection {
               return null; 
            }
     
-        public boolean regBooking(String brukernavn,Booking b){
+        public boolean regBooking(String brukernavn,Booking b) throws Exception, SQLException{
             ArrayList<Booking> booking = hentBooking(b.getRomNummer());
             
             for(int i =0; i<booking.size(); i++){

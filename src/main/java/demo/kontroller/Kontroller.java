@@ -115,6 +115,7 @@ public class Kontroller {
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn,String passord, @ModelAttribute(value="person") Bruker person) throws SQLException, Exception{
         
+        DbConnection et = new DbConnection();
         DbConnection db = new DbConnection();
         Bruker bruker = null;
         
@@ -126,8 +127,8 @@ public class Kontroller {
                    case 1: System.out.println("Student"); break; //return studentGUI
                    case 2: System.out.println("Ansatt"); break;  //return ansattGUI
                    case 3: System.out.println("Admin"); break;   //return adminGUI
-               }
-               Bruker b = db.hentBruker(brukernavn);
+               } 
+               Bruker b = et.hentBruker(brukernavn);
                person.setBrukernavn(b.getBrukernavn());
                person.setNavn(b.getNavn());
                person.setMail(b.getMail());
@@ -139,13 +140,13 @@ public class Kontroller {
                    person.setAvtaler(b.getAvtaler().get(i));
                }
                
-               db.close();
+               
                return "index";
            }
         
         else{
             System.out.println("ikke lik");
-        }
+        } 
         }
         catch(Exception e){
             System.out.println("Noe gikk galt: "+ e);
@@ -228,7 +229,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/nyBooking", method=RequestMethod.POST)
-    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking) throws SQLException{
+    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking) throws Exception{
 
         DbConnection et = new DbConnection();
         
@@ -240,7 +241,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/nyBruker", method=RequestMethod.POST)
-    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws SQLException{
+    public String leggTilBruker(@ModelAttribute(value= "bruker")Bruker bruker)throws Exception{
         DbConnection db = new DbConnection();
         
         db.lagBruker(bruker.getBrukernavn(),bruker.getBrukertype(),bruker.getNavn(), bruker.getPassord(), bruker.getMail());
@@ -251,7 +252,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/oppdater", method=RequestMethod.POST)
-    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception{
 
         DbConnection et = new DbConnection();
         
@@ -262,7 +263,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/slett", method=RequestMethod.POST)
-    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws SQLException{
+    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception{
 
         DbConnection et = new DbConnection();
         
@@ -273,7 +274,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/oppdaterMail", method=RequestMethod.POST)
-    public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+    public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws Exception{
 
         DbConnection et = new DbConnection();
         Bruker bruker = new Bruker();
@@ -286,7 +287,7 @@ public class Kontroller {
     }
     
     @RequestMapping(value="/oppdaterPassord", method=RequestMethod.POST)
-    public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+    public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws Exception{
 
         DbConnection et = new DbConnection();
         Bruker bruker = new Bruker();
@@ -299,7 +300,7 @@ public class Kontroller {
     }      
     
     @RequestMapping(value="/leggTil", method=RequestMethod.POST)
-    public String leggTilFag(@ModelAttribute(value= "nyttFagForm") Fag fag)throws SQLException{
+    public String leggTilFag(@ModelAttribute(value= "nyttFagForm") Fag fag)throws Exception{
         DbConnection db = new DbConnection();
         
         db.leggTilFag(fag.getFagkode(), fag.getNavn());
@@ -310,7 +311,7 @@ public class Kontroller {
     }
     
      @RequestMapping(value="/slettFag", method=RequestMethod.POST)
-    public String slettFag(@ModelAttribute(value= "slettFagForm") Fag fag)throws SQLException{
+    public String slettFag(@ModelAttribute(value= "slettFagForm") Fag fag)throws Exception{
         DbConnection db = new DbConnection();
         
         db.slettFag(fag.getFagkode());
