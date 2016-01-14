@@ -18,12 +18,14 @@ import database.DbConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 /**
  *
  * @author Benjamin
@@ -58,28 +60,27 @@ public class Kontroller {
         return "romOversikt";   
     }
     
-    /*
-    @ModelAttribute("etasjeLink")
-    public String getEtasje(HttpServletRequest request) throws Exception {
+    
+    @RequestMapping(value = "/etasjeVis", method = RequestMethod.POST)
+    public ModelAndView getEtasje(@RequestParam String etasje) throws Exception {
         String url = "";
-        switch ((String)request.getAttribute("etasje")) {
-            case "1": url = "http://download1494.mediafire.com/rhyf8xwlqbcg/736fif9tr2s21zc/Plan1.png";
+
+        switch (etasje) {
+            case "1": url = "http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg";
                       break;
-            case "2": url = "http://download1499.mediafire.com/gni7oayaybjg/670c89ehc1w9b2o/Plan2.png";
+            case "2": url = "http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg";
                       break;
-            case "3": url = "http://download1508.mediafire.com/dlgbhd8hg4gg/ate3wife1pm8ysk/Plan3.png";
+            case "3": url = "http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg";
                       break;
-            case "4": url = "http://download1511.mediafire.com/dugykf55tsmg/kbjzj4ijm88nlv4/Plan4.png";
+            case "4": url = "http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg";
                       break;
         }
-        return url;
+        ModelAndView etasjeMV = new ModelAndView("testEtasje","etasjeLink", url);
+        return etasjeMV;
     }
-    */
-    
-    // public String visEtasje(@ModelAttribute("etasjeNr") String etasjeNr) {
     
     @RequestMapping(value = "/etasje", method = RequestMethod.POST)
-    public String visEtasje() {
+    public String visEtasjeValg() {
         return "etasje";
     }
     

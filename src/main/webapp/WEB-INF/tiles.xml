@@ -72,6 +72,12 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/bruker.jsp"/>
     </definition>
     
+    <definition name="testEtasje" extends="baseLayout">
+        <put-attribute name="title"  value="testEtasje"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/testEtasje.jsp"/>
+    </definition>
+    
     <definition name="login" extends="emptyLayout">
         <put-attribute name="title"  value="Logg inn"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/>      

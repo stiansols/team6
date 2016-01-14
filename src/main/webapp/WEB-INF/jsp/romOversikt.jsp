@@ -26,7 +26,7 @@
     </head>
     <body>
         
-        <form id='valg' name="valgtEtasje" action='etasje' method='POST'>
+        <form id='valg' name="valg" action='etasjeVis' method='POST'>
         <span><img src="http://www.mediafire.com/convkey/7341/3y5wa1ysyaj5ty9zg.jpg" alt="Boks" id="4" class="midt" onclick='visEtasje(4)'></span>
         <br>
         <span><img src="http://www.mediafire.com/convkey/6628/30fbjp257hyss80zg.jpg" alt="Boks" id="3" class="midt" onclick='visEtasje(3)'></span>
@@ -36,11 +36,12 @@
         <span><img src="http://www.mediafire.com/convkey/1119/10bh6w8hz6gh3puzg.jpg" alt="Boks" id="1" class="midt" onclick='visEtasje(1)'></span>
         <input type='hidden' name='etasje'>
         </form>
-            
+        
         <script>
             function visEtasje(etasje) {
                 window.alert("Du trykket på " + etasje);
-                oFormObject.elements["valg"].value = etasje;
+
+                document.forms["valg"]["etasje"].value = etasje;
                 document.forms["valg"].submit();
             }
         </script>
