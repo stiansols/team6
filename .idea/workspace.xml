@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ad270744-a433-4fc7-9325-ae35e79f2c1f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp" />
     </list>
     <ignored path="src.iws" />
@@ -30,18 +29,35 @@
       <file leaf-file-name="bruker.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/bruker.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.766666">
-              <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
+            <state vertical-scroll-proportion="-7.8">
+              <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Kontroller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/demo/kontroller/Kontroller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="353" column="5" selection-start-line="353" selection-start-column="5" selection-end-line="353" selection-end-column="5" />
+              <folding>
+                <element signature="e#1657#1658#0" expanded="true" />
+                <element signature="e#1687#1688#0" expanded="true" />
+                <element signature="e#3090#3091#0" expanded="true" />
+                <element signature="e#3135#3136#0" expanded="true" />
+                <element signature="e#3193#3194#0" expanded="true" />
+                <element signature="e#3226#3227#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.5757575">
-              <caret line="27" column="110" selection-start-line="27" selection-start-column="110" selection-end-line="27" selection-end-column="110" />
+            <state vertical-scroll-proportion="0.6710183">
+              <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -57,21 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiles.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6268657">
-              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.233333">
-              <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+            <state vertical-scroll-proportion="-12.566667">
+              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -81,30 +87,30 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/database/DbConnection.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="477" column="31" selection-start-line="477" selection-start-column="31" selection-end-line="477" selection-end-column="31" />
+              <caret line="491" column="31" selection-start-line="491" selection-start-column="31" selection-end-line="491" selection-end-column="31" />
               <folding>
-                <marker date="1452704721187" expanded="true" signature="2772:2789" placeholder="SELECT * FRO... rom" />
-                <marker date="1452704721187" expanded="true" signature="4025:4045" placeholder="SELECT * FRO... bruker" />
-                <marker date="1452704721187" expanded="true" signature="4792:4848" placeholder="SELECT * FRO... bruker" />
-                <marker date="1452704721187" expanded="true" signature="5439:5496" placeholder="SELECT * FRO... booking" />
-                <marker date="1452704721187" expanded="true" signature="6069:6134" placeholder="SELECT * FRO... personligavtale" />
-                <marker date="1452704721187" expanded="true" signature="6853:6870" placeholder="SELECT * FRO... fag" />
-                <marker date="1452704721187" expanded="true" signature="7487:7547" placeholder="INSERT INTO fag... " />
-                <marker date="1452704721187" expanded="true" signature="8005:8054" placeholder="DELETE FROM " />
-                <marker date="1452704721187" expanded="true" signature="8585:8707" placeholder="INSERT INTO bruker... " />
-                <marker date="1452704721187" expanded="true" signature="9142:9198" placeholder="DELETE FROM " />
-                <marker date="1452704721187" expanded="true" signature="9675:9810" placeholder="UPDATE bruke... " />
-                <marker date="1452704721187" expanded="true" signature="10267:10358" placeholder="UPDATE bruke... " />
-                <marker date="1452704721187" expanded="true" signature="11350:11418" placeholder="DELETE FROM " />
-                <marker date="1452704721187" expanded="true" signature="11975:12037" placeholder="SELECT passo... bruker" />
-                <marker date="1452704721187" expanded="true" signature="12477:12818" placeholder="SELECT `COLU... COLUMNS" />
-                <marker date="1452704721187" expanded="true" signature="13177:13245" placeholder="INSERT INTO missingValue... " />
-                <marker date="1452704721187" expanded="true" signature="14068:14101" placeholder="SELECT * FRO... rom" />
-                <marker date="1452704721187" expanded="true" signature="15227:15277" placeholder="SELECT * FRO... rom" />
-                <marker date="1452704721187" expanded="true" signature="16370:16386" placeholder="select* from... rom" />
-                <marker date="1452704721187" expanded="true" signature="18705:18764" placeholder="SELECT * fro... bruker" />
-                <marker date="1452704721187" expanded="true" signature="20581:20635" placeholder="select* from... booking" />
-                <marker date="1452704721187" expanded="true" signature="22669:22857" placeholder="INSERT INTO booking... " />
+                <marker date="1452766380198" expanded="true" signature="2772:2789" placeholder="SELECT * FRO... rom" />
+                <marker date="1452766380198" expanded="true" signature="4025:4045" placeholder="SELECT * FRO... bruker" />
+                <marker date="1452766380198" expanded="true" signature="4792:4848" placeholder="SELECT * FRO... bruker" />
+                <marker date="1452766380198" expanded="true" signature="5439:5496" placeholder="SELECT * FRO... booking" />
+                <marker date="1452766380198" expanded="true" signature="6069:6134" placeholder="SELECT * FRO... personligavtale" />
+                <marker date="1452766380198" expanded="true" signature="6853:6870" placeholder="SELECT * FRO... fag" />
+                <marker date="1452766380198" expanded="true" signature="7487:7547" placeholder="INSERT INTO fag... " />
+                <marker date="1452766380198" expanded="true" signature="8005:8054" placeholder="DELETE FROM " />
+                <marker date="1452766380198" expanded="true" signature="8585:8707" placeholder="INSERT INTO bruker... " />
+                <marker date="1452766380198" expanded="true" signature="9142:9198" placeholder="DELETE FROM " />
+                <marker date="1452766380198" expanded="true" signature="9675:9810" placeholder="UPDATE bruke... " />
+                <marker date="1452766380198" expanded="true" signature="10267:10358" placeholder="UPDATE bruke... " />
+                <marker date="1452766380198" expanded="true" signature="11350:11418" placeholder="DELETE FROM " />
+                <marker date="1452766380198" expanded="true" signature="11975:12037" placeholder="SELECT passo... bruker" />
+                <marker date="1452766380198" expanded="true" signature="12477:12818" placeholder="SELECT `COLU... COLUMNS" />
+                <marker date="1452766380198" expanded="true" signature="13177:13245" placeholder="INSERT INTO missingValue... " />
+                <marker date="1452766380198" expanded="true" signature="14068:14101" placeholder="SELECT * FRO... rom" />
+                <marker date="1452766380198" expanded="true" signature="15227:15277" placeholder="SELECT * FRO... rom" />
+                <marker date="1452766380198" expanded="true" signature="16370:16386" placeholder="select* from... rom" />
+                <marker date="1452766380198" expanded="true" signature="18705:18764" placeholder="SELECT * fro... bruker" />
+                <marker date="1452766380198" expanded="true" signature="21129:21183" placeholder="select* from... booking" />
+                <marker date="1452766380198" expanded="true" signature="23217:23405" placeholder="INSERT INTO booking... " />
               </folding>
             </state>
           </provider>
@@ -147,13 +153,13 @@
         <option value="$PROJECT_DIR$/main/webapp/index.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/registrerBruker.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/innstillinger.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/demo/kontroller/Kontroller.java" />
         <option value="$PROJECT_DIR$/src/main/java/Klasser/Bruker.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/bruker.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/database/DbConnection.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/demo/kontroller/Kontroller.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp" />
       </list>
     </option>
   </component>
@@ -1005,12 +1011,12 @@
       <workItem from="1451997995829" duration="1229000" />
       <workItem from="1452075207150" duration="1330000" />
       <workItem from="1452516396132" duration="23059000" />
-      <workItem from="1452680041114" duration="18826000" />
+      <workItem from="1452680041114" duration="23184000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47351000" />
+    <option name="totallyTimeSpent" value="51709000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
@@ -1018,7 +1024,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3381535" sideWeight="0.5021436" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2580645" sideWeight="0.49785638" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25472748" sideWeight="0.49785638" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1033,7 +1039,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3337041" sideWeight="0.49785638" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4638487" sideWeight="0.49785638" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33440515" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1292,30 +1298,30 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/database/DbConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="477" column="31" selection-start-line="477" selection-start-column="31" selection-end-line="477" selection-end-column="31" />
+          <caret line="491" column="31" selection-start-line="491" selection-start-column="31" selection-end-line="491" selection-end-column="31" />
           <folding>
-            <marker date="1452704721187" expanded="true" signature="2772:2789" placeholder="SELECT * FRO... rom" />
-            <marker date="1452704721187" expanded="true" signature="4025:4045" placeholder="SELECT * FRO... bruker" />
-            <marker date="1452704721187" expanded="true" signature="4792:4848" placeholder="SELECT * FRO... bruker" />
-            <marker date="1452704721187" expanded="true" signature="5439:5496" placeholder="SELECT * FRO... booking" />
-            <marker date="1452704721187" expanded="true" signature="6069:6134" placeholder="SELECT * FRO... personligavtale" />
-            <marker date="1452704721187" expanded="true" signature="6853:6870" placeholder="SELECT * FRO... fag" />
-            <marker date="1452704721187" expanded="true" signature="7487:7547" placeholder="INSERT INTO fag... " />
-            <marker date="1452704721187" expanded="true" signature="8005:8054" placeholder="DELETE FROM " />
-            <marker date="1452704721187" expanded="true" signature="8585:8707" placeholder="INSERT INTO bruker... " />
-            <marker date="1452704721187" expanded="true" signature="9142:9198" placeholder="DELETE FROM " />
-            <marker date="1452704721187" expanded="true" signature="9675:9810" placeholder="UPDATE bruke... " />
-            <marker date="1452704721187" expanded="true" signature="10267:10358" placeholder="UPDATE bruke... " />
-            <marker date="1452704721187" expanded="true" signature="11350:11418" placeholder="DELETE FROM " />
-            <marker date="1452704721187" expanded="true" signature="11975:12037" placeholder="SELECT passo... bruker" />
-            <marker date="1452704721187" expanded="true" signature="12477:12818" placeholder="SELECT `COLU... COLUMNS" />
-            <marker date="1452704721187" expanded="true" signature="13177:13245" placeholder="INSERT INTO missingValue... " />
-            <marker date="1452704721187" expanded="true" signature="14068:14101" placeholder="SELECT * FRO... rom" />
-            <marker date="1452704721187" expanded="true" signature="15227:15277" placeholder="SELECT * FRO... rom" />
-            <marker date="1452704721187" expanded="true" signature="16370:16386" placeholder="select* from... rom" />
-            <marker date="1452704721187" expanded="true" signature="18705:18764" placeholder="SELECT * fro... bruker" />
-            <marker date="1452704721187" expanded="true" signature="20581:20635" placeholder="select* from... booking" />
-            <marker date="1452704721187" expanded="true" signature="22669:22857" placeholder="INSERT INTO booking... " />
+            <marker date="1452766380198" expanded="true" signature="2772:2789" placeholder="SELECT * FRO... rom" />
+            <marker date="1452766380198" expanded="true" signature="4025:4045" placeholder="SELECT * FRO... bruker" />
+            <marker date="1452766380198" expanded="true" signature="4792:4848" placeholder="SELECT * FRO... bruker" />
+            <marker date="1452766380198" expanded="true" signature="5439:5496" placeholder="SELECT * FRO... booking" />
+            <marker date="1452766380198" expanded="true" signature="6069:6134" placeholder="SELECT * FRO... personligavtale" />
+            <marker date="1452766380198" expanded="true" signature="6853:6870" placeholder="SELECT * FRO... fag" />
+            <marker date="1452766380198" expanded="true" signature="7487:7547" placeholder="INSERT INTO fag... " />
+            <marker date="1452766380198" expanded="true" signature="8005:8054" placeholder="DELETE FROM " />
+            <marker date="1452766380198" expanded="true" signature="8585:8707" placeholder="INSERT INTO bruker... " />
+            <marker date="1452766380198" expanded="true" signature="9142:9198" placeholder="DELETE FROM " />
+            <marker date="1452766380198" expanded="true" signature="9675:9810" placeholder="UPDATE bruke... " />
+            <marker date="1452766380198" expanded="true" signature="10267:10358" placeholder="UPDATE bruke... " />
+            <marker date="1452766380198" expanded="true" signature="11350:11418" placeholder="DELETE FROM " />
+            <marker date="1452766380198" expanded="true" signature="11975:12037" placeholder="SELECT passo... bruker" />
+            <marker date="1452766380198" expanded="true" signature="12477:12818" placeholder="SELECT `COLU... COLUMNS" />
+            <marker date="1452766380198" expanded="true" signature="13177:13245" placeholder="INSERT INTO missingValue... " />
+            <marker date="1452766380198" expanded="true" signature="14068:14101" placeholder="SELECT * FRO... rom" />
+            <marker date="1452766380198" expanded="true" signature="15227:15277" placeholder="SELECT * FRO... rom" />
+            <marker date="1452766380198" expanded="true" signature="16370:16386" placeholder="select* from... rom" />
+            <marker date="1452766380198" expanded="true" signature="18705:18764" placeholder="SELECT * fro... bruker" />
+            <marker date="1452766380198" expanded="true" signature="21129:21183" placeholder="select* from... booking" />
+            <marker date="1452766380198" expanded="true" signature="23217:23405" placeholder="INSERT INTO booking... " />
           </folding>
         </state>
       </provider>
@@ -1328,34 +1334,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.233333">
-          <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/demo/kontroller/Kontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36027715">
-          <caret line="116" column="28" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/bruker.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.766666">
-          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5757575">
-          <caret line="27" column="110" selection-start-line="27" selection-start-column="110" selection-end-line="27" selection-end-column="110" />
+        <state vertical-scroll-proportion="0.6268657">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -1368,10 +1350,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/oppdaterPersonlig.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6268657">
-          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        <state vertical-scroll-proportion="-1.2723881">
+          <caret line="94" column="33" selection-start-line="94" selection-start-column="33" selection-end-line="94" selection-end-column="33" />
+          <folding>
+            <element signature="e#3662#4469#2#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/demo/kontroller/Kontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="353" column="5" selection-start-line="353" selection-start-column="5" selection-end-line="353" selection-end-column="5" />
+          <folding>
+            <element signature="e#1657#1658#0" expanded="true" />
+            <element signature="e#1687#1688#0" expanded="true" />
+            <element signature="e#3090#3091#0" expanded="true" />
+            <element signature="e#3135#3136#0" expanded="true" />
+            <element signature="e#3193#3194#0" expanded="true" />
+            <element signature="e#3226#3227#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/bruker.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.8">
+          <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.566667">
+          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6710183">
+          <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
           <folding />
         </state>
       </provider>

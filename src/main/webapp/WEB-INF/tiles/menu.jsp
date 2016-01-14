@@ -34,15 +34,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <i class="fa fa-lock"></i>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Logg ut</h4>
             </div>
             <div class="modal-body">
+                <i class="fa fa-question-circle"></i>
                 <p>Er du sikker på at du vil logge ut?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-toggle="modal" href="<c:url value="index"/>">Logg ut</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button>
+                <a class="btn btn-primary" href="<c:url value="index"/>">Logg ut</a>
+                <a class="btn btn-default" data-dismiss="modal">Avbryt</a>
             </div>
         </div>
     </div>
