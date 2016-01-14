@@ -166,18 +166,18 @@ public class Kontroller {
         
         ArrayList<Rom> q = new ArrayList<>();
         try{
-            
+
             q = et.hentRom(q);
             et.close();
          for(int i = 0; i < q.size(); i++){
             alleRom.add(q.get(i).getRomnr());
-            
+
         }
-                 
+
         }catch(SQLException e ){
             System.out.println(e + " fail");
         }
-        
+
 
             return alleRom;
     }

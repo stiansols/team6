@@ -21,6 +21,7 @@
                 <br>
                 <br>
                 <br>
+                <div>Navn: ${person.getNavn()}</div>
                 <div>Brukernavn: ${person.getBrukernavn()} </div>
                 <div>E-post: ${person.getMail()} </div>
                 <div>Brukertype: ${person.printBrukerType()}</div>
