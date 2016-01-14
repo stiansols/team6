@@ -20,6 +20,7 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
+        
         <style>
             body{
                
@@ -42,6 +43,24 @@
 
 .table-striped tbody tr.highlight td { background-color: #0066cc }
 
+
+        .dual-list .list-group {
+            margin-top: 8px;
+        }
+
+        .list-left li, .list-right li {
+            cursor: pointer;
+        }
+
+        .list-arrows {
+            padding-top: 5px;
+        }
+
+            .list-arrows button {
+                margin-bottom: 20px;
+            }
+
+
         </style>
 	<style type="text/css">
 	.bs-example{
@@ -57,6 +76,7 @@
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#brukerFane">Brukere</a></li>
         <li><a href="#fagFane">Fag</a></li>
+         <li><a href="#fagStudent">Oversikt</a></li>
         
     </ul>
     <div class="tab-content">
@@ -104,7 +124,7 @@
                         </tbody>
             </table>
         
-     <a class="btn btn-default col-lg-6 col-xs-6 well" role="button" href="<c:url value="registrerBruker"/>">Registrer ny bruker</a>
+     <a class="btn btn-default col-lg-6 col-xs-6" role="button" href="<c:url value="registrerBruker"/>">Registrer ny bruker</a>
         
         
         <div class="container">
@@ -180,8 +200,8 @@
         <div id="fagFane" class="tab-pane fade">
             
         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->  
-        
-        <table id="fagTabell" class="table table-striped table-bordered results">
+        <div container>
+        <table id="fagTabell" class="table table-hover table-bordered results col-lg-12">
    
                     <thead>
                         <tr>
@@ -203,15 +223,233 @@
                                 
                         </tbody>
             </table>
+        </div>
         
-   <!--  <a class="btn btn-default col-lg-6 col-xs-6" role="button" href="<c:url value="registrerBruker"/>">Legg til fag</a> -->
+        
+        <button class="btn btn-default col-lg-6 col-xs-6" onclick="visLeggTilFagModal()">Legg til fag</button>
+        
+        
+        </div>
+     
+     <div id="fagStudent" class="tab-pane fade">
+            
+         <div container>
+           <div class="col-lg-4">
+            <table id="fagTabell2" class="table table-hover table-bordered results">
+   
+                    <thead>
+                        <tr>
+                                <th>Fagkode</th>                              
+                        </tr>
+        
+                    </thead>
+                    
+                        <tbody>
+                            
+           <c:forEach items="${alleFag}" var="fag">                 
+                            <tr>
+                                <td>${fag.getFagkode()}</td> 
+                            </tr>  
+                                
+        </c:forEach>
+                                
+                        </tbody>
+            </table>
+           </div>
+            
+     <!--      <div class="col-lg-6">
+           <table id="klasseTabell" class="table table-hover table-bordered results">
+   
+                    <thead>
+                        <tr>
+                                <th>Studenter</th>                              
+                        </tr>
+        
+                    </thead>
+                    
+                        <tbody>
+                            
+           <c:forEach items="${alleStudIFag}" var="stud">                 
+                            <tr>
+                                <td>${stud}</td> 
+                            </tr>  
+                                
+        </c:forEach>
+                                
+                        </tbody>
+            </table>
+           </div> 
+     -->      
+        </div> 
+        
+        
+   <div class="container">
+    <br />
+	<div class="row">
+
+        <div class="dual-list list-left col-md-4">
+            <div class="well text-left">
+                <h5><b>Tar fag</b></h5>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="input-group">  
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="Søk" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            <a class="btn btn-default selector" title="velg alle"><i class="glyphicon glyphicon-unchecked"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">brukernavn6</li>
+                    <li class="list-group-item">brukernavn7</li>
+                    <li class="list-group-item">brukernavn8</li>
+                    <li class="list-group-item">brukernavn9</li>
+                    <li class="list-group-item">brukernavn10</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="list-arrows col-md-1 text-center">
+            <button class="btn btn-default btn-sm move-left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+
+            <button class="btn btn-default btn-sm move-right">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+
+        <div class="dual-list list-right col-md-4">
+            <div class="well text-left">
+                <h5><b>Tar ikke fag</b></h5>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            <a class="btn btn-default selector" title="velg alle"><i class="glyphicon glyphicon-unchecked"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="søk" />
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">brukernavn1</li>
+                    <li class="list-group-item">brukernavn2</li>
+                    <li class="list-group-item">brukernavn3</li>
+                    <li class="list-group-item">brukernavn4</li>
+                    <li class="list-group-item">brukernavn5</li>
+                </ul>
+            </div>
+        </div>
+
+	</div>
+</div>
+       
+        
+       
+        
         
      <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->   
         
         </div>
         
     </div>
+   
+   
+   <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="leggTilFagModal" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Legg til nytt fag</h4>
+                  </div>
+                  <div class="modal-body">
+                     
+                      <form:form class = "form-horizontal" method="POST" modelAttribute="nyttFagForm" name="leggTilFag" action="admin">
+                          <div class="row">
+                            <label for="fagkodeLabel" class="col-lg-4 control-label">Fagkode</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="fagkode" id="fagkode" value=""/>
+                                </div>
+                          </div>
+                      
+                            <div class="row">
+                                        <label for="navnLabel" class="col-lg-4 control-label">Navn</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" name="navn" id="navn" value=""/>
+                                            </div>
+                                  </div>
+                      
+             
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-default" formaction="leggTil">Legg til fag</button> 
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                  </div>
+                          
+                         </form:form> 
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         
+     
+     <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="slettFagModal" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Slett fag</h4>
+                  </div>
+                  <div class="modal-body">
+                     
+                      <form:form class = "form-horizontal" method="POST" modelAttribute="slettFagForm" name="slettFag" action="admin">
+                          <div class="row">
+                            <label for="fagkodeLabel" class="col-lg-4 control-label">Fagkode</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="fagkode" id="fagkode" value="" readonly/>
+                                </div>
+                          </div>
+                      
+                            <div class="row">
+                                        <label for="navnLabel" class="col-lg-4 control-label">Navn</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" name="navn" id="navn" value="" readonly/>
+                                            </div>
+                                  </div>
+                      
+             
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-default" formaction="slettFag">Slett fag</button> 
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                  </div>
+                          
+                         </form:form> 
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+     
         
                           <!-- Latest compiled and minified JavaScript -->
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -251,9 +489,56 @@
     	e.preventDefault();
     	$(this).tab('show');
     });
+    
+    
+    $('body').on('click', '.list-group .list-group-item', function () {
+                $(this).toggleClass('active');
+            });
+            $('.list-arrows button').click(function () {
+                var $button = $(this), actives = '';
+                if ($button.hasClass('move-left')) {
+                    actives = $('.list-right ul li.active');
+                    actives.clone().appendTo('.list-left ul');
+                    actives.remove();
+                } else if ($button.hasClass('move-right')) {
+                    actives = $('.list-left ul li.active');
+                    actives.clone().appendTo('.list-right ul');
+                    actives.remove();
+                }
+            });
+            $('.dual-list .selector').click(function () {
+                var $checkBox = $(this);
+                if (!$checkBox.hasClass('selected')) {
+                    $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                } else {
+                    $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                }
+            });
+            $('[name="SearchDualList"]').keyup(function (e) {
+                var code = e.keyCode || e.which;
+                if (code === '9') return;
+                if (code === '27') $(this).val(null);
+                var $rows = $(this).closest('.dual-list').find('.list-group li');
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $rows.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
+
                   
 });
-  
+
+    function visLeggTilFagModal(){
+      $('#leggTilFagModal').modal('show');
+      
+    }
+    
+    function byttTab(){
+        $('#myTab a[href="#fagFane"]').tab('show');
+    }
     
     function onClickBrukertabell() {
     var table = document.getElementById("brukerTabell");
@@ -269,6 +554,7 @@
                                         var cell3 = row.getElementsByTagName("td")[2];
                                        // var cell4 = row.getElementsByTagName("td")[3];
                                         var cell5 = row.getElementsByTagName("td")[4];
+                                        
                                         
                                         var id = cell.innerHTML;
                                         var bType = cell2.innerHTML;
@@ -309,14 +595,11 @@ window.onload = onClickBrukertabell();
                                         var fagkode = cell.innerHTML;
                                         var navn = cell2.innerHTML;
    
-   
-
-                        /*                //alert("id:" + id);
-                                        $(".modal-body #brukernavn").val( fagkode );
-                                        $(".modal-body #brukertype").val( navn );
+                                        $(".modal-body #fagkode").val( fagkode );
+                                        $(".modal-body #navn").val( navn );
                                         
-                                        $('#visFagModal').modal('show');
-                          */              
+                                        $('#slettFagModal').modal('show');
+                                       
                                         
                                  };
             };
@@ -326,6 +609,52 @@ window.onload = onClickBrukertabell();
 }
  window.onload = onClickFagtabell();
  
+ 
+ 
+ 
+ function onClickFagtabell2() {
+    var table = document.getElementById("fagTabell2");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = 
+            function(row) 
+            {
+                return function() { 
+                                        var cell = row.getElementsByTagName("td")[0];
+                                        
+                                        var fagkode = cell.innerHTML;
+                                        
+                                        alert(fagkode);
+                                        
+                      /*             var data = { 
+                                            fagkode : fagkode
+                                          
+                                     }
+                                     
+                                     $.ajax({
+                                            type: "POST",
+                                            url: "velgFag",
+                                            data: data,
+                                            success: function (result) {
+                                                // do something.
+                                            },
+                                            error: function (result) {
+                                                // do something.
+                                            }
+                                        });
+                                      */      
+                                        
+                                 };
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+ window.onload = onClickFagtabell2();
+
+
+        
 
  
 </script>

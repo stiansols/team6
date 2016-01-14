@@ -126,6 +126,19 @@ public class DbConnection {
                 }
                 return b;
             }
+            
+            public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception{
+                ArrayList<String> studenter = new ArrayList();
+                resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
+                
+                while(resultSet.next()){
+                    String brukernavn = resultSet.getString("brukernavn");
+                    studenter.add(brukernavn);
+                }
+                
+                return studenter;
+            }
+            
              public ArrayList<Fag> hentAlleFag() throws Exception {
                  
                  resultSet = statement.executeQuery("SELECT * FROM fag");

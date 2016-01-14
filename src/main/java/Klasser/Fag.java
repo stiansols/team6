@@ -15,6 +15,10 @@ public class Fag {
     private String navn;
     private ArrayList<Student> elever = new ArrayList<Student>();
     private ArrayList<Ansatt> lærere = new ArrayList<Ansatt>();
+    
+    public Fag(){
+        
+    }
 
     public Fag(String fagkode, String navn) {
         this.fagkode = fagkode;

@@ -18,6 +18,8 @@ import database.DbConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -238,7 +240,60 @@ public class Kontroller {
         return "redirect:admin";
     }
     
+     @RequestMapping(value="/leggTil", method=RequestMethod.POST)
+    public String leggTilFag(@ModelAttribute(value= "nyttFagForm") Fag fag)throws SQLException{
+        DbConnection db = new DbConnection();
+        
+        db.leggTilFag(fag.getFagkode(), fag.getNavn());
+        
+        db.close();
+        return "redirect:admin";
+        
+    }
     
+     @RequestMapping(value="/slettFag", method=RequestMethod.POST)
+    public String slettFag(@ModelAttribute(value= "slettFagForm") Fag fag)throws SQLException{
+        DbConnection db = new DbConnection();
+        
+        db.slettFag(fag.getFagkode());
+        
+        db.close();
+        return "redirect:admin";
+        
+    }
+   
+    @ModelAttribute("alleStudIFag")
+    public ArrayList getStudIFag(String fagkode) throws SQLException, Exception
+    {
+        ArrayList<String> studenter = new ArrayList();
+        DbConnection db = new DbConnection();
     
-
+        try{
+            studenter = db.hentStudenterIFag("IT-01");
+            db.close();
+                 
+        }catch(SQLException e ){
+            System.out.println(e + " fail");
+        }
+        
+       return studenter;
+    }
+   
+   /* 
+    @RequestMapping(value="/velgFag", method=RequestMethod.POST)
+    public String velgFag(@RequestParam("data") String id )throws SQLException{
+        DbConnection db = new DbConnection();
+        ArrayList<String> studenter = new ArrayList();
+        
+        try {
+            studenter = db.hentStudenterIFag(id);
+        } catch (Exception ex) {
+           
+        }
+        
+        db.close();
+        return "redirect:admin";
+        
+    }
+*/
 }
