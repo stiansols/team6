@@ -28,63 +28,25 @@ public class DbConnection {
         private ResultSet resultSet = null;
         private PreparedStatement preparedStatement = null;
         
-        public DbConnection()throws SQLException{
-            appContext = new ClassPathXmlApplicationContext("beans.xml");
-            dataSource = (DataSource) appContext.getBean("dataSource");
-            connection = dataSource.getConnection();
-            statement = connection.createStatement();
+        public DbConnection(){
+            try{
+                    appContext = new ClassPathXmlApplicationContext("beans.xml");
+                    dataSource = (DataSource) appContext.getBean("dataSource");
+                    connection = dataSource.getConnection();
+                    statement = connection.createStatement();    
+            }catch(SQLException e){
+                
+            }
+            
         
-        }
-        
-        public void opprettForbindelse() throws SQLException{
-            appContext = new ClassPathXmlApplicationContext("beans.xml");
-            dataSource = (DataSource) appContext.getBean("dataSource");
-            connection = dataSource.getConnection();
-            statement = connection.createStatement();
         }
    
         public void executeUpdate(String query)throws Exception, SQLException {
-       
-         try{
              statement.executeUpdate(query);
             
-         }catch(SQLException e){
-             
-         }finally{
-              if(connection != null){
-        try{
-            connection.close();
-        }catch(SQLException e){
-        }
-       }
-        if(statement != null){
-        try{
-            statement.close();
-        }catch(SQLException e){   
-        }
-        }
-        if(preparedStatement != null){
-        try{
-          preparedStatement.close();       
-                     }
-                 catch(SQLException e){        
-                             }
-        }
-        if(resultSet != null){
-        try{
-         resultSet.close();  
-                     }  
-                 catch(SQLException e){           
-                             }
-       }
          }
-            
-            
-        }
-            
-            public ArrayList hentRom(ArrayList<Rom> a) throws Exception, SQLException{
-             
-                try{
+     
+        public ArrayList hentRom(ArrayList<Rom> a) throws Exception, SQLException{
                     resultSet = statement.executeQuery("SELECT * FROM rom");
                     Rom r ;
                 while(resultSet.next()) {
@@ -106,43 +68,11 @@ public class DbConnection {
                     System.out.println(a.get(i));
                 }
                 return a;        
-                } catch(Exception e){
-                    
-                } finally{
-                    if(connection != null){
-        try{
-            connection.close();
-        }catch(SQLException e){
-        }
-       }
-        if(statement != null){
-        try{
-            statement.close();
-        }catch(SQLException e){   
-        }
-        }
-        if(preparedStatement != null){
-        try{
-          preparedStatement.close();       
-                     }
-                 catch(SQLException e){        
-                             }
-        }
-        if(resultSet != null){
-        try{
-         resultSet.close();  
-                     }  
-                 catch(SQLException e){           
-                             }
-       }
-                }
-                return null;
-            
+         
             }
             
             public ArrayList<Bruker> hentAlleBrukere() throws Exception, SQLException{
                 ArrayList<Bruker> liste = new ArrayList();
-                try{
                     resultSet = statement.executeQuery("SELECT * FROM bruker");
                 Bruker b;
                 while(resultSet.next()){
@@ -156,42 +86,11 @@ public class DbConnection {
                     liste.add(b);
                 }
                 return liste;
-                } catch(SQLException e){
-                    
-                } finally{
-                    if(connection != null){
-        try{
-            connection.close();
-        }catch(SQLException e){
-        }
-       }
-        if(statement != null){
-        try{
-            statement.close();
-        }catch(SQLException e){   
-        }
-        }
-        if(preparedStatement != null){
-        try{
-          preparedStatement.close();       
-                     }
-                 catch(SQLException e){        
-                             }
-        }
-        if(resultSet != null){
-        try{
-         resultSet.close();  
-                     }  
-                 catch(SQLException e){           
-                             }
-       }
-                }
-                return null;
+                
             }
             
             public Bruker hentBruker(String brukernavn) throws Exception, SQLException{
-                try{
-                    resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '"+brukernavn+"'");
+                resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '"+brukernavn+"'");
                 Bruker b = null;
                 while(resultSet.next()){
                     String brukernavn1 = resultSet.getString("brukernavn");
@@ -222,43 +121,10 @@ public class DbConnection {
                     nyAvtale.setRomNr(resultSet.getString("romnr"));
                     b.setAvtaler(nyAvtale);
                 }
-                return b;
-                }catch(SQLException e){
-                    
-                } finally{
-                    if(connection != null){
-                                    try{
-                                        connection.close();
-                                    }catch(SQLException e){
-                                    }
-                                   }
-                                    if(statement != null){
-                                    try{
-                                        statement.close();
-                                    }catch(SQLException e){   
-                                    }
-                                    }
-                                    if(preparedStatement != null){
-                                    try{
-                                      preparedStatement.close();       
-                                                 }
-                                             catch(SQLException e){        
-                                                         }
-                                    }
-                                    if(resultSet != null){
-                                    try{
-                                     resultSet.close();  
-                                                 }  
-                                             catch(SQLException e){           
-                                                         }
-                                   }
-            
-                }
-                return null;
+                return b;     
             }
             
              public ArrayList<Fag> hentAlleFag() throws Exception, SQLException {
-                 try{
                      resultSet = statement.executeQuery("SELECT * FROM fag");
                  Fag fag = null;
                  ArrayList<Fag> alleFag = new ArrayList();
@@ -270,381 +136,71 @@ public class DbConnection {
                     alleFag.add(fag);
                  }
                  return alleFag;
-                 }catch(SQLException e){
-                     
-                 } finally{
-                            if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-            
-                 }
-                 return null;
+                
              }
             
              public void leggTilFag(String fagkode, String navn) throws Exception, SQLException{
-                 try{
                      preparedStatement = connection.prepareStatement("INSERT INTO fag values( '"+ fagkode + " ' , '"  + navn + "')");
                      preparedStatement.executeUpdate();
-                 } catch(SQLException e){
-                     // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
-                      System.out.println("FEIL: " + e);
-                 } finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
-             
+       
             }
              
              public void slettFag(String fagkode) throws Exception, SQLException{
-                 try{
                      preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");                                                             
                      preparedStatement.executeUpdate();
-                 } catch(SQLException e){
-                     // Gi en feilmelding til bruker...... 
-                      System.out.println("FEIL!: " + e);
-                 } finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
+                 
              }
            
              public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException{
-                 try{
                      preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('"+ brukernavn +"','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '"+ mail +"')");                                                             
                      preparedStatement.executeUpdate();  
-                 } catch(SQLException e){
-                     System.out.println("FEIL: " + e);
-                 } finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
                  
              }
              
              public void slettBruker(String brukernavn) throws Exception, SQLException{
-                 try{
                      preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '"+ brukernavn +"'");                                             
                      preparedStatement.executeUpdate();  
-                 } catch(SQLException e){
-                     System.out.println("FEIL: " + e);
-                 } finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
+                 
              }
              public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail) throws Exception, SQLException{
-                 preparedStatement = null;
-                 try{
+                     preparedStatement = null;
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
-                 } catch(SQLException e){
-                     System.out.println("FEIL oppdater bruker: " + e);
-                 }  finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
                  
              }
              
               public void oppdaterPassord(String brukernavn, String passord) throws Exception, SQLException{
-                 try{
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
-                 } catch(SQLException e){
-                     System.out.println("FEIL oppdater bruker: " + e);
-                 }  finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
+                 
              }
               
               public void oppdaterMail(String brukernavn, String mail) throws Exception, SQLException{
-                 preparedStatement = null;
-                 try{
+                     preparedStatement = null;
                      preparedStatement = connection.prepareStatement("UPDATE bruker SET mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
-                 } catch(SQLException e){
-                     System.out.println("FEIL oppdater bruker: " + e);
-                 }  finally{
-                      if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                 }
+                 
              }                
-              
-             
+      
             public void slett(String tabell, String pr_key, String keyValue) throws Exception, SQLException {
-                try{
                     String query = "DELETE FROM " + tabell + " WHERE " + pr_key + " = '" + keyValue + "'";
 
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
-                } catch(SQLException e){
-                    // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
-                     System.out.println("FEIL: " + e);
-                } finally{
-                     if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                }
+                
             }
             
             public String hentPassord(String brukernavn) throws Exception, SQLException{
                 String pass = "";
-                try{
                     resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '"+brukernavn+"'");
                     resultSet.next();
                     pass = resultSet.getString("passord");                             
-                }catch(Exception e){
-                        
-                } finally{
-                     if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                }
+               
                 return pass;
             }
             
         
             public void leggTil(String tabell, String[] values) throws Exception, SQLException{
-                try{
-                     
                     resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n" +
                                                                 "FROM `INFORMATION_SCHEMA`.`COLUMNS` \n" +
                                                                 "WHERE `TABLE_SCHEMA`='g_scrum_t6' \n" +
@@ -666,42 +222,11 @@ public class DbConnection {
                     System.out.println(query);
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
-                } catch(SQLException e){
-                    // Gi en feilmelding til bruker...... hvis f.eks faget finnes fra før osv.
-                     System.out.println("FEIL: " + e);
-                } finally{
-                     if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                }
+                
             }
             
             public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception, SQLException{
             ArrayList arr = new ArrayList();     
-            try{
                 resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
                 Rom r ;
                 while(resultSet.next()) {
@@ -717,42 +242,12 @@ public class DbConnection {
                     r.toString();
                     arr.add(r);
                 }
-                }catch(Exception e){
-                        
-                } finally{
-                 if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-            }
+                
             return arr;
             }
             
             public ArrayList<Rom> romSok(String romnavn)throws Exception, SQLException{
             ArrayList arr = new ArrayList();     
-            try{
                 resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%"+romnavn+"%'");
                 Rom r ;
                 while(resultSet.next()) {
@@ -768,36 +263,7 @@ public class DbConnection {
                     r.toString();
                     arr.add(r);
                 }
-                }catch(Exception e){
-                        
-                } finally{
-                 if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-            }
+               
             return arr;
             }
             
@@ -817,7 +283,6 @@ public class DbConnection {
             if(harProsjektor)query+= " and harProsjektor = true";
               
             ArrayList arr = new ArrayList();     
-            try{
                 resultSet = statement.executeQuery(query);
                 Rom r ;
                 while(resultSet.next()) {
@@ -833,37 +298,7 @@ public class DbConnection {
                     r.toString();
                     arr.add(r);
                 }
-                }catch(Exception e){
-                    System.out.println(e);
-                        
-                } finally{
-                 if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-            }
+              
             return arr;
             }
             
@@ -881,10 +316,8 @@ public class DbConnection {
     
     public Bruker loggInn(String brukernavn, String passord) throws Exception, SQLException{
                 Bruker bruker = null;
-                try{
                     String pass = hentPassord(brukernavn);
                 if(pass.equals(sha1(passord))){
-                    opprettForbindelse();
                     ResultSet res = statement.executeQuery("SELECT * from bruker where brukernavn = '" +brukernavn + "'");
                     
                     while(res.next()){
@@ -894,84 +327,21 @@ public class DbConnection {
                         String mail = res.getString("mail");
                     
                     bruker = new Bruker(brukernavn, brukertype, navn, pw, mail);
-                    
-                   return bruker;
+         
                     }
                 }
                     
-                } catch(SQLException e){
-                    
-            } finally{
-                    if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                            return bruker;
-                }
-    }
+                           return bruker;
+          }
     
     public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception, SQLException{
                 ArrayList<String> studenter = new ArrayList();
-                try{
                     resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
                 
                 while(resultSet.next()){
                     String brukernavn = resultSet.getString("brukernavn");
                     studenter.add(brukernavn);
                 }
-                }catch(SQLException e){
-                    
-                }finally{
-                        if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-                }
-                
                 return studenter;
             }
             
@@ -1006,10 +376,7 @@ public class DbConnection {
  
    }
   public ArrayList<Booking> hentBooking(String romnr) throws Exception, SQLException{
-               
                ArrayList bookinger = new ArrayList();
-               
-               try{
                 ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
                 
                 while(resultSet.next()){
@@ -1029,42 +396,11 @@ public class DbConnection {
                    System.out.println(b.getTiltid());
                 }
                 return bookinger;
-               }catch(SQLException e){
-                   System.out.println(e);
-               } finally{
-                   if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-               }
-              return null; 
+           
            }
     
         public boolean regBooking(String brukernavn,Booking b,int brukerType) throws Exception, SQLException{
             ArrayList<Booking> booking = hentBooking(b.getRomNummer());
-            opprettForbindelse();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
             Date dateFra = formatter.parse(b.getFratid());
             Date dateTil = formatter.parse(b.getTiltid());
@@ -1087,40 +423,10 @@ public class DbConnection {
                 }
                 
             }
-            try{
-                Statement statement = connection.createStatement();
-                String sql = "INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 90,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')";
-                statement.executeUpdate(sql);
-            }catch(SQLException e){
-                System.out.println(e);
-            } finally{
-                        if(connection != null){
-                            try{
-                                connection.close();
-                            }catch(SQLException e){
-                            }
-                           }
-                            if(statement != null){
-                            try{
-                                statement.close();
-                            }catch(SQLException e){   
-                            }
-                            }
-                            if(preparedStatement != null){
-                            try{
-                              preparedStatement.close();       
-                                         }
-                                     catch(SQLException e){        
-                                                 }
-                            }
-                            if(resultSet != null){
-                            try{
-                             resultSet.close();  
-                                         }  
-                                     catch(SQLException e){           
-                                                 }
-                           }
-            }
+ 
+                preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 90,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
+                preparedStatement.executeUpdate();
+                
            return true;         
         }
            
