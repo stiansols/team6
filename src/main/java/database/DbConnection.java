@@ -1,4 +1,6 @@
 package database;
+import Klasser.Avtale;
+import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
@@ -9,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
@@ -124,19 +127,27 @@ public class DbConnection {
                     
                     b = new Bruker(brukernavn1, brukertype, navn, passord, mail);
                 }
-                return b;
-            }
-            
-            public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception{
-                ArrayList<String> studenter = new ArrayList();
-                resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
-                
+                resultSet = statement.executeQuery("SELECT * FROM booking where brukernavn = '"+brukernavn+"'");
                 while(resultSet.next()){
-                    String brukernavn = resultSet.getString("brukernavn");
-                    studenter.add(brukernavn);
+                    Booking nyBooking = new Booking();
+                    nyBooking.setBookingId(resultSet.getInt("bookingID"));
+                    nyBooking.setFratid(resultSet.getTimestamp("fratid"));
+                    nyBooking.setTiltid(resultSet.getTimestamp("tiltid"));
+                    nyBooking.setBrukernavn(brukernavn);
+                    nyBooking.setRomNummer(resultSet.getString("romnr"));
+                    b.setBookinger(nyBooking);
                 }
-                
-                return studenter;
+                resultSet = statement.executeQuery("SELECT * FROM personligavtale where brukernavn = '"+brukernavn+"'");
+                while(resultSet.next()){
+                    Avtale nyAvtale = new Avtale();
+                    nyAvtale.setId(resultSet.getInt("avtaleId"));
+                    nyAvtale.setStartTid(resultSet.getTimestamp("fratid"));
+                    nyAvtale.setSluttTid(resultSet.getTimestamp("tiltid"));
+                    nyAvtale.setBeskrivelse(resultSet.getString("beskrivelse"));
+                    nyAvtale.setRomNr(resultSet.getString("romnr"));
+                    b.setAvtaler(nyAvtale);
+                }
+                return b;
             }
             
              public ArrayList<Fag> hentAlleFag() throws Exception {
@@ -212,6 +223,17 @@ public class DbConnection {
                      System.out.println("FEIL oppdater bruker: " + e);
                  }  
              }
+              
+              public void oppdaterMail(String brukernavn, String mail){
+                 preparedStatement = null;
+                 try{
+                     preparedStatement = connection.prepareStatement("UPDATE bruker SET mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement.executeUpdate();  
+                 } catch(SQLException e){
+                     System.out.println("FEIL oppdater bruker: " + e);
+                 }  
+             }                
+              
              
             public void slett(String tabell, String pr_key, String keyValue) {
                 try{
@@ -392,6 +414,19 @@ public class DbConnection {
                 return null;
     }
     
+    public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception{
+                ArrayList<String> studenter = new ArrayList();
+                resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
+                
+                while(resultSet.next()){
+                    String brukernavn = resultSet.getString("brukernavn");
+                    studenter.add(brukernavn);
+                }
+                
+                return studenter;
+            }
+            
+    
     public void close(){
         if(connection != null){
         try{
@@ -434,5 +469,61 @@ public class DbConnection {
         
        
         
-   }    
-}
+   }
+  public ArrayList<Booking> hentBooking(String romnr){
+               
+               ArrayList bookinger = new ArrayList();
+               
+               try{
+                ResultSet resultSet = statement.executeQuery("select* from booking where romnummer = '" + romnr + "'");
+                
+                while(resultSet.next()){
+                    int bookingId = resultSet.getInt("bookingId");
+                    String brukernavn = resultSet.getString("brukernavn");
+                    Timestamp fratid = resultSet.getTimestamp("fratid");
+                    String romNummer = resultSet.getString("romnummer");
+                    Timestamp tiltid = resultSet.getTimestamp("tiltid");
+                    
+                   Booking b= new Booking();
+                   b.setBookingId(bookingId);
+                   b.setBrukernavn(brukernavn);
+                   b.setFratid(fratid);
+                   b.setRomNummer(romNummer);
+                   b.setTiltid(tiltid);
+                   bookinger.add(b);
+                   System.out.println(b.getTiltid());
+                }
+                return bookinger;
+               }catch(SQLException e){
+                   System.out.println(e);
+               }
+              return null; 
+           }
+    
+        public boolean regBooking(String brukernavn,Booking b){
+            ArrayList<Booking> booking = hentBooking(b.getRomNummer());
+            
+            for(int i =0; i<booking.size(); i++){
+               //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
+                
+                if(b.getFratid().after(booking.get(i).getFratid()) && b.getTiltid().before(booking.get(i).getTiltid())){
+                  /*if(bruker.getBrukertype() < b.getBrukertype(){
+                       String sql = "INSERT INTO booking (`bookingId`, `brukernavn`, `romNummer`, `fratid`, `tiltid`)values( NULL,'"+ brukernavn+ " ' , '"  + b.getRomNummer() + "'," +"'"+b.getFratid()+"', '"+b.getTiltid()+"')";
+                    }
+                    else return false;
+                    */ 
+                  return false;
+                }
+            }
+            try{
+                Statement statement = connection.createStatement();
+                String sql = "INSERT INTO booking (`bookingId`, `brukernavn`, `romNummer`, `fratid`, `tiltid`)values( NULL,'"+ brukernavn+ " ' , '"  + b.getRomNummer() + "'," +"'"+b.getFratid()+"', '"+b.getTiltid()+"')";
+                statement.executeUpdate(sql);
+            }catch(SQLException e){
+                System.out.println(e);
+            }
+           return true;         
+        }
+           
+}    
+

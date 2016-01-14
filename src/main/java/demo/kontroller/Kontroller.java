@@ -18,8 +18,6 @@ import database.DbConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,6 +56,31 @@ public class Kontroller {
     @RequestMapping("/romOversikt")
     public String visRomOversikt(){
         return "romOversikt";   
+    }
+    
+    /*
+    @ModelAttribute("etasjeLink")
+    public String getEtasje(HttpServletRequest request) throws Exception {
+        String url = "";
+        switch ((String)request.getAttribute("etasje")) {
+            case "1": url = "http://download1494.mediafire.com/rhyf8xwlqbcg/736fif9tr2s21zc/Plan1.png";
+                      break;
+            case "2": url = "http://download1499.mediafire.com/gni7oayaybjg/670c89ehc1w9b2o/Plan2.png";
+                      break;
+            case "3": url = "http://download1508.mediafire.com/dlgbhd8hg4gg/ate3wife1pm8ysk/Plan3.png";
+                      break;
+            case "4": url = "http://download1511.mediafire.com/dugykf55tsmg/kbjzj4ijm88nlv4/Plan4.png";
+                      break;
+        }
+        return url;
+    }
+    */
+    
+    // public String visEtasje(@ModelAttribute("etasjeNr") String etasjeNr) {
+    
+    @RequestMapping(value = "/etasje", method = RequestMethod.POST)
+    public String visEtasje() {
+        return "etasje";
     }
     
     @RequestMapping("/test")
@@ -107,6 +130,14 @@ public class Kontroller {
                person.setBrukernavn(b.getBrukernavn());
                person.setNavn(b.getNavn());
                person.setMail(b.getMail());
+               person.setBrukertype(b.getBrukertype());
+               for(int i = 0; i < b.getBookingerListe().size(); i++){
+                   person.setBookinger(b.getBookingerListe().get(i));
+               }
+               for(int i = 0; i < b.getAvtaler().size(); i++){
+                   person.setAvtaler(b.getAvtaler().get(i));
+               }
+               
                db.close();
                return "index";
            }
@@ -240,7 +271,33 @@ public class Kontroller {
         return "redirect:admin";
     }
     
-     @RequestMapping(value="/leggTil", method=RequestMethod.POST)
+    @RequestMapping(value="/oppdaterMail", method=RequestMethod.POST)
+    public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        Bruker bruker = new Bruker();
+        bruker.setMail(email);
+        
+        et.oppdaterMail(person.getBrukernavn(), bruker.getMail());
+        et.close();
+        
+        return "redirect:admin";
+    }
+    
+    @RequestMapping(value="/oppdaterPassord", method=RequestMethod.POST)
+    public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException{
+
+        DbConnection et = new DbConnection();
+        Bruker bruker = new Bruker();
+        bruker.setPassord(passord);
+        
+        et.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
+        et.close();
+        
+        return "redirect:admin";
+    }      
+    
+    @RequestMapping(value="/leggTil", method=RequestMethod.POST)
     public String leggTilFag(@ModelAttribute(value= "nyttFagForm") Fag fag)throws SQLException{
         DbConnection db = new DbConnection();
         
@@ -296,4 +353,7 @@ public class Kontroller {
         
     }
 */
+    
+    
+
 }
