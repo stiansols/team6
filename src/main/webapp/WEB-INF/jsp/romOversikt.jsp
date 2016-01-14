@@ -27,13 +27,13 @@
     <body>
         
         <form id='valg' name="valgtEtasje" action='etasje' method='POST'>
-        <span><img src="http://download856.mediafire.com/zsdeh0tge4jg/4s71wq8c0c8qlxk/Plan4+v3.png" alt="Boks" id="4" class="midt" onclick='visEtasje(4)'></span>
+        <span><img src="http://download1980.mediafire.com/kla7i51kskig/3y5wa1ysyaj5ty9/Etasje4.png" alt="Boks" id="4" class="midt" onclick='visEtasje(4)'></span>
         <br>
-        <span><img src="http://download1647.mediafire.com/n4k1duee2brg/upncd8fz6s5j6zw/Plan3+v4.png" alt="Boks" id="3" class="midt" onclick='visEtasje(3)'></span>
+        <span><img src="http://download1651.mediafire.com/726vw3jv2kag/30fbjp257hyss80/Etasje3.png" alt="Boks" id="3" class="midt" onclick='visEtasje(3)'></span>
         <br>
-        <span><img src="http://download1512.mediafire.com/wh720u7xgd4g/a73cqunc0yqhb3n/Plan2+v3.png" alt="Boks" id="2" class="midt" onclick='visEtasje(2)'></span>
+        <span><img src="http://download1648.mediafire.com/81zwufh9cj7g/y952zf20j5rfb67/Etasje2.png" alt="Boks" id="2" class="midt" onclick='visEtasje(2)'></span>
         <br>
-        <span><img src="http://download1496.mediafire.com/ya518443yv3g/3uw2zhibggzdnt1/Plan1+v5.png" alt="Boks" id="1" class="midt" onclick='visEtasje(1)'></span>
+        <span><img src="http://download1644.mediafire.com/yxv09bkxpsyg/10bh6w8hz6gh3pu/Etasje1.png" alt="Boks" id="1" class="midt" onclick='visEtasje(1)'></span>
         <input type='hidden' name='etasje'>
         </form>
             
