@@ -22,7 +22,7 @@
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="romOversikt"/>" >Booking </a>
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="login"/>" >Login </a>
             <a class="btn btn-primary col-lg-12 col-xs-12" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater Personlig </a>
-            <a href="<c:url value="index"/>"><img src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>
+            <a href="<c:url value="hjem"/>"><img src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>
             <a href="<c:url value="addBooking"/>"><img src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking"/> </a><br/>
             <a href="<c:url value="bruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
             <a href="<c:url value="innstillinger"/>"><img src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger"/> </a><br>

@@ -109,6 +109,9 @@ public class Kontroller {
     @RequestMapping("/innstillinger")
     public String innstillinger(){return "innstillinger";}
 
+    @RequestMapping("/hjem")
+    public String home(){return "hjem";}
+
     
    
     

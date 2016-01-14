@@ -1,4 +1,3 @@
-<%@ page import="Klasser.Bruker" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
     Document   : index

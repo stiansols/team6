@@ -21,7 +21,7 @@
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Oversikt"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
     </definition>
     
     <definition name="romOversikt" extends="baseLayout">
@@ -75,6 +75,12 @@
     <definition name="visEtasjePlan" extends="baseLayout">
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/visEtasjePlan.jsp"/>
+    </definition>
+
+    <definition name="hjem" extends="baseLayout">
+        <put-attribute name="title" value="Hjem"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/hjem.jsp"/>
     </definition>
     
     <definition name="login" extends="emptyLayout">
