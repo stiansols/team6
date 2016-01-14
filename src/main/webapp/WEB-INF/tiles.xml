@@ -30,7 +30,7 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/romOversikt.jsp"/>      
     </definition>
     
-    <definition name="etasje" extends="emptylayout">
+    <definition name="etasje" extends="emptyLayout">
         <put-attribute name="title"  value="Etasjevisning"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/etasje.jsp"/>
