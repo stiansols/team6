@@ -136,12 +136,10 @@ if (passord.value !== nyttpw2.value || passord.value === '' || nyttpw2.value ===
     </div>    
     
     <div class="form-group">
-        <button class="btn btn-primary" type="submit" onclick="return sjekkPassord('passord', 'nyttpw2')">Oppdater Passord</button>
+        <button class="btn btn-primary" type="submit">Oppdater Passord</button>
     </div>
-     </form:form>
-    
-    
-</div>
+     </form:form>   
+    </div>
                            
 </body>
 </html>
