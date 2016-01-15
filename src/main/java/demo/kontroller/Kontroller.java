@@ -200,8 +200,6 @@ public class Kontroller {
         ArrayList<Fag> alleFag = new ArrayList();
         alleFag = db.hentAlleFag();
 
-        System.out.println(e + " fail");
-
         return alleFag;
     }
 
