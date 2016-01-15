@@ -64,7 +64,7 @@ public class Rom {
         this.plasser = plasser;
     }
 
-    public boolean isHarSmartboard() {
+    public boolean getHarSmartboard() {
         return harSmartboard;
     }
 
@@ -72,7 +72,7 @@ public class Rom {
         this.harSmartboard = harSmartboard;
     }
 
-    public boolean isHarSkjerm() {
+    public boolean getHarSkjerm() {
         return harSkjerm;
     }
 
@@ -80,7 +80,7 @@ public class Rom {
         this.harSkjerm = harSkjerm;
     }
 
-    public boolean isHarProsjektor() {
+    public boolean getHarProsjektor() {
         return harProsjektor;
     }
 

@@ -13,14 +13,18 @@
 
 
 <html>
-
+    <style>
+        .modal-backdrop {
+            z-index: 1020;
+        }
+    </style>
     <body>
         <img id="etasjePlan" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
         
         
         <map name="rommap">
             <c:forEach items="${alleRom}" var="rom">
-                <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(rom)">
+                <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
             </c:forEach>
             
         </map>
@@ -100,10 +104,14 @@
 </html>
 
 <script>
-    function onClickRom(Rom rom) {
-        alert(rom.getRomnr());
+    function onClickRom(romnr, etasje, plasser, smartboard, skjerm) {
+        alert(smartboard);
+        $(".modal-body #romnr").val( romnr );
+        $(".modal-body #etasje").val( etasje );
+        $(".modal-body #plasser").val( plasser );
+        $(".modal-body #smartboard").val( smartboard );
+        $(".modal-body #skjerm").val( skjerm );
         $('#visRomModal').modal('show');
-
     }
 
 </script>
