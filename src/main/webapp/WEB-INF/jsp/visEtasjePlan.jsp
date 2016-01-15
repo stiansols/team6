@@ -10,12 +10,18 @@
 
 <c:out value="${etasjeLink}" />
 
+
+
 <html>
 
     <body>
         <img id="etasjePlan" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
-
+        
+        
         <map name="rommap">
+            <c:forEach items="${alleRom}" var="rom">
+                <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(rom)">
+            </c:forEach>
             <area shape="rect" class="romskisse" coords="38,63,144,257" alt="Verksted" onclick="onClickRom()">
             <area shape="rect" class="romskisse" coords="150,63,265,257" href="index" alt="Verksted">
             <area shape="poly" class="romskisse" coords="270, 62, 286, 62, 287, 26, 575, 26, 575,57,594,58, 594,256,375,256,375, 177, 269, 177" href="index" alt="Lab122">
@@ -113,11 +119,10 @@
 </html>
 
 <script>
-    function onClickRom() {
-
+    function onClickRom(Rom rom) {
+        alert(rom.getRomnr());
         $('#visRomModal').modal('show');
 
     }
-    
 
 </script>
