@@ -181,7 +181,7 @@ public class Kontroller {
         } catch (SQLException e) {
             System.out.println(e + " fail");
         }
-
+        System.out.println(alleRom.get(0).getCoords());
         return alleRom;
     }
 

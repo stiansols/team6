@@ -75,8 +75,11 @@ public class DbConnection {
                 while(resultSet.next()) {
                     String romnr = resultSet.getString("romnr");
                     String coords = resultSet.getString("koordinater");
-                    for(int i=0; i<a.size(); i++) {
-                        if(a.get(i).getRomnr().equals(romnr)) a.get(i).setCoords(coords);
+                    
+                    for (Rom a1 : a) {
+                        if (a1.getRomnr().equals(romnr)) {
+                            a1.setCoords(coords);
+                        }
                     }
                 }
                 return a;
