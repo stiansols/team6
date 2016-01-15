@@ -70,6 +70,19 @@ public class DbConnection {
         
             }
             
+            public ArrayList hentCoords(ArrayList<Rom> a) throws Exception, SQLException{
+                resultSet = statement.executeQuery("SELECT * FROM romkoordinater");
+                while(resultSet.next()) {
+                    String romnr = resultSet.getString("romnr");
+                    String coords = resultSet.getString("koordinater");
+                    for(int i=0; i<a.size(); i++) {
+                        if(a.get(i).getRomnr().equals(romnr)) a.get(i).setCoords(coords);
+                    }
+                }
+                return a;
+            }
+            
+            
             public ArrayList<Bruker> hentAlleBrukere() throws Exception, SQLException{
                 ArrayList<Bruker> liste = new ArrayList();
                     resultSet = statement.executeQuery("SELECT * FROM bruker");
