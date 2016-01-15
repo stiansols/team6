@@ -15,7 +15,6 @@
     <title>Hjem</title>
 </head>
 <body>
-<form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam">
     <br>
     <div class="row">
         <div class="col-sm-8">
@@ -33,13 +32,12 @@
             </fieldset>
             <div>Her <br> skal <br> det <br> være <br> en <br> liste <br> over <br> abonnement</div>
             <div>
-                <button>Legg til hendelse</button>
-                <button>Endre abonnementer</button>
+                <button href="#">Legg til hendelse</button>
+                <button href="#">Endre abonnementer</button>
             </div>
             <br>
             <h2>StudyEasy</h2>
         </div>
     </div>
-</form:form>
 </body>
 </html>

@@ -125,6 +125,9 @@ public class Kontroller {
         return "hjem";
     }
 
+    @RequestMapping("/romOrganisering")
+    public String romOrganisering(){return "romOrganisering";}
+
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
 
@@ -186,6 +189,46 @@ public class Kontroller {
         }
         System.out.println(alleRom.get(0).getShape());
         return alleRom;
+    }
+    @ModelAttribute("romForste")
+    public ArrayList getRomForste() throws SQLException, Exception{
+        ArrayList<Rom> romForste = new ArrayList<>();
+        try {
+            romForste = db.hentRomEtasje(1);
+        } catch (SQLException e) {
+            System.out.println(e + " fail");
+        }
+        return romForste;
+    }
+    @ModelAttribute("romAndre")
+    public ArrayList getRomAndre() throws SQLException, Exception{
+        ArrayList<Rom> rom = new ArrayList<>();
+        try {
+            rom = db.hentRomEtasje(2);
+        } catch (SQLException e) {
+            System.out.println(e + " fail");
+        }
+        return rom;
+    }
+    @ModelAttribute("romTredje")
+    public ArrayList getRomTredje() throws SQLException, Exception{
+        ArrayList<Rom> rom = new ArrayList<>();
+        try {
+            rom = db.hentRomEtasje(3);
+        } catch (SQLException e) {
+            System.out.println(e + " fail");
+        }
+        return rom;
+    }
+    @ModelAttribute("romFjerde")
+    public ArrayList getRomFjerde() throws SQLException, Exception{
+        ArrayList<Rom> rom = new ArrayList<>();
+        try {
+            rom = db.hentRomEtasje(4);
+        } catch (SQLException e) {
+            System.out.println(e + " fail");
+        }
+        return rom;
     }
 
     @ModelAttribute("alleBrukere")

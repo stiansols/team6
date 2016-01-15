@@ -82,6 +82,12 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/hjem.jsp"/>
     </definition>
+
+    <definition name="romOrganisering" extends="baseLayout">
+        <put-attribute name="title" value="Romorganisering"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/romOrganisering.jsp"/>
+    </definition>
     
     <definition name="login" extends="emptyLayout">
         <put-attribute name="title"  value="Logg inn"/>
