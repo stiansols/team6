@@ -163,15 +163,11 @@ public class Kontroller {
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
     {
-        ArrayList alleRom = new ArrayList();
-        ArrayList<Rom> q = new ArrayList<>();
+        ArrayList<Rom> alleRom = new ArrayList<>();
         try{
 
-            q = db.hentRom(q);
-         for(int i = 0; i < q.size(); i++){
-            alleRom.add(q.get(i).getRomnr());
-
-        }
+            alleRom = db.hentRom(alleRom);
+         
 
         }catch(SQLException e ){
             System.out.println(e + " fail");
