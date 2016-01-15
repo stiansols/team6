@@ -35,18 +35,21 @@
                         <label for="folder3">3.Etasje</label> <input type="checkbox" id="folder3" />
                         <ol>
                             <c:forEach items="${romTredje}" var="rom3">
-                            <li class="file"><a href="#">${rom2.romnr}</a></li>
+                            <li class="file"><a href="#">${rom3.romnr}</a></li>
                             </c:forEach>
                         </ol>
 
                         <label for="folder4">4.Etasje</label> <input type="checkbox" id="folder4" />
                         <ol>
                             <c:forEach items="${romFjerde}" var="rom4">
-                            <li class="file"><a href="#">${rom2.romnr}</a></li>
+                            <li class="file"><a href="#">${rom4.romnr}</a></li>
                             </c:forEach>
                         </ol>
                     </li>
                 </ol>
+            </div>
+            <div class="col-sm-4">
+                Something something søkefunksjon
             </div>
         </div>
     </body>
