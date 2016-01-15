@@ -11,6 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
         <style>
+            
+          
         .midt {
            width: 380px;
            display: block;
@@ -37,22 +39,10 @@
   padding:8px; 
   color:#ccc;
 }  
-  
-
-.table-fixed thead {
-  width: 97%;
-}
-.table-fixed tbody {
-  height: 230px;
-  overflow-y: auto;
-  width: 100%;
-}
-.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
-  display: block;
-}
-.table-fixed tbody td, .table-fixed thead > tr> th {
-  float: left;
-  border-bottom-width: 0;
+  .span3 {  
+    height: 300px !important;
+    width: 100%;
+    overflow: auto;
 }
 
         </style>
@@ -78,7 +68,7 @@
             <input type="text" class="search form-control" placeholder="Søk...">
         </div>
         <span class="counter pull-right"></span>
-        
+        <div class="span3">
             <table id="romTabell" class="table table-hover table-bordered results">
    
                     <thead>
@@ -96,7 +86,7 @@
                       </tr>        
                             
                     </thead>
-                    
+                   
                         <tbody>
                            <c:forEach items="${alleRom}" var="rom">                 
                                 <tr>
@@ -106,11 +96,13 @@
 
                             </c:forEach>           
                         </tbody>
+                         
+                        
             </table>
+        </div>
                 
-                
-            </div>
-            
+           </div>
+           
             
         </div>
         
@@ -169,9 +161,9 @@
                                                         
                                                         var romnr = cell.innerHTML;
                                                         var etasje = cell2.innerHTML;
-                                                        
-                                                        alert("Romnr" + romnr);
-                                                        
+                   
+                                                        visEtasje(etasje);
+                                           
                                  };
             };
 

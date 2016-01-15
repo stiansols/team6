@@ -135,12 +135,15 @@ public class Kontroller {
             if (bruker != null) {
                 switch (bruker.getBrukertype()) {
 
-                    case 1:
+                    case 0:
                         System.out.println("Student");
                         break; //return studentGUI
-                    case 2:
+                    case 1:
                         System.out.println("Ansatt");
                         break;  //return ansattGUI
+                    case 2:
+                        System.out.println("Timeplanansvarlig");
+                        break;   //return adminGUI
                     case 3:
                         System.out.println("Admin");
                         break;   //return adminGUI
@@ -165,7 +168,7 @@ public class Kontroller {
             System.out.println("Noe gikk galt: " + e);
         }
         System.out.println("Feil brukernavn eller passord" + brukernavn);
-        return "login";
+        return "redirect:login";
 
     }
 
