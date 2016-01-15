@@ -424,21 +424,48 @@ public class DbConnection {
                 Date gammelFra = formatter.parse(booking.get(i).getFratid());
                 Date gammelTil = formatter.parse(booking.get(i).getTiltid());
                 if((dateFra.after(gammelFra) || dateFra.equals(gammelFra)) && dateFra.before(gammelTil) || (dateTil.after(gammelFra)|| dateTil.equals(gammelFra)) && dateTil.before(gammelTil)){
-    
+                    if(brukerType< booking.get(i).getBrukertype()){
+                         preparedStatement = connection.prepareStatement("DELETE FROM BOOKING WHERE bookingId = " + booking.get(i).getBookingId());
+                         preparedStatement.executeUpdate();
+                         return true;
+                    }
                   return false;
                 }
              
                 else if((gammelFra.after(dateFra) || dateFra.equals(gammelFra)) && gammelTil.before(dateFra) || (gammelFra.after(dateTil)|| dateTil.equals(gammelFra)) && gammelTil.before(dateTil)){
-    
+                  if(brukerType>booking.get(i).getBrukertype()){
+                         preparedStatement = connection.prepareStatement("DELETE FROM BOOKING WHERE bookingId = " + booking.get(i).getBookingId());
+                         preparedStatement.executeUpdate();
+                         preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 90,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
+                         preparedStatement.executeUpdate();
+                         return true;
+                  }
                   return false;
                 }
                 
                 else if (dateFra.before(gammelFra) && dateTil.after(gammelTil)){
+                    if(brukerType> booking.get(i).getBrukertype()){
+                         preparedStatement = connection.prepareStatement("DELETE FROM BOOKING WHERE bookingId = " + booking.get(i).getBookingId());
+                         preparedStatement.executeUpdate();
+                         preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
+                         preparedStatement.executeUpdate();
+                         return true;
+                    }
+                    return false;
+                }
+                else if(dateFra.before(gammelFra) && dateTil.equals(gammelTil)){
+                    if(brukerType> booking.get(i).getBrukertype()){
+                         preparedStatement = connection.prepareStatement("DELETE FROM BOOKING WHERE bookingId = " + booking.get(i).getBookingId());
+                         preparedStatement.executeUpdate();
+                         preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
+                         preparedStatement.executeUpdate();
+                         return true;
+                    }
                     return false;
                 }
                 
             }
-                preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( 90,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
+                preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'"+ brukernavn+ "' , "+b.getBrukertype()+"  , '"  + b.getRomNummer() + "' , '"+b.getFratid()+"', '"+b.getTiltid()+"')");
                 preparedStatement.executeUpdate();
             
            return true;         
