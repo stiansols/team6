@@ -220,7 +220,7 @@ public class DbConnection {
             }
             
             public ArrayList<Rom> hentRomEtasje(int etasjen)throws Exception, SQLException{
-                ArrayList arr = new ArrayList();     
+                ArrayList array = new ArrayList();     
                 resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
                 Rom r ;
                 while(resultSet.next()) {
@@ -234,10 +234,10 @@ public class DbConnection {
                     
                     r = new Rom(romnr, etasje, plasser, harSmart, harSkjerm, harProsjektor, tilgn);
                     r.toString();
-                    arr.add(r);
+                    array.add(r);
                 }
                 
-            return arr;
+            return array;
             }
             
             public ArrayList<Rom> romSok(String romnavn)throws Exception, SQLException{

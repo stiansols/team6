@@ -39,6 +39,22 @@
 }  
   
 
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
         </style>
     </head>
     <body>
@@ -137,6 +153,35 @@
                 document.forms["valg"]["etasje"].value = etasje;
                 document.forms["valg"].submit();
             }
+            
+            
+            function onClickRomtabell() {
+                    var table = document.getElementById("romTabell");
+                    var rows = table.getElementsByTagName("tr");
+                    for (i = 0; i < rows.length; i++) {
+                        var currentRow = table.rows[i];
+                        var createClickHandler = 
+                            function(row) 
+                            {
+                                return function() { 
+                                                        var cell = row.getElementsByTagName("td")[0];
+                                                        var cell2 = row.getElementsByTagName("td")[1];
+                                                        
+                                                        var romnr = cell.innerHTML;
+                                                        var etasje = cell2.innerHTML;
+                                                        
+                                                        alert("Romnr" + romnr);
+                                                        
+                                 };
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+window.onload = onClickRomtabell();
+ 
+            
+            
         </script>
         
     </body>
