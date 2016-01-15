@@ -78,6 +78,7 @@ public class DbConnection {
                     
                     for (Rom a1 : a) {
                         if (a1.getRomnr().equals(romnr)) {
+                            System.out.println("yay");
                             a1.setCoords(coords);
                         }
                     }
