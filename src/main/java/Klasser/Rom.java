@@ -56,7 +56,7 @@ public class Rom {
     }
     
     public String getShape() {
-        if(coords.split(" ").length > 4) return "poly";
+        if(coords.split(",").length > 4) return "poly";
         else return "rect";
     }
 

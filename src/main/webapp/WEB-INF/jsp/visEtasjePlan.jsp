@@ -8,9 +8,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 
-<c:out value="${etasjeLink}" />
 
-
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg'}">
+    <c:set var="etasje" value="1"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg'}">
+    <c:set var="etasje" value="2"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg'}">
+    <c:set var="etasje" value="3"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg'}">
+    <c:set var="etasje" value="4"/>
+</c:if>
 
 <html>
     <style>
@@ -24,7 +34,9 @@
         
         <map name="rommap">
             <c:forEach items="${alleRom}" var="rom">
-                <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
+                <c:if test="${etasje == rom.getEtasje()}">
+                    <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
+                </c:if>
             </c:forEach>
             
         </map>
@@ -105,7 +117,6 @@
 
 <script>
     function onClickRom(romnr, etasje, plasser, smartboard, skjerm) {
-        alert(smartboard);
         $(".modal-body #romnr").val( romnr );
         $(".modal-body #etasje").val( etasje );
         $(".modal-body #plasser").val( plasser );
