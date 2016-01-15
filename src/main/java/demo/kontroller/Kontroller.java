@@ -176,7 +176,7 @@ public class Kontroller {
         try{
 
             alleRom = db.hentRom(alleRom);
-         
+            alleRom = db.hentCoords(alleRom);
 
         } catch (SQLException e) {
             System.out.println(e + " fail");
