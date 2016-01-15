@@ -8,34 +8,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 
-<c:out value="${etasjeLink}" />
+
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg'}">
+    <c:set var="etasje" value="1"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg'}">
+    <c:set var="etasje" value="2"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg'}">
+    <c:set var="etasje" value="3"/>
+</c:if>
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg'}">
+    <c:set var="etasje" value="4"/>
+</c:if>
 
 <html>
-
+    <style>
+        .modal-backdrop {
+            z-index: 1020;
+        }
+    </style>
     <body>
         <img id="etasjePlan" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
-
+        
+        
         <map name="rommap">
-            <area shape="rect" class="romskisse" coords="38,63,144,257" alt="Verksted" onclick="onClickRom()">
-            <area shape="rect" class="romskisse" coords="150,63,265,257" href="index" alt="Verksted">
-            <area shape="poly" class="romskisse" coords="270, 62, 286, 62, 287, 26, 575, 26, 575,57,594,58, 594,256,375,256,375, 177, 269, 177" href="index" alt="Lab122">
-            <area shape="rect" class="romskisse" coords="308,535, 406,649" href="index" alt="112">
-            <area shape="rect" class="romskisse" coords="491,535, 589,641" href="index" alt="113">
-            <area shape="rect" class="romskisse" coords="587,542, 680, 640" href="index" alt="114">
-            <area shape="rect" class="romskisse" coords="683,542, 769, 648" href="index" alt="115">
-            <area shape="poly" class="romskisse" coords="597,183,755,183, 755,134, 658,134, 658,56, 597, 56" href="index" alt="Lab123">
-            <area shape="rect" class="romskisse" coords="38,537,130,765" href="index" alt="119A">
-            <area shape="rect" class="romskisse" coords="39,764,130,977" href="index" alt="109Kjøkken">
-            <area shape="poly" class="romskisse" coords="1041,380,1216,420,1201,501,1021,464" href="index" alt="184Møterom">
-            <area shape="rect" class="romskisse" coords="38, 267, 381, 532" href="index" alt="Dataundervisning119">
-            <area shape="rect" class="romskisse" coords="131, 802, 219, 976" href="index" alt="Grupperom108">
-            <area shape="rect" class="romskisse" coords="222, 802, 311, 976" href="index" alt="Grupperom107">
-            <area shape="rect" class="romskisse" coords="313, 802, 402, 976" href="index" alt="Grupperom106">
-            <area shape="rect" class="romskisse" coords="404, 802, 493, 976" href="index" alt="Grupperom105">
-            <area shape="rect" class="romskisse" coords="495, 802, 584, 976" href="index" alt="Grupperom104">
-            <area shape="rect" class="romskisse" coords="586, 802, 675, 976" href="index" alt="Grupperom103">
-            <area shape="rect" class="romskisse" coords="677, 802, 766, 976" href="index" alt="Grupperom102">
-            <area shape="poly" class="romskisse" coords="1420, 265, 1545, 292, 1518, 422, 1391, 395" href="index" alt="MoteromBR168">
+            <c:forEach items="${alleRom}" var="rom">
+                <c:if test="${etasje == rom.getEtasje()}">
+                    <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
+                </c:if>
+            </c:forEach>
+            
         </map>
 
         <div class="container">
@@ -113,11 +116,13 @@
 </html>
 
 <script>
-    function onClickRom() {
-
+    function onClickRom(romnr, etasje, plasser, smartboard, skjerm) {
+        $(".modal-body #romnr").val( romnr );
+        $(".modal-body #etasje").val( etasje );
+        $(".modal-body #plasser").val( plasser );
+        $(".modal-body #smartboard").val( smartboard );
+        $(".modal-body #skjerm").val( skjerm );
         $('#visRomModal').modal('show');
-
     }
-    
 
 </script>
