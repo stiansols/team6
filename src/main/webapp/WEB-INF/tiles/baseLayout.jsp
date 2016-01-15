@@ -18,10 +18,20 @@
                     background-color: #CCC;
                     padding: 20px;
             }
+            div#header {
+                width: 100%;
+                height: 100px;
+                background: no-repeat 0 0;
+                
+            }
             </style> 
             
     </head>
-    <body>      
+    <body>
+        <div class="header">
+            <img src="http://download1650.mediafire.com/66e0zq6jtwug/s6y1bxm3a3wbijb/StudyEasy.png"/>
+            
+        </div>
           <div class="container">
 			<div class="row">
 				<div class="col-lg-3">
