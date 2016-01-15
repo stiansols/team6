@@ -30,10 +30,6 @@ public class Rom {
         this.tilgang = tilgang;
     }
 
-    public Rom() {
-        
-    }
-
     public String getRomnr() {
         return romnr;
     }
