@@ -128,13 +128,14 @@
                           else {$('.no-result').hide();}
                                         });
              
+    
             
-            function visEtasje(etasje) {
+          });
+          
+          function visEtasje(etasje) {
                 document.forms["valg"]["etasje"].value = etasje;
                 document.forms["valg"].submit();
             }
-            
-          });
         </script>
         
     </body>
