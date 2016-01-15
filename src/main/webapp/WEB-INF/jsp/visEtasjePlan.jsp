@@ -14,9 +14,9 @@
 
     <body>
         <img id="etasjePlan" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
-        
+
         <map name="rommap">
-            <area shape="rect" class="romskisse" data-target="#visRomModal" coords="38,63,144,257" alt="Verksted">
+            <area shape="rect" class="romskisse" coords="38,63,144,257" alt="Verksted" onclick="onClickRom()">
             <area shape="rect" class="romskisse" coords="150,63,265,257" href="index" alt="Verksted">
             <area shape="poly" class="romskisse" coords="270, 62, 286, 62, 287, 26, 575, 26, 575,57,594,58, 594,256,375,256,375, 177, 269, 177" href="index" alt="Lab122">
             <area shape="rect" class="romskisse" coords="308,535, 406,649" href="index" alt="112">
@@ -37,118 +37,87 @@
             <area shape="rect" class="romskisse" coords="677, 802, 766, 976" href="index" alt="Grupperom102">
             <area shape="poly" class="romskisse" coords="1420, 265, 1545, 292, 1518, 422, 1391, 395" href="index" alt="MoteromBR168">
         </map>
-        
+
         <div class="container">
             <!-- Modal -->
             <div class="modal fade" id="visRomModal" role="dialog">
-              <div class="modal-dialog">
+                <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Rom XXX</h4>
-                  </div>
-                  <div class="modal-body">
-                      
-                          <div class="row">
-                            <label for="romnummerLabel" class="col-lg-4 control-label">Romnummer</label>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Rom XXX</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <label for="romnummerLabel" class="col-lg-4 control-label">Romnummer</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="romnr" id="romnr" value="" readonly/>
                                 </div>
-                          </div>
-                      
-                            <div class="row">
-                                        <label for="etasjeLabel" class="col-lg-4 control-label">Etasje</label>
-                                            <div class="col-lg-8">
-                                                <input type="text" name="etasje" id="etasje" value="" readonly/>
-                                            </div>
-                                  </div>
-                      
-                            <div class="row">
-                                        <label for="navnLabel" class="col-lg-4 control-label">Plasser</label>
-                                            <div class="col-lg-8">
-                                                <input type="text" name="plasser" id="plasser" value=""/>
-                                            </div>
-                                  </div>      
-                      
-                            <div class="row">
-                                  <label for="passLabel" class="col-lg-4 control-label">Har Smartboard</label>
-                                      <div class="col-lg-8">
-                                          <input type="checkbox" name="smartboard" id="smartboard" value=""/>
-                                      </div>
                             </div>
-                      
-                           <div class="row">
-                                        <label for="mailLabel" class="col-lg-4 control-label">Har Dataskjerm</label>
-                                            <div class="col-lg-8">
-                                                <input type="text" name="skjerm" id="skjerm" value=""/>
-                                            </div>
-                                  </div>
-                          
-                       
-             
-                  </div>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-default" formaction="oppdater">Book rom</button>
-                      <button type="submit" class="btn btn-default" formaction="oppdater">Endre booking</button> 
-                      <button type="submit" class="btn btn-default" formaction="slett">Slett booking</button>
-                     
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                  </div>
-                          
-                </div>
 
-              </div>
+                            <div class="row">
+                                <label for="etasjeLabel" class="col-lg-4 control-label">Etasje</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="etasje" id="etasje" value="" readonly/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label for="navnLabel" class="col-lg-4 control-label">Plasser</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="plasser" id="plasser" value=""/>
+                                </div>
+                            </div>      
+
+                            <div class="row">
+                                <label for="passLabel" class="col-lg-4 control-label">Har Smartboard</label>
+                                <div class="col-lg-8">
+                                    <input type="checkbox" name="smartboard" id="smartboard" value=""/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label for="mailLabel" class="col-lg-4 control-label">Har Dataskjerm</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="skjerm" id="skjerm" value=""/>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" formaction="oppdater">Book rom</button>
+                            <button type="submit" class="btn btn-default" formaction="oppdater">Endre booking</button> 
+                            <button type="submit" class="btn btn-default" formaction="slett">Slett booking</button>
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
-          </div>        
-        
-        
+        </div>        
+
+
     </body>
-    
+
     <script>
         $('#etasjePlan').maphilight();
     </script>
 </html>
 
 <script>
-        function onClickRom() {
-    var table = document.getElementById("brukerTabell");
-    var rows = table.getElementsByTagName("tr");
-    for (i = 0; i < rows.length; i++) {
-        var currentRow = table.rows[i];
-        var createClickHandler = 
-            function(row) 
-            {
-                return function() { 
-                                        var cell = row.getElementsByTagName("td")[0];
-                                        var cell2 = row.getElementsByTagName("td")[1];
-                                        var cell3 = row.getElementsByTagName("td")[2];
-                                       // var cell4 = row.getElementsByTagName("td")[3];
-                                        var cell5 = row.getElementsByTagName("td")[4];
-                                        
-                                        
-                                        var id = cell.innerHTML;
-                                        var bType = cell2.innerHTML;
-                                        var navn = cell3.innerHTML;
-                                       // var passord = cell4.innerHTML;
-                                        var mail = cell5.innerHTML;
-                                        
-                                        //alert("id:" + id);
-                                        $(".modal-body #brukernavn").val( id );
-                                        $(".modal-body #brukertype").val( bType );
-                                        $(".modal-body #navn").val( navn );
-                                       // $(".modal-body #passord").val( passord );
-                                        $(".modal-body #mail").val( mail );
-                                        $('#visBrukerModal').modal('show');
-                                        
-                                        
-                                 };
-            };
+    function onClickRom() {
 
-        currentRow.onclick = createClickHandler(currentRow);
+        $('#visRomModal').modal('show');
+
     }
-}
-window.onload = onClickBrukertabell();
+    
+
 </script>

@@ -19,6 +19,7 @@ public class Rom {
     boolean harSkjerm;
     boolean harProsjektor;
     int tilgang;
+    String coords;
     
     public Rom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang) {
         this.romnr = romnr;
@@ -48,6 +49,10 @@ public class Rom {
 
     public int getPlasser() {
         return plasser;
+    }
+    
+    public String getCoords() {
+        return coords;
     }
 
     public void setPlasser(int plasser) {
@@ -85,6 +90,11 @@ public class Rom {
     public void setTilgang(int tilgang) {
         this.tilgang = tilgang;
     }
+    
+    public void setCoords(String coords) {
+        this.coords = coords;
+    }
+    
     public String toString(){
         return romnr + " " +etasje+ " "+  " " + plasser+" "+ harSmartboard+" "+ harSkjerm+" "+ harProsjektor+" "+ tilgang;
     }
