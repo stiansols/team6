@@ -54,6 +54,11 @@ public class Rom {
     public String getCoords() {
         return coords;
     }
+    
+    public String getShape() {
+        if(coords.split(" ").length > 4) return "poly";
+        else return "rect";
+    }
 
     public void setPlasser(int plasser) {
         this.plasser = plasser;
