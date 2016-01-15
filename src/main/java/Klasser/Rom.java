@@ -74,7 +74,7 @@ public class Rom {
         return harProsjektor;
     }
 
-    public void setHarProsjektor(boolean harProsjektør) {
+    public void setHarProsjektor(boolean harProsjektor) {
         this.harProsjektor = harProsjektor;
     }
 
