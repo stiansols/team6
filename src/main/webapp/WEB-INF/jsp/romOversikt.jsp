@@ -62,7 +62,7 @@
         </div>
         <span class="counter pull-right"></span>
         
-            <table id="brukerTabell" class="table table-hover table-bordered results">
+            <table id="romTabell" class="table table-hover table-bordered results">
    
                     <thead>
                         <tr class="warning no-result">
