@@ -54,7 +54,10 @@ public class Kontroller {
         return "login";
     }
     @RequestMapping("/index")
-    public String getHovedisde(){
+    public String getHovedisde(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "index";
     }
     
@@ -66,7 +69,10 @@ public class Kontroller {
     } 
 
     @RequestMapping("/romOversikt")
-    public String visRomOversikt() {
+    public String visRomOversikt(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "romOversikt";
     }
 
@@ -93,27 +99,45 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/etasje", method = RequestMethod.POST)
-    public String visEtasjeValg() {
+    public String visEtasjeValg(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "etasje";
     }
 
     @RequestMapping("/test")
-    public String test() {
+    public String test(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "test";
     }
 
     @RequestMapping("/registrerBruker")
-    public String regBruker() {
+    public String regBruker(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
+        if(person.getBrukertype() != 3){
+            return "index";
+        }
         return "registrerBruker";
     }
 
     @RequestMapping("/oppdaterPersonlig")
-    public String oppBruker() {
+    public String oppBruker(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "oppdaterPersonlig";
     }
 
     @RequestMapping("/admin")
     public String admin(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         if(person.getBrukertype() != 3){
             return "index";
         }
@@ -121,26 +145,38 @@ public class Kontroller {
     }
 
     @RequestMapping("/bruker")
-    public String bruker() {
+    public String bruker(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "bruker";
     }
 
     @RequestMapping("/innstillinger")
-    public String innstillinger() {
+    public String innstillinger(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "innstillinger";
     }
 
     @RequestMapping("/hjem")
-    public String home() {
+    public String home(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         return "hjem";
     }
 
     @RequestMapping("/romOrganisering")
-    public String romOrganisering(){return "romOrganisering";}
+    public String romOrganisering(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
+        return "romOrganisering";}
 
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
-
         Bruker bruker = null;
 
         try {
@@ -257,7 +293,10 @@ public class Kontroller {
     }
 
       @RequestMapping("/addBooking")
-    public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking) {
+    public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         model.addAttribute("booking", new Booking());
         System.out.println("232");
         return "addBooking";
@@ -265,6 +304,9 @@ public class Kontroller {
 
     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
     public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         String [] stringFratid = nyBooking.getFratid().split("-");
         String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0];
         String[] stringTiltid = nyBooking.getTiltid().split("-");
@@ -280,7 +322,10 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/nyBruker", method = RequestMethod.POST)
-    public String leggTilBruker(@RequestParam(value = "brukertypen") String brukertypen, @ModelAttribute(value = "nyBrukerForm") Bruker bruker) throws Exception {
+    public String leggTilBruker(@RequestParam(value = "brukertypen") String brukertypen, @ModelAttribute(value = "nyBrukerForm") Bruker bruker, @ModelAttribute(value = "person")Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         if (brukertypen.equals("Student")) {
             bruker.setBrukertype(0);
         }
@@ -302,8 +347,10 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/oppdater", method = RequestMethod.POST)
-    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
-
+    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker, @ModelAttribute(value = "person")Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
         db.generateAndSendEmail(bruker.getBrukernavn(), melding);
@@ -311,8 +358,10 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/slett", method = RequestMethod.POST)
-    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
-
+    public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker, @ModelAttribute(value = "person")Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         db.slettBruker(bruker.getBrukernavn());
 
         return "redirect:admin";
@@ -320,7 +369,9 @@ public class Kontroller {
 
     @RequestMapping(value = "/oppdaterMail", method = RequestMethod.POST)
     public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws Exception {
-
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         Bruker bruker = new Bruker();
         bruker.setMail(email);
 
@@ -333,7 +384,9 @@ public class Kontroller {
 
     @RequestMapping(value = "/oppdaterPassord", method = RequestMethod.POST)
     public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws Exception {
-
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         Bruker bruker = new Bruker();
         bruker.setPassord(passord);
 
@@ -344,8 +397,10 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/leggTil", method = RequestMethod.POST)
-    public String leggTilFag(@ModelAttribute(value = "nyttFagForm") Fag fag) throws Exception {
-
+    public String leggTilFag(@ModelAttribute(value = "nyttFagForm") Fag fag, @ModelAttribute(value = "person") Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         db.leggTilFag(fag.getFagkode(), fag.getNavn());
 
         return "redirect:admin";
@@ -353,8 +408,10 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/slettFag", method = RequestMethod.POST)
-    public String slettFag(@ModelAttribute(value = "slettFagForm") Fag fag) throws Exception {
-
+    public String slettFag(@ModelAttribute(value = "slettFagForm") Fag fag, @ModelAttribute(value = "person") Bruker person) throws Exception {
+        if(person.getBrukernavn() == null){
+            return "login";
+        }
         db.slettFag(fag.getFagkode());
 
         return "redirect:admin";
