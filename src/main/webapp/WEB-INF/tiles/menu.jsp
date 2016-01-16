@@ -44,7 +44,7 @@
                 <p>Er du sikker på at du vil logge ut?</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" href="<c:url value="index"/>">Logg ut</a>
+                <a class="btn btn-primary" href="<c:url value="logut"/>">Logg ut</a>
                 <a class="btn btn-default" data-dismiss="modal">Avbryt</a>
             </div>
         </div>

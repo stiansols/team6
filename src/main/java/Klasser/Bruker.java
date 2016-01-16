@@ -107,14 +107,14 @@ public class Bruker {
 
 
     public String printBrukerType(){
-        if (getBrukertype()==1) {
-            return "Administrator";
-        }else if (getBrukertype()==2){
+        if (getBrukertype()==0) {
             return "Student";
-        }else if (getBrukertype()==3){
+        }else if (getBrukertype()==1){
             return "Ansatt";
-        }else if (getBrukertype()==4){
-            return "Timeplanadministrator";
+        }else if (getBrukertype()==2){
+            return "Timeplan Ansvarlig";
+        }else if (getBrukertype()==3){
+            return "Administrator";
         }else {
             return null;
         }

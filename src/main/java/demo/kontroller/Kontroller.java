@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package demo.kontroller;
 
 import Klasser.Booking;
@@ -19,12 +13,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -57,6 +53,17 @@ public class Kontroller {
     public String visStartView() {
         return "login";
     }
+    @RequestMapping("/index")
+    public String getHovedisde(){
+        return "index";
+    }
+    
+    @RequestMapping("/logut")
+    public String getLogut(@ModelAttribute(value = "person") Bruker person , HttpSession session, SessionStatus status) {
+        status.setComplete();
+        session.removeAttribute("person");
+        return "login";
+    } 
 
     @RequestMapping("/romOversikt")
     public String visRomOversikt() {
@@ -106,7 +113,10 @@ public class Kontroller {
     }
 
     @RequestMapping("/admin")
-    public String admin() {
+    public String admin(@ModelAttribute(value = "person") Bruker person) {
+        if(person.getBrukertype() != 3){
+            return "index";
+        }
         return "admin";
     }
 
