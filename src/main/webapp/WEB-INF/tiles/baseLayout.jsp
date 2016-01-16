@@ -29,7 +29,7 @@
     </head>
     <body>
         <div class="header">
-            <img src="http://download1650.mediafire.com/66e0zq6jtwug/s6y1bxm3a3wbijb/StudyEasy.png"/>
+            <img src="http://imageshack.com/a/img908/3876/vwWGkb.png"/>
             
         </div>
           <div class="container">

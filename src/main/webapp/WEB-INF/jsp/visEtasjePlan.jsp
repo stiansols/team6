@@ -29,6 +29,10 @@
         }
     </style>
     <body>
+    <ul class="pager">
+        <li><a href="/StudyEasy/romOversikt">Tilbake til etasjevisning</a></li>
+    </ul>
+        
         <img width="100%" id="img_ID" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
         
         

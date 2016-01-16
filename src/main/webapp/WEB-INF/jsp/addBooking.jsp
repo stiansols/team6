@@ -15,7 +15,7 @@
         <form:form method="POST" modelAttribute="booking" action="nyBooking">
             <div class="container">
                 <div class="row">
-                    <div class ="col-lg-4 col-lg-offset-4 well">
+                    <div class ="col-lg-4 col-lg-offset-0 well">
                         <div id="romNummer" class="form-group" >
                             <label>Rom Nummer</label>
                             <input path="romNummer" class="form-control" id="romnr" name ="romNummer"/>
@@ -23,7 +23,6 @@
                         <div class="form-group">
                             <label>Fra</label>
                             <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra"/>
-                            <span class="input-group-addon">to</span>
                             <label>Til</label>
                             <input type="date" path="tiltid" name = "tiltid" class="form-control"  id="datoTil"/>
                         </div>
