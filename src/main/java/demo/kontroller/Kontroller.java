@@ -285,7 +285,8 @@ public class Kontroller {
         }
 
         db.lagBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
-
+         String melding = "Det er opprettet en bruker konto på StudEasy for deg <br> Du kan logge inn for å endre mail og passord hvis du ønsker det <br><br> Dine opplysninger er: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+" <br>Velkomen til StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
         return "redirect:admin";
 
     }
@@ -293,8 +294,9 @@ public class Kontroller {
     @RequestMapping(value = "/oppdater", method = RequestMethod.POST)
     public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
 
-        db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getMail());
-
+        db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
+        String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
         return "redirect:admin";
     }
 
@@ -313,6 +315,8 @@ public class Kontroller {
         bruker.setMail(email);
 
         db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
+        String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
 
         return "redirect:admin";
     }
@@ -324,7 +328,8 @@ public class Kontroller {
         bruker.setPassord(passord);
 
         db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
-
+        String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
+        db.generateAndSendEmail(person.getBrukernavn(), melding);
         return "redirect:admin";
     }
 

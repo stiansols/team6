@@ -15,7 +15,7 @@ public class test2 {
         try{
         DbConnection db = new DbConnection();
         
-        db.oppdaterBruker("amunde", 2, "nytt navn", "ny mail");
+        db.oppdaterBruker("amunde", 2, "nytt navn", "Passord", "ny mail");
         
         
         }

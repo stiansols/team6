@@ -16,6 +16,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.sql.DataSource;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
  
@@ -181,9 +189,9 @@ public class DbConnection {
                 
              }
              
-             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String mail) throws Exception, SQLException{
+             public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException{
                      preparedStatement = null;
-                     preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
+                     preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '"+ navn +"', passord = '"+sha1(passord)+"', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");                                            
                      preparedStatement.executeUpdate();  
          
              }
@@ -486,6 +494,47 @@ public class DbConnection {
             
            return true;         
         }
+        
+        public void generateAndSendEmail(String brukernavn, String oppdatering) throws AddressException, MessagingException, SQLException {
+ 
+                ResultSet resultSet = statement.executeQuery("select mail from bruker where brukernavn= '" + brukernavn + "'");
+                resultSet.next();
+                String mailadresse = resultSet.getString("mail");
+		// Step1
+		System.out.println("\n 1st ===> setup Mail Server Properties..");
+                Properties mailServerProperties;
+		mailServerProperties = System.getProperties();
+		mailServerProperties.put("mail.smtp.port", "587");
+		mailServerProperties.put("mail.smtp.auth", "true");
+		mailServerProperties.put("mail.smtp.starttls.enable", "true");
+                mailServerProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		System.out.println("Mail Server Properties have been setup successfully..");
+ 
+		// Step2
+		System.out.println("\n\n 2nd ===> get Mail Session..");
+                Session getMailSession;
+                MimeMessage generateMailMessage;
+		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		generateMailMessage = new MimeMessage(getMailSession);
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mailadresse));
+		generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(mailadresse));
+		generateMailMessage.setSubject("Endringer i din bruker på StudyEasy");
+		String emailBody = oppdatering+"<br><br> Hilsen, <br>StudyEasy Admin";
+		generateMailMessage.setContent(emailBody, "text/html");
+		System.out.println("Mail Session has been created successfully..");
+ 
+		// Step3
+		System.out.println("\n\n 3rd ===> Get Session and Send mail");
+		Transport transport = getMailSession.getTransport("smtp");
+ 
+		// Enter your correct gmail UserID and Password
+		// if you have 2FA enabled then provide App Specific Password
+		transport.connect("smtp.gmail.com", "studyeasy.ntnu", "Passord123");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+                System.out.println("***********************************");
+		transport.close();
+	}
            
 }    
 
