@@ -112,7 +112,7 @@
     <script>
     
     $('#img_ID').maphilight();
-    $('img[usemap]').maphilight();
+    
             
     
     </script>
@@ -140,7 +140,7 @@
                 previousWidth = document.body.clientWidth;
                 return true;
             };
-            window.onresize = this.resize;
+            
         },
         imageMap = new ImageMap(document.getElementById('map_ID'), document.getElementById('img_ID'));
     imageMap.resize();
