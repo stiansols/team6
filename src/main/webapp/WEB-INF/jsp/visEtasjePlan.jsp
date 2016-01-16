@@ -29,10 +29,10 @@
         }
     </style>
     <body>
-        <img id="etasjePlan" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
+        <img width="100%" id="img_ID" src="<c:url value="${etasjeLink}" />" usemap="#rommap"/>
         
         
-        <map name="rommap">
+        <map name="rommap" id="map_ID">
             <c:forEach items="${alleRom}" var="rom">
                 <c:if test="${etasje == rom.getEtasje()}">
                     <area shape="${rom.getShape()}" class="romskisse" coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
@@ -109,9 +109,44 @@
 
 
     </body>
-
     <script>
-        $('#etasjePlan').maphilight();
+    
+    $('#img_ID').maphilight();
+    $('img[usemap]').maphilight();
+            
+    
+    </script>
+    <script>
+        window.onload = function () {
+    var ImageMap = function (map, img) {
+            var n,
+                areas = map.getElementsByTagName('area'),
+                len = areas.length,
+                coords = [],
+                previousWidth = 1920;
+            for (n = 0; n < len; n++) {
+                coords[n] = areas[n].coords.split(',');
+            }
+            this.resize = function () {
+                var n, m, clen,
+                    x = img.offsetWidth / previousWidth;
+                for (n = 0; n < len; n++) {
+                    clen = coords[n].length;
+                    for (m = 0; m < clen; m++) {
+                        coords[n][m] *= x;
+                    }
+                    areas[n].coords = coords[n].join(',');
+                }
+                previousWidth = document.body.clientWidth;
+                return true;
+            };
+            window.onresize = this.resize;
+        },
+        imageMap = new ImageMap(document.getElementById('map_ID'), document.getElementById('img_ID'));
+    imageMap.resize();
+    return;
+};
+
     </script>
 </html>
 
