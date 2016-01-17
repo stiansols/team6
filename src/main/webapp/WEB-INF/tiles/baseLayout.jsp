@@ -38,7 +38,7 @@
                                     <div class="well col-lg-12"><tiles:insertAttribute name="menu" /></div>
 				</div> 
                                 
-                         <div class="col-lg-8 col-lg-offset-1">
+                         <div class="col-lg-8 col-lg-offset-0">
                                         
 				<tiles:insertAttribute name="body" />
 				
