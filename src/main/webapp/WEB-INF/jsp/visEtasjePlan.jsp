@@ -9,16 +9,16 @@
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 
 
-<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg'}">
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg'}">
     <c:set var="etasje" value="1"/>
 </c:if>
-<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg'}">
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/f168/lmwe83xtax53qdh9g.jpg'}">
     <c:set var="etasje" value="2"/>
 </c:if>
-<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg'}">
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/6d08/5gaam91oken79zm9g.jpg'}">
     <c:set var="etasje" value="3"/>
 </c:if>
-<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg'}">
+<c:if test="${etasjeLink == 'http://www.mediafire.com/convkey/d436/3cz4at4dbhuohpm9g.jpg'}">
     <c:set var="etasje" value="4"/>
 </c:if>
 
