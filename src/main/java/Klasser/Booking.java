@@ -17,6 +17,7 @@ public class Booking {
     private String romNummer;
     private String fratid;
     private String tiltid;
+    public boolean sjekketInn;
     private int brukertype;
     
     public Booking() {}
@@ -27,6 +28,15 @@ public class Booking {
 
     public int getBrukertype() {
         return brukertype;
+    }
+    
+    
+    public boolean getSjekketInn(){
+        return sjekketInn;
+    }
+    
+    public void setSjekketInn(boolean verdi){
+        this.sjekketInn = verdi;
     }
 
     public void setBrukertype(int brukertype) {

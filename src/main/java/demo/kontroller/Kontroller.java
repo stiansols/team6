@@ -4,6 +4,7 @@ import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
+import Klasser.Tidsintervall;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,16 +49,31 @@ public class Kontroller {
 
         return sb.toString();
     }
+    
+    public void lastInnPerson(@ModelAttribute(value="person") Bruker person, String brukernavn) throws Exception {
+        person.fjernBookinger();
+        person.fjernAvtaler();
+    Bruker b = db.hentBruker(brukernavn);
+                person.setBrukernavn(b.getBrukernavn());
+                person.setNavn(b.getNavn());
+                person.setMail(b.getMail());
+                person.setBrukertype(b.getBrukertype());
+                for (int i = 0; i < b.getBookingerListe().size(); i++) {
+                    person.setBookinger(b.getBookingerListe().get(i));
+                }
+                for (int i = 0; i < b.getAvtaler().size(); i++) {
+                    person.setAvtaler(b.getAvtaler().get(i));
+                }
+    }
+
 
     @RequestMapping("/*")
-    public String visStartView() {
+    public String visStartView() throws Exception {
+        Tidsintervall spamMail = new Tidsintervall();
+                spamMail.run();
         return "login";
     }
     
-    @RequestMapping("/addBooking")
-    public String addBooking() {
-        return "addBooking";
-    }
     
     @RequestMapping("/index")
     public String getHovedisde(@ModelAttribute(value = "person") Bruker person) {
@@ -320,7 +336,7 @@ public class Kontroller {
         nyBooking.setBookingId(10);
         db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
         
-
+        lastInnPerson(person, person.getBrukernavn());
 
         return "index";
     }
@@ -345,7 +361,8 @@ public class Kontroller {
 
         db.lagBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
          String melding = "Det er opprettet en bruker konto på StudEasy for deg <br> Du kan logge inn for å endre mail og passord hvis du ønsker det <br><br> Dine opplysninger er: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+" <br>Velkomen til StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
+        String header = "Det er opprettet en brukerkonto på StudyEasy";
+         db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
 
     }
@@ -357,7 +374,8 @@ public class Kontroller {
         }
         db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -381,8 +399,8 @@ public class Kontroller {
 
         db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
         String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
-
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -396,7 +414,8 @@ public class Kontroller {
 
         db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
         String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
-        db.generateAndSendEmail(person.getBrukernavn(), melding);
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 

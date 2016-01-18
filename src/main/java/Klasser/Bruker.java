@@ -49,12 +49,20 @@ public class Bruker {
         bookinger.add(nyBooking);
     }
     
+    public void fjernBookinger(){
+        bookinger.clear();
+    }
+    
     public ArrayList<Avtale> getAvtaler(){
         return avtaler;
     }
     
     public void setAvtaler(Avtale nyAvtale){
         avtaler.add(nyAvtale);
+    }
+    
+    public void fjernAvtaler(){
+        avtaler.clear();
     }
     
     public ArrayList<UndervisningsTime> getUndervisningsTimer(){

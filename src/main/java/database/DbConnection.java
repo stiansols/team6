@@ -62,7 +62,6 @@ public class DbConnection {
             int etasje = resultSet.getInt("etasje");
             int plasser = resultSet.getInt("plasser");
             boolean harSmart = resultSet.getBoolean("harSmartboard");
-            System.out.println(harSmart);
             boolean harSkjerm = resultSet.getBoolean("harSkjerm");
             boolean harProsjektor = resultSet.getBoolean("harProsjektor");
             int tilgn = resultSet.getInt("tilgang");
@@ -71,9 +70,6 @@ public class DbConnection {
             r.toString();
             a.add(r);
 
-        }
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println(a.get(i));
         }
         return a;
 
@@ -87,7 +83,6 @@ public class DbConnection {
 
             for (Rom a1 : a) {
                 if (a1.getRomnr().equals(romnr)) {
-                    System.out.println("yay");
                     a1.setCoords(coords);
                 }
             }
@@ -240,6 +235,12 @@ public class DbConnection {
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.executeUpdate();
 
+    }
+    
+    public void fjernBooking(int bookingId) throws Exception{
+        preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = "+bookingId);
+                    preparedStatement.executeUpdate();
+                    System.out.println("Bookingen har blitt slettet");
     }
 
     public ArrayList<Rom> hentRomEtasje(int etasjen) throws Exception, SQLException {
@@ -444,6 +445,34 @@ public class DbConnection {
         return bookinger;
 
     }
+    
+    public ArrayList<Booking> hentAlleBookinger()throws Exception, SQLException{
+            ArrayList arr = new ArrayList();     
+                resultSet = statement.executeQuery("SELECT * FROM booking");
+                Booking b;
+                while(resultSet.next()) {
+                    int id = resultSet.getInt("bookingId");
+                    String brukernavn = resultSet.getString("brukernavn"); 
+                    int brukerType = resultSet.getInt("brukertype");
+                    String romnr = resultSet.getString("romnr");
+                    String fratid = resultSet.getString("fratid");         
+                    String tiltid = resultSet.getString("tiltid");
+                    Boolean sjekketInn = resultSet.getBoolean("sjekketInn");
+                    
+                    b = new Booking();
+                    b.setBookingId(id);
+                    b.setBrukernavn(brukernavn);
+                    b.setBrukertype(brukerType);
+                    b.setRomNummer(romnr);
+                    b.setFratid(fratid);
+                    b.setTiltid(tiltid);
+                    b.setSjekketInn(sjekketInn);
+                    
+                    arr.add(b);
+                }
+                
+            return arr;
+            }
 
     public boolean regBooking(String brukernavn, Booking b, int brukerType) throws Exception, SQLException {
         ArrayList<Booking> booking = hentBooking(b.getRomNummer());
@@ -512,7 +541,7 @@ public class DbConnection {
         return true;
     }
 
-    public void generateAndSendEmail(String brukernavn, String oppdatering) throws AddressException, MessagingException, SQLException {
+    public void generateAndSendEmail(String brukernavn, String oppdatering, String header) throws AddressException, MessagingException, SQLException {
 
         ResultSet resultSet = statement.executeQuery("select mail from bruker where brukernavn= '" + brukernavn + "'");
         resultSet.next();
@@ -535,7 +564,7 @@ public class DbConnection {
         generateMailMessage = new MimeMessage(getMailSession);
         generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mailadresse));
         generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(mailadresse));
-        generateMailMessage.setSubject("Endringer i din bruker på StudyEasy");
+        generateMailMessage.setSubject(header);
         String emailBody = oppdatering + "<br><br> Hilsen, <br>StudyEasy Admin";
         generateMailMessage.setContent(emailBody, "text/html");
         System.out.println("Mail Session has been created successfully..");
@@ -547,9 +576,7 @@ public class DbConnection {
 		// Enter your correct gmail UserID and Password
         // if you have 2FA enabled then provide App Specific Password
         transport.connect("smtp.gmail.com", "studyeasy.ntnu", "Passord123");
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
-        System.out.println("***********************************");
         transport.close();
     }
 
