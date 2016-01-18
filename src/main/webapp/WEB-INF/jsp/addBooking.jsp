@@ -34,7 +34,7 @@
                             <label>Rom Nummer</label>
                             <input path="romNummer" class="form-control" id="romnr" name ="romNummer"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group input-daterange">
                             <label>Fra</label>
                             <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra"/>
                             <label>Til</label>
