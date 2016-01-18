@@ -88,16 +88,16 @@ public class Kontroller {
 
         switch (etasje) {
             case "1":
-                url = "http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg";
+                url = "http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg";
                 break;
             case "2":
-                url = "http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg";
+                url = "http://www.mediafire.com/convkey/f168/lmwe83xtax53qdh9g.jpg";
                 break;
             case "3":
-                url = "http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg";
+                url = "http://www.mediafire.com/convkey/6d08/5gaam91oken79zm9g.jpg";
                 break;
             case "4":
-                url = "http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg";
+                url = "http://www.mediafire.com/convkey/d436/3cz4at4dbhuohpm9g.jpg";
                 break;
         }
         ModelAndView etasjeMV = new ModelAndView("visEtasjePlan", "etasjeLink", url);
