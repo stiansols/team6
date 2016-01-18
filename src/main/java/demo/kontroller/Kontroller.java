@@ -322,21 +322,22 @@ public class Kontroller {
         return "visBooking";
     }
 
-    @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
-    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
+    public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
             return "login";
         }
+        
         String [] stringFratid = nyBooking.getFratid().split("-");
-        String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0];
+        String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
         String[] stringTiltid = nyBooking.getTiltid().split("-");
-        String tiltids = stringTiltid[2] +"-"+ stringTiltid[1] + "-" + stringTiltid[0];
-        nyBooking.setFratid(fratids + "-00-00");
-        nyBooking.setTiltid(tiltids + "-00-00");
-        nyBooking.setBookingId(10);
+        String tiltids = stringTiltid[2] +"-"+ stringTiltid[1] + "-" + stringTiltid[0] + "-"+tiltidtimer + "-" + tiltidmin;
+        nyBooking.setFratid(fratids);
+        nyBooking.setTiltid(tiltids);
+        //nyBooking.setBookingId(NULL);
         db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
         
-        lastInnPerson(person, person.getBrukernavn());
+
 
         return "index";
     }
