@@ -313,13 +313,13 @@ public class Kontroller {
         return alleFag;
     }
 
-      @RequestMapping("/addBooking")
+      @RequestMapping("/visBooking")
     public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
         if(person.getBrukernavn() == null){
             return "login";
         }
         model.addAttribute("booking", new Booking());
-        return "addBooking";
+        return "visBooking";
     }
 
     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
