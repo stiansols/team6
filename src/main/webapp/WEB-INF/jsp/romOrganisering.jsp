@@ -76,6 +76,15 @@
                 <div>
                     <input type="search" placeholder="Søk romnr">
                     <input type="search" placeholder="Søk utstyr">
+                    <br>
+                    <h3>Antall plasser:</h3> <span id="range">0</span>
+                    <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)" />
+                    <script type="text/javascript">
+                        function showValue(newValue)
+                        {
+                            document.getElementById("range").innerHTML=newValue;
+                        }
+                    </script>
                 </div>
                 <fieldset class="ramme">
                     <legend class="ramme">Utstyr</legend>
