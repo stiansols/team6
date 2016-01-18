@@ -53,12 +53,6 @@ public class Kontroller {
     public String visStartView() {
         return "login";
     }
-    
-    @RequestMapping("/addBooking")
-    public String addBooking() {
-        return "addBooking";
-    }
-    
     @RequestMapping("/index")
     public String getHovedisde(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -239,6 +233,7 @@ public class Kontroller {
         } catch (SQLException e) {
             System.out.println(e + " fail");
         }
+        System.out.println(alleRom.get(0).getShape());
         return alleRom;
     }
     @ModelAttribute("romForste")
@@ -303,6 +298,7 @@ public class Kontroller {
             return "login";
         }
         model.addAttribute("booking", new Booking());
+        System.out.println("232");
         return "addBooking";
     }
 
