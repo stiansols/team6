@@ -425,6 +425,25 @@ public class DbConnection {
         return bookinger;
 
     }
+    
+    public ArrayList<String> hentBooking(String fratid, String tiltid) throws Exception, SQLException {
+        ArrayList bookinger = new ArrayList();
+        String query;
+        if (fratid.split("-").length == 3) query = "select* from booking where fratid LIKE '" + fratid + "%'";
+        else {
+            query = "select* from booking where fratid LIKE '" + fratid + "%'";
+        }
+        ResultSet resultSet = statement.executeQuery("SELECT romnr FROM booking WHERE STR_TO_DATE('" + fratid + "', '%Y-%m-%d-%H-%i') > STR_TO_DATE(fratid, '%Y-%m-%d-%H-%i') and\n" +
+"STR_TO_DATE('" + fratid + "', '%Y-%m-%d-%H-%i') < STR_TO_DATE(tiltid, '%Y-%m-%d-%H-%i')");
+
+        while (resultSet.next()) {
+            String romnr = resultSet.getString("romnr");
+            System.out.println("romnr: " + romnr);
+            bookinger.add(romnr);
+        }
+        return bookinger;
+
+    }
 
     public boolean regBooking(String brukernavn, Booking b, int brukerType) throws Exception, SQLException {
         ArrayList<Booking> booking = hentBooking(b.getRomNummer());
