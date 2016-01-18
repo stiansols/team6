@@ -99,6 +99,12 @@ public class Rom {
     public void setCoords(String coords) {
         this.coords = coords;
     }
+
+    public String smart(Rom rom){
+        if (rom.getHarSmartboard()){
+            return "ja";
+        }else return "nei";
+    }
     
     public String toString(){
         return romnr + " " +etasje+ " "+  " " + plasser+" "+ harSmartboard+" "+ harSkjerm+" "+ harProsjektor+" "+ tilgang;
