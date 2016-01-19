@@ -1,4 +1,3 @@
-<%@page import="database.DbConnection"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -53,6 +52,9 @@
 
         </style>
     </head>
+    
+               
+    
     <body>
         <div container>
             <div class="col-lg-6">
@@ -83,7 +85,7 @@
                             </tr>
                             <tr>
                                 <th>Romnr</th>
-                                <th>Etasje</th>
+                                <th>Ledig</th>
 
                             </tr>
 
@@ -97,7 +99,7 @@
                             <c:forEach items="${alleRom}" var="rom">                 
                                 <tr>
                                     <td>${rom.getRomnr()}</td>
-                                    <td>${rom.getEtasje()}</td>
+                                    <td></td>
                                 </tr>  
 
                             </c:forEach>           
@@ -110,7 +112,13 @@
                 <div class="span3">
                         <div class="form-group input-daterange">
                             <label>Fra</label>
-                            <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra" onchange="changedDate()"/>
+
+                            <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra"/>
+                            <input type="text" name="tidFra" class="form-control" id="tidFra">
+
+                            <label>Til</label>
+                            <input type="text" name="tidTil" class="form-control" id="tidTil">
+                            <input type="button" value="OK" class="form-control" onclick="onChangeDato()">
                         </div>
                 </div>
             </div>
@@ -126,18 +134,16 @@
         <script type="text/javascript">
             
             $('#datoFra').datepicker({
-                    format: 'yyyy-mm-dd'
+                    format: 'dd-mm-yyyy'
                 });
-            
+            $('#datoTil').datepicker({
+                    format: 'dd-mm-yyyy'
+                });
         </script>
 
         <script>
-            function changedDate() {
-                var fratid = document.getElementById('datoFra').value;
-                alert(fratid);
-                
-            }
-            
+
+
             $(document).ready(function () {
                 $(".search").keyup(function () {
                     var searchTerm = $(".search").val();
@@ -201,6 +207,41 @@
                     currentRow.onclick = createClickHandler(currentRow);
                 }
             }
+            
+            function onChangeDato() {
+
+                
+                var table = document.getElementById("romTabell");
+                var cells = table.getElementsByTagName("td");
+
+                var datoFraInput = document.getElementById("datoFra");
+                var tidFraInput = document.getElementById("tidFra");
+                var datoTilInput = document.getElementById("datoTil");
+                var tidTilInput = document.getElementById("tidTil");
+
+                $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
+                    alert(JSON.stringify(d));
+                    var parsedData = JSON.parse(JSON.stringify(d));
+                    for(i=3; i<cells.length; i+=2) {
+                        for(j=0; j<parsedData.length; j++) {
+                            
+                            if(cells[i-1].innerHTML === parsedData[j]) {
+                                cells[i].innerHTML = "Ikke ledig";
+                                break;
+                            }
+                            else {
+                                cells[i].innerHTML = "Ledig";
+                            }
+                        }
+                        
+                    }
+                });
+                
+                             
+                
+                
+            }
+            
             window.onload = onClickRomtabell();
 
 

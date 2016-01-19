@@ -108,6 +108,21 @@ public class DbConnection {
 
     }
 
+    public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
+        ArrayList bookinger = new ArrayList();
+        resultSet = statement.executeQuery("SELECT * FROM booking");
+        while(resultSet.next()) {
+            String brukernavn = resultSet.getString("brukernavn");
+            int brukertype = resultSet.getInt("brukertype");
+            String romnr = resultSet.getString("romnr");
+            String fratid = resultSet.getString("fratid");
+            String tiltid = resultSet.getString("tiltid");
+            Booking b = new Booking(brukernavn,romnr,fratid,tiltid,brukertype);
+            bookinger.add(b);
+        }
+        return bookinger;
+    }
+    
     public Bruker hentBruker(String brukernavn) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '" + brukernavn + "'");
         Bruker b = null;
@@ -452,34 +467,6 @@ public class DbConnection {
         return bookinger;
 
     }
-    
-    public ArrayList<Booking> hentAlleBookinger()throws Exception, SQLException{
-            ArrayList arr = new ArrayList();     
-                resultSet = statement.executeQuery("SELECT * FROM booking");
-                Booking b;
-                while(resultSet.next()) {
-                    int id = resultSet.getInt("bookingId");
-                    String brukernavn = resultSet.getString("brukernavn"); 
-                    int brukerType = resultSet.getInt("brukertype");
-                    String romnr = resultSet.getString("romnr");
-                    String fratid = resultSet.getString("fratid");         
-                    String tiltid = resultSet.getString("tiltid");
-                    Boolean sjekketInn = resultSet.getBoolean("sjekketInn");
-                    
-                    b = new Booking();
-                    b.setBookingId(id);
-                    b.setBrukernavn(brukernavn);
-                    b.setBrukertype(brukerType);
-                    b.setRomNummer(romnr);
-                    b.setFratid(fratid);
-                    b.setTiltid(tiltid);
-                    b.setSjekketInn(sjekketInn);
-                    
-                    arr.add(b);
-                }
-                
-            return arr;
-            }
 
     public boolean regBooking(String brukernavn, Booking b, int brukerType) throws Exception, SQLException {
         ArrayList<Booking> booking = hentBooking(b.getRomNummer());
