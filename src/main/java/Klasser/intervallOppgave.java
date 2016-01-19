@@ -27,12 +27,14 @@ class intervallOppgave extends TimerTask {
             for(int i = 0; i< bookinger.size(); i++){
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
                 Date fra = formatter.parse(bookinger.get(i).getFratid());
+                Date til = formatter.parse(bookinger.get(i).getTiltid());
                 Date now = new Date();
                 Date snart = new Date(System.currentTimeMillis()+16*60*1000);
                 if(fra.after(now) && fra.before(snart)){
                     String oppdatering = "Din rombooking starter om 15 minutter, husk å sjekke inn på rommet";
                     String header = "Påminnelse om rombooking";
                     db.generateAndSendEmail(bookinger.get(i).getBrukernavn(), oppdatering, header);
+                    continue;
                 }
                 Date snart2 = new Date(System.currentTimeMillis()-16*60*1000);
                 if(fra.before(now) && fra.after(snart2)){
@@ -41,8 +43,11 @@ class intervallOppgave extends TimerTask {
                     String oppdatering= "Du har glemt å sjekke inn og har derfor mistet din rombooking";
                     db.fjernBooking(bookinger.get(i).getBookingId());
                     db.generateAndSendEmail(bookinger.get(i).getBrukernavn(), oppdatering, header);
-                    
+                    continue;
                     }
+                }
+                if(til.before(now)){
+                    db.fjernBooking(bookinger.get(i).getBookingId());
                 }
             }
         }

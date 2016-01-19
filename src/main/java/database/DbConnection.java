@@ -143,6 +143,7 @@ public class DbConnection {
             nyBooking.setTiltid(resultSet.getString("tiltid"));
             nyBooking.setBrukernavn(brukernavn);
             nyBooking.setRomNummer(resultSet.getString("romnr"));
+            nyBooking.setSjekketInn(resultSet.getBoolean("sjekketInn"));
             b.setBookinger(nyBooking);
         }
         resultSet = statement.executeQuery("SELECT * FROM personligavtale where brukernavn = '" + brukernavn + "'");
@@ -257,6 +258,12 @@ public class DbConnection {
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.executeUpdate();
 
+    }
+    
+    public void setSjekketInn(int bookingId) throws Exception, SQLException {
+        preparedStatement = null;
+        preparedStatement = connection.prepareStatement("UPDATE booking SET sjekketInn = '"+ 1 +"' where bookingId = '" + bookingId + "'");
+        preparedStatement.executeUpdate();
     }
     
     public void fjernBooking(int bookingId) throws Exception{

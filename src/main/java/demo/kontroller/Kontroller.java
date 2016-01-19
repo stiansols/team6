@@ -93,6 +93,13 @@ public class Kontroller {
         session.removeAttribute("person");
         return "login";
     } 
+    
+     @RequestMapping(value = "/sjekkInn", method = RequestMethod.POST)
+    public String sjekkeInn(@RequestParam int buttonSupreme) throws Exception {
+        DbConnection db = new DbConnection();
+        db.setSjekketInn(buttonSupreme);
+        return "redirect:index";
+    }
 
     @RequestMapping("/romOversikt")
     public String visRomOversikt(@ModelAttribute(value = "person") Bruker person) {
@@ -212,9 +219,9 @@ public class Kontroller {
     }
 
     @RequestMapping("/spam")
-    public String loggInn(@RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
+    public String loggInn(Model model, @RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
         Bruker bruker = null;
-
+        
         try {
             bruker = db.loggInn(brukernavn, passord);
             if (bruker != null) {
@@ -231,7 +238,16 @@ public class Kontroller {
                 for (int i = 0; i < b.getAvtaler().size(); i++) {
                     person.setAvtaler(b.getAvtaler().get(i));
                 }
-
+                ArrayList<Booking> bookings = new ArrayList();
+                    for(int i = 0; i<person.getBookingerListe().size(); i++){
+                        bookings.add(person.getBookingerListe().get(i));
+                    }
+                    for(int i = 0; i<bookings.size(); i++){
+                        if(bookings.get(i).getSjekketInn()==true){
+                            bookings.remove(i);
+                        }
+                    }
+                model.addAttribute("brukerBookinger", bookings);
                 return "index";
             } else {
                 System.out.println("ikke lik");
@@ -324,6 +340,20 @@ public class Kontroller {
         alleFag = db.hentAlleFag();
 
         return alleFag;
+    }
+    
+    @ModelAttribute("brukerBookinger")
+    public ArrayList<Booking> sjekkInn(@ModelAttribute(value="person") Bruker person){
+    ArrayList<Booking> bookings = new ArrayList();
+                    for(int i = 0; i<person.getBookingerListe().size(); i++){
+                        bookings.add(person.getBookingerListe().get(i));
+                    }
+                    for(int i = 0; i<bookings.size(); i++){
+                        if(bookings.get(i).getSjekketInn()==true){
+                            bookings.remove(i);
+                        }
+                    }
+                    return bookings;
     }
 
       @RequestMapping("/addBooking")

@@ -149,7 +149,7 @@ public class Booking {
      * @return 
      */
     public String toString(){
-        String res = "Booking: "+bookingId+" \n Romnr: "+romNummer+" \n Fra: "+fratid+" \n Til: "+tiltid+" \n";
+        String res = "Booking: "+bookingId+" \n Romnr: "+romNummer+" \n Fra: "+fratid+" \n Til: "+tiltid+" \n Sjekket inn: "+ sjekketInn;
         return res;
     }
 }
