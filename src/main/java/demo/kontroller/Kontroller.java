@@ -220,6 +220,14 @@ public class Kontroller {
         return "redirect:login";
 
     }
+    
+    @ModelAttribute("alleBookinger")
+    public ArrayList<Booking> getBooking() throws Exception {
+        ArrayList<Booking> b = new ArrayList();
+        b = db.hentAlleBookinger();
+        System.out.println(b.toString());
+        return b;
+    }
 
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
@@ -291,8 +299,8 @@ public class Kontroller {
 
         return alleFag;
     }
-
-      @RequestMapping("/addBooking")
+    
+    @RequestMapping("/addBooking")
     public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
         if(person.getBrukernavn() == null){
             return "login";
