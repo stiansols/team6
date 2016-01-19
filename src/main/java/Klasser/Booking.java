@@ -21,6 +21,16 @@ public class Booking {
     
     public Booking() {}
 
+    public Booking(String brukernavn, String romNummer, String fratid, String tiltid, int brukertype) {
+        this.brukernavn = brukernavn;
+        this.romNummer = romNummer;
+        this.fratid = fratid;
+        this.tiltid = tiltid;
+        this.brukertype = brukertype;
+    }
+    
+    
+
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
     }
