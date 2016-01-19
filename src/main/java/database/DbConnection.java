@@ -113,6 +113,21 @@ public class DbConnection {
 
     }
 
+    public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
+        ArrayList bookinger = new ArrayList();
+        resultSet = statement.executeQuery("SELECT * FROM booking");
+        while(resultSet.next()) {
+            String brukernavn = resultSet.getString("brukernavn");
+            int brukertype = resultSet.getInt("brukertype");
+            String romnr = resultSet.getString("romnr");
+            String fratid = resultSet.getString("fratid");
+            String tiltid = resultSet.getString("tiltid");
+            Booking b = new Booking(brukernavn,romnr,fratid,tiltid,brukertype);
+            bookinger.add(b);
+        }
+        return bookinger;
+    }
+    
     public Bruker hentBruker(String brukernavn) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '" + brukernavn + "'");
         Bruker b = null;
