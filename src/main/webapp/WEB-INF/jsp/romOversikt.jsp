@@ -1,4 +1,3 @@
-<%@page import="database.DbConnection"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -53,12 +52,6 @@
 
         </style>
     </head>
-    
-    <div id="bookingData">
-        <c:forEach items="${alleBookinger}" var="booking">
-            <input type="text" hidden="true" value="${booking.getFraOgTiltid()}">
-        </c:forEach>
-    </div>
     
                
     
@@ -124,7 +117,6 @@
                             <input type="text" name="tidFra" class="form-control" id="tidFra">
 
                             <label>Til</label>
-                            <input type="date" name = "datoTil" class="form-control"  id="datoTil"/>
                             <input type="text" name="tidTil" class="form-control" id="tidTil">
                             <input type="button" value="OK" class="form-control" onclick="onChangeDato()">
                         </div>
@@ -150,7 +142,8 @@
         </script>
 
         <script>
-            
+
+
             $(document).ready(function () {
                 $(".search").keyup(function () {
                     var searchTerm = $(".search").val();
@@ -217,60 +210,36 @@
             
             function onChangeDato() {
 
+                
                 var table = document.getElementById("romTabell");
                 var cells = table.getElementsByTagName("td");
-                
-                var data = document.getElementById("bookingData");
-                var inputs = data.getElementsByTagName("input");
+
                 var datoFraInput = document.getElementById("datoFra");
-                var datoTilInput = document.getElementById("datoTil");
-                
                 var tidFraInput = document.getElementById("tidFra");
-                var timerFraInp = parseInt(tidFraInput.value.split("-")[0]);
-                var minFraInp = parseInt(tidFraInput.value.split("-")[1]);
-                alert("ok");
+                var datoTilInput = document.getElementById("datoTil");
                 var tidTilInput = document.getElementById("tidTil");
-                var timerTilInp = parseInt(tidTilInput.value.split("-")[0]);
-                var minTilInp = parseInt(tidTilInput.value.split("-")[1]);                
-                
-                for(i=3; i<cells.length; i+=2) {
-                    for(j=0; j<inputs.length; j++) {
-                        
-                        var romnr = inputs[j].value.split(":")[0];
-                        
-                        var fra = inputs[j].value.split(":")[1];
-                        var timerFra = parseInt(fra.split("-")[3]);
-                        var minFra = parseInt(fra.split("-")[4]);
- 
-                        var til = inputs[j].value.split(":")[2];
-                        var timerTil = parseInt(til.split("-")[3]);
-                        var minTil = parseInt(til.split("-")[4]);
 
-                        alert(timerFraInp);
-                        alert(timerFra);
-                        alert(timerTil);
-                        
-                        if(cells[i-1].innerHTML === romnr && (fra.split("-")[0] + fra.split("-")[1] + fra.split("-")[2])  === datoFraInput.value) {
-                            if((timerFraInp > timerFra && timerFraInp < timerTil) || (timerTilInp > timerFra && timerTilInp < timerTil) || (timerFraInp < timerFra && timerTilInp > timerTil)) {
-                                cells[i].innerHTML = "Ikke ledig";
-                                break;
-                            }
-                            else if((timerTilInp === timerFra && (minTilInp > minFra) ) {
-                                cells[i].innerHTML = "Ikke ledig";
-                                break;
-                            }
+                $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
+                    alert(JSON.stringify(d));
+                    var parsedData = JSON.parse(JSON.stringify(d));
+                    for(i=3; i<cells.length; i+=2) {
+                        for(j=0; j<parsedData.length; j++) {
                             
+                            if(cells[i-1].innerHTML === parsedData[j]) {
+                                cells[i].innerHTML = "Ikke ledig";
+                                break;
+                            }
+                            else {
+                                cells[i].innerHTML = "Ledig";
+                            }
                         }
-                        else {
-                            cells[i].innerHTML = "Ledig";
-                        }
+                        
                     }
-
-
-                }
+                });
                 
-
-
+                             
+                
+                
             }
             
             window.onload = onClickRomtabell();
