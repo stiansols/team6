@@ -91,15 +91,13 @@ public class Kontroller {
      * @param person
      */
     public void LagSjekketInnListe(Model model,@ModelAttribute(value="person")Bruker person ){
-    ArrayList<Booking> bookings = new ArrayList();                   
-                    for(int i = 0; i< person.getBookingerListe().size(); i++){
-                        if(person.getBookingerListe().get(i).getSjekketInn()== false){
-                            bookings.add(person.getBookingerListe().get(i));
-                        }
-                        
-                    }
-                   
-                model.addAttribute("brukerBookinger", bookings);
+        ArrayList<Booking> bookings = new ArrayList();                   
+            for(int i = 0; i< person.getBookingerListe().size(); i++){
+                if(person.getBookingerListe().get(i).getSjekketInn()== false){
+                    bookings.add(person.getBookingerListe().get(i));
+                }
+            }
+        model.addAttribute("brukerBookinger", bookings);
     }
 
     /**
