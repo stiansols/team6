@@ -15,36 +15,69 @@ public class Studium {
     private String studiekode;
     private String studienavn;
     
+    /**
+     *
+     */
     public Studium(){
         
     }
 
+    /**
+     *
+     * @param studieId
+     * @param studiekode
+     * @param studienavn
+     */
     public Studium(int studieId, String studiekode, String studienavn) {
         this.studieId = studieId;
         this.studiekode = studiekode;
         this.studienavn = studienavn;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getStudieId() {
         return studieId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStudiekode() {
         return studiekode;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStudienavn() {
         return studienavn;
     }
 
+    /**
+     *
+     * @param studieId
+     */
     public void setStudieId(int studieId) {
         this.studieId = studieId;
     }
 
+    /**
+     *
+     * @param studiekode
+     */
     public void setStudiekode(String studiekode) {
         this.studiekode = studiekode;
     }
 
+    /**
+     *
+     * @param studienavn
+     */
     public void setStudienavn(String studienavn) {
         this.studienavn = studienavn;
     }

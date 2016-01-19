@@ -15,18 +15,34 @@ public class Avtale extends Hendelse{
     private boolean hemmelig;
     private String romNr;
     
+    /**
+     *
+     * @return
+     */
     public String getRomNr(){
         return romNr;
     }
     
+    /**
+     *
+     * @param nyttRomNr
+     */
     public void setRomNr(String nyttRomNr){
         this.romNr = nyttRomNr;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHemmelig() {
         return hemmelig;
     }
 
+    /**
+     *
+     * @param hemmelig
+     */
     public void setHemmelig(boolean hemmelig) {
         this.hemmelig = hemmelig;
     }

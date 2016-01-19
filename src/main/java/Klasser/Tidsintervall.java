@@ -14,6 +14,10 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ *
+ * @author Sondre
+ */
 public class Tidsintervall {
 
     private static Timer timer = new Timer();
@@ -37,6 +41,10 @@ public class Tidsintervall {
         return cal;
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     public void run()  throws Exception {
         Calendar firstTaskTime = getFirstTime();
         System.out.println("Task will start at: " + firstTaskTime.getTime());
