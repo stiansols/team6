@@ -13,47 +13,53 @@ import java.util.ArrayList;
 public class Fag {
     private String fagkode;
     private String navn;
-    private ArrayList<Student> elever = new ArrayList<Student>();
-    private ArrayList<Ansatt> lærere = new ArrayList<Ansatt>();
     
+    /**
+     *
+     */
     public Fag(){
         
     }
 
+    /**
+     *
+     * @param fagkode
+     * @param navn
+     */
     public Fag(String fagkode, String navn) {
         this.fagkode = fagkode;
         this.navn = navn;
     }
 
+    /**
+     *
+     * @param fagkode
+     */
     public void setFagkode(String fagkode) {
         this.fagkode = fagkode;
     }
 
+    /**
+     *
+     * @param navn
+     */
     public void setNavn(String navn) {
         this.navn = navn;
     }
 
-    public void setElever(ArrayList<Student> elever) {
-        this.elever = elever;
-    }
-
-    public void setLærere(ArrayList<Ansatt> lærere) {
-        this.lærere = lærere;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getFagkode() {
         return fagkode;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNavn() {
         return navn;
-    }
-
-    public ArrayList<Student> getElever() {
-        return elever;
-    }
-
-    public ArrayList<Ansatt> getLærere() {
-        return lærere;
     }
 }

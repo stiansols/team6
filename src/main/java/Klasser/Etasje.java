@@ -16,26 +16,49 @@ public class Etasje {
     int etasjenr; 
     ArrayList<Rom> romliste = new ArrayList(); 
     
+    /**
+     *
+     */
     public Etasje(){
         
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Rom> getRomliste() {
         return romliste;
     }
 
+    /**
+     *
+     * @param romliste
+     */
     public void setRomliste(ArrayList<Rom> romliste) {
         this.romliste = romliste;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getEtasjenr() {
         return etasjenr;
     }
 
+    /**
+     *
+     * @param etasjenr
+     */
     public void setEtasjenr(int etasjenr) {
         this.etasjenr = etasjenr;
     }
     
+    /**
+     *
+     * @throws Exception
+     */
     public void hentRom() throws Exception{
         DbConnection conn = new DbConnection();
         String romnr; 

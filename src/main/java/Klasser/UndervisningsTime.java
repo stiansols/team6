@@ -16,26 +16,50 @@ public class UndervisningsTime extends Hendelse{
     private String lærer;
     private String fagKode;
 
+    /**
+     *
+     * @return
+     */
     public String getRomNr() {
         return romNr;
     }
 
+    /**
+     *
+     * @param romNr
+     */
     public void setRomNr(String romNr) {
         this.romNr = romNr;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLærer() {
         return lærer;
     }
 
+    /**
+     *
+     * @param lærer
+     */
     public void setLærer(String lærer) {
         this.lærer = lærer;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFagKode() {
         return fagKode;
     }
 
+    /**
+     *
+     * @param fagKode
+     */
     public void setFagKode(String fagKode) {
         this.fagKode = fagKode;
     }

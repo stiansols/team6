@@ -20,6 +20,9 @@ public class Booking {
     public boolean sjekketInn;
     private int brukertype;
     
+    /**
+     *
+     */
     public Booking() {}
 
     public Booking(String brukernavn, String romNummer, String fratid, String tiltid, int brukertype) {
@@ -36,59 +39,115 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBrukertype() {
         return brukertype;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public boolean getSjekketInn(){
         return sjekketInn;
     }
     
+    /**
+     *
+     * @param verdi
+     */
     public void setSjekketInn(boolean verdi){
         this.sjekketInn = verdi;
     }
 
+    /**
+     *
+     * @param brukertype
+     */
     public void setBrukertype(int brukertype) {
         this.brukertype = brukertype;
     }
 
+    /**
+     *
+     * @param brukernavn
+     */
     public void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
     }
 
+    /**
+     *
+     * @param romNummer
+     */
     public void setRomNummer(String romNummer) {
         this.romNummer = romNummer;
     }
 
+    /**
+     *
+     * @param fratid
+     */
     public void setFratid(String fratid) {
         this.fratid = fratid;
     }
 
+    /**
+     *
+     * @param tiltid
+     */
     public void setTiltid(String tiltid) {
         this.tiltid = tiltid;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBookingId() {
         return bookingId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBrukernavn() {
         return brukernavn;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRomNummer() {
         return romNummer;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFratid() {
         return fratid;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTiltid() {
         return tiltid;
     }
     
+    /**
+     * toString-metode
+     * Returnerer en String med bookingId, Romnr, Fratid og Tiltid.
+     * @return 
+     */
     public String toString(){
         String res = "Booking: "+bookingId+" \n Romnr: "+romNummer+" \n Fra: "+fratid+" \n Til: "+tiltid+" \n";
         return res;
