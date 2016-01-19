@@ -363,7 +363,7 @@ public class DbConnection {
 
     }
 
-    public ArrayList<String> hentStudenterIFag(String fagkode) throws Exception, SQLException {
+    public String[] hentStudenterIFag(String fagkode) throws Exception, SQLException {
         ArrayList<String> studenter = new ArrayList();
         resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
 
@@ -372,7 +372,7 @@ public class DbConnection {
             studenter.add(brukernavn);
         }
 
-        return studenter;
+        return studenter.toArray(new String[studenter.size()]);
     }
 
     public void close() {

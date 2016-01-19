@@ -16,13 +16,16 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.MediaType;
 
 /**
  *
@@ -442,11 +445,14 @@ public class Kontroller {
 
     }
 
-    @ModelAttribute("alleStudIFag")
-    public ArrayList getStudIFag(String fagkode) throws SQLException, Exception {
-        ArrayList<String> studenter = new ArrayList();
-        studenter = db.hentStudenterIFag("IT-01");
-
+    @RequestMapping(value="test2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getStudIFag(@RequestParam ("data") String fagkode) throws SQLException, Exception {
+        String studenter[] = null;
+       // System.out.println(data);
+        studenter = db.hentStudenterIFag(fagkode);
+      // studenter = new String[10];
+      //+ studenter[0] = "student1";
         return studenter;
     }
 
