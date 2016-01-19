@@ -84,9 +84,11 @@ public class Kontroller {
 
 
     @RequestMapping("/*")
-    public String visStartView() throws Exception {
-        Tidsintervall spamMail = new Tidsintervall();
+    public String visStartView(@ModelAttribute(value="person") Bruker person) throws Exception {
+       if(person.getBrukertype()== 4){
+                Tidsintervall spamMail = new Tidsintervall();
                 spamMail.run();
+                }
         return "login";
     }
     
@@ -224,7 +226,7 @@ public class Kontroller {
         return "romOrganisering";
     }
 
-    @RequestMapping(value = "/oppdaterrom", method = RequestMethod.POST)
+      @RequestMapping(value = "/oppdaterrom", method = RequestMethod.POST)
     public String oppdaterRom(@ModelAttribute(value = "romForm")Rom rom,@ModelAttribute(value = "rom")Bruker person) throws Exception {
         try {
             db.oppdaterRom(rom.getRomnr(), rom.getEtasje(), rom.getPlasser(), rom.getHarSmartboard(), rom.getHarSkjerm(), rom.getHarProsjektor(), rom.getTilgang());
@@ -498,3 +500,5 @@ public class Kontroller {
      }
      */
 }
+
+   
