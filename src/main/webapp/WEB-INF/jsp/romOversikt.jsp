@@ -53,6 +53,15 @@
 
         </style>
     </head>
+    
+    <div id="bookingData">
+        <c:forEach items="${alleBookinger}" var="booking">
+            <input type="text" hidden="true" value="${booking.getFraOgTiltid()}">
+        </c:forEach>
+    </div>
+    
+               
+    
     <body>
         <div container>
             <div class="col-lg-6">
@@ -83,7 +92,7 @@
                             </tr>
                             <tr>
                                 <th>Romnr</th>
-                                <th>Etasje</th>
+                                <th>Ledig</th>
 
                             </tr>
 
@@ -97,7 +106,7 @@
                             <c:forEach items="${alleRom}" var="rom">                 
                                 <tr>
                                     <td>${rom.getRomnr()}</td>
-                                    <td>${rom.getEtasje()}</td>
+                                    <td></td>
                                 </tr>  
 
                             </c:forEach>           
@@ -110,7 +119,14 @@
                 <div class="span3">
                         <div class="form-group input-daterange">
                             <label>Fra</label>
-                            <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra" onchange="changedDate()"/>
+
+                            <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra"/>
+                            <input type="text" name="tidFra" class="form-control" id="tidFra">
+
+                            <label>Til</label>
+                            <input type="date" name = "datoTil" class="form-control"  id="datoTil"/>
+                            <input type="text" name="tidTil" class="form-control" id="tidTil">
+                            <input type="button" value="OK" class="form-control" onclick="onChangeDato()">
                         </div>
                 </div>
             </div>
@@ -126,17 +142,14 @@
         <script type="text/javascript">
             
             $('#datoFra').datepicker({
-                    format: 'yyyy-mm-dd'
+                    format: 'dd-mm-yyyy'
                 });
-            
+            $('#datoTil').datepicker({
+                    format: 'dd-mm-yyyy'
+                });
         </script>
 
         <script>
-            function changedDate() {
-                var fratid = document.getElementById('datoFra').value;
-                alert(fratid);
-                
-            }
             
             $(document).ready(function () {
                 $(".search").keyup(function () {
@@ -201,6 +214,65 @@
                     currentRow.onclick = createClickHandler(currentRow);
                 }
             }
+            
+            function onChangeDato() {
+
+                var table = document.getElementById("romTabell");
+                var cells = table.getElementsByTagName("td");
+                
+                var data = document.getElementById("bookingData");
+                var inputs = data.getElementsByTagName("input");
+                var datoFraInput = document.getElementById("datoFra");
+                var datoTilInput = document.getElementById("datoTil");
+                
+                var tidFraInput = document.getElementById("tidFra");
+                var timerFraInp = parseInt(tidFraInput.value.split("-")[0]);
+                var minFraInp = parseInt(tidFraInput.value.split("-")[1]);
+                alert("ok");
+                var tidTilInput = document.getElementById("tidTil");
+                var timerTilInp = parseInt(tidTilInput.value.split("-")[0]);
+                var minTilInp = parseInt(tidTilInput.value.split("-")[1]);                
+                
+                for(i=3; i<cells.length; i+=2) {
+                    for(j=0; j<inputs.length; j++) {
+                        
+                        var romnr = inputs[j].value.split(":")[0];
+                        
+                        var fra = inputs[j].value.split(":")[1];
+                        var timerFra = parseInt(fra.split("-")[3]);
+                        var minFra = parseInt(fra.split("-")[4]);
+ 
+                        var til = inputs[j].value.split(":")[2];
+                        var timerTil = parseInt(til.split("-")[3]);
+                        var minTil = parseInt(til.split("-")[4]);
+
+                        alert(timerFraInp);
+                        alert(timerFra);
+                        alert(timerTil);
+                        
+                        if(cells[i-1].innerHTML === romnr && (fra.split("-")[0] + fra.split("-")[1] + fra.split("-")[2])  === datoFraInput.value) {
+                            if((timerFraInp > timerFra && timerFraInp < timerTil) || (timerTilInp > timerFra && timerTilInp < timerTil) || (timerFraInp < timerFra && timerTilInp > timerTil)) {
+                                cells[i].innerHTML = "Ikke ledig";
+                                break;
+                            }
+                            else if((timerTilInp === timerFra && (minTilInp > minFra) ) {
+                                cells[i].innerHTML = "Ikke ledig";
+                                break;
+                            }
+                            
+                        }
+                        else {
+                            cells[i].innerHTML = "Ledig";
+                        }
+                    }
+
+
+                }
+                
+
+
+            }
+            
             window.onload = onClickRomtabell();
 
 
