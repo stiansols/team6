@@ -62,11 +62,24 @@ public class Kontroller {
         person.setMail(b.getMail());
         person.setBrukertype(b.getBrukertype());
         for (int i = 0; i < b.getBookingerListe().size(); i++) {
-            person.setBookinger(b.getBookingerListe().get(i));
+                person.setBookinger(b.getBookingerListe().get(i));
+            
         }
         for (int i = 0; i < b.getAvtaler().size(); i++) {
             person.setAvtaler(b.getAvtaler().get(i));
         }
+    }
+    
+    public void LagSjekketInnListe(Model model,@ModelAttribute(value="person")Bruker person ){
+    ArrayList<Booking> bookings = new ArrayList();                   
+                    for(int i = 0; i< person.getBookingerListe().size(); i++){
+                        if(person.getBookingerListe().get(i).getSjekketInn()== false){
+                            bookings.add(person.getBookingerListe().get(i));
+                        }
+                        
+                    }
+                   
+                model.addAttribute("brukerBookinger", bookings);
     }
 
 
@@ -79,11 +92,12 @@ public class Kontroller {
     
     
     @RequestMapping("/index")
-    public String getHovedisde(@ModelAttribute(value = "person") Bruker person) throws Exception {
+    public String getHovedisde(Model model, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
             return "login";
         }
         lastInnPerson(person);
+        LagSjekketInnListe(model, person);
         return "index";
     }
     
@@ -95,9 +109,10 @@ public class Kontroller {
     } 
     
      @RequestMapping(value = "/sjekkInn", method = RequestMethod.POST)
-    public String sjekkeInn(@RequestParam int buttonSupreme) throws Exception {
+    public String sjekkeInn(Model model, @RequestParam int buttonSupreme, @ModelAttribute(value="person")Bruker person) throws Exception {
         DbConnection db = new DbConnection();
         db.setSjekketInn(buttonSupreme);
+        LagSjekketInnListe(model, person);
         return "redirect:index";
     }
 
@@ -239,16 +254,7 @@ public class Kontroller {
                 for (int i = 0; i < b.getAvtaler().size(); i++) {
                     person.setAvtaler(b.getAvtaler().get(i));
                 }
-                ArrayList<Booking> bookings = new ArrayList();
-                    for(int i = 0; i<person.getBookingerListe().size(); i++){
-                        bookings.add(person.getBookingerListe().get(i));
-                    }
-                    for(int i = 0; i<bookings.size(); i++){
-                        if(bookings.get(i).getSjekketInn()==true){
-                            bookings.remove(i);
-                        }
-                    }
-                model.addAttribute("brukerBookinger", bookings);
+                LagSjekketInnListe(model, person);
                 return "index";
             } else {
                 System.out.println("ikke lik");

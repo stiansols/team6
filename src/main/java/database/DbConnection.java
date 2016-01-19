@@ -142,6 +142,7 @@ public class DbConnection {
             nyBooking.setFratid(resultSet.getString("fratid"));
             nyBooking.setTiltid(resultSet.getString("tiltid"));
             nyBooking.setBrukernavn(brukernavn);
+            nyBooking.setBrukertype(resultSet.getInt("brukertype"));
             nyBooking.setRomNummer(resultSet.getString("romnr"));
             nyBooking.setSjekketInn(resultSet.getBoolean("sjekketInn"));
             b.setBookinger(nyBooking);
