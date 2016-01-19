@@ -16,17 +16,32 @@
     </head>
     <body>
         
-                <style>
+             <style>
             tr{
-                width: 12.5%;
+                width: 50%;
             }
             
             td{
-                width: 12.5%;
+                width: 50%;
+             
             }     
+            
+            #dagtab{
+                width: 20%;
+            }
+            
+            #klokkeslett{
+                background-color: whitesmoke;
+            }
+            
+            #status{
+                
+            }
         </style>
         
         <form:form method="POST" modelAttribute="booking" action="nyBooking">
+           
+        
             <div class="container">
                 <div class="row">
                     <div class ="col-lg-4 col-lg-offset-0 well">
@@ -34,11 +49,47 @@
                             <label>Rom Nummer</label>
                             <input path="romNummer" class="form-control" id="romnr" name ="romNummer"/>
                         </div>
-                        <div class="form-group input-daterange">
+                        <div class="form-group input-daterange" >
                             <label>Fra</label>
-                            <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra"/>
+                            <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra" />  
+                            <select id ="fratidtimer" name="fratidtimer">
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">11</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            </select>
+                            <select id ="fratidmin" name = "fratidmin">
+                            <option value="00">00</option>
+                            <option value="30">30</option>
+                            
+                            </select>
                             <label>Til</label>
                             <input type="date" path="tiltid" name = "tiltid" class="form-control"  id="datoTil"/>
+                            <select id ="tiltidtimer" name="tiltidtimer">
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            </select>
+                            <select id ="tiltidmin" name ="tiltidmin">
+                            <option value="00">00</option>
+                            <option value="30">30</option>
+                            
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -58,152 +109,123 @@
  <h3>${person.getBookingerTekst()}</h3>
             
   <div class="container">
-  <h3>Oversikt for rom 
+  <h4>Oversikt for rom 
       <select>
         <c:forEach items="${alleRom}" var="rom">                 
             <option>${rom.getRomnr()}</option>  
         </c:forEach>           
-      </select></h3> 
-  <div class="table-responsive" id="uke">          
-  <table class="table table-bordered table-hover">
+      </select>
+  </h4> 
+  
+      <div class="form group input-daterange">
+          <h4>Velg dato <input type="date" name = "dato" class="dato"  id="dato"/></h4>
+      </div> 
+      
+  <div class="table-responsive" id="dag">          
+  <table class="table table-bordered table-hover" id="dagtab">
     <thead>
       <tr>
         <th>Klokkeslett</th>
-        <th>Mandag</th>
-        <th>Tirsdag</th>
-        <th>Onsdag</th>
-        <th>Torsdag</th>
-        <th>Fredag</th>
-        <th>Lørdag</th>
-        <th>Søndag</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>08.00-08.30</td>
-        <td class="success">-</td>
-        <td class="danger">-</td>
-        <td class="danger">-</td>
-        <td class="success">-</td>
-        <td class="danger">-</td>
-        <td class="success">-</td>
-        <td class="success">-</td>
+       <tr>
+        <td class="klokkeslett" id="1">06.00-06.30</td>
+        <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>08.30-09.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <td class="klokkeslett" id="2">06.30-07.00</td>
+        <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>09.00-09.30</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <td class="klokkeslett" id="3">07.00-07.30</td>
+        <td class="status" id="status"></td>
+      </tr><tr>
+        <td class="klokkeslett" id="4">07.30-08.00</td>
+        <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>09.30-10.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <td class="klokkeslett" id="5">08.00-08.30</td>
+        <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>10.00-10.30</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="6">08.30-09.00</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>10.30-11.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="7">09.00-09.30</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>11.00-11.30</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="8">09.30-10.00</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>11.30-12.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="9">10.00-10.30</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>12.00-12.30</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="10">10.30-11.00</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>12.30-13.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="11">11.00-11.30</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>13.00-13.30</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="12">11.30-12.00</td>
+      <td class="status" id="status"></td>
       </tr>
       <tr>
-      <td>13.30-14.00</td>
-      <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <td class="klokkeslett" id="13">12.00-12.30</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="14">12.30-13.00</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="15">13.00-13.30</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="16">13.30-14.00</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="17">14.00-14.30</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="18">14.30-15.00</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="19">15.00-15.30</td>
+      <td class="status" id="status"></td>
+      </tr>
+      <tr>
+      <td class="klokkeslett" id="20">15.30-16.00</td>
+      <td class="status" id="status"></td>
       </tr>
       
     </tbody>
-  </table>
-  </div>
- </div>
+ 
+ <script type="text/javascript">
+$(document).ready(function(){
+    $('#dagtab td.status').each(function(){
+        if ($(this).text() === 'Ledig') {
+            $(this).css('background-color','green');
+        }
+        
+        else{
+            $(this).css('background-color','lightcoral');
+        }
+    });
+});
+</script>
+
 
             
         </form:form>

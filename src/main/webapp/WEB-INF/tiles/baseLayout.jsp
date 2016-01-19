@@ -32,13 +32,13 @@
             <img src="http://imageshack.com/a/img908/3876/vwWGkb.png"/>
             
         </div>
-          <div class="container">
+          <div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-3">
+				<div class="col-lg-2">
                                     <div class="well col-lg-12"><tiles:insertAttribute name="menu" /></div>
 				</div> 
                                 
-                         <div class="col-lg-8 col-lg-offset-0">
+                         <div class="col-lg-9">
                                         
 				<tiles:insertAttribute name="body" />
 				

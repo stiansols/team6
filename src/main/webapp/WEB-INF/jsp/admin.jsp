@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -20,6 +21,10 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        
+   
         
         <style>
             body{
@@ -76,7 +81,8 @@
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#brukerFane">Brukere</a></li>
         <li><a href="#fagFane">Fag</a></li>
-         <li><a href="#fagStudent">Oversikt</a></li>
+         <li><a href="#fagStudFane">Oversikt</a></li>
+         <li><a href="#studiumFane">Studium</a></li>
         
     </ul>
     <div class="tab-content">
@@ -231,61 +237,33 @@
         
         </div>
      
-     <div id="fagStudent" class="tab-pane fade">
-            
-         <div container>
-           <div class="col-lg-4">
-            <table id="fagTabell2" class="table table-hover table-bordered results">
-   
-                    <thead>
-                        <tr>
-                                <th>Fagkode</th>                              
-                        </tr>
-        
-                    </thead>
-                    
-                        <tbody>
-                            
-           <c:forEach items="${alleFag}" var="fag">                 
-                            <tr>
-                                <td>${fag.getFagkode()}</td> 
-                            </tr>  
-                                
-        </c:forEach>
-                                
-                        </tbody>
-            </table>
-           </div>
-            
-     <!--      <div class="col-lg-6">
-           <table id="klasseTabell" class="table table-hover table-bordered results">
-   
-                    <thead>
-                        <tr>
-                                <th>Studenter</th>                              
-                        </tr>
-        
-                    </thead>
-                    
-                        <tbody>
-                            
-           <c:forEach items="${alleStudIFag}" var="stud">                 
-                            <tr>
-                                <td>${stud}</td> 
-                            </tr>  
-                                
-        </c:forEach>
-                                
-                        </tbody>
-            </table>
-           </div> 
-     -->      
-        </div> 
-        
-        
-   <div class="container">
-    <br />
-	<div class="row">
+     <div id="fagStudFane" class="tab-pane fade">
+         <div class="container">
+             
+             <div class="row col-lg-4">
+                 <form:form class = "form-horizontal" method="POST" modelAttribute="fagForm" name="velgFag" action="admin">
+                     <fieldset class="form-group">
+                                <label for="velgFagLabel">Fag</label>
+                                <select class="form-control" id="exampleSelect1">
+                                    
+                                   <c:forEach items="${alleStudier}" var="studie">                 
+                                       <option>${studie.getStudienavn()}</option>
+
+                                    </c:forEach>
+                                       
+                                </select>
+                              </fieldset>
+                     
+                     <button type="submit" class="btn btn-primary">Velg fag</button>
+                 </form:form>
+                     
+                     <button type="submit" class="btn btn-primary" onclick="onClickTest()">Test</button>
+                     <button type="submit" class="btn btn-primary" onclick="triggEnter()">Trigg enter</button>
+             </div>
+              
+
+
+	<div class="row col-lg-12">
 
         <div class="dual-list list-left col-md-4">
             <div class="well text-left">
@@ -294,7 +272,8 @@
                     <div class="col-md-10">
                         <div class="input-group">  
                             <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="Søk" />
+                            <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk" />
+                           
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -303,13 +282,14 @@
                         </div>
                     </div>
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">brukernavn6</li>
-                    <li class="list-group-item">brukernavn7</li>
-                    <li class="list-group-item">brukernavn8</li>
-                    <li class="list-group-item">brukernavn9</li>
-                    <li class="list-group-item">brukernavn10</li>
+                <ul id="tarFagListe" class="list-group">
+                    
+                     <c:forEach items="${alleStud}" var="stud">                 
+                        <li class="list-group-item">${stud.getBrukernavn()}</li>
+                                
+                    </c:forEach>
                 </ul>
+                
             </div>
         </div>
 
@@ -348,11 +328,12 @@
                 </ul>
             </div>
         </div>
-
-	</div>
+            <button class="btn btn-primary col-lg-3" onclick="sendNyStudListe()">Lagre endringer</button>
+   </div>
 </div>
        
         
+   
        
         
         
@@ -360,6 +341,12 @@
         
         </div>
         
+     <div id="studiumFane" class="tab-pane fade">
+         <h1>Studium</h1>
+          
+         
+     </div>
+     
     </div>
    
    
@@ -459,7 +446,12 @@
 </html>
 <script>
     $(document).ready(function() {
-  $(".search").keyup(function () {
+        $.get("test2", {"data":"TDAT-1000"}, function(Response){
+            alert(JSON.stringify(Response));
+        });
+        alert("test");
+        
+   $(".search").keyup(function () {
     var searchTerm = $(".search").val();
     var listItem = $('.results tbody').children('tr');
     var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
@@ -484,13 +476,6 @@
     else {$('.no-result').hide();}
 		  });
    
-   //tab bytteren
-   $("#myTab a").click(function(e){
-    	e.preventDefault();
-    	$(this).tab('show');
-    });
-    
-    
     $('body').on('click', '.list-group .list-group-item', function () {
                 $(this).toggleClass('active');
             });
@@ -527,7 +512,17 @@
                     return !~text.indexOf(val);
                 }).hide();
             });
+ 
 
+
+
+//tab bytteren
+   $("#myTab a").click(function(e){
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+    
+  
                   
 });
 
@@ -624,26 +619,10 @@ window.onload = onClickBrukertabell();
                                         var cell = row.getElementsByTagName("td")[0];
                                         
                                         var fagkode = cell.innerHTML;
+                                        $('#SearchDualList').val("Stians");
+                                     //   alert(fagkode);
                                         
-                                        alert(fagkode);
-                                        
-                      /*             var data = { 
-                                            fagkode : fagkode
-                                          
-                                     }
-                                     
-                                     $.ajax({
-                                            type: "POST",
-                                            url: "velgFag",
-                                            data: data,
-                                            success: function (result) {
-                                                // do something.
-                                            },
-                                            error: function (result) {
-                                                // do something.
-                                            }
-                                        });
-                                      */      
+                      
                                         
                                  };
             };
@@ -652,9 +631,61 @@ window.onload = onClickBrukertabell();
     }
 }
  window.onload = onClickFagtabell2();
+ 
+ function triggEnter(){
 
+     /* var e = $.Event('keypress');
+     e.which = 13; // 
+     $('#SearchDualListId').trigger(e);
+     */
+  
+    
+    var e = jQuery.Event("keypress");
+        e.which = 13; //choose the one you want
+        e.keyCode = 13;
+        $("#SearchDualListId").trigger(e);
 
-        
+    
+    }
+    
+    function sendNyStudListe(){
+        var unorderedList = document.getElementById('tarFagListe'); 
+        var ListItems = unorderedList.getElementsByTagName('li');  
+     
+         for(var i = 0; i < ListItems.length; i++){
+            var test = ListItems[i].innerHTML;
+                    alert(test);
+                    
+                    
+                    //sjekker fag i selecten
+                    
+                    
+    
+     }
+     
+    }
+
+function onClickTest(){
+
+  //  $('.search').val("Stians");
+     $('#SearchDualListId').val("Stians");
+  //   $('#SearchDualListId').focus();
+ /*    var e = $.Event('keypress');
+     e.which = 13; // 
+     $('#SearchDualListId').trigger(e);
+  */  
+     
+   /*   $('#SearchDualListId').keyup();
+     $('#SearchDualListId').focus();
+    // $('#SearchDualListId').click();
+     var e = $.Event( "keypress", { which: 13 } );
+     $("#SearchDualListId").trigger(e);
+*/
+
+  
+
+}
+    window.onload = onClickTest();    
 
  
 </script>

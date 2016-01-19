@@ -4,6 +4,7 @@ import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
+import Klasser.Tidsintervall;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,13 +16,16 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.MediaType;
 
 /**
  *
@@ -48,11 +52,32 @@ public class Kontroller {
 
         return sb.toString();
     }
+    
+    public void lastInnPerson(@ModelAttribute(value="person") Bruker person, String brukernavn) throws Exception {
+        person.fjernBookinger();
+        person.fjernAvtaler();
+    Bruker b = db.hentBruker(brukernavn);
+                person.setBrukernavn(b.getBrukernavn());
+                person.setNavn(b.getNavn());
+                person.setMail(b.getMail());
+                person.setBrukertype(b.getBrukertype());
+                for (int i = 0; i < b.getBookingerListe().size(); i++) {
+                    person.setBookinger(b.getBookingerListe().get(i));
+                }
+                for (int i = 0; i < b.getAvtaler().size(); i++) {
+                    person.setAvtaler(b.getAvtaler().get(i));
+                }
+    }
+
 
     @RequestMapping("/*")
-    public String visStartView() {
+    public String visStartView() throws Exception {
+        Tidsintervall spamMail = new Tidsintervall();
+                spamMail.run();
         return "login";
     }
+    
+    
     @RequestMapping("/index")
     public String getHovedisde(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -82,16 +107,16 @@ public class Kontroller {
 
         switch (etasje) {
             case "1":
-                url = "http://www.mediafire.com/convkey/9236/736fif9tr2s21zczg.jpg";
+                url = "http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg";
                 break;
             case "2":
-                url = "http://www.mediafire.com/convkey/1183/670c89ehc1w9b2ozg.jpg";
+                url = "http://www.mediafire.com/convkey/f168/lmwe83xtax53qdh9g.jpg";
                 break;
             case "3":
-                url = "http://www.mediafire.com/convkey/64b7/ate3wife1pm8yskzg.jpg";
+                url = "http://www.mediafire.com/convkey/6d08/5gaam91oken79zm9g.jpg";
                 break;
             case "4":
-                url = "http://www.mediafire.com/convkey/6543/kbjzj4ijm88nlv4zg.jpg";
+                url = "http://www.mediafire.com/convkey/d436/3cz4at4dbhuohpm9g.jpg";
                 break;
         }
         ModelAndView etasjeMV = new ModelAndView("visEtasjePlan", "etasjeLink", url);
@@ -299,29 +324,29 @@ public class Kontroller {
 
         return alleFag;
     }
-    
-    @RequestMapping("/addBooking")
+
+      @RequestMapping("/visBooking")
     public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
         if(person.getBrukernavn() == null){
             return "login";
         }
         model.addAttribute("booking", new Booking());
-        System.out.println("232");
-        return "addBooking";
+        return "visBooking";
     }
 
-    @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
-    public String leggTilBooking(@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
+    public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
             return "login";
         }
+        
         String [] stringFratid = nyBooking.getFratid().split("-");
-        String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0];
+        String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
         String[] stringTiltid = nyBooking.getTiltid().split("-");
-        String tiltids = stringTiltid[2] +"-"+ stringTiltid[1] + "-" + stringTiltid[0];
-        nyBooking.setFratid(fratids + "-00-00");
-        nyBooking.setTiltid(tiltids + "-00-00");
-        nyBooking.setBookingId(10);
+        String tiltids = stringTiltid[2] +"-"+ stringTiltid[1] + "-" + stringTiltid[0] + "-"+tiltidtimer + "-" + tiltidmin;
+        nyBooking.setFratid(fratids);
+        nyBooking.setTiltid(tiltids);
+        //nyBooking.setBookingId(NULL);
         db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
         
 
@@ -349,7 +374,8 @@ public class Kontroller {
 
         db.lagBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
          String melding = "Det er opprettet en bruker konto på StudEasy for deg <br> Du kan logge inn for å endre mail og passord hvis du ønsker det <br><br> Dine opplysninger er: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+" <br>Velkomen til StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
+        String header = "Det er opprettet en brukerkonto på StudyEasy";
+         db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
 
     }
@@ -361,7 +387,8 @@ public class Kontroller {
         }
         db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -385,8 +412,8 @@ public class Kontroller {
 
         db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
         String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding);
-
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -400,7 +427,8 @@ public class Kontroller {
 
         db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
         String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
-        db.generateAndSendEmail(person.getBrukernavn(), melding);
+        String header = "Endringer i din bruker på StudyEasy";
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -426,11 +454,14 @@ public class Kontroller {
 
     }
 
-    @ModelAttribute("alleStudIFag")
-    public ArrayList getStudIFag(String fagkode) throws SQLException, Exception {
-        ArrayList<String> studenter = new ArrayList();
-        studenter = db.hentStudenterIFag("IT-01");
-
+    @RequestMapping(value="test2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getStudIFag(@RequestParam ("data") String fagkode) throws SQLException, Exception {
+        String studenter[] = null;
+       // System.out.println(data);
+        studenter = db.hentStudenterIFag(fagkode);
+      // studenter = new String[10];
+      //+ studenter[0] = "student1";
         return studenter;
     }
 
