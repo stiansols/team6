@@ -5,6 +5,20 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <style>
+            .btn-primary {
+                margin-top: 5px;
+            }
+            
+            .col-lg-12 {
+                position: relative;
+                min-height: 1px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-bottom: 15px;
+            }
+            
+        </style>
 <nav class="navbar navbar-default">
     <div class="container col-lg-12">
         <div class="navnbar-header col-lg-12">
@@ -15,19 +29,28 @@
             </button>
             <div class= "navbar-brand">Meny</div>
         </div>
-            <br><br><br>
+        
         <div class="collapse navbar-collapse col-lg-12" id="liste">
+            <div id="knapper">
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>">Admin </a>
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Booking </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="login"/>" >Login </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater Personlig </a>
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater personlig </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOrganisering"/>" >Romorganisering </a>
-            <a href="<c:url value="hjem"/>"><img src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>
-            <a href="<c:url value="addBooking"/>"><img src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking"/> </a><br/>
-            <a href="<c:url value="bruker"/>"><img src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
-            <a href="<c:url value="innstillinger"/>"><img src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger"/> </a><br>
-            <a data-toggle="modal" data-target="#logoff"><img src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut"/> </a><br>
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="innstillinger"/>" >Innstillinger </a>
+            <a data-toggle="modal" data-target="#logoff"><button class="btn btn-primary col-lg-11 col-xs-11">Logg ut </button></a>
+            
+            </div>
+            <!--
+            <div class="bildelinker">
+            <a href="<c:url value="hjem"/>"><img class="valg" src="http://bildr.no/image/eGxRM25P.jpeg" alt="Hjem"/> </a><br>
+            <a href="<c:url value="romOversikt"/>"><img class="valg" src="http://bildr.no/image/RHpQQ09s.jpeg" alt="Booking"/> </a><br/>
+            <a href="<c:url value="bruker"/>"><img class="valg" src="http://bildr.no/image/Tkt2ckNa.jpeg" alt="Bruker"/> </a><br>
+            <a href="<c:url value="innstillinger"/>"><img class="valg" src="http://bildr.no/image/WURwSk1C.jpeg" alt="Innstillinger"/> </a><br>
+            <a data-toggle="modal" data-target="#logoff"><img class="valg" src="http://bildr.no/image/ZDMrRnNU.jpeg" alt="Logg ut"/> </a><br>
+            </div>
+            -->
         </div>
     </div>
 </nav>
@@ -41,7 +64,7 @@
             </div>
             <div class="modal-body">
                 <i class="fa fa-question-circle"></i>
-                <p>Er du sikker på at du vil logge ut?</p>
+                <p>Er du sikker pÃ¥ at du vil logge ut?</p>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-primary" href="<c:url value="logut"/>">Logg ut</a>
