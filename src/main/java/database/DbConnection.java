@@ -392,6 +392,17 @@ public class DbConnection {
         return bruker;
 
     }
+ 
+
+  public int hentSpesRom(String romnr)throws Exception{
+    
+        resultSet = statement.executeQuery("SELECT * FROM rom where romnr = " + romnr +"");
+        resultSet.next();
+        int res = resultSet.getInt("tilgang");
+        
+        return res;
+    }
+
 
     public String[] hentStudenterIFag(String fagkode) throws Exception, SQLException {
         ArrayList<String> studenter = new ArrayList();
@@ -432,6 +443,19 @@ public class DbConnection {
         }
 
     }
+     public String[] getBook(String romnr)throws Exception{
+         ArrayList<String> bookinger = new ArrayList();
+         ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
+         
+         while(resultSet.next()){
+             bookinger.add(resultSet.getString("fratid"));
+             bookinger.add(resultSet.getString("tiltid"));
+         
+         }
+         
+         return bookinger.toArray(new String[bookinger.size()]);
+    }
+
 
     public ArrayList<Booking> hentBooking(String romnr) throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
@@ -581,5 +605,6 @@ public class DbConnection {
         transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
         transport.close();
     }
+    
 
 }

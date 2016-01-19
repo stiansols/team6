@@ -379,6 +379,11 @@ public class Kontroller {
         if(person.getBrukernavn() == null){
             return "login";
         }
+        int tilgang = db.hentSpesRom(nyBooking.getRomNummer());
+        
+        if(person.getBrukertype()<tilgang){
+            return "index";
+        }
         
         String [] stringFratid = nyBooking.getFratid().split("-");
         String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
@@ -483,6 +488,26 @@ public class Kontroller {
         return "redirect:admin";
 
     }
+    @RequestMapping(value="books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[]getBookRom(@RequestParam ("romnr") String romnr) throws SQLException, Exception {
+        
+        String[] bookinger = null;
+       // System.out.println(data);
+        bookinger = db.getBook(romnr);
+        System.out.println("getBookRom");
+
+        for(int i = 0; i<bookinger.length; i++){
+            
+            System.out.println(i + ":" + bookinger[i]);
+            
+        }
+
+      // studenter = new String[10];
+      //+ studenter[0] = "student1";
+        return bookinger;
+    }
+    
 
     /* 
      @RequestMapping(value="/velgFag", method=RequestMethod.POST)

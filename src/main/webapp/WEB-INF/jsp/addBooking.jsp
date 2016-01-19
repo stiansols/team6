@@ -106,20 +106,21 @@
         
         
  <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam">
- <h3>${person.getBookingerTekst()}</h3>
+ 
             
   <div class="container">
   <h4>Oversikt for rom 
-      <select>
+      <select id ="dropdown" onchange="minfunction(this.options[this.selectedIndex].text)">
         <c:forEach items="${alleRom}" var="rom">                 
-            <option>${rom.getRomnr()}</option>  
+            <option >${rom.getRomnr()}</option>  
         </c:forEach>           
       </select>
   </h4> 
-  
+  <form:form method="POST" value="fuckingsdato">
       <div class="form group input-daterange">
-          <h4>Velg dato <input type="date" name = "dato" class="dato"  id="dato"/></h4>
+          <h4>Velg dato <input type="text" name = "dato" class="dato"  id="dato"/></h4>
       </div> 
+   </form:form>
       
   <div class="table-responsive" id="dag">          
   <table class="table table-bordered table-hover" id="dagtab">
@@ -214,6 +215,25 @@
  
  <script type="text/javascript">
 $(document).ready(function(){
+      var select = document.getElementById("dropdown");
+      var selected = select.options[select.selectedIndex].text;
+      //alert(selected);
+     $.get("books", {"romnr":selected}, function(Response){
+        alert(JSON.stringify(Response));
+      });
+      
+});
+
+function minfunction(romnummer){
+    $.get("books", {"romnr":romnummer}, function(Response){
+        alert(JSON.stringify(Response));
+      });
+     
+ 
+}
+
+$(document).ready(function(){
+
     $('#dagtab td.status').each(function(){
         if ($(this).text() === 'Ledig') {
             $(this).css('background-color','green');
@@ -222,6 +242,7 @@ $(document).ready(function(){
         else{
             $(this).css('background-color','lightcoral');
         }
+        
     });
 });
 </script>
@@ -234,13 +255,17 @@ $(document).ready(function(){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
 
         <script type="text/javascript">
-            
             $('.input-daterange input').each(function() {
                 $(this).datepicker({
                     format: 'yyyy-mm-dd'
                 });
             });
-            
-        </script>    
+       
+         
+           
+        </script>
+        <script>
+  
+        </script>
     </body>
 </html>
