@@ -197,19 +197,19 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Endre Rom</h4>
                 </div>
-                <form:form method="post" modelAttribute="romForm" name="rom" action="oppdaterRom">
+                <form:form method="post" modelAttribute="romForm" name="romForm" action="oppdaterRom">
                     <div class="modal-body">
-                        <div>Romnr: <input type="text" path="rom.romnr" name="romnr"></div>
-                        <div>Etasje: <input type="text" path="rom.etasje" name="romnr"></div>
-                        <div>Plasser: <input type="text" path="rom.plasser" name="romnr"></div>
+                        <div>Romnr: <input type="text" path="rom.romnr" name="romnr" readonly></div>
+                        <div>Etasje: <input type="text" path="rom.etasje" name="etasje"></div>
+                        <div>Plasser: <input type="text" path="rom.plasser" name="plasser"></div>
                         <div>Smartboard: <input type="checkbox" path="rom.smartboard" name=" smartboard"></div>
-                        <div>Skjerm: <input type="checkbox" path="rom.romnr" name="romnr"></div>
-                        <div>Prosjektor: <input type="checkbox" path="rom.romnr" name="romnr"></div>
-                        <div>Tilgang: <input type="text" path="rom.tilgang" name="romnr"></div>
+                        <div>Skjerm: <input type="checkbox" path="rom.skjerm" name="skjerm"></div>
+                        <div>Prosjektor: <input type="checkbox" path="rom.prosjektor" name="prosjektor"></div>
+                        <div>Tilgang: <input type="text" path="rom.tilgang" name="tilgang"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-default" formaction="oppdater">Oppdater rom</button>
-                        <button type="submit" class="btn btn-default" formaction="slett">Slett rom</button>
+                        <button type="submit" class="btn btn-default" formaction="oppdaterrom">Oppdater rom</button>
+                        <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                     </div>
                 </form:form>

@@ -209,12 +209,13 @@ public class Kontroller {
         return "romOrganisering";
     }
 
-    @RequestMapping(value = "#oppdaterRom", method = RequestMethod.POST)
+    @RequestMapping(value = "/oppdaterrom", method = RequestMethod.POST)
     public String oppdaterRom(@ModelAttribute(value = "romForm")Rom rom,@ModelAttribute(value = "rom")Bruker person) throws Exception {
-        if (person.getBrukernavn() == null) {
-            return "login";
+        try {
+            db.oppdaterRom(rom.getRomnr(), rom.getEtasje(), rom.getPlasser(), rom.getHarSmartboard(), rom.getHarSkjerm(), rom.getHarProsjektor(), rom.getTilgang());
+        }catch (Exception e){
+            System.out.println("Noe gikk galt: " + e);
         }
-        db.oppdaterRom(rom.getRomnr(), rom.getEtasje(), rom.getPlasser(), rom.getHarSmartboard(), rom.getHarSkjerm(), rom.getHarProsjektor(), rom.getTilgang());
         return "romOrganisering";
     }
 

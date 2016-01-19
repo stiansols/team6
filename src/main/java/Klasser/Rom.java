@@ -41,6 +41,8 @@ public class Rom {
         this.tilgang = tilgang;
     }
 
+    public Rom(){}
+
     /**
      *
      * @return
@@ -176,18 +178,6 @@ public class Rom {
      */
     public void setCoords(String coords) {
         this.coords = coords;
-    }
-
-    /**
-     * Metoden sjekker om et rom har smartboard eller ikke og returnerer en String
-     * 
-     * @param rom
-     * @return
-     */
-    public String smart(Rom rom){
-        if (rom.getHarSmartboard()){
-            return "ja";
-        }else return "nei";
     }
     
     /**
