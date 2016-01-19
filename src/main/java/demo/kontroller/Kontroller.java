@@ -199,7 +199,17 @@ public class Kontroller {
         if(person.getBrukernavn() == null){
             return "login";
         }
-        return "romOrganisering";}
+        return "romOrganisering";
+    }
+
+    @RequestMapping(value = "#oppdaterRom", method = RequestMethod.POST)
+    public String oppdaterRom(@ModelAttribute(value = "romForm")Rom rom,@ModelAttribute(value = "rom")Bruker person) throws Exception {
+        if (person.getBrukernavn() == null) {
+            return "login";
+        }
+        db.oppdaterRom(rom.getRomnr(), rom.getEtasje(), rom.getPlasser(), rom.getHarSmartboard(), rom.getHarSkjerm(), rom.getHarProsjektor(), rom.getTilgang());
+        return "romOrganisering";
+    }
 
     @RequestMapping("/spam")
     public String loggInn(@RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {

@@ -190,6 +190,13 @@ public class DbConnection {
 
     }
 
+    public void oppdaterRom(String romnr, int etasje, int plasser, boolean harSmart, boolean harSkjerm, boolean harProsjektor, int tilgang)throws Exception, SQLException{
+        preparedStatement = null;
+        preparedStatement = connection.prepareStatement("UPDATE rom SET romnr = '" + romnr + "', etasje = '" + etasje + "', plasser = '" + plasser + "', harSmart = '" + harSmart  + "', harSkjerm = '" + harSkjerm  + "', harProsjektor = '" + harProsjektor  + "', tilgang = '" + tilgang + "'");
+        preparedStatement.executeUpdate();
+    }
+
+
     public void oppdaterPassord(String brukernavn, String passord) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");
         preparedStatement.executeUpdate();

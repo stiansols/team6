@@ -90,7 +90,7 @@
             <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
             
              <div class="form-group pull-right">
-            <input type="text" class="search form-control" placeholder="Søk...">
+            <input type="text" class="search form-control" placeholder="Sï¿½k...">
         </div>
         <span class="counter pull-right"></span>
         
@@ -153,6 +153,8 @@
                                     <input type="text" name="brukernavn" id="brukernavn" value="" readonly/>
                                 </div>
                           </div>
+
+                          
                       
                             <div class="row">
                                         <label for="bTypeLabel" class="col-lg-4 control-label">Brukertype</label>
@@ -272,7 +274,7 @@
                     <div class="col-md-10">
                         <div class="input-group">  
                             <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk" />
+                            <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k" />
                            
                         </div>
                     </div>
@@ -314,7 +316,7 @@
                     </div>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="søk" />
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="sï¿½k" />
                             <span class="input-group-addon glyphicon glyphicon-search"></span>
                         </div>
                     </div>
