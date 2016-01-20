@@ -67,6 +67,10 @@
                     <br>
                     <span><img src="http://www.mediafire.com/convkey/1119/10bh6w8hz6gh3puzg.jpg" alt="Boks" id="1" class="midt" onclick='visEtasje(1)'></span>
                     <input type='hidden' name='etasje'>
+                    <input type='hidden' name='fradato'>
+                    <input type='hidden' name='fratid'>
+                    <input type='hidden' name='tiltid'>
+                    <input type='hidden' name='romnr'>
                 </form>
 
             </div>
@@ -113,11 +117,11 @@
                         <div class="form-group input-daterange">
                             <label>Fra</label>
 
-                            <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra"/>
-                            <input type="text" name="tidFra" class="form-control" id="tidFra">
+                            <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
+                            <input type="text" name="tidFra" class="form-control" id="tidFra" value="09-00">
 
                             <label>Til</label>
-                            <input type="text" name="tidTil" class="form-control" id="tidTil">
+                            <input type="text" name="tidTil" class="form-control" id="tidTil" value="15-00">
                             <input type="button" value="OK" class="form-control" onclick="onChangeDato()">
                         </div>
                 </div>
@@ -134,9 +138,6 @@
         <script type="text/javascript">
             
             $('#datoFra').datepicker({
-                    format: 'dd-mm-yyyy'
-                });
-            $('#datoTil').datepicker({
                     format: 'dd-mm-yyyy'
                 });
         </script>
@@ -179,7 +180,17 @@
             });
 
             function visEtasje(etasje) {
+                var datoFraInput = document.getElementById("datoFra");
+                var tidFraInput = document.getElementById("tidFra");
+                var tidTilInput = document.getElementById("tidTil");
+                
                 document.forms["valg"]["etasje"].value = etasje;
+                document.forms["valg"]["fradato"].value = document.getElementById("datoFra").value;
+                document.forms["valg"]["fratid"].value = document.getElementById("tidFra").value;
+                document.forms["valg"]["tiltid"].value = document.getElementById("tidTil").value;
+
+
+
                 document.forms["valg"].submit();
             }
 
@@ -209,18 +220,14 @@
             }
             
             function onChangeDato() {
-
-                
                 var table = document.getElementById("romTabell");
                 var cells = table.getElementsByTagName("td");
 
                 var datoFraInput = document.getElementById("datoFra");
                 var tidFraInput = document.getElementById("tidFra");
-                var datoTilInput = document.getElementById("datoTil");
                 var tidTilInput = document.getElementById("tidTil");
-
+                var alleRomnr = "";
                 $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
-                    alert(JSON.stringify(d));
                     var parsedData = JSON.parse(JSON.stringify(d));
                     for(i=3; i<cells.length; i+=2) {
                         for(j=0; j<parsedData.length; j++) {
@@ -233,13 +240,12 @@
                                 cells[i].innerHTML = "Ledig";
                             }
                         }
-                        
                     }
-                });
-                
-                             
-                
-                
+                    for(j=0; j<parsedData.length; j++) {
+                        alleRomnr = alleRomnr + parsedData[j] + ",";
+                    }
+                    document.forms["valg"]["romnr"].value = alleRomnr;
+                });  
             }
             
             window.onload = onClickRomtabell();
