@@ -99,7 +99,7 @@
 
                         </thead>
 
-                        <tbody>
+                        <tbody id="romTbody">
                             <c:forEach items="${alleRom}" var="rom">                 
                                 <tr>
                                     <td>${rom.getRomnr()}</td>
@@ -115,8 +115,10 @@
                 
                 <div class="span3">
                         <div class="form-group input-daterange">
+                            
+                            <label>Ledig<input type="checkbox" onclick="filter()" value=""></label>
+                            <br>
                             <label>Fra</label>
-
                             <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
                             <input type="text" name="tidFra" class="form-control" id="tidFra" value="09-00">
 
@@ -150,7 +152,6 @@
                     var searchTerm = $(".search").val();
                     var listItem = $('.results tbody').children('tr');
                     var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
-
                     $.extend($.expr[':'], {'containsi': function (elem, i, match, array) {
                             return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
                         }
@@ -179,17 +180,11 @@
 
             });
 
-            function visEtasje(etasje) {
-                var datoFraInput = document.getElementById("datoFra");
-                var tidFraInput = document.getElementById("tidFra");
-                var tidTilInput = document.getElementById("tidTil");
-                
+            function visEtasje(etasje) {            
                 document.forms["valg"]["etasje"].value = etasje;
                 document.forms["valg"]["fradato"].value = document.getElementById("datoFra").value;
                 document.forms["valg"]["fratid"].value = document.getElementById("tidFra").value;
                 document.forms["valg"]["tiltid"].value = document.getElementById("tidTil").value;
-
-
 
                 document.forms["valg"].submit();
             }
@@ -208,7 +203,7 @@
                                     var cell2 = row.getElementsByTagName("td")[1];
 
                                     var romnr = cell.innerHTML;
-                                    var etasje = cell2.innerHTML;
+                                    var etasje = romnr.charAt(0);
 
                                     visEtasje(etasje);
 
@@ -246,6 +241,24 @@
                     }
                     document.forms["valg"]["romnr"].value = alleRomnr;
                 });  
+            }
+            
+            function filter() {
+                var table = document.getElementById("romTabell");
+                var cells = table.getElementsByTagName("td");
+                var tbody = document.getElementById("romTbody");
+                var rows = tbody.getElementsByTagName("tr");
+                for(i=3, j=0; i<cells.length; i+=2, j++) {
+                    //3 - 1 5 -2 7 - 3
+                    if(cells[i].innerHTML !== "Ledig") {
+                        if (rows[j].style.display == '') {
+                            rows[j].style.display = 'none';
+                        }
+                        else {
+                            rows[j].style.display = '';
+                        }
+                    }
+                }
             }
             
             window.onload = onClickRomtabell();
