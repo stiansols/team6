@@ -53,14 +53,14 @@
                             
                     </thead>
                     
-                        <tbody>
+                        <tbody id="bookingTabell">
                             
            <c:forEach items="${brukerBookinger}" var="brukere">                 
                             <tr>
                                 <td><b>${brukere.getRomNummer()}</b></td>
                                 <td><b>${brukere.getFratid()}</b></td>
                                 <td><b>${brukere.getTiltid()}</b></td>
-                                <td><button class="btn btn-primary" type="submit" value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk inn!</button></td>
+                                <td><button class="btn btn-primary" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk inn!</button></td>
                             </tr>  
                                 
         </c:forEach>
@@ -86,5 +86,30 @@
                 </div>
             </div>
         </form:form>
+        
+        <script>
+            window.onload = function() {
+                
+                var currentdate = new Date();
+                var rows = document.getElementById("bookingTabell").getElementsByTagName("tr");
+                var fratid;
+
+                for(i=0; i<rows.length; i++) {
+                    fratid = rows[i].getElementsByTagName("td")[1].getElementsByTagName("b")[0].innerHTML;
+                    
+                    if(""+currentdate.getDate() === fratid.split("-")[0] &&
+                       "0"+(currentdate.getMonth()+1) === fratid.split("-")[1] &&
+                       ""+currentdate.getFullYear() === fratid.split("-")[2] &&
+                       ""+currentdate.getHours() === fratid.split("-")[3] &&
+                       currentdate.getMinutes() >= parseInt(fratid.split("-")[4])) {
+                        var knapp = rows[i].getElementsByTagName("td")[3].getElementsByTagName("button")[0];
+                        knapp.disabled = false;
+                    }
+                    
+                }
+                
+                
+            };
+        </script>
     </body>
 </html>
