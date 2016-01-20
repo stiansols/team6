@@ -33,7 +33,7 @@ public class Rom {
      */
     public Rom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang) {
         this.romnr = romnr;
-        this.etasje=etasje;
+        this.etasje= etasje;
         this.plasser = plasser;
         this.harSmartboard = harSmartboard;
         this.harSkjerm = harSkjerm;

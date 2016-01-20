@@ -254,7 +254,7 @@ public class DbConnection {
     */
     public void oppdaterRom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang)throws Exception, SQLException{
         preparedStatement = null;
-        preparedStatement = connection.prepareStatement("UPDATE rom SET romnr = '" + romnr + "', etasje = '" + etasje + "', plasser = '" + plasser + "', harSmartboard = '" + harSmartboard  + "', harSkjerm = '" + harSkjerm  + "', harProsjektor = '" + harProsjektor  + "', tilgang = '" + tilgang + "'");
+        preparedStatement = connection.prepareStatement("UPDATE rom SET etasje = '" + etasje + "', plasser = '" + plasser + "', harSmartboard = '" + harSmartboard  + "', harSkjerm = '" + harSkjerm  + "', harProsjektor = '" + harProsjektor  + "', tilgang = '" + tilgang + "' WHERE romnr = '" + romnr + "'");
         preparedStatement.executeUpdate();
     }
 

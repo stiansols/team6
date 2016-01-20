@@ -20,16 +20,22 @@
             <div class="col-sm-8">
                 <fieldset class="ramme">
                     <legend class="ramme">Romliste - Plasser, Smartboard, Skjerm, Prosjektor, Tilgang</legend>
-                    <ol class="tree" id="tre">
+                    <ol class="tree">
                         <li>
                             <label for="folder1">1.Etasje</label> <input type="checkbox" id="folder1" />
-                            <ol>
+                            <ol id="tre">
                                 <c:forEach items="${romForste}" var="rom1">
                                     <li class="file">
                                         <button data-toggle="collapse" data-target="#${rom1.romnr}"><a href="#">${rom1.romnr}</a></button>
                                         <div id="${rom1.romnr}" class="collapse">
-                                            <div> ${rom1.plasser}, ${rom1.harSmartboard}, ${rom1.harSkjerm}, ${rom1.harProsjektor}, ${rom1.tilgang}</div>
-                                            <div class="btn btn-default" data-toggle="modal" data-target="#oppdaterRom">Endre</div>
+                                            <span>${rom1.romnr}</span>,
+                                            <span>${rom1.etasje}</span>,
+                                            <span>${rom1.plasser}</span>,
+                                            <span>${rom1.harSmartboard}</span>,
+                                            <span>${rom1.harSkjerm}</span>,
+                                            <span>${rom1.harProsjektor}</span>,
+                                            <span>${rom1.tilgang}</span>
+                                            <div class="btn btn-default" onclick="onClickEndreRom()" data-toggle="modal" data-target="#oppdaterRom">Endre</div>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -97,16 +103,36 @@
                 </fieldset>
                 <br>
                 <br>
+            </div>
+            <div>
                 <fieldset class="ramme">
                     <legend class="ramme">Romoversikt:</legend>
-                    <c:forEach items="${romValgt}" var="rom">
-                        <p>Romnummer: ${rom.romnr}</p>
-                        <p>Plasser: ${rom.plasser}</p>
-                        <p>Smartboard: ${rom.harSmartboard}</p>
-                        <p>Skjerm: ${rom.harSkjerm}</p>
-                        <p>Prosjektor: ${rom.harProsjektor}</p>
-                        <p>Tilgang: ${rom.tilgang}</p>
-                    </c:forEach>
+                    <table id="romTabell" class="table table-hover table-bordered results">
+                        <thead>
+                        <tr>
+                            <th>Romnummer</th>
+                            <th>Etasje</th>
+                            <th>Plasser</th>
+                            <th>Har Smartboard</th>
+                            <th>Har Skjerm</th>
+                            <th>Har Prosjektor</th>
+                            <th>Har tilgang</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${alleRom}" var="rom">
+                            <tr>
+                                <td>${rom.romnr}</td>
+                                <td>${rom.etasje}</td>
+                                <td>${rom.plasser}</td>
+                                <td>${rom.harSmartboard}</td>
+                                <td>${rom.harSkjerm}</td>
+                                <td>${rom.harProsjektor}</td>
+                                <td>${rom.tilgang}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </fieldset>
             </div>
         </div>
@@ -186,7 +212,6 @@
         border-bottom:none;
     }
 </style>
-
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="oppdaterRom" role="dialog" style="z-index: 1500">
@@ -197,15 +222,32 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Endre Rom</h4>
                 </div>
-                <form:form method="post" modelAttribute="romForm" name="romForm" action="oppdaterRom">
+                <form:form method="post" modelAttribute="form" name="romForm" action="opdaterrom">
                     <div class="modal-body">
-                        <div>Romnr: <input type="text" path="rom.romnr" name="romnr" readonly></div>
-                        <div>Etasje: <input type="text" path="rom.etasje" name="etasje"></div>
-                        <div>Plasser: <input type="text" path="rom.plasser" name="plasser"></div>
-                        <div>Smartboard: <input type="checkbox" path="rom.smartboard" name=" smartboard"></div>
-                        <div>Skjerm: <input type="checkbox" path="rom.skjerm" name="skjerm"></div>
-                        <div>Prosjektor: <input type="checkbox" path="rom.prosjektor" name="prosjektor"></div>
-                        <div>Tilgang: <input type="text" path="rom.tilgang" name="tilgang"></div>
+                        <div class="Row"><label for="RomLabel" class="control-label">Romnr:</label>
+                            <input type="text" name="romnr" id="romnr" value="" readonly>
+                        </div>
+                        <div class="Row"><label for="EtasjeLabel" class="control-label">Etasje:</label>
+                            <input type="text" name="etasje" id="etasje" value="">
+                        </div>
+                        <div class="Row"><label for="PlasserLabel" class="control-label">Plasser:</label>
+                            <input type="text" name="plasser" id="plasser" value="">
+                        </div>
+                        <div class="Row"><label for="SmartboardLabel" class="control-label">Smartboard:
+                            <input type="hidden" name="checked[1]" value="false">
+                            <input type="checkbox" key="1" name="harSmartboard" id="harSmartboard" ></label>
+                        </div>
+                        <div class="Row"><label for="SkjermLabel" class="control-label">Skjerm:
+                            <input type="hidden" name="checked[2]" value="false">
+                            <input type="checkbox" key="2" name="harSkjerm" id="harSkjerm"></label>
+                        </div>
+                        <div class="Row"><label for="ProsjektorLabel" class="control-label">Prosjektor:
+                            <input type="hidden" name="checked[3]" value="false">
+                            <input type="checkbox" key="3" name="harProsjektor" id="harProsjektor"></label>
+                        </div>
+                        <div class="Row"><label for="TilgangLabel" class="control-label">Tilgang: </label>
+                            <input type="text" name="tilgang" id="tilgang" value="">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default" formaction="oppdaterrom">Oppdater rom</button>
@@ -217,3 +259,47 @@
         </div>
     </div>
 </div>
+<script>
+    function onClickEndreRom() {
+        var table = document.getElementById("romTabell");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = function (row) {
+                    return function () {
+                        var cell = row.getElementsByTagName("td")[0];
+                        var cell2 = row.getElementsByTagName("td")[1];
+                        var cell3 = row.getElementsByTagName("td")[2];
+                        var cell4 = row.getElementsByTagName("td")[3];
+                        var cell5 = row.getElementsByTagName("td")[4];
+                        var cell6 = row.getElementsByTagName("td")[5];
+                        var cell7 = row.getElementsByTagName("td")[6];
+
+
+                        var romnr = cell.innerHTML;
+                        var etasje = cell2.innerHTML;
+                        var plasser = cell3.innerHTML;
+                        var smartboard = cell4.innerHTML;
+                        var skjerm = cell5.innerHTML;
+                        var prosjektor = cell6.innerHTML;
+                        var tilgang = cell7.innerHTML;
+
+                        //alert("id:" + id);
+                        $(".modal-body #romnr").val( romnr );
+                        $(".modal-body #etasje").val( etasje );
+                        $(".modal-body #plasser").val( plasser );
+                        $(".modal-body #smartboard").val( smartboard );
+                        $(".modal-body #skjerm").val( skjerm );
+                        $(".modal-body #prosjektor").val( prosjektor );
+                        $(".modal-body #tilgang").val( tilgang );
+                        $('#oppdaterRom').modal('show');
+
+
+                    };
+                };
+
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = onClickEndreRom();
+</script>
