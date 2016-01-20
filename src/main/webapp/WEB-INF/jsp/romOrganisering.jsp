@@ -234,16 +234,16 @@
                             <input type="text" name="plasser" id="plasser" value="">
                         </div>
                         <div class="Row"><label for="SmartboardLabel" class="control-label">Smartboard:
-                            <input type="hidden" name="checked[1]" value="false">
-                            <input type="checkbox" key="1" name="harSmartboard" id="harSmartboard" ></label>
+                            <input type="hidden" name="checked[1]" value="harSmartboard">
+                            <input type="checkbox" key="1" name="harSmartboard" id="harSmartboard" value="harSmartboard"></label>
                         </div>
                         <div class="Row"><label for="SkjermLabel" class="control-label">Skjerm:
-                            <input type="hidden" name="checked[2]" value="false">
-                            <input type="checkbox" key="2" name="harSkjerm" id="harSkjerm"></label>
+                            <input type="hidden" name="checked[2]" value="">
+                            <input type="checkbox" key="2" name="harSkjerm" id="harSkjerm" value=""></label>
                         </div>
                         <div class="Row"><label for="ProsjektorLabel" class="control-label">Prosjektor:
-                            <input type="hidden" name="checked[3]" value="false">
-                            <input type="checkbox" key="3" name="harProsjektor" id="harProsjektor"></label>
+                            <input type="hidden" name="checked[3]" value="">
+                            <input type="checkbox" key="3" name="harProsjektor" id="harProsjektor" value=""></label>
                         </div>
                         <div class="Row"><label for="TilgangLabel" class="control-label">Tilgang: </label>
                             <input type="text" name="tilgang" id="tilgang" value="">
@@ -279,18 +279,18 @@
                         var romnr = cell.innerHTML;
                         var etasje = cell2.innerHTML;
                         var plasser = cell3.innerHTML;
-                        var smartboard = cell4.innerHTML;
-                        var skjerm = cell5.innerHTML;
-                        var prosjektor = cell6.innerHTML;
+                        var harSmartboard = cell4.innerHTML;
+                        var harSkjerm = cell5.innerHTML;
+                        var harProsjektor = cell6.innerHTML;
                         var tilgang = cell7.innerHTML;
 
                         //alert("id:" + id);
                         $(".modal-body #romnr").val( romnr );
                         $(".modal-body #etasje").val( etasje );
                         $(".modal-body #plasser").val( plasser );
-                        $(".modal-body #smartboard").val( smartboard );
-                        $(".modal-body #skjerm").val( skjerm );
-                        $(".modal-body #prosjektor").val( prosjektor );
+                        $(".modal-body #harSmartboard").val( harSmartboard );
+                        $(".modal-body #harSkjerm").val( harSkjerm );
+                        $(".modal-body #harProsjektor").val( harProsjektor );
                         $(".modal-body #tilgang").val( tilgang );
                         $('#oppdaterRom').modal('show');
 

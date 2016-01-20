@@ -253,8 +253,11 @@ public class DbConnection {
     Denne metoden oppdaterer all informanson om ett rom i databasen
     */
     public void oppdaterRom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang)throws Exception, SQLException{
+        int smartboard = (harSmartboard) ? 1 : 0;
+        int skjerm = (harSkjerm) ? 1 : 0;
+        int prosjektor = (harProsjektor) ? 1 : 0;
         preparedStatement = null;
-        preparedStatement = connection.prepareStatement("UPDATE rom SET etasje = '" + etasje + "', plasser = '" + plasser + "', harSmartboard = '" + harSmartboard  + "', harSkjerm = '" + harSkjerm  + "', harProsjektor = '" + harProsjektor  + "', tilgang = '" + tilgang + "' WHERE romnr = '" + romnr + "'");
+        preparedStatement = connection.prepareStatement("UPDATE rom SET etasje = '" + etasje + "', plasser = '" + plasser + "', harSmartboard = '" + smartboard  + "', harSkjerm = '" + skjerm  + "', harProsjektor = '" + prosjektor  + "', tilgang = '" + tilgang + "' WHERE romnr = '" + romnr + "';");
         preparedStatement.executeUpdate();
     }
 
