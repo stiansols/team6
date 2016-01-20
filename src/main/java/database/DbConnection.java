@@ -28,7 +28,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+/*
+Denne klassen har ansvaret for all komunikasjon mellom programmet(kontroller klassen) og databasen
+*/
 public class DbConnection {
 
     private Statement statement;
@@ -38,6 +40,9 @@ public class DbConnection {
     private ResultSet resultSet = null;
     private PreparedStatement preparedStatement = null;
 
+    /*
+    Oppretter en forbindelse til databasen
+    */
     public DbConnection() {
         try {
             appContext = new ClassPathXmlApplicationContext("beans.xml");
@@ -50,11 +55,17 @@ public class DbConnection {
 
     }
 
+    /*
+    En metoden for å utføre gennerelle oppdateringer i databasen metoden tar inn en ferdig sql settning
+    */
     public void executeUpdate(String query) throws Exception, SQLException {
         statement.executeUpdate(query);
 
     }
 
+    /*
+    Denne metoden henter ut samtlige rom som ligger i databasen
+    */
     public ArrayList hentRom(ArrayList<Rom> a) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM rom");
         Rom r;
@@ -76,6 +87,9 @@ public class DbConnection {
 
     }
 
+    /*
+    Denne metoden returnerer en liste med rom som har fått kordinatene som er knyttet til dem i databasen
+    */
     public ArrayList hentCoords(ArrayList<Rom> a) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM romkoordinater");
         while (resultSet.next()) {
@@ -91,6 +105,9 @@ public class DbConnection {
         return a;
     }
 
+    /*
+    Denne metoden returnerer samtlige brukere i databasen
+    */
     public ArrayList<Bruker> hentAlleBrukere() throws Exception, SQLException {
         ArrayList<Bruker> liste = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM bruker");
@@ -109,6 +126,9 @@ public class DbConnection {
 
     }
 
+    /*
+    Denne metoden henter alle bookinger som ligger i databasen
+    */
     public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM booking");
@@ -124,6 +144,9 @@ public class DbConnection {
         return bookinger;
     }
     
+    /*
+    Denne metoden henter ut en person, basert på brukernavnet til personen, fra databasen samtidig som dne knytter alle bookinger og avtaler personen har til person objektet det returnerer
+    */
     public Bruker hentBruker(String brukernavn) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM bruker where brukernavn = '" + brukernavn + "'");
         Bruker b = null;
@@ -162,6 +185,9 @@ public class DbConnection {
 
     }
 
+     /*
+    Henter alle fag som ligger i databasen
+    */
     public ArrayList<Fag> hentAlleFag() throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT * FROM fag");
         Fag fag = null;
@@ -177,30 +203,45 @@ public class DbConnection {
 
     }
 
+     /*
+    Denne metoden legger til ett nytt fag i databasen
+    */
     public void leggTilFag(String fagkode, String navn) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("INSERT INTO fag values( '" + fagkode + " ' , '" + navn + "')");
         preparedStatement.executeUpdate();
 
     }
 
+     /*
+    Denne metoden sletter ett fag fra databasen
+    */
     public void slettFag(String fagkode) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("DELETE FROM fag where fagkode = '" + fagkode + "'");
         preparedStatement.executeUpdate();
 
     }
 
+     /*
+    Denne metoden oppretter en ny bruker i databasen
+    */
     public void lagBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("INSERT INTO bruker values ('" + brukernavn + "','" + brukertype + "', '" + navn + "', SHA1('" + passord + "'), '" + mail + "')");
         preparedStatement.executeUpdate();
 
     }
 
+    /*
+    Denne metoden sletter en bruker fra databasen
+    */
     public void slettBruker(String brukernavn) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("DELETE FROM bruker where brukernavn = '" + brukernavn + "'");
         preparedStatement.executeUpdate();
 
     }
 
+    /*
+    Denne metoden oppdaterer all informasjon om en bruker i databasen
+    */
     public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException {
         preparedStatement = null;
         preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '" + navn + "', passord = '" + sha1(passord) + "', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");
@@ -208,19 +249,27 @@ public class DbConnection {
 
     }
 
+    /*
+    Denne metoden oppdaterer all informanson om ett rom i databasen
+    */
     public void oppdaterRom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang)throws Exception, SQLException{
         preparedStatement = null;
         preparedStatement = connection.prepareStatement("UPDATE rom SET romnr = '" + romnr + "', etasje = '" + etasje + "', plasser = '" + plasser + "', harSmartboard = '" + harSmartboard  + "', harSkjerm = '" + harSkjerm  + "', harProsjektor = '" + harProsjektor  + "', tilgang = '" + tilgang + "'");
         preparedStatement.executeUpdate();
     }
 
-
+     /*
+    Denne metoden oppdaterer passordet til en bruker basert på brukernavnet
+    */
     public void oppdaterPassord(String brukernavn, String passord) throws Exception, SQLException {
         preparedStatement = connection.prepareStatement("UPDATE bruker SET passord = SHA1('" + passord + "') where brukernavn = '" + brukernavn + "'");
         preparedStatement.executeUpdate();
 
     }
 
+      /*
+    Denne metoden oppdaterer mailen til en bruker basert på brukernavnet til en bruker
+    */
     public void oppdaterMail(String brukernavn, String mail) throws Exception, SQLException {
         preparedStatement = null;
         preparedStatement = connection.prepareStatement("UPDATE bruker SET mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");
@@ -228,6 +277,9 @@ public class DbConnection {
 
     }
 
+     /*
+    Denne metoden henter ut passordet til en bruker basert på brukernavnet til en bruker
+    */
     public String hentPassord(String brukernavn) throws Exception, SQLException {
         String pass = "";
         resultSet = statement.executeQuery("SELECT passord FROM bruker where brukernavn = '" + brukernavn + "'");
@@ -237,6 +289,9 @@ public class DbConnection {
         return pass;
     }
 
+     /*
+    Denne metoden legger til ett element(avhengig av hvilken "tabell" man sender inn) med verdiene som ligger i "values"
+    */
     public void leggTil(String tabell, String[] values) throws Exception, SQLException {
         resultSet = statement.executeQuery("SELECT `COLUMN_NAME` \n"
                 + "FROM `INFORMATION_SCHEMA`.`COLUMNS` \n"
@@ -262,6 +317,9 @@ public class DbConnection {
 
     }
     
+     /*
+    Denne metoden returnerer en booking fra databsen avhengig av bookingId
+    */
     public Booking getBooking(int bookingId) throws Exception {
         resultSet = statement.executeQuery("SELECT * FROM booking where bookingId = '" + bookingId + "'");
         Booking nyBooking = new Booking();
@@ -277,18 +335,27 @@ public class DbConnection {
         return nyBooking;
     }
     
+     /*
+    Denne metoden oppdaterer feltet "sjekketInn" i databsen til '1' for en booking avhengig av bookingId
+    */
     public void setSjekketInn(int bookingId) throws Exception, SQLException {
         preparedStatement = null;
         preparedStatement = connection.prepareStatement("UPDATE booking SET sjekketInn = '"+ 1 +"' where bookingId = '" + bookingId + "'");
         preparedStatement.executeUpdate();
     }
     
+      /*
+    Fjerner en booking fra databasen avhengig av av bookingId
+    */
     public void fjernBooking(int bookingId) throws Exception{
         preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = "+bookingId);
                     preparedStatement.executeUpdate();
                     System.out.println("Bookingen har blitt slettet");
     }
 
+    /*
+    Henter ut alle rom lokalisert i en etasje avhengig av hvilken etasje man sender som innparameter
+    */
     public ArrayList<Rom> hentRomEtasje(int etasjen) throws Exception, SQLException {
         ArrayList array = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM rom where etasje = " + etasjen);
@@ -310,6 +377,9 @@ public class DbConnection {
         return array;
     }
 
+     /*
+    Denne metoden returnerer alle rom som inneholder bokstav/tall kombinasjonen man sender som innparameter
+    */
     public ArrayList<Rom> romSok(String romnavn) throws Exception, SQLException {
         ArrayList arr = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM rom where romnr like '%" + romnavn + "%'");
@@ -331,6 +401,10 @@ public class DbConnection {
         return arr;
     }
 
+    
+    /*
+    Denne metoden returnerer alle rom som oppfyller kravene for etasje, sitte plasser og hvilke fasiliteter rommet har(kravene sendes som innparameter
+    */
     public ArrayList<Rom> romSok2(int etasje, int plasser, boolean harSmart, boolean harSkjerm, boolean harProsjektor) throws Exception, SQLException {
         String query = "select* from rom";
         if (etasje == 0) {
@@ -377,6 +451,9 @@ public class DbConnection {
         return arr;
     }
 
+    /*
+    Denne metoden brukes for å hashe passords slik att de kan sammenlignes med passordene hashet av mySQL
+    */
     static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());
@@ -388,6 +465,9 @@ public class DbConnection {
         return sb.toString();
     }
 
+      /*
+    Denne metoden returnerer en bruker dersom det viser seg att brukernavn og passord kombinasjonen stemmer med en kombinasjon som ligger i databasen, metoden brukes derfor til innlogging
+    */
     public Bruker loggInn(String brukernavn, String passord) throws Exception, SQLException {
         Bruker bruker = null;
         String pass = hentPassord(brukernavn);
@@ -409,8 +489,10 @@ public class DbConnection {
 
     }
  
-
-  public int hentSpesRom(String romnr)throws Exception{
+    /*
+    Denne metoden henter ut ett rom basert på romnummeret som sendes inn
+    */
+    public int hentSpesRom(String romnr)throws Exception{
     
         resultSet = statement.executeQuery("SELECT * FROM rom where romnr = " + romnr +"");
         resultSet.next();
@@ -419,7 +501,9 @@ public class DbConnection {
         return res;
     }
 
-
+    /*
+    Denne metoden returnerer en tabell med brukernavnet til alle brukerene som tar ett fag angitt av fagkoden i innparameteret
+    */
     public String[] hentStudenterIFag(String fagkode) throws Exception, SQLException {
         ArrayList<String> studenter = new ArrayList();
         resultSet = statement.executeQuery("SELECT brukernavn FROM fagstudent where fagkode = '" + fagkode + "'");
@@ -432,6 +516,9 @@ public class DbConnection {
         return studenter.toArray(new String[studenter.size()]);
     }
 
+    /*
+    Denne metoden lukker database forbindelsen
+    */
     public void close() {
         if (connection != null) {
             try {
@@ -460,7 +547,10 @@ public class DbConnection {
 
     }
     
-     public String[] getBook(String romnr, String dato)throws Exception{
+     /*
+    Denne metoden returnerer en tabell med alle bookinger på ett gitt rom som har en gitt 'fratid' begge disse er gitt som innparameter
+    */
+    public String[] getBook(String romnr, String dato)throws Exception{
          ArrayList<Date> bookinger = new ArrayList();
          ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "' and fratid like '"+dato+"%'");
          SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
@@ -511,7 +601,9 @@ public class DbConnection {
       return tabellrod;
     }
 
-
+     /*
+     Denne metoden returnerer en liste over samtlige bookinger på ett rom som er gitt som innparameter
+     */
     public ArrayList<Booking> hentBooking(String romnr) throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
         ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
@@ -536,6 +628,9 @@ public class DbConnection {
 
     }
     
+     /*
+    Denne metoden returnerer en liste med romnummer til rommene som er opptatt i tidsrommet som spesifiseres av innparameterene
+    */
     public ArrayList<String> hentBooking(String fratid, String tiltid) throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
         String query;
@@ -554,7 +649,11 @@ public class DbConnection {
         return bookinger;
 
     }
-
+    
+    /*
+    Denne metoden prøver å registrere en booking(tas som innparameter) og returnerer en boolean avhengig av resultatet
+    Resultatet avhenger att bookingen ikke kræsjer med tidligere bookinger eller att brukertype forholdet mellom den nye og den gamle bookingen er gunstig
+    */
     public boolean regBooking(String brukernavn, Booking b, int brukerType) throws Exception, SQLException {
         ArrayList<Booking> booking = hentBooking(b.getRomNummer());
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
@@ -622,6 +721,10 @@ public class DbConnection {
         return true;
     }
 
+      /*
+    Denne metoden oppretter en forbindelse til gmail sin mail server og sender en mail bestående av subject og body avhengig av innparameterene 
+    til en mailadresse som lokaliseres ved hjelp av brukernavnet som sendes inn
+    */
     public void generateAndSendEmail(String brukernavn, String oppdatering, String header) throws AddressException, MessagingException, SQLException {
 
         ResultSet resultSet = statement.executeQuery("select mail from bruker where brukernavn= '" + brukernavn + "'");
@@ -661,6 +764,9 @@ public class DbConnection {
         transport.close();
     }
     
+    /*
+    Denne metoden henter ut alle studier og returnerer dem i en liste
+    */
     public ArrayList<Studium> hentAlleStudier()throws Exception, SQLException{
         ArrayList<Studium> studier = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM studium");
@@ -675,6 +781,9 @@ public class DbConnection {
         return studier;
     }
     
+    /*
+    Denne metoden returnerer en tabell med alle brukere med en bestemt brukertype angitt som innparameter
+    */
     public String[] hentAlleStudenter(int brukertype)throws Exception, SQLException{
         ArrayList<String> studenter = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM bruker where brukertype = " + brukertype);
@@ -685,6 +794,9 @@ public class DbConnection {
         return studenter.toArray(new String[studenter.size()]);
     } 
     
+    /*
+    Denne metoden returnerer en tabell med brukernavn til de brukerene son går ett studie spesifisert av innparameteret 'studienavn'
+    */
     public String[] hentStudenterIStudium(String studienavn) throws Exception, SQLException {
         ArrayList<String> studenter = new ArrayList();
         resultSet = statement.executeQuery("SELECT brukernavn FROM studiestudent where studienavn = '" + studienavn + "'");
@@ -697,12 +809,18 @@ public class DbConnection {
         return studenter.toArray(new String[studenter.size()]);
     }
     
+    /*
+    Denne metoden legger en bruker spesifisert av brukernavnet(innparameter) inn i ett studium spesifisert av 'studiekode og studienanv'(innparameter)
+    */
     public void leggTilStudIStudium(String brukernavn, String studiekode, String studienavn) throws Exception, SQLException{
         preparedStatement = connection.prepareStatement("INSERT INTO studiestudent values(" + null + "  , '" + studiekode + " ' , '" + studienavn + "' , '" + brukernavn + "')");
         preparedStatement.executeUpdate();
 
     }
     
+    /*
+    Denne metoden sletter en bruker angitt av brukernavnet fra ett studium angitt av studiekode begge to er innparameter
+    */
     public void slettStudIStudium(String brukernavn, String studiekode) throws Exception, SQLException{
         preparedStatement = connection.prepareStatement("DELETE FROM studiestudent where brukernavn = '" + brukernavn + "' and studiekode = '" + studiekode +"'");
         preparedStatement.executeUpdate();
