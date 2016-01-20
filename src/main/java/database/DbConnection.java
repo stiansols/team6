@@ -458,19 +458,56 @@ public class DbConnection {
         }
 
     }
+    
      public String[] getBook(String romnr, String dato)throws Exception{
-         ArrayList<String> bookinger = new ArrayList();
+         ArrayList<Date> bookinger = new ArrayList();
          ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "' and fratid like '"+dato+"%'");
-         
-         
+         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+         //String [] ledigOpptatt = {"06-00 06-30","06-30 07-00","07-00 07-30", "07-30 08-00", "08-00 08-30", "08-30 09-00","09-00 09-30", "09-30 10-00", "10-00 10-30", "10-30 11-00", "11-00 11-30", "11-30 12-00" ,"12-00 12-30", "12-30 13-00", "13-00 13-30", "13-30 14-00", "14-00 14-30", "14-30 15-00", "15-00 15-30", "15-30 16-00"};
+         Date[] datoer = new Date[21];
          while(resultSet.next()){
-             
-             bookinger.add(resultSet.getString("fratid"));
-             bookinger.add(resultSet.getString("tiltid"));
-         
+             //String[] split = resultSet.getString("fratid").split("-");
+             //String[] split2 = resultSet.getString("tiltid").split("-");
+             //bookinger.add(split[3] + " " + split2[3]);
+             bookinger.add(formatter.parse(resultSet.getString("fratid")));
+             bookinger.add(formatter.parse(resultSet.getString("tiltid")));
          }
          
-         return bookinger.toArray(new String[bookinger.size()]);
+        
+         Date datonaa = new Date();
+         datonaa = formatter.parse(dato + "-" + "00-00");
+         int k = 0;
+         int x = 6;
+         for(int i = 0; i<21; i++){
+             
+             datonaa.setHours(x);
+            
+             datonaa.setMinutes(k);
+             datoer[i] = new Date(datonaa.getYear(),datonaa.getMonth(),datonaa.getDay()+7,x,k);
+             k+=30;
+            // System.out.println(i + ":" + datoer[i]);
+         }
+         
+         
+         String tabellrod[] = new String[21];
+         for(int h = 0; h<tabellrod.length; h++){
+             tabellrod[h] = "Ledig";
+         }
+         for(int i =0; i<bookinger.size(); i+=2){
+             //System.out.println("test");
+             for(int j=0; j<datoer.length; j++){
+                 if(datoer[j].getTime() == bookinger.get(i).getTime()){
+                     long forskjell = (bookinger.get(i+1).getTime() - bookinger.get((i)).getTime())/1800000;
+                     //System.out.println("Forskjell : " + forskjell);
+                     for(int h = j; h<(j+forskjell); h++){
+                        tabellrod[h] = "Opptatt";
+                     }
+                 }
+                 
+             }
+         }
+         
+      return tabellrod;
     }
 
 

@@ -511,6 +511,7 @@ public class Kontroller {
         return "redirect:admin";
 
     }
+   
     @RequestMapping(value="books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[]getBookRom(@RequestParam ("data") Object data) throws SQLException, Exception {
@@ -532,7 +533,7 @@ public class Kontroller {
 
         for(int i = 0; i<bookinger.length; i++){
             
-            System.out.println(i + ":" + bookinger[i]);
+            //System.out.println(i + ":" + bookinger[i]);
             
         }
 
