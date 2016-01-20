@@ -19,23 +19,28 @@
 
 
             .midt {
+                position: relative;
                 width: 380px;
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
+                margin-bottom: -50px;
+                box-shadow: 0px 2px;
             }
-
+            
             .midt:hover {
                 width: 540px;
             }
-
-
-
+            
             .results tr[visible='false'],
             .no-result{
                 display:none;
             }
-
+            
+            #etasjer {
+                margin-top: 50px;
+            }
+            
             .results tr[visible='true']{
                 display:table-row;
             }
@@ -58,26 +63,26 @@
     <body>
         <div container>
             <div class="col-lg-6">
+             <div id="etasjer">
                 <form id='valg' name="valg" action='etasjeVis' method='POST'>
-                    <span><img src="http://www.mediafire.com/convkey/7341/3y5wa1ysyaj5ty9zg.jpg" alt="Boks" id="4" class="midt" onclick='visEtasje(4)'></span>
-                    <br>
-                    <span><img src="http://www.mediafire.com/convkey/6628/30fbjp257hyss80zg.jpg" alt="Boks" id="3" class="midt" onclick='visEtasje(3)'></span>
-                    <br>
-                    <span><img src="http://www.mediafire.com/convkey/4c13/y952zf20j5rfb67zg.jpg" alt="Boks" id="2" class="midt" onclick='visEtasje(2)'></span>
-                    <br>
-                    <span><img src="http://www.mediafire.com/convkey/1119/10bh6w8hz6gh3puzg.jpg" alt="Boks" id="1" class="midt" onclick='visEtasje(1)'></span>
-                    <input type='hidden' name='etasje'>
-                    <input type='hidden' name='fradato'>
-                    <input type='hidden' name='fratid'>
-                    <input type='hidden' name='tiltid'>
-                    <input type='hidden' name='romnr'>
-                </form>
 
-            </div>
+                <img src="https://lh4.googleusercontent.com/Dt1riBRKubFPFL2BkNCfh8KLR7qWYEoXeXzmomxgAAoXVdcoDKaqIfShwrjKevjJOL9utKSgXj1Ya5yZTFhGhierov8izPZuqyvuAxN7LRAgSa8_Y5rjyHW3MfxYAqYTXzhSAbxk" alt="Fjerde etasje" class="midt" onclick='visEtasje(4)' style="z-index: 4">
+                <img src="https://lh6.googleusercontent.com/Cji2zg8UkeEAlwXv93EJAxz0ijoDK-ILewpzj6aggFV6yqOuyPhVvNpCcmC-TM1WlWSCICywv0gnV6BsPYa3f_4mtWSWElsjsKTDbWAUvg67CTB50YNUY4QWmRcfEBF3PLNuq2xK" alt="Tredje etasje" class="midt" onclick='visEtasje(3)' style="z-index: 3">
+                <img src="https://lh5.googleusercontent.com/6nn6S9mpIFtSIAv-wt8LWKAsrJMIOqg0qOMgA1RS6f6ZIPwNTfnrwQA28lQQkyv_xUY6YUXB75ah188WCtpurDPHkP_nrfeMw5Wt3lSjiTOfnS9eKZByn7YfE2013SvKt7qRRb7t" alt="Andre etasje" class="midt" onclick='visEtasje(2)' style="z-index: 2">
+                <img src="https://lh4.googleusercontent.com/ig-KqeaaaX_jQgXn8ktHGumUrtKS76gzBOsl1npsAaDbdYJtT2RaQdmiC6IYRb2yECD0D17EGh3zMQDgmsbROS-AxOAB9ML1PvYxUd8DGBbmEqZRynGsVg1MZb1AvuUgFyxFDWVZ" alt="Første etasje" class="midt" onclick='visEtasje(1)' style="z-index: 1">
+                </div>
+                <input type='hidden' name='etasje'>
+                <input type='hidden' name='fradato'>
+                <input type='hidden' name='fratid'>
+                <input type='hidden' name='tiltid'>
+                <input type='hidden' name='romnr'>
+            </form>
+
+        </div>
 
             <div class="col-lg-3 col-lg-offset-3">
                 <div class="form-group pull-right">
-                    <input type="text" class="search form-control" placeholder="S�k...">
+                    <input type="text" class="search form-control" placeholder="Søk...">
                 </div>
                 <span class="counter pull-right"></span>
                 <div class="span3">
