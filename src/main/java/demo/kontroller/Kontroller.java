@@ -13,6 +13,8 @@ import database.DbConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -115,9 +117,16 @@ public class Kontroller {
      @RequestMapping(value = "/sjekkInn", method = RequestMethod.POST)
     public String sjekkeInn(Model model, @RequestParam int buttonSupreme, @ModelAttribute(value="person")Bruker person) throws Exception {
         DbConnection db = new DbConnection();
-        db.setSjekketInn(buttonSupreme);
-        LagSjekketInnListe(model, person);
-        return "redirect:index";
+        Date now = new Date();
+        Booking bookings = db.getBooking(buttonSupreme);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+        Date fra = formatter.parse(bookings.getFratid());
+        if(now.after(fra)){
+            db.setSjekketInn(buttonSupreme);
+            LagSjekketInnListe(model, person);
+            return "redirect:index";
+        }
+        return "denied";
     }
 
     @RequestMapping("/romOversikt")

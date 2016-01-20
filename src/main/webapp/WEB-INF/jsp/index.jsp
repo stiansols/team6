@@ -29,19 +29,44 @@
     <body>
         <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="IndexHandlerSupreme">
             <h2>Velkommen ${person.getNavn()} håper du trives med det nye booking systemet<small>Work in progress</small></h2>
-            <h3>${person.getBookingerListe()}</h3>
         <br>
             <div class="row">
                 <div class="col-sm-8">
-                    <h2>Velkommen ${person.getNavn()}</h2>
-                    <br>
                     <h4>${person.printBrukerType()} NTNU</h4>
-
-                        
-                    <c:forEach items="${brukerBookinger}" var="brukere">  
-                        <button type="submit" value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk inn!</button>${brukere.getRomNummer()}   ${brukere.getFratid()}  ${brukere.getTiltid()}  
-                        <br>
-                    </c:forEach>
+                    <br>
+                    <br>
+                    <h2>Her er dine fremtidige bookinger</h2>
+                     <table id="brukerTabell" class="table table-hover table-bordered results">
+   
+                    <thead>
+                        <tr class="warning no-result">
+                        </tr>
+                        <tr>
+                            <th><h3>Romnr</h3></th>
+                            <th><h3>Fra tid</h3></th>
+                            <th><h3>Til tid</h3></th>
+                            <th><h3>Trykk for å sjekke inn</h3></th>
+                            </tr>
+                            
+                      <tr class="warning no-result">
+                      </tr>        
+                            
+                    </thead>
+                    
+                        <tbody>
+                            
+           <c:forEach items="${brukerBookinger}" var="brukere">                 
+                            <tr>
+                                <td><b>${brukere.getRomNummer()}</b></td>
+                                <td><b>${brukere.getFratid()}</b></td>
+                                <td><b>${brukere.getTiltid()}</b></td>
+                                <td><button class="btn btn-primary" type="submit" value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk inn!</button></td>
+                            </tr>  
+                                
+        </c:forEach>
+                                
+                        </tbody>
+            </table>   
                     <br>
                     <br>
                     Her skal det være en kalender

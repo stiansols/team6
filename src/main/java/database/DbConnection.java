@@ -261,6 +261,21 @@ public class DbConnection {
 
     }
     
+    public Booking getBooking(int bookingId) throws Exception {
+        resultSet = statement.executeQuery("SELECT * FROM booking where bookingId = '" + bookingId + "'");
+        Booking nyBooking = new Booking();
+        while (resultSet.next()) {
+            nyBooking.setBookingId(resultSet.getInt("bookingID"));
+            nyBooking.setFratid(resultSet.getString("fratid"));
+            nyBooking.setTiltid(resultSet.getString("tiltid"));
+            nyBooking.setBrukernavn(resultSet.getString("brukernavn"));
+            nyBooking.setBrukertype(resultSet.getInt("brukertype"));
+            nyBooking.setRomNummer(resultSet.getString("romnr"));
+            nyBooking.setSjekketInn(resultSet.getBoolean("sjekketInn"));
+        }
+        return nyBooking;
+    }
+    
     public void setSjekketInn(int bookingId) throws Exception, SQLException {
         preparedStatement = null;
         preparedStatement = connection.prepareStatement("UPDATE booking SET sjekketInn = '"+ 1 +"' where bookingId = '" + bookingId + "'");

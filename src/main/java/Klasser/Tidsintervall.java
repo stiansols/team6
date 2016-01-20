@@ -27,12 +27,15 @@ public class Tidsintervall {
 
         int currentMinute = cal.get(Calendar.MINUTE);
 
-        
         if (currentMinute < 45) {
             cal.set(Calendar.MINUTE, 45);
         }
        
         if (currentMinute < 15) {
+            cal.set(Calendar.MINUTE, 15);
+        }
+        
+        if (currentMinute > 45) {
             cal.set(Calendar.MINUTE, 15);
         }
 
