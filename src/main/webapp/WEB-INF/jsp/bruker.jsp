@@ -13,6 +13,18 @@
 <html>
     <head>
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
+        <style>
+            .panel-group {
+                margin-left: 20%;
+                text-align: left;                
+            }
+            button {
+                margin-top: 5px;
+            }
+            #passTab td {
+                padding-right: 10px;
+            }
+        </style>
     </head>
     <body>
         <div class="jumbotron vertical-center">
@@ -26,14 +38,12 @@
                 <div>E-post: ${person.getMail()} </div>
                 <div>Brukertype: ${person.printBrukerType()}</div>
                 <div hidden="true">Passord:<input type="password" disabled="true" placeholder="*************"></div>
-            <br>
-            <br>
+                <br>
+                <br>
                 <div class="panel-group">
-                    <button href="#" class="btn btn-default">  Endre E-Post  </button>
-                    <button href="#" class="btn btn-default">  Endre Passord  </button>
-                    <br>
-                    <button href="#" class="btn btn-default">  Mine abonnementer  </button>
-                    <button href="#" class="btn btn-default">  Mine Bookinger  </button>
+                    <button href="#" id="ab" class="btn btn-default">  Mine abonnementer  </button>
+                    <br/>
+                    <button href="#" id="bok" class="btn btn-default">  Mine Bookinger  </button>
                 </div>
             </div>
         </div>
