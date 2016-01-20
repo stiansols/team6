@@ -616,7 +616,7 @@ public class DbConnection {
      */
     public ArrayList<Booking> hentBooking(String romnr) throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
-        ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
+        resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
 
         while (resultSet.next()) {
             int bookingId = resultSet.getInt("bookingId");
@@ -648,7 +648,7 @@ public class DbConnection {
         else {
             query = "select* from booking where fratid LIKE '" + fratid + "%'";
         }
-        ResultSet resultSet = statement.executeQuery("SELECT romnr FROM booking WHERE STR_TO_DATE('" + fratid + "', '%Y-%m-%d-%H-%i') > STR_TO_DATE(fratid, '%Y-%m-%d-%H-%i') and\n" +
+        resultSet = statement.executeQuery("SELECT romnr FROM booking WHERE STR_TO_DATE('" + fratid + "', '%Y-%m-%d-%H-%i') > STR_TO_DATE(fratid, '%Y-%m-%d-%H-%i') and\n" +
 "STR_TO_DATE('" + fratid + "', '%Y-%m-%d-%H-%i') < STR_TO_DATE(tiltid, '%Y-%m-%d-%H-%i')");
 
         while (resultSet.next()) {
@@ -737,7 +737,7 @@ public class DbConnection {
     */
     public void generateAndSendEmail(String brukernavn, String oppdatering, String header) throws AddressException, MessagingException, SQLException {
 
-        ResultSet resultSet = statement.executeQuery("select mail from bruker where brukernavn= '" + brukernavn + "'");
+        resultSet = statement.executeQuery("select mail from bruker where brukernavn= '" + brukernavn + "'");
         resultSet.next();
         String mailadresse = resultSet.getString("mail");
         // Step1
