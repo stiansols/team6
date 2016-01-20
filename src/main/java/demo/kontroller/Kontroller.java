@@ -147,7 +147,7 @@ public class Kontroller {
         String datoFra = datoInf.get("fradato");
         String tidFra = datoInf.get("fratid");
         String tidTil = datoInf.get("tiltid");
-        System.out.println(datoFra);
+
         switch (etasje) {
             case "1":
                 url = "http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg";
@@ -564,31 +564,35 @@ public class Kontroller {
          
          JSONObject json = new JSONObject();
          json = (JSONObject) parser.parse((String)data);
-      //   Long lengde1 = (Long) json.get("lengde1");
+         Long lengde1 = (Long) json.get("lengde1");
          Long lengde2 =  (Long) json.get("lengde2");
-          
-    /*     for(int i = 0; i < lengde1; i++){
+  
+         for(int i = 0; i < lengde1; i++){
              String index = Integer.toString(i);
              String brukernavn = (String)(json.get("slettbruker" + index));
-             
+             String studiekode = (String)(json.get("studiekode"));
+
              try{
-                 db.slettStudIStudium(brukernavn);
-             }catch(SQLException e){
+                 if(studiekode != null){
+                     db.slettStudIStudium(brukernavn, studiekode);
+                 }
                  
+             }catch(SQLException e){
+                 System.out.println("SQL Ex: "+ e);
              }
-         }*/
-         
+         }
+        
 
        for(int i = 0; i < lengde2; i++){
            String index = Integer.toString(i);
            String brukernavn = (String) (json.get("brukernavn" + index));
-           String studiekode = (String)(json.get("studiekode" + index));
+           String studiekode = (String)(json.get("studiekode"));
            String studienavn = (String)(json.get("studienavn" + index));
            
            try{
                db.leggTilStudIStudium(brukernavn, studiekode,studienavn);
            }catch(SQLException e){
-               
+          //     System.out.println("SQL Ex: "+ e);
            }
           
        }
@@ -603,7 +607,6 @@ public class Kontroller {
         int brukertypeInt = Integer.parseInt(brukertype);
         studenter = db.hentAlleStudenter(brukertypeInt);
    
-        System.out.println("LENGDE PÅ STUDENTER ARRAYET:  " +studenter.length);
         
         return studenter;
     }

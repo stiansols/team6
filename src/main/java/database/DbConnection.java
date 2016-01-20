@@ -703,8 +703,8 @@ public class DbConnection {
 
     }
     
-    public void slettStudIStudium(String brukernavn) throws Exception, SQLException{
-        preparedStatement = connection.prepareStatement("DELETE FROM studiestudent where brukernavn = '" + brukernavn + "'");
+    public void slettStudIStudium(String brukernavn, String studiekode) throws Exception, SQLException{
+        preparedStatement = connection.prepareStatement("DELETE FROM studiestudent where brukernavn = '" + brukernavn + "' and studiekode = '" + studiekode +"'");
         preparedStatement.executeUpdate();
 
     }

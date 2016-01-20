@@ -529,24 +529,29 @@
 var valgteStud;
 var studiekode;
 var studienavn;
+
     function lagreStudent(){
         var data = '{ ';
 
-    /*    var liste1 = document.getElementById("tarIkkeStudieListe").getElementsByTagName("li");
+        var liste1 = document.getElementById("tarIkkeStudieListe").getElementsByTagName("li");
         for(var i=0; i <liste1.length; i++){
             data += '"slettbruker' +i + '":' +'"' + liste1[i].innerHTML + '",';
         }
         if(liste1.length > 0){
             data += '"lengde1":' + liste1.length + ',';
+            
         }
-*/
+
         var liste2 = document.getElementById("tarStudieListe").getElementsByTagName("li");
      //    var data2 = '{"brukernavn0": "nybruker","studiekode0": "studiekode0", "studienavn0": "studienavn0",  "brukernavn1": "Nybruker2","studiekode1": "studiekode1", "studienavn1": "studienavn1", "lengde": 2}';
             for(var i=0; i < liste2.length; i++){
-             data += '"brukernavn' +i + '":' +'"' + liste2[i].innerHTML + '","studiekode' + i + '": "' + studiekode + '", "studienavn' + i + '": "' + studienavn + '", ';
+             data += '"brukernavn' +i + '":' +'"' + liste2[i].innerHTML + '","studiekode": "' + studiekode + '", "studienavn' + i + '": "' + studienavn + '", ';
+         }
+         if(liste2.length === 0){
+            data += '"studiekode": "' + studiekode + '",';
          }
          data += '"lengde2":' + liste2.length + '}';
-  
+    
         $.get("lagreStud", {"data":data}, function(Response){
             //alert(JSON.stringify(Response));
             
