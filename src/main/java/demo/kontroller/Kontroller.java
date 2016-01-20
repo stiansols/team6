@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -138,9 +139,14 @@ public class Kontroller {
     }
 
     @RequestMapping(value = "/etasjeVis", method = RequestMethod.POST)
-    public ModelAndView getEtasje(@RequestParam String etasje) throws Exception {
+    public ModelAndView getEtasje(@RequestParam Map<String,String> datoInf) throws Exception {
         String url = "";
-
+        String romnr = datoInf.get("romnr");
+        String etasje = datoInf.get("etasje");
+        String datoFra = datoInf.get("fradato");
+        String tidFra = datoInf.get("fratid");
+        String tidTil = datoInf.get("tiltid");
+        System.out.println(datoFra);
         switch (etasje) {
             case "1":
                 url = "http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg";
@@ -155,7 +161,13 @@ public class Kontroller {
                 url = "http://www.mediafire.com/convkey/d436/3cz4at4dbhuohpm9g.jpg";
                 break;
         }
-        ModelAndView etasjeMV = new ModelAndView("visEtasjePlan", "etasjeLink", url);
+        ArrayList<String> model = new ArrayList();
+        model.add(url);
+        model.add(datoFra);
+        model.add(tidFra);
+        model.add(tidTil);
+        model.add(romnr);
+        ModelAndView etasjeMV = new ModelAndView("visEtasjePlan", "etasjeLink", model);
         return etasjeMV;
     }
 
