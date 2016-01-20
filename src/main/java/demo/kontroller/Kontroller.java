@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -490,12 +492,22 @@ public class Kontroller {
     }
     @RequestMapping(value="books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String[]getBookRom(@RequestParam ("romnr") String romnr) throws SQLException, Exception {
-        
+    public String[]getBookRom(@RequestParam ("data") Object data) throws SQLException, Exception {
+        JSONObject js = new JSONObject();
+        JSONParser parser = new JSONParser();
+        js = (JSONObject)parser.parse((String)data);
+        String romnr = (String)js.get("romnr");
+        String dato = (String)js.get("dato");
         String[] bookinger = null;
-       // System.out.println(data);
-        bookinger = db.getBook(romnr);
-        System.out.println("getBookRom");
+        
+        String[] stringdato = dato.split("-");
+        String fratids = stringdato[2] +"-"+ stringdato[1] + "-" + stringdato[0];
+        
+        //System.out.println(data);
+        //System.out.println(romnr + " : " + dato);
+       
+        bookinger = db.getBook(romnr,fratids);
+        //System.out.println("getBookRom");
 
         for(int i = 0; i<bookinger.length; i++){
             

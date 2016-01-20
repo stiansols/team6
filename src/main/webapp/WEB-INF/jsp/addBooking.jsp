@@ -214,22 +214,24 @@
     </tbody>
  
  <script type="text/javascript">
-$(document).ready(function(){
-      var select = document.getElementById("dropdown");
-      var selected = select.options[select.selectedIndex].text;
-      //alert(selected);
-     $.get("books", {"romnr":selected}, function(Response){
-        alert(JSON.stringify(Response));
-      });
-      
-});
+
+
 
 function minfunction(romnummer){
-    $.get("books", {"romnr":romnummer}, function(Response){
+    var dato = $('#dato').val();
+    alert (dato);
+    var select = document.getElementById("dropdown");
+    var selected = select.options[select.selectedIndex].text;
+    var data = '{"romnr":"'+selected+'", "dato":"'+dato+'"}';
+    
+    
+    alert(dato);
+    $.get("books", {"data":data}, function(Response){
         alert(JSON.stringify(Response));
+  
       });
-     
- 
+      
+      
 }
 
 $(document).ready(function(){

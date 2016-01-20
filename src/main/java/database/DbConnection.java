@@ -443,11 +443,13 @@ public class DbConnection {
         }
 
     }
-     public String[] getBook(String romnr)throws Exception{
+     public String[] getBook(String romnr, String dato)throws Exception{
          ArrayList<String> bookinger = new ArrayList();
-         ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "'");
+         ResultSet resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "' and fratid like '"+dato+"%'");
+         
          
          while(resultSet.next()){
+             
              bookinger.add(resultSet.getString("fratid"));
              bookinger.add(resultSet.getString("tiltid"));
          
