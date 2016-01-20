@@ -1,4 +1,6 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -29,7 +31,7 @@
     </head>
     <body>
         <div class="header">
-            <img src="http://imageshack.com/a/img908/3876/vwWGkb.png"/>
+            <a href="<c:url value="index"/>"><img src="http://imageshack.com/a/img908/3876/vwWGkb.png"/></a>
             
         </div>
           <div class="container-fluid">
