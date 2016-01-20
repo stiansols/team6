@@ -271,12 +271,7 @@ function minfunction(romnummer){
                     format: 'yyyy-mm-dd'
                 });
             });
-       
-         
-           
-        </script>
-        <script>
-  
+          
         </script>
     </body>
 </html>

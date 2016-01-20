@@ -5,8 +5,19 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 
 
 <c:if test="${etasjeLink[0] == 'https://lh3.googleusercontent.com/YxNLnTNjcBLaWXLrZvRkIx9lTz1NlIK2MIlZSegAEy9XGWUjtl8_bCo3qvdn9XD1SnO1WG2mHstKzES8_Usr11h0c6-sXALj2PjqYJLED7pd8-Q9hwJ9YSAuiOS5l91Urdd3S16P'}">
@@ -73,6 +84,7 @@
                     <area id="area120" shape="rect" class="romskisse" coords="800,370,900,470" data-maphilight='{"fillColor":"ff0000", "alwaysOn":false}'>
         </map>
 
+        <form:form method="POST" modelAttribute="booking" action="nyBooking">
         <div class="container">
             <!-- Modal -->
             <div class="modal fade" id="visRomModal" role="dialog">
@@ -84,12 +96,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Rom XXX</h4>
                         </div>
+                        
                         <div class="modal-body">
 
                             <div class="row">
                                 <label for="romnummerLabel" class="col-lg-4 control-label">Romnummer</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="romnr" id="romnr" value="" readonly/>
+                                    <input type="text" name="romNummer1" id="romnr" value=""/>
                                 </div>
                             </div>
 
@@ -110,14 +123,21 @@
                             <div class="row">
                                 <label for="passLabel" class="col-lg-4 control-label">Har Smartboard</label>
                                 <div class="col-lg-8">
-                                    <input type="checkbox" name="smartboard" id="smartboard" value=""/>
+                                    <input type="text" name="smartboard" id="smartboard" value=""/>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <label for="mailLabel" class="col-lg-4 control-label">Har Dataskjerm</label>
+                                <label for="skjermLabel" class="col-lg-4 control-label">Har Dataskjerm</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="skjerm" id="skjerm" value=""/>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label for="proskeltorLabel" class="col-lg-4 control-label">Har Prosjektor</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="prosjektor" id="prosjektor" value=""/>
                                 </div>
                             </div>
 
@@ -125,28 +145,202 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-default" formaction="oppdater">Book rom</button>
+                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel()">Book rom</button>
 
                             <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                         </div>
+                        
+                        <div id="book" class="collapse1">
+                            <div class="row">
+                                <div class ="col-lg-4 col-lg-offset-1 well"> 
+                                    <div id="romNummer" class="form-group" >
+                                    <input path="romNummer" class="form-control" id="romnr1" name ="romNummer" required style="display:none"/>
+                                    </div>
+                                    <div class="form-group input-daterange" >
+                                    <label>Dato</label>
+                                    <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="minfunction()"required/>
+                                    <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
+                                    <label>Fra</label>
+                                    <select id ="fratidtimer" name="fratidtimer" required>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    </select>
+                                    <select id ="fratidmin" name = "fratidmin" required>
+                                    <option value="00">00</option>
+                                    <option value="30">30</option>
+                            
+                                    </select>
+                                    <br>
+                                    <label>Til </label>
+                                    <select id ="tiltidtimer" name="tiltidtimer">
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    </select>
+                                    <select id ="tiltidmin" name ="tiltidmin" required>
+                                    <option value="00">00</option>
+                                    <option value="30">30</option>
+                            
+                                    </select>
+                                </div>
 
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-xs-offset-0">
+                                    <button type="submit" class="btn btn-success pull-left">Send inn</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    </form:form>
+                           
+                    <table class="table table-bordered table-hover pull-right" id="dagtab">
+                    <tbody>
+                    <tr>
+                    <td class="klokkeslett" id="1">06.00-06.30</td>
+
+                    <td class="klokkeslett" id="2">06.30-07.00</td>
+
+                    <td class="klokkeslett" id="3">07.00-07.30</td>
+
+                    <td class="klokkeslett" id="4">07.30-08.00</td>
+        
+                    <td class="klokkeslett" id="5">08.00-08.30</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="6">08.30-09.00</td>
+
+                    <td class="klokkeslett" id="7">09.00-09.30</td>
+
+                    <td class="klokkeslett" id="8">09.30-10.00</td>
+
+                    <td class="klokkeslett" id="9">10.00-10.30</td>
+
+                    <td class="klokkeslett" id="10">10.30-11.00</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="11">11.00-11.30</td>
+
+                    <td class="klokkeslett" id="12">11.30-12.00</td>
+
+                    <td class="klokkeslett" id="13">12.00-12.30</td>
+
+                    <td class="klokkeslett" id="14">12.30-13.00</td>
+
+                    <td class="klokkeslett" id="15">13.00-13.30</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="16">13.30-14.00</td>
+ 
+                    <td class="klokkeslett" id="17">14.00-14.30</td>
+
+                    <td class="klokkeslett" id="18">14.30-15.00</td>
+
+                    <td class="klokkeslett" id="19">15.00-15.30</td>
+
+                    <td class="klokkeslett" id="20">15.30-16.00</td>
+                    </tr>
+      
+                    </tbody>
+                    </table>
+                            
                     </div>
 
                 </div>
-            </div>
 
-        </div>        
+            </div>
+        </div>
+
+    </div>        
 
 
     </body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+    
+    <script>
+        $(".btn-primary").click(function(){
+            document.getElementById('romnr1').value = document.getElementById('romnr').value;
+            document.getElementById('romnr1').text = document.getElementById('romnr').text;       
+        });
+    </script>
+   
+     <script type="text/javascript">
+
+function minfunction(romnummer){
+    var dato = $('#datoFra1').val();
+     
+    document.getElementById('romnr1').value = document.getElementById('romnr').value;
+    document.getElementById('romnr1').text = document.getElementById('romnr').text;
+      
+    var selected = document.getElementById("romnr1").value;
+    //alert (dato + " "+ selected);
+    var data = '{"romnr":"'+selected+'", "dato":"'+dato+'"}';
+    
+    $.get("books", {"data":data}, function(Response){
+        //alert(JSON.stringify(Response));
+        var obj = Response;
+        
+        obj.reverse();
+        
+        for(var i=1; i<21; i++){
+            var x = obj.pop();
+            var n = i.toString();
+            if(x === "Ledig"){
+            document.getElementById(n).style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById(n).style.backgroundColor = "red";
+            }
+        }         
+      });  
+}
+</script>
+
 
     <script type="text/javascript">
 
         $('#datoFra').datepicker({
                 format: 'dd-mm-yyyy'
             });
+    </script>
+    
+    <script type="text/javascript">
+        $('.input-daterange input').each(function() {
+            $(this).datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+    
+    <script>
+    $(document).ready(function(){
+        $(".collapse1").collapse('hide');
+    });
+    </script>
+    
+    <script>
+    function visPanel(){
+        $(".btn-primary").click(function(){
+            $(".collapse1").collapse('toggle');
+        });
+    }
     </script>
     
     <script>
@@ -219,6 +413,7 @@
         $(".modal-body #smartboard").val(smartboard);
         $(".modal-body #skjerm").val(skjerm);
         $('#visRomModal').modal('show');
+        $(".collapse1").collapse('hide');
     }
 
 </script>

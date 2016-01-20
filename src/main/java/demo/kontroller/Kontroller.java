@@ -389,38 +389,48 @@ public class Kontroller {
                     return bookings;
     }
 
-      @RequestMapping("/addBooking")
-    public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
-        if(person.getBrukernavn() == null){
-            return "login";
-        }
-        model.addAttribute("booking", new Booking());
-        return "addBooking";
+           @RequestMapping("/etasjeVis")
+        public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
+            if(person.getBrukernavn() == null){
+                return "login";
+            }
+            model.addAttribute("booking", new Booking());
+            return "etasjeVis";
     }
+    
 
-     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
-    public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
-        if(person.getBrukernavn() == null){
-            return "login";
-        }
-        int tilgang = db.hentSpesRom(nyBooking.getRomNummer());
-        
-        if(person.getBrukertype()<tilgang){
+         @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
+        public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+            try{
+            if(person.getBrukernavn() == null){
+                return "login";
+            }
+            int tilgang = db.hentSpesRom(nyBooking.getRomNummer());
+            
+            if(person.getBrukertype()<tilgang){
+                return "index";
+            }
+            
+            String [] stringFratid = nyBooking.getFratid().split("-");
+            String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
+            String[] stringTiltid = nyBooking.getTiltid().split("-");
+            String tiltids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-"+tiltidtimer + "-" + tiltidmin;
+            nyBooking.setFratid(fratids);
+            nyBooking.setTiltid(tiltids);
+            nyBooking.setBrukertype(person.getBrukertype());
+            //nyBooking.setBookingId(NULL);
+            db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
+            
+            lastInnPerson(person);
+            System.out.println("Dette er plassen");
+    
             return "index";
-        }
-        
-        String [] stringFratid = nyBooking.getFratid().split("-");
-        String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
-        String[] stringTiltid = nyBooking.getTiltid().split("-");
-        String tiltids = stringTiltid[2] +"-"+ stringTiltid[1] + "-" + stringTiltid[0] + "-"+tiltidtimer + "-" + tiltidmin;
-        nyBooking.setFratid(fratids);
-        nyBooking.setTiltid(tiltids);
-        //nyBooking.setBookingId(NULL);
-        db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
-        
-        lastInnPerson(person);
-
-        return "index";
+            }
+            
+            catch(Exception e){
+                System.out.println("Feil " +e);
+                return "oppdaterPersonlig";
+            }
     }
 
     @RequestMapping(value = "/nyBruker", method = RequestMethod.POST)
@@ -514,33 +524,37 @@ public class Kontroller {
     }
    
     @RequestMapping(value="books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String[]getBookRom(@RequestParam ("data") Object data) throws SQLException, Exception {
-        JSONObject js = new JSONObject();
-        JSONParser parser = new JSONParser();
-        js = (JSONObject)parser.parse((String)data);
-        String romnr = (String)js.get("romnr");
-        String dato = (String)js.get("dato");
-        String[] bookinger = null;
-        
-        String[] stringdato = dato.split("-");
-        String fratids = stringdato[2] +"-"+ stringdato[1] + "-" + stringdato[0];
-        
-        //System.out.println(data);
-        //System.out.println(romnr + " : " + dato);
-       
-        bookinger = db.getBook(romnr,fratids);
-        //System.out.println("getBookRom");
-
-        for(int i = 0; i<bookinger.length; i++){
-            
-            //System.out.println(i + ":" + bookinger[i]);
-            
-        }
-
-      // studenter = new String[10];
-      //+ studenter[0] = "student1";
-        return bookinger;
+       @ResponseBody
+       public String[]getBookRom(@RequestParam ("data") Object data) throws SQLException, Exception {
+           JSONObject js = new JSONObject();
+          
+           JSONParser parser = new JSONParser();
+           js = (JSONObject)parser.parse((String)data);
+           String romnr = (String)js.get("romnr");
+           System.out.println(romnr);
+           String dato = (String)js.get("dato");
+           String[] bookinger = null;
+           
+          System.out.println("DATOEN:" +dato);
+           
+           String[] stringdato = dato.split("-");
+           String fratids = stringdato[2] +"-"+ stringdato[1] + "-" + stringdato[0];
+           
+           //System.out.println(data);
+           //System.out.println(romnr + " : " + dato);
+          
+           bookinger = db.getBook(romnr,fratids);
+           //System.out.println("getBookRom");
+   
+           for(int i = 0; i<bookinger.length; i++){
+               
+               //System.out.println(i + ":" + bookinger[i]);
+               
+           }
+   
+         // studenter = new String[10];
+         //+ studenter[0] = "student1";
+           return bookinger;
     }
       
 
