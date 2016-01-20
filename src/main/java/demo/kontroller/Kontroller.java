@@ -150,16 +150,16 @@ public class Kontroller {
         System.out.println(datoFra);
         switch (etasje) {
             case "1":
-                url = "http://www.mediafire.com/convkey/4033/d5amxa19msuu4x99g.jpg";
+                url = "https://lh3.googleusercontent.com/YxNLnTNjcBLaWXLrZvRkIx9lTz1NlIK2MIlZSegAEy9XGWUjtl8_bCo3qvdn9XD1SnO1WG2mHstKzES8_Usr11h0c6-sXALj2PjqYJLED7pd8-Q9hwJ9YSAuiOS5l91Urdd3S16P";
                 break;
             case "2":
-                url = "http://www.mediafire.com/convkey/f168/lmwe83xtax53qdh9g.jpg";
+                url = "https://lh4.googleusercontent.com/cSB8jU9YWCqGxilcgfcuyMHAmDHs8VG3-6qG8WZK_vIcXjlyjeS-59C3sECHgH0LxiIjqn_AJidQbWWEXfAEG4X77ryU2AjAIMFG5_qxrBNfig7v8Biz_sDDeFxhNg4lF3-0hkVa";
                 break;
             case "3":
-                url = "http://www.mediafire.com/convkey/6d08/5gaam91oken79zm9g.jpg";
+                url = "https://lh5.googleusercontent.com/FG0cvtoPOzse_mOoo9iUl3oHctP7i6qyF2sNsjIjEqOaWuLwV82TL2c87g4UZHxChTqGzfiBrvbv2Y8fbzMgB08__nJJ7wUGY2bOjksfM9jNioERfbjvTDi3ZHgD4ySiX29D8j4Z";
                 break;
             case "4":
-                url = "http://www.mediafire.com/convkey/d436/3cz4at4dbhuohpm9g.jpg";
+                url = "https://lh6.googleusercontent.com/dD6C0aQC0-iZsuG8do4Sras-8Q4oNsu5Hu_AHu8DiO1sKWmOn0zk4eq0GmS8JNC2Ws1yn7zGIL-Qpkzd0QugULk2cSuZhqE1_p6pIPfxFeJNbUjwY15JujSW2JUy5iMbgTns8R-2";
                 break;
         }
         ArrayList<String> model = new ArrayList();
