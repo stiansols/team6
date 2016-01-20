@@ -4,6 +4,7 @@ import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
+import Klasser.Studium;
 import Klasser.Tidsintervall;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
@@ -541,23 +542,83 @@ public class Kontroller {
       //+ studenter[0] = "student1";
         return bookinger;
     }
+      
+
+    @RequestMapping(value="studStudium", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getStudIStudium(@RequestParam ("data") String studienavn) throws SQLException, Exception {
+        String studenter[] = null;
+       // System.out.println(data);
+        studenter = db.hentStudenterIStudium(studienavn);
+      // studenter = new String[10];
+      //+ studenter[0] = "student1";
+      
+        return studenter;
+    }
     
+    @RequestMapping(value="lagreStud", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] lagreStud(@RequestParam ("data") Object data) throws SQLException, Exception {
+        String studenter[] = null;
+         JSONParser parser = new JSONParser();
+         
+         JSONObject json = new JSONObject();
+         json = (JSONObject) parser.parse((String)data);
+      //   Long lengde1 = (Long) json.get("lengde1");
+         Long lengde2 =  (Long) json.get("lengde2");
+          
+    /*     for(int i = 0; i < lengde1; i++){
+             String index = Integer.toString(i);
+             String brukernavn = (String)(json.get("slettbruker" + index));
+             
+             try{
+                 db.slettStudIStudium(brukernavn);
+             }catch(SQLException e){
+                 
+             }
+         }*/
+         
 
-    /* 
-     @RequestMapping(value="/velgFag", method=RequestMethod.POST)
-     public String velgFag(@RequestParam("data") String id )throws SQLException{
-     ArrayList<String> studenter = new ArrayList();
-        
-     try {
-     studenter = db.hentStudenterIFag(id);
-     } catch (Exception ex) {
+       for(int i = 0; i < lengde2; i++){
+           String index = Integer.toString(i);
+           String brukernavn = (String) (json.get("brukernavn" + index));
+           String studiekode = (String)(json.get("studiekode" + index));
+           String studienavn = (String)(json.get("studienavn" + index));
            
-     }
-
-     return "redirect:admin";
+           try{
+               db.leggTilStudIStudium(brukernavn, studiekode,studienavn);
+           }catch(SQLException e){
+               
+           }
+          
+       }
+     
+        return studenter;
+    }
+    
+    @RequestMapping(value="alleStud", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getAlleStudenter(@RequestParam ("data") String brukertype) throws SQLException, Exception {
+        String studenter[] = null;
+        int brukertypeInt = Integer.parseInt(brukertype);
+        studenter = db.hentAlleStudenter(brukertypeInt);
+   
+        System.out.println("LENGDE PÅ STUDENTER ARRAYET:  " +studenter.length);
         
-     }
-     */
+        return studenter;
+    }
+  
+    
+    @ModelAttribute("alleStudier")
+    public ArrayList<Studium> getAlleStudier(String fagkode) throws SQLException, Exception {
+        ArrayList<Studium> studier = new ArrayList();
+        
+        studier = db.hentAlleStudier();
+
+        return studier;
+    }
+
 }
+
 
    

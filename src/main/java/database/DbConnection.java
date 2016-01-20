@@ -5,6 +5,7 @@ import Klasser.Booking;
 import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
+import Klasser.Studium;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -660,5 +661,52 @@ public class DbConnection {
         transport.close();
     }
     
+    public ArrayList<Studium> hentAlleStudier()throws Exception, SQLException{
+        ArrayList<Studium> studier = new ArrayList();
+        resultSet = statement.executeQuery("SELECT * FROM studium");
+        while(resultSet.next()){
+            int studieId = resultSet.getInt("studieId");
+            String studiekode = resultSet.getString("studiekode");
+            String studienavn = resultSet.getString("studienavn"); 
+            Studium studium = new Studium(studieId, studiekode, studienavn);
+            
+            studier.add(studium);
+        }
+        return studier;
+    }
+    
+    public String[] hentAlleStudenter(int brukertype)throws Exception, SQLException{
+        ArrayList<String> studenter = new ArrayList();
+        resultSet = statement.executeQuery("SELECT * FROM bruker where brukertype = " + brukertype);
+        while(resultSet.next()){
+            String brukernavn = resultSet.getString("brukernavn");
+            studenter.add(brukernavn);
+        }
+        return studenter.toArray(new String[studenter.size()]);
+    } 
+    
+    public String[] hentStudenterIStudium(String studienavn) throws Exception, SQLException {
+        ArrayList<String> studenter = new ArrayList();
+        resultSet = statement.executeQuery("SELECT brukernavn FROM studiestudent where studienavn = '" + studienavn + "'");
+
+        while (resultSet.next()) {
+            String brukernavn = resultSet.getString("brukernavn");
+            studenter.add(brukernavn);
+        }
+
+        return studenter.toArray(new String[studenter.size()]);
+    }
+    
+    public void leggTilStudIStudium(String brukernavn, String studiekode, String studienavn) throws Exception, SQLException{
+        preparedStatement = connection.prepareStatement("INSERT INTO studiestudent values(" + null + "  , '" + studiekode + " ' , '" + studienavn + "' , '" + brukernavn + "')");
+        preparedStatement.executeUpdate();
+
+    }
+    
+    public void slettStudIStudium(String brukernavn) throws Exception, SQLException{
+        preparedStatement = connection.prepareStatement("DELETE FROM studiestudent where brukernavn = '" + brukernavn + "'");
+        preparedStatement.executeUpdate();
+
+    }
 
 }

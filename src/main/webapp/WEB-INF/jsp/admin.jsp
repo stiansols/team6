@@ -64,7 +64,8 @@
             .list-arrows button {
                 margin-bottom: 20px;
             }
-
+            
+.top-buffer { margin-top:10px;}
 
         </style>
 	<style type="text/css">
@@ -81,8 +82,8 @@
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#brukerFane">Brukere</a></li>
         <li><a href="#fagFane">Fag</a></li>
-         <li><a href="#fagStudFane">Oversikt</a></li>
          <li><a href="#studiumFane">Studium</a></li>
+         <li><a href="#fagStudFane">Oversikt</a></li>
         
     </ul>
     <div class="tab-content">
@@ -90,7 +91,7 @@
             <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
             
              <div class="form-group pull-right">
-            <input type="text" class="search form-control" placeholder="Sï¿½k...">
+            <input type="text" class="search form-control" placeholder="Søk...">
         </div>
         <span class="counter pull-right"></span>
         
@@ -153,8 +154,6 @@
                                     <input type="text" name="brukernavn" id="brukernavn" value="" readonly/>
                                 </div>
                           </div>
-
-                          
                       
                             <div class="row">
                                         <label for="bTypeLabel" class="col-lg-4 control-label">Brukertype</label>
@@ -239,42 +238,42 @@
         
         </div>
      
-     <div id="fagStudFane" class="tab-pane fade">
+     <div id="studiumFane" class="tab-pane fade">
+         
          <div class="container">
              
              <div class="row col-lg-4">
-                 <form:form class = "form-horizontal" method="POST" modelAttribute="fagForm" name="velgFag" action="admin">
-                     <fieldset class="form-group">
-                                <label for="velgFagLabel">Fag</label>
-                                <select class="form-control" id="exampleSelect1">
+                              <fieldset class="form-group">
+                                <label for="velgStudieLabel">Studium</label>
+                                <select class="form-control" id="selectStudium">
                                     
                                    <c:forEach items="${alleStudier}" var="studie">                 
-                                       <option>${studie.getStudienavn()}</option>
+                                       <option>${studie.getStudiekode()} - ${studie.getStudienavn()}</option>
 
                                     </c:forEach>
                                        
                                 </select>
                               </fieldset>
-                     
-                     <button type="submit" class="btn btn-primary">Velg fag</button>
-                 </form:form>
-                     
-                     <button type="submit" class="btn btn-primary" onclick="onClickTest()">Test</button>
-                     <button type="submit" class="btn btn-primary" onclick="triggEnter()">Trigg enter</button>
+                 
+                     <button type="submit" class="btn btn-primary col-lg-4" onclick="velgStudium()">Velg studium</button>
+                     <button class="btn btn-primary col-lg-4 col-lg-offset-4" onclick="lagreStudent()">Lagre endringer</button>
+          
              </div>
-              
+                  
 
+                     
+            
 
-	<div class="row col-lg-12">
+	<div class="row top-buffer col-lg-12">
 
         <div class="dual-list list-left col-md-4">
             <div class="well text-left">
-                <h5><b>Tar fag</b></h5>
+                <h5><b>Tar studium</b></h5>
                 <div class="row">
                     <div class="col-md-10">
                         <div class="input-group">  
                             <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k" />
+                            <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk" />
                            
                         </div>
                     </div>
@@ -284,12 +283,14 @@
                         </div>
                     </div>
                 </div>
-                <ul id="tarFagListe" class="list-group">
+                <ul id="tarStudieListe" class="list-group">
                     
-                     <c:forEach items="${alleStud}" var="stud">                 
+      <!--               <c:forEach items="${alleStud}" var="stud">                 
                         <li class="list-group-item">${stud.getBrukernavn()}</li>
                                 
                     </c:forEach>
+      
+      -->
                 </ul>
                 
             </div>
@@ -307,7 +308,7 @@
 
         <div class="dual-list list-right col-md-4">
             <div class="well text-left">
-                <h5><b>Tar ikke fag</b></h5>
+                <h5><b>Tar ikke studium</b></h5>
                 <div class="row">
                     <div class="col-md-2">
                         <div class="btn-group">
@@ -316,21 +317,18 @@
                     </div>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="sï¿½k" />
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="søk" />
                             <span class="input-group-addon glyphicon glyphicon-search"></span>
                         </div>
                     </div>
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">brukernavn1</li>
-                    <li class="list-group-item">brukernavn2</li>
-                    <li class="list-group-item">brukernavn3</li>
-                    <li class="list-group-item">brukernavn4</li>
-                    <li class="list-group-item">brukernavn5</li>
+                <ul id="tarIkkeStudieListe" class="list-group">
+                    
+               
                 </ul>
             </div>
         </div>
-            <button class="btn btn-primary col-lg-3" onclick="sendNyStudListe()">Lagre endringer</button>
+            
    </div>
 </div>
        
@@ -343,8 +341,8 @@
         
         </div>
         
-     <div id="studiumFane" class="tab-pane fade">
-         <h1>Studium</h1>
+     <div id="fagStudFane" class="tab-pane fade">
+         <h1>Oversikt</h1>
           
          
      </div>
@@ -448,10 +446,11 @@
 </html>
 <script>
     $(document).ready(function() {
-        $.get("test2", {"data":"TDAT-1000"}, function(Response){
+     /*   $.get("test2", {"data":"TDAT-1000"}, function(Response){
             alert(JSON.stringify(Response));
+            
         });
-        alert("test");
+       */ 
         
    $(".search").keyup(function () {
     var searchTerm = $(".search").val();
@@ -527,6 +526,107 @@
   
                   
 });
+var valgteStud;
+var studiekode;
+var studienavn;
+    function lagreStudent(){
+        var data = '{ ';
+
+    /*    var liste1 = document.getElementById("tarIkkeStudieListe").getElementsByTagName("li");
+        for(var i=0; i <liste1.length; i++){
+            data += '"slettbruker' +i + '":' +'"' + liste1[i].innerHTML + '",';
+        }
+        if(liste1.length > 0){
+            data += '"lengde1":' + liste1.length + ',';
+        }
+*/
+        var liste2 = document.getElementById("tarStudieListe").getElementsByTagName("li");
+     //    var data2 = '{"brukernavn0": "nybruker","studiekode0": "studiekode0", "studienavn0": "studienavn0",  "brukernavn1": "Nybruker2","studiekode1": "studiekode1", "studienavn1": "studienavn1", "lengde": 2}';
+            for(var i=0; i < liste2.length; i++){
+             data += '"brukernavn' +i + '":' +'"' + liste2[i].innerHTML + '","studiekode' + i + '": "' + studiekode + '", "studienavn' + i + '": "' + studienavn + '", ';
+         }
+         data += '"lengde2":' + liste2.length + '}';
+  
+        $.get("lagreStud", {"data":data}, function(Response){
+            //alert(JSON.stringify(Response));
+            
+       });
+     
+    }
+
+    function velgStudium(){
+   
+//{"data":$('#selectStudium').val()}
+        var selectString = $('#selectStudium').val();
+        var firstIndex = selectString.indexOf("-") +2;
+        var lastIndex = selectString.lastIndexOf("");
+
+        studienavn = selectString.substring(firstIndex, lastIndex);
+        lastIndex = selectString.lastIndexOf("-") -1;
+        studiekode = selectString.substring(0, lastIndex);
+     
+        $.get("studStudium", {"data":studienavn}, function(Response){
+          //  alert(JSON.stringify(Response));
+           // alert()
+          var ul = document.getElementById("tarStudieListe"); 
+          $('#tarStudieListe').empty();
+          valgteStud = $(JSON.parse(JSON.stringify(Response)));
+         
+        for(var i = 0; i < valgteStud.length; i++){
+             // alert(myArr[i]);
+           /*   var li = document.createElement("li");
+              li.className = li.className + " list-group";
+              li.appendChild(document.createTextNode(valgteStud[i]));
+              ul.appendChild(li);
+            */
+                                       
+           $("#tarStudieListe").append('<li class="list-group-item">'+valgteStud[i]+'</li>'); 
+          }
+          var myArr;
+          
+          $.get("alleStud", {"data":"0"}, function(Response){
+          //  alert(JSON.stringify(Response));
+           // alert()
+          var ul = document.getElementById("tarIkkeStudieListe"); 
+          $('#tarIkkeStudieListe').empty();
+          myArr = $(JSON.parse(JSON.stringify(Response)));
+            
+            
+        for(var i = 0; i < valgteStud.length; i++){
+            
+           for(var j = 0; j < myArr.length; j++){
+               
+               if(myArr[j] === valgteStud[i]){
+                  myArr.splice(j,1);
+              }
+                
+           }
+           
+          }
+          
+          for(var i = 0; i < myArr.length; i++){
+             /* var li = document.createElement("li");
+              li.className = li.className + " list-group";
+              li.appendChild(document.createTextNode(myArr[i]));
+              ul.appendChild(li);
+            */
+           $("#tarIkkeStudieListe").append('<li class="list-group-item">'+myArr[i]+'</li>'); 
+          }
+          
+       });
+          
+       });
+  
+    }
+    
+    function sendData(){
+        var liste = document.getElementById("tarStudieListe").getElementsByTagName("li");
+        
+        for(var i = 0; i <liste.length; i++){
+            alert(liste[i].innerHTML);
+        }
+    }
+   
 
     function visLeggTilFagModal(){
       $('#leggTilFagModal').modal('show');
@@ -634,36 +734,25 @@ window.onload = onClickBrukertabell();
 }
  window.onload = onClickFagtabell2();
  
- function triggEnter(){
-
-     /* var e = $.Event('keypress');
-     e.which = 13; // 
-     $('#SearchDualListId').trigger(e);
-     */
-  
-    
-    var e = jQuery.Event("keypress");
-        e.which = 13; //choose the one you want
-        e.keyCode = 13;
-        $("#SearchDualListId").trigger(e);
-
-    
-    }
     
     function sendNyStudListe(){
-        var unorderedList = document.getElementById('tarFagListe'); 
+      /*  var unorderedList = document.getElementById('tarFagListe'); 
         var ListItems = unorderedList.getElementsByTagName('li');  
      
          for(var i = 0; i < ListItems.length; i++){
             var test = ListItems[i].innerHTML;
                     alert(test);
-                    
-                    
+          */
+         var date = new Date();
+       // for(var i=0; i< 20; i++){
+            date.setHours(6);
+            date.setMinutes(61);
+           
+              alert(date);      
                     //sjekker fag i selecten
-                    
-                    
-    
-     }
+ 
+    // }
+     
      
     }
 
