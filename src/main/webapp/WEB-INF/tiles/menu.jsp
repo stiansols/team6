@@ -35,7 +35,8 @@
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>">Admin </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Booking </a>
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Etasjer og rom </a>
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="addBooking"/>" >Booking </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater personlig </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOrganisering"/>" >Romorganisering </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="innstillinger"/>" >Innstillinger </a>
