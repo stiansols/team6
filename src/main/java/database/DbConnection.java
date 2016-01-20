@@ -555,7 +555,6 @@ public class DbConnection {
     */
      public String[] getBook(String romnr, String dato)throws Exception{
          ArrayList<Date> bookinger = new ArrayList();
-         System.out.println("metode" + "-" +dato + ":" +  romnr);
          resultSet = statement.executeQuery("select* from booking where romnr= '" + romnr + "' and fratid like '"+dato+"%'");
          SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
          //String [] ledigOpptatt = {"06-00 06-30","06-30 07-00","07-00 07-30", "07-30 08-00", "08-00 08-30", "08-30 09-00","09-00 09-30", "09-30 10-00", "10-00 10-30", "10-30 11-00", "11-00 11-30", "11-30 12-00" ,"12-00 12-30", "12-30 13-00", "13-00 13-30", "13-30 14-00", "14-00 14-30", "14-30 15-00", "15-00 15-30", "15-30 16-00"};
@@ -592,13 +591,9 @@ public class DbConnection {
              tabellrod[h] = "Ledig";
          }
          for(int i =0; i<bookinger.size(); i+=2){
-             System.out.println("test");
              for(int j=0; j<datoer.length; j++){
-                 System.out.println(datoer[j]+"   .   " +bookinger.get(i));
                  if(datoer[j].getTime() == bookinger.get(i).getTime()){
-                     
                      long forskjell = (bookinger.get(i+1).getTime() - bookinger.get((i)).getTime())/1800000;
-                     System.out.println("Forskjell : " + forskjell);
                      for(int h = j; h<(j+forskjell); h++){
                         tabellrod[h] = "Opptatt";
                         

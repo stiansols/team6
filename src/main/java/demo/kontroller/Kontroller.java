@@ -535,7 +535,6 @@ public class Kontroller {
            String dato = (String)js.get("dato");
            String[] bookinger = null;
            
-          System.out.println("DATOEN:" +dato);
            
            String[] stringdato = dato.split("-");
            String fratids = stringdato[2] +"-"+ stringdato[1] + "-" + stringdato[0];
@@ -545,13 +544,7 @@ public class Kontroller {
           
            bookinger = db.getBook(romnr,fratids);
            //System.out.println("getBookRom");
-   
-           for(int i = 0; i<bookinger.length; i++){
-               
-               //System.out.println(i + ":" + bookinger[i]);
-               
-           }
-   
+
          // studenter = new String[10];
          //+ studenter[0] = "student1";
            return bookinger;
