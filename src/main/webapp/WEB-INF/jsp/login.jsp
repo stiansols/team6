@@ -60,7 +60,7 @@
                             <div class="form-group">
                                 <label for="brukerLabel" class="col-lg-4 control-label">Brukernavn</label>
                                 <div class="col-lg-6">
-                                    <input type="brukernavn" path="bruker.brukernavn" name="brukernavn" class="form-control" id="inputEmail3" placeholder="Brukernavn" required>
+                                    <input type="brukernavn" path="bruker.brukernavn" name="brukernavn" class="form-control" id="inputEmail3" placeholder="Brukernavn" autofocus required>
                                 </div>
                             </div>
                             <div class="form-group">
