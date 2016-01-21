@@ -86,42 +86,42 @@
                             <div class="row">
                                 <label for="romnummerLabel" class="col-lg-4 control-label">Romnummer</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="romNummer1" id="romnr" value=""/>
+                                    <input type="text" name="romNummer1" id="romnr" value="" disabled/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <label for="etasjeLabel" class="col-lg-4 control-label">Etasje</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="etasje" id="etasje" value="" readonly/>
+                                    <input type="text" name="etasje" id="etasje" value="" disabled/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <label for="navnLabel" class="col-lg-4 control-label">Plasser</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="plasser" id="plasser" value=""/>
+                                    <input type="text" name="plasser" id="plasser" value="" disabled/>
                                 </div>
                             </div>      
 
                             <div class="row">
                                 <label for="passLabel" class="col-lg-4 control-label">Har Smartboard</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="smartboard" id="smartboard" value=""/>
+                                    <input type="text" name="smartboard" id="smartboard" value="" disabled/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <label for="skjermLabel" class="col-lg-4 control-label">Har Dataskjerm</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="skjerm" id="skjerm" value=""/>
+                                    <input type="text" name="skjerm" id="skjerm" value="" disabled/>
                                 </div>
                             </div>
                             
                             <div class="row">
                                 <label for="proskeltorLabel" class="col-lg-4 control-label">Har Prosjektor</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="prosjektor" id="prosjektor" value=""/>
+                                    <input type="text" name="prosjektor" id="prosjektor" value="" disabled/>
                                 </div>
                             </div>
 
@@ -129,8 +129,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel(); visRomplan();">Book rom</button>
-
+                            <button type="button" class="btn btn-primary pull-left" data-toggle="collapse" data-target="#book" onclick="visRomplan()">Book rom</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                         </div>
                         
