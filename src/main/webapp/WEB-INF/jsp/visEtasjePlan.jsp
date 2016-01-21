@@ -66,7 +66,6 @@
                     <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
                 </c:if>
             </c:forEach>
-                    <area id="area120" shape="rect" class="romskisse" coords="800,370,900,470" data-maphilight='{"fillColor":"ff0000", "alwaysOn":false}'>
         </map>
 
         <form:form method="POST" modelAttribute="booking" action="nyBooking">
@@ -137,62 +136,43 @@
                         
                         <div id="book" class="collapse1">
                             <div class="row">
-                                <div class ="col-lg-4 col-lg-offset-1 well"> 
+                                <div class ="col-lg-10 col-lg-offset-1 well"> 
                                     <div id="romNummer" class="form-group" >
-                                    <input path="romNummer" class="form-control" id="romnr1" name ="romNummer" required style="display:none"/>
+                                        <input path="romNummer" class="form-control" id="romnr1" name ="romNummer" required style="display:none"/>
                                     </div>
                                     <div class="form-group input-daterange" >
-                                    <label>Dato</label>
-                                    <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
-                                    <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
-                                    <label>Fra</label>
-                                    <select id ="fratidtimer" name="fratidtimer" required>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    </select>
-                                    <select id ="fratidmin" name = "fratidmin" required>
-                                    <option value="00">00</option>
-                                    <option value="30">30</option>
-                            
-                                    </select>
-                                    <br>
-                                    <label>Til </label>
-                                    <select id ="tiltidtimer" name="tiltidtimer">
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    </select>
-                                    <select id ="tiltidmin" name ="tiltidmin" required>
-                                    <option value="00">00</option>
-                                    <option value="30">30</option>
-                            
-                                    </select>
-                                </div>
+                                        <label>Dato</label>
+                                        <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
+                                        <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label>Fra</label>
+                                            <select id ="fratidtimer" name="fratidtimer" required>
+                                                <c:forEach items="${['06','07','08','09','10','11','12','13','14','15','16']}" var="k">
+                                                    <option value="${k}"><c:out value="${k}"/></option>
+                                                </c:forEach>
+                                            </select>
+                                            <select id ="fratidmin" name = "fratidmin" required>
+                                                <option value="00">00</option>
+                                                <option value="30">30</option>
+                                            </select>
 
-                                <div class="form-group">
-                                    <div class="col-xs-5 col-xs-offset-0">
-                                    <button type="submit" class="btn btn-success pull-left">Send inn</button>
-                                </div>  
+                                            <label>           Til</label>
+                                            <select id ="tiltidtimer" name="tiltidtimer">
+                                                <c:forEach items="${['06','07','08','09','10','11','12','13','14','15','16']}" var="k">
+                                                    <option value="${k}"><c:out value="${k}"/></option>
+                                                </c:forEach>
+                                            </select>
+                                            <select id ="tiltidmin" name ="tiltidmin" required>
+                                                <option value="00">00</option>
+                                                <option value="30">30</option>
+
+                                            </select>
+                                            <button type="submit" class="btn btn-success">Send inn</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
                     </form:form>
                            
                     <table class="table table-bordered table-hover pull-right" id="dagtab">
