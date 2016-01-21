@@ -59,11 +59,6 @@
                     <br>
                     <h3>Antall plasser:</h3> <span id="range">0</span>
                     <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)" />
-                    <script type="text/javascript">
-                        function showValue(newValue) {
-                            document.getElementById("range").innerHTML=newValue;
-                        }
-                    </script>
                 </div>
                 <fieldset class="ramme">
                     <legend class="ramme">Utstyr</legend>
@@ -161,15 +156,15 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Endre Rom</h4>
                 </div>
-                <form:form method="post" modelAttribute="form" name="romForm" action="opdaterrom">
+                <form:form method="post" modelAttribute="form" name="romForm" action="romOrganisering">
                     <div class="modal-body">
-                        <div class="Row"><label for="RomLabel" class="control-label">Romnr:</label>
+                        <div class="Row"><label class="control-label">Romnr:</label>
                             <input type="text" name="romnr" id="romnr" value="" readonly>
                         </div>
-                        <div class="Row"><label for="EtasjeLabel" class="control-label">Etasje:</label>
+                        <div class="Row"><label class="control-label">Etasje:</label>
                             <input type="text" name="etasje" id="etasje" value="">
                         </div>
-                        <div class="Row"><label for="PlasserLabel" class="control-label">Plasser:</label>
+                        <div class="Row"><label class="control-label">Plasser:</label>
                             <input type="text" name="plasser" id="plasser" value="">
                         </div>
                         <div class="Row"><label class="control-label">Smartboard:
@@ -185,28 +180,6 @@
                             <input type="text" name="tilgang" id="tilgang" value="">
                         </div>
                     </div>
-                    <script>
-
-                        function skj(harSmartboard){
-                            if (harSmartboard==true){
-                                document.getElementById("smartboard").checked = harSmartboard.checked;
-                            }
-                        }
-                        function smart(harSkjerm){
-                            if(harSkjerm==true){
-                                document.getElementById("skjerm").checked = harSkjerm.checked;
-                            }
-                        }
-                        function prosj(harProsjektor){
-                            if (harProsjektor==true){
-                                document.getElementById("prosjektor").checked = harProsjektor.checked;
-                            }
-                        }
-
-                        harSmartboard = $("#smartboard").is(":checked");
-                        harSkjerm = $("#skjerm").is(":checked");
-                        harProsjektor = $("#prosjektor").is(":checked");
-                    </script>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default" formaction="oppdaterrom">Oppdater rom</button>
                         <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
@@ -242,6 +215,12 @@
                         var harProsjektor = cell6.innerHTML;
                         var tilgang = cell7.innerHTML;
 
+                        if(harSmartboard == "true") {
+                            document.getElementById("smartboard").checked = "checked";
+                        }else {
+                            document.getElementById("smartboard").removeAttribute("checked");
+                        }
+
                         //alert("id:" + id);
                         $(".modal-body #romnr").val( romnr );
                         $(".modal-body #etasje").val( etasje );
@@ -260,4 +239,13 @@
         }
     }
     window.onload = onClickEndreRom();
+
+    harSmartboard = $("#smartboard").is(":checked");                    //Sender verdi av checkboxen videre
+    harSkjerm = $("#skjerm").is(":checked");
+    harProsjektor = $("#prosjektor").is(":checked");
+
+    function showValue(newValue) {
+        document.getElementById("range").innerHTML=newValue;
+    }
+
 </script>
