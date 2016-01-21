@@ -50,7 +50,7 @@
     <body>
         <img id="ntnu" src="https://lh5.googleusercontent.com/d6SKp32RCf5drN5IQ_XBxNUwMXQa6ut8VYqf96U7C9Y_ApdPXcMiyZlO7taGAjSr8p2AlVxvkvz6b21DpnDKTAbrLx8q3yCqAdB8b1KYosW3NoiTje2-cw1JKiX_z4AVhzYoQWEV"/>          
 
-        <form:form class="form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="StudyEasy/spam" >
+        <form:form class="form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="spam" >
             <div class="container">
 
                 <div class="wrap">
