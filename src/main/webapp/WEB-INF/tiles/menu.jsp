@@ -1,24 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <meta http-equiv="Content-Type" content="text/html" charset=UTF-8>
-        <script src="//code.jquery.com/jquery.min.js"></script>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
-        <style>
-            .btn-primary {
-                margin-top: 5px;
-            }
-            
-            .col-lg-12 {
-                position: relative;
-                min-height: 1px;
-                padding-right: 15px;
-                padding-left: 15px;
-                margin-bottom: 15px;
-            }
-            
-        </style>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+<style>
+    .btn-primary {
+        margin-top: 5px;
+    }
+
+    .col-lg-12 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-bottom: 15px;
+    }
+
+</style>
 <nav class="navbar navbar-default">
     <div class="container col-lg-12">
         <div class="navnbar-header col-lg-12">
@@ -29,21 +29,23 @@
             </button>
             <div class= "navbar-brand">Meny</div>
         </div>
-        
+
         <div class="collapse navbar-collapse col-lg-12" id="liste">
             <div id="knapper">
 
-            <c:if test="${person.getBrukertype() == 3}">                
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>" id="adminKnapp">Admin </a>
-            </c:if><a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Etasjer og rom </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="addBooking"/>" >Booking </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater personlig </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOrganisering"/>" >Romorganisering </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="innstillinger"/>" >Innstillinger </a>
-            <a data-toggle="modal" data-target="#logoff"><button class="btn btn-primary col-lg-11 col-xs-11">Logg ut </button></a>
-            
+                <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
+                <c:if test="${person.getBrukertype() == 3}">                
+                    <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>" id="adminKnapp">Admin </a>
+                </c:if>
+                <c:if test="${person.getBrukertype() >= 2}">
+                    <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOrganisering"/>" >Fagbooking </a>
+                </c:if>
+                <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Romoversikt og booking </a>
+                <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
+                <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater bruker </a>
+                <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="innstillinger"/>" >Innstillinger </a>
+                <a data-toggle="modal" data-target="#logoff"><button class="btn btn-primary col-lg-11 col-xs-11">Logg ut </button></a>
+
             </div>
             <!--
             <div class="bildelinker">
