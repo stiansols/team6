@@ -305,13 +305,11 @@ function visRomplan(romnummer){
         obj.reverse();
         
         for(var i=1; i<21; i++){
-            var x = obj.pop();
-            var n = i.toString();
-            if(x === "Ledig"){
-            document.getElementById(n).style.backgroundColor = "green";
+            if(obj.pop() === "Ledig"){
+            document.getElementById("" + i).style.backgroundColor = "green";
             }
             else{
-                document.getElementById(n).style.backgroundColor = "red";
+                document.getElementById("" + i).style.backgroundColor = "red";
             }
         }         
       });  
