@@ -1,37 +1,25 @@
 package demo.kontroller;
 
-import Klasser.Booking;
-import Klasser.Bruker;
-import Klasser.Fag;
-import Klasser.Rom;
-import Klasser.Studium;
-import Klasser.Tidsintervall;
-import java.util.ArrayList;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import Klasser.*;
 import database.DbConnection;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -322,19 +310,6 @@ public class Kontroller {
 
     /**
      *
-     * @param person
-     * @return
-     */
-    @RequestMapping("/romOrganisering")
-    public String romOrganisering(@ModelAttribute(value = "person") Bruker person) {
-        if(person.getBrukernavn() == null){
-            return "login";
-        }
-        return "romOrganisering";
-    }
-
-    /**
-     *
      * @param rom
      * @param person
      * @return
@@ -347,7 +322,7 @@ public class Kontroller {
         }catch (Exception e){
             System.out.println("Noe gikk galt: " + e);
         }
-        return "romOrganisering";
+        return "admin";
     }
 
     /**
@@ -417,23 +392,6 @@ public class Kontroller {
         }
         return alleRom;
     }
-
-    /**
-     *
-     * @return
-     * @throws SQLException
-     * @throws Exception
-     */
-    @ModelAttribute("romForste")
-    public ArrayList getRomForste() throws SQLException, Exception{
-        ArrayList<Rom> romForste = new ArrayList<>();
-        try {
-            romForste = db.hentRomEtasje(1);
-        } catch (SQLException e) {
-            System.out.println(e + " fail");
-        }
-        return romForste;
-    }
     
     /**
      *
@@ -451,58 +409,7 @@ public class Kontroller {
         // studenter = new String[10];
         //+ studenter[0] = "student1";
           return studenter;
-      }    
-
-    /**
-     *
-     * @return
-     * @throws SQLException
-     * @throws Exception
-     */
-    @ModelAttribute("romAndre")
-    public ArrayList getRomAndre() throws SQLException, Exception{
-        ArrayList<Rom> rom = new ArrayList<>();
-        try {
-            rom = db.hentRomEtasje(2);
-        } catch (SQLException e) {
-            System.out.println(e + " fail");
-        }
-        return rom;
-    }
-
-    /**
-     *
-     * @return
-     * @throws SQLException
-     * @throws Exception
-     */
-    @ModelAttribute("romTredje")
-    public ArrayList getRomTredje() throws SQLException, Exception{
-        ArrayList<Rom> rom = new ArrayList<>();
-        try {
-            rom = db.hentRomEtasje(3);
-        } catch (SQLException e) {
-            System.out.println(e + " fail");
-        }
-        return rom;
-    }
-
-    /**
-     *
-     * @return
-     * @throws SQLException
-     * @throws Exception
-     */
-    @ModelAttribute("romFjerde")
-    public ArrayList getRomFjerde() throws SQLException, Exception{
-        ArrayList<Rom> rom = new ArrayList<>();
-        try {
-            rom = db.hentRomEtasje(4);
-        } catch (SQLException e) {
-            System.out.println(e + " fail");
-        }
-        return rom;
-    }
+      }
 
     /**
      *
