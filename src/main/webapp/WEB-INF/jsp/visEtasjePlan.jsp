@@ -275,6 +275,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
     
     <script>
+        $('document').ready(function(){
+            $(".collapse1").collapse('hide'); 
+        });
+    </script>
+    
+    <script>
         $(".btn-primary").click(function(){
             document.getElementById('romnr1').value = document.getElementById('romnr').value;
             document.getElementById('romnr1').text = document.getElementById('romnr').text;       
