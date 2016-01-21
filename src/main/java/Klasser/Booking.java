@@ -6,12 +6,16 @@
 package Klasser;
 import java.*;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Archimedes
  */
-public class Booking {
+public class Booking implements Comparable<Booking>{
     private int bookingId;
     private String brukernavn;
     private String romNummer;
@@ -152,4 +156,35 @@ public class Booking {
         String res = "Booking: "+bookingId+" \n Romnr: "+romNummer+" \n Fra: "+fratid+" \n Til: "+tiltid+" \n Sjekket inn: "+ sjekketInn;
         return res;
     }
+    
+    @Override
+    public int compareTo(Booking b){   
+        
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+        Date fra = null;
+        try {
+            fra = formatter.parse(this.getFratid());
+        } catch (ParseException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Date fra2 = null;
+        try {
+            fra2 = formatter.parse(b.getFratid());
+        } catch (ParseException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+
+        if (fra.before(fra2)){
+            return 1;
+        }
+        if(fra.after(fra2)){
+            return -1;
+        }
+
+        return 0;
+    }
+    
 }

@@ -32,8 +32,10 @@
         
         <div class="collapse navbar-collapse col-lg-12" id="liste">
             <div id="knapper">
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>">Admin </a>
-            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
+
+            <c:if test="${person.getBrukertype() == 3}">                
+            <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>" id="adminKnapp">Admin </a>
+            </c:if><a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Etasjer og rom </a>
             <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="addBooking"/>" >Booking </a>

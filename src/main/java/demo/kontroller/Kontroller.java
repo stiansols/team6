@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -97,7 +98,10 @@ public class Kontroller {
                     bookings.add(person.getBookingerListe().get(i));
                 }
             }
-        model.addAttribute("brukerBookinger", bookings);
+            Collections.sort(bookings);
+            Collections.reverse(bookings);
+            model.addAttribute("brukerBookinger", bookings);
+
     }
 
     /**
