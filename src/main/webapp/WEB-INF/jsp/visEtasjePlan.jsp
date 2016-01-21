@@ -47,7 +47,7 @@
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
             <div class="form-group">
                 <label for="datoFra">Fra:</label>
-                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="${etasjeLink[1]}"/>
+                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value=" "/>
             </div>
             <div class="form-group">
                 <label for="tidFra">Tid:</label>
@@ -145,7 +145,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel()">Book rom</button>
+                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel(); minfunction();">Book rom</button>
 
                             <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                         </div>
@@ -285,7 +285,6 @@
 
 function minfunction(romnummer){
     var dato = $('#datoFra1').val();
-     
     document.getElementById('romnr1').value = document.getElementById('romnr').value;
     document.getElementById('romnr1').text = document.getElementById('romnr').text;
       
@@ -318,7 +317,10 @@ function minfunction(romnummer){
 
         $('#datoFra').datepicker({
                 format: 'dd-mm-yyyy'
+                
             });
+            
+            
     </script>
     
     <script type="text/javascript">
@@ -331,6 +333,10 @@ function minfunction(romnummer){
     
     <script>
     $(document).ready(function(){
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
+       
         $(".collapse1").collapse('hide');
     });
     </script>
@@ -414,6 +420,8 @@ function minfunction(romnummer){
         $(".modal-body #skjerm").val(skjerm);
         $('#visRomModal').modal('show');
         $(".collapse1").collapse('hide');
+        
+        document.getElementById("datoFra1").value = document.getElementById("datoFra").value;
     }
 
 </script>
