@@ -63,7 +63,7 @@
                         </c:if>
                     </c:forEach>
                     
-                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()})">
+                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()}, ${rom.getHarProsjektor()})">
                 </c:if>
             </c:forEach>
                     <area id="area120" shape="rect" class="romskisse" coords="800,370,900,470" data-maphilight='{"fillColor":"ff0000", "alwaysOn":false}'>
@@ -79,7 +79,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Rom XXX</h4>
+                            <h4 class="modal-title">Romoversikt</h4>
                         </div>
                         
                         <div class="modal-body">
@@ -395,9 +395,9 @@ function visRomplan(romnummer){
         $(".modal-body #romnr").val(romnr);
         $(".modal-body #etasje").val(etasje);
         $(".modal-body #plasser").val(plasser);
-        $(".modal-body #smartboard").val(smartboard);
-        $(".modal-body #skjerm").val(skjerm);
-        $(".modal-body #prosjektor").val(prosjektor);
+        $(".modal-body #smartboard").val(smartboard ? "ja" : "nei");
+        $(".modal-body #skjerm").val(skjerm? "ja" : "nei");
+        $(".modal-body #prosjektor").val(prosjektor? "ja" : "nei");
         $('#visRomModal').modal('show');
         $(".collapse1").collapse('hide');
         

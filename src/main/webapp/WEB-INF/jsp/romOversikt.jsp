@@ -85,7 +85,7 @@
 
             <div class="col-lg-5 vert-offset-top-2">
                 <div class="form-group">
-                    <input type="text" class="search form-control" placeholder="SÃ¸k...">
+                    <input type="text" class="search form-control" placeholder="Søk...">
                 </div>
                 <div id="checkboxes">
                     <label>Ledig <input type="checkbox" onclick="filter()" value="Ledig"></label> 
