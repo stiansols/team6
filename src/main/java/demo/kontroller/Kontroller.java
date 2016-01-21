@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,10 @@ public class Kontroller {
 
     private DbConnection db = new DbConnection();
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("person")
     public Bruker getPerson() {
         return new Bruker();
@@ -58,6 +63,11 @@ public class Kontroller {
         return sb.toString();
     }
     
+    /**
+     *
+     * @param person
+     * @throws Exception
+     */
     public void lastInnPerson(@ModelAttribute(value="person")Bruker person) throws Exception{
         Bruker b = db.hentBruker(person.getBrukernavn());
         person.fjernAvtaler();
@@ -76,19 +86,30 @@ public class Kontroller {
         }
     }
     
+    /**
+     *
+     * @param model
+     * @param person
+     */
     public void LagSjekketInnListe(Model model,@ModelAttribute(value="person")Bruker person ){
-    ArrayList<Booking> bookings = new ArrayList();                   
-                    for(int i = 0; i< person.getBookingerListe().size(); i++){
-                        if(person.getBookingerListe().get(i).getSjekketInn()== false){
-                            bookings.add(person.getBookingerListe().get(i));
-                        }
-                        
-                    }
-                   
-                model.addAttribute("brukerBookinger", bookings);
+        ArrayList<Booking> bookings = new ArrayList();                   
+            for(int i = 0; i< person.getBookingerListe().size(); i++){
+                if(person.getBookingerListe().get(i).getSjekketInn()== false){
+                    bookings.add(person.getBookingerListe().get(i));
+                }
+            }
+            Collections.sort(bookings);
+            Collections.reverse(bookings);
+            model.addAttribute("brukerBookinger", bookings);
+
     }
 
-
+    /**
+     *
+     * @param person
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/*")
     public String visStartView(@ModelAttribute(value="person") Bruker person) throws Exception {
        if(person.getBrukertype()== 4){
@@ -98,7 +119,13 @@ public class Kontroller {
         return "login";
     }
     
-    
+    /**
+     *
+     * @param model
+     * @param person
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/index")
     public String getHovedisde(Model model, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
@@ -109,6 +136,13 @@ public class Kontroller {
         return "index";
     }
     
+    /**
+     *
+     * @param person
+     * @param session
+     * @param status
+     * @return
+     */
     @RequestMapping("/logut")
     public String getLogut(@ModelAttribute(value = "person") Bruker person , HttpSession session, SessionStatus status) {
         status.setComplete();
@@ -116,7 +150,15 @@ public class Kontroller {
         return "login";
     } 
     
-     @RequestMapping(value = "/sjekkInn", method = RequestMethod.POST)
+    /**
+     *
+     * @param model
+     * @param buttonSupreme
+     * @param person
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/sjekkInn", method = RequestMethod.POST)
     public String sjekkeInn(Model model, @RequestParam int buttonSupreme, @ModelAttribute(value="person")Bruker person) throws Exception {
         DbConnection db = new DbConnection();
         Date now = new Date();
@@ -131,6 +173,11 @@ public class Kontroller {
         return "denied";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/romOversikt")
     public String visRomOversikt(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -139,6 +186,12 @@ public class Kontroller {
         return "romOversikt";
     }
 
+    /**
+     *
+     * @param datoInf
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/etasjeVis", method = RequestMethod.POST)
     public ModelAndView getEtasje(@RequestParam Map<String,String> datoInf) throws Exception {
         String url = "";
@@ -172,6 +225,11 @@ public class Kontroller {
         return etasjeMV;
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping(value = "/etasje", method = RequestMethod.POST)
     public String visEtasjeValg(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -180,6 +238,11 @@ public class Kontroller {
         return "etasje";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/test")
     public String test(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -188,6 +251,11 @@ public class Kontroller {
         return "test";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/registrerBruker")
     public String regBruker(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -199,6 +267,11 @@ public class Kontroller {
         return "registrerBruker";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/oppdaterPersonlig")
     public String oppBruker(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -207,6 +280,11 @@ public class Kontroller {
         return "oppdaterPersonlig";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/admin")
     public String admin(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -218,6 +296,11 @@ public class Kontroller {
         return "admin";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/bruker")
     public String bruker(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -226,6 +309,11 @@ public class Kontroller {
         return "bruker";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/innstillinger")
     public String innstillinger(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -234,6 +322,11 @@ public class Kontroller {
         return "innstillinger";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/hjem")
     public String home(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -242,6 +335,11 @@ public class Kontroller {
         return "hjem";
     }
 
+    /**
+     *
+     * @param person
+     * @return
+     */
     @RequestMapping("/romOrganisering")
     public String romOrganisering(@ModelAttribute(value = "person") Bruker person) {
         if(person.getBrukernavn() == null){
@@ -250,7 +348,14 @@ public class Kontroller {
         return "romOrganisering";
     }
 
-      @RequestMapping(value = "/oppdaterrom", method = RequestMethod.POST)
+    /**
+     *
+     * @param rom
+     * @param person
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/oppdaterrom", method = RequestMethod.POST)
     public String oppdaterRom(@ModelAttribute(value = "romForm")Rom rom,@ModelAttribute(value = "rom")Bruker person) throws Exception {
         try {
             db.oppdaterRom(rom.getRomnr(), rom.getEtasje(), rom.getPlasser(), rom.getHarSmartboard(), rom.getHarSkjerm(), rom.getHarProsjektor(), rom.getTilgang());
@@ -260,6 +365,16 @@ public class Kontroller {
         return "romOrganisering";
     }
 
+    /**
+     *
+     * @param model
+     * @param brukernavn
+     * @param passord
+     * @param person
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping("/spam")
     public String loggInn(Model model, @RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
         Bruker bruker = null;
@@ -293,6 +408,12 @@ public class Kontroller {
 
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("alleRom")
     public ArrayList getHobby() throws SQLException, Exception
     {
@@ -307,6 +428,13 @@ public class Kontroller {
         }
         return alleRom;
     }
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("romForste")
     public ArrayList getRomForste() throws SQLException, Exception{
         ArrayList<Rom> romForste = new ArrayList<>();
@@ -318,7 +446,14 @@ public class Kontroller {
         return romForste;
     }
     
-      @RequestMapping(value="test2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     *
+     * @param fagkode
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
+    @RequestMapping(value="test2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
       @ResponseBody
       public String[] getStudIFag(@RequestParam ("data") String fagkode) throws SQLException, Exception {
           String studenter[] = null;
@@ -329,6 +464,12 @@ public class Kontroller {
           return studenter;
       }    
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("romAndre")
     public ArrayList getRomAndre() throws SQLException, Exception{
         ArrayList<Rom> rom = new ArrayList<>();
@@ -339,6 +480,13 @@ public class Kontroller {
         }
         return rom;
     }
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("romTredje")
     public ArrayList getRomTredje() throws SQLException, Exception{
         ArrayList<Rom> rom = new ArrayList<>();
@@ -349,6 +497,13 @@ public class Kontroller {
         }
         return rom;
     }
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("romFjerde")
     public ArrayList getRomFjerde() throws SQLException, Exception{
         ArrayList<Rom> rom = new ArrayList<>();
@@ -360,6 +515,12 @@ public class Kontroller {
         return rom;
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("alleBrukere")
     public ArrayList getBrukere() throws SQLException, Exception {
         ArrayList<Bruker> alleBrukere = new ArrayList();
@@ -367,6 +528,12 @@ public class Kontroller {
         return alleBrukere;
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("alleFag")
     public ArrayList getFag() throws SQLException, Exception {
         ArrayList<Fag> alleFag = new ArrayList();
@@ -375,6 +542,11 @@ public class Kontroller {
         return alleFag;
     }
     
+    /**
+     *
+     * @param person
+     * @return
+     */
     @ModelAttribute("brukerBookinger")
     public ArrayList<Booking> sjekkInn(@ModelAttribute(value="person") Bruker person){
     ArrayList<Booking> bookings = new ArrayList();
@@ -389,7 +561,14 @@ public class Kontroller {
                     return bookings;
     }
 
-           @RequestMapping("/etasjeVis")
+    /**
+     *
+     * @param model
+     * @param nyBooking
+     * @param person
+     * @return
+     */
+    @RequestMapping("/etasjeVis")
         public String visBooking(Model model,@ModelAttribute(value = "booking")Booking nyBooking, @ModelAttribute(value="person")Bruker person) {
             if(person.getBrukernavn() == null){
                 return "login";
@@ -398,8 +577,18 @@ public class Kontroller {
             return "etasjeVis";
     }
     
-
-         @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
+    /**
+     *
+     * @param fratidtimer
+     * @param fratidmin
+     * @param tiltidtimer
+     * @param tiltidmin
+     * @param nyBooking
+     * @param person
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
         public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
             try{
             if(person.getBrukernavn() == null){
@@ -433,6 +622,13 @@ public class Kontroller {
             }
     }
 
+    /**
+     *
+     * @param brukertypen
+     * @param bruker
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/nyBruker", method = RequestMethod.POST)
     public String leggTilBruker(@RequestParam(value = "brukertypen") String brukertypen, @ModelAttribute(value = "nyBrukerForm") Bruker bruker) throws Exception {
         
@@ -457,6 +653,12 @@ public class Kontroller {
 
     }
 
+    /**
+     *
+     * @param bruker
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/oppdater", method = RequestMethod.POST)
     public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
         
@@ -467,6 +669,12 @@ public class Kontroller {
         return "redirect:admin";
     }
 
+    /**
+     *
+     * @param bruker
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/slett", method = RequestMethod.POST)
     public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
         
@@ -475,6 +683,13 @@ public class Kontroller {
         return "redirect:admin";
     }
 
+    /**
+     *
+     * @param email
+     * @param person
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/oppdaterMail", method = RequestMethod.POST)
     public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
@@ -490,6 +705,13 @@ public class Kontroller {
         return "redirect:index";
     }
 
+    /**
+     *
+     * @param passord
+     * @param person
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/oppdaterPassord", method = RequestMethod.POST)
     public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
@@ -505,6 +727,12 @@ public class Kontroller {
         return "redirect:index";
     }
 
+    /**
+     *
+     * @param fag
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/leggTil", method = RequestMethod.POST)
     public String leggTilFag(@ModelAttribute(value = "nyttFagForm") Fag fag) throws Exception {
 
@@ -514,6 +742,12 @@ public class Kontroller {
 
     }
 
+    /**
+     *
+     * @param fag
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/slettFag", method = RequestMethod.POST)
     public String slettFag(@ModelAttribute(value = "slettFagForm") Fag fag) throws Exception {
        
@@ -523,6 +757,13 @@ public class Kontroller {
 
     }
    
+    /**
+     *
+     * @param data
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping(value="books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
        @ResponseBody
        public String[]getBookRom(@RequestParam ("data") Object data) throws SQLException, Exception {
@@ -550,7 +791,13 @@ public class Kontroller {
            return bookinger;
     }
       
-
+    /**
+     *
+     * @param studienavn
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping(value="studStudium", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getStudIStudium(@RequestParam ("data") String studienavn) throws SQLException, Exception {
@@ -563,6 +810,13 @@ public class Kontroller {
         return studenter;
     }
     
+    /**
+     *
+     * @param data
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping(value="lagreStud", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] lagreStud(@RequestParam ("data") Object data) throws SQLException, Exception {
@@ -607,6 +861,13 @@ public class Kontroller {
         return studenter;
     }
     
+    /**
+     *
+     * @param brukertype
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping(value="alleStud", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getAlleStudenter(@RequestParam ("data") String brukertype) throws SQLException, Exception {
@@ -618,7 +879,13 @@ public class Kontroller {
         return studenter;
     }
   
-    
+    /**
+     *
+     * @param fagkode
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @ModelAttribute("alleStudier")
     public ArrayList<Studium> getAlleStudier(String fagkode) throws SQLException, Exception {
         ArrayList<Studium> studier = new ArrayList();
