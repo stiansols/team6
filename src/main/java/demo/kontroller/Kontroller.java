@@ -112,10 +112,6 @@ public class Kontroller {
      */
     @RequestMapping("/*")
     public String visStartView(@ModelAttribute(value="person") Bruker person) throws Exception {
-       if(person.getBrukertype()== 4){
-                Tidsintervall spamMail = new Tidsintervall();
-                spamMail.run();
-                }
         return "login";
     }
     
@@ -396,6 +392,10 @@ public class Kontroller {
                     person.setAvtaler(b.getAvtaler().get(i));
                 }
                 LagSjekketInnListe(model, person);
+                if(person.getBrukertype()== 4){
+                Tidsintervall spamMail = new Tidsintervall();
+                spamMail.run();
+                }
                 return "index";
             } else {
                 System.out.println("ikke lik");

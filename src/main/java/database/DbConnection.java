@@ -664,16 +664,27 @@ public class DbConnection {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
         Date dateFra = formatter.parse(b.getFratid());
         Date dateTil = formatter.parse(b.getTiltid());
+        
+        resultSet = statement.executeQuery("SELECT navn FROM bruker where brukernavn = '" + brukernavn + "'");
+        resultSet.next();
+        String navn = resultSet.getString("navn");
+        
+        String melding = "Noe med høyere bookingrettigheter har booket over en av dine bookinger <br> Bookingen det gjelder er<br> Romnummer: "+b.getRomNummer()+"<br>Fratid: "+b.getFratid()+"<br>Tiltid: "+b.getTiltid()+"<br> Ta kontakt med " +navn+" dersom du ønsker en forklaring.";
+        String header = "Du har mistet en av dine bookinger";
+
+        
         for (int i = 0; i < booking.size(); i++) {
             //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
             Date gammelFra = formatter.parse(booking.get(i).getFratid());
             Date gammelTil = formatter.parse(booking.get(i).getTiltid());
+            
             if ((dateFra.after(gammelFra) || dateFra.equals(gammelFra)) && dateFra.before(gammelTil) || (dateTil.after(gammelFra) || dateTil.equals(gammelFra)) && dateTil.before(gammelTil)) {
                 if (brukerType > booking.get(i).getBrukertype()) {
                     preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = " + booking.get(i).getBookingId());
                     preparedStatement.executeUpdate();
                     preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
                     preparedStatement.executeUpdate();
+                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
                     return true;
                 }
                 if (brukerType == booking.get(i).getBrukertype()) {
@@ -686,6 +697,7 @@ public class DbConnection {
                     preparedStatement.executeUpdate();
                     preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
                     preparedStatement.executeUpdate();
+                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
                     return true;
                 }
                 if (brukerType == booking.get(i).getBrukertype()) {
@@ -698,6 +710,8 @@ public class DbConnection {
                     preparedStatement.executeUpdate();
                     preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
                     preparedStatement.executeUpdate();
+                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
+
                     return true;
                 }
                 if (brukerType == booking.get(i).getBrukertype()) {
@@ -710,6 +724,7 @@ public class DbConnection {
                     preparedStatement.executeUpdate();
                     preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
                     preparedStatement.executeUpdate();
+                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
                     return true;
                 }
                 if (brukerType == booking.get(i).getBrukertype()) {
