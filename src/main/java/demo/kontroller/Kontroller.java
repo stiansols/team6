@@ -590,9 +590,9 @@ public class Kontroller {
             }
             
             String [] stringFratid = nyBooking.getFratid().split("-");
-            String fratids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-" + fratidtimer + "-" + fratidmin;
+            String fratids = stringFratid[0] +"-"+ stringFratid[1] + "-" + stringFratid[2] + "-" + fratidtimer + "-" + fratidmin;
             String[] stringTiltid = nyBooking.getTiltid().split("-");
-            String tiltids = stringFratid[2] +"-"+ stringFratid[1] + "-" + stringFratid[0] + "-"+tiltidtimer + "-" + tiltidmin;
+            String tiltids = stringFratid[0] +"-"+ stringFratid[1] + "-" + stringFratid[2] + "-"+tiltidtimer + "-" + tiltidmin;
             nyBooking.setFratid(fratids);
             nyBooking.setTiltid(tiltids);
             nyBooking.setBrukertype(person.getBrukertype());
