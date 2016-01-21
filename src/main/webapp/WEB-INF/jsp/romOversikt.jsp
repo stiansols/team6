@@ -150,9 +150,12 @@
         </script>
 
         <script>
-
-
             $(document).ready(function () {
+                var now = new Date();
+                document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
+
+                $(".collapse1").collapse('hide');
+                
                 $(".search").keyup(function () {
                     var searchTerm = $(".search").val();
                     var listItem = $('.results tbody').children('tr');
@@ -229,6 +232,7 @@
                 var alleRomnr = "";
                 $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
                     var parsedData = JSON.parse(JSON.stringify(d));
+                    alert(JSON.stringify(d));
                     for(i=3; i<cells.length; i+=2) {
                         for(j=0; j<parsedData.length; j++) {
                             

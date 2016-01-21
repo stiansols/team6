@@ -47,7 +47,7 @@
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
             <div class="form-group">
                 <label for="datoFra">Fra:</label>
-                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value=" "/>
+                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
             </div>
             <div class="form-group">
                 <label for="tidFra">Tid:</label>
@@ -329,16 +329,6 @@ function visRomplan(romnummer){
                 format: 'yyyy-mm-dd'
             });
         });
-    </script>
-    
-    <script>
-    $(document).ready(function(){
-        var nowTemp = new Date();
-        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-        document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
-       
-        $(".collapse1").collapse('hide');
-    });
     </script>
     
     <script>

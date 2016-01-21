@@ -43,7 +43,6 @@ public class BookingKontroller {
     @RequestMapping(value="getBig", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getAlleBookinger(@RequestParam ("dato") String datoInput) throws SQLException, Exception {
-        System.out.println("WOWOWOWOOWOOWWOOWWOWOW");
         ArrayList<Booking> bookinger = db.hentAlleBookinger();
         ArrayList<String> ikkeLedigRomnr = new ArrayList();
         
