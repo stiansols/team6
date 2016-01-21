@@ -652,6 +652,17 @@ public class Kontroller {
         return "redirect:admin";
 
     }
+    
+    @RequestMapping(value = "slettbooking", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String slettBooking(Model model, @RequestParam ("data") int bookingId, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
+        if(person.getBrukernavn() == null){
+                return "login";
+            }
+        
+        db.fjernBooking(bookingId);
+
+        return "index";
+    }  
 
     /**
      *

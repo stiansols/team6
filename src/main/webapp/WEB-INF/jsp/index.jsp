@@ -43,9 +43,9 @@
                         </tr>
                         <tr>
                             <th><h3>Romnr</h3></th>
-                            <th><h3>Fra tid</h3></th>
-                            <th><h3>Til tid</h3></th>
-                            <th><h3>Trykk for å sjekke inn</h3></th>
+                            <th><h3>Fratid</h3></th>
+                            <th><h3>Tiltid</h3></th>
+                            
                             </tr>
                             
                       <tr class="warning no-result">
@@ -60,7 +60,14 @@
                                 <td><b>${brukere.getRomNummer()}</b></td>
                                 <td><b>${brukere.getFratid()}</b></td>
                                 <td><b>${brukere.getTiltid()}</b></td>
-                                <td><button class="btn btn-primary" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk inn!</button></td>
+                                
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <td><button class="btn btn-success" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk Inn</button></td>
+                                        
+                                        <td><button type="button" class="btn btn-warning">Endre</button></td>
+                                        <td class="deleterow"><button type="button" class="btn btn-danger" id="${brukere.getBookingId()}" onclick="onClickSlett(${brukere.getBookingId()})">Slett</button></td>
+                                    </div>
+                                
                             </tr>  
                                 
         </c:forEach>
@@ -111,5 +118,21 @@
                 
             };
         </script>
+        
+        <script>
+        function onClickSlett(bookingid){
+
+        $.get("slettbooking", {"data":bookingid});
+        
+        $(".deleterow").on("click", function(){
+            var $killrow = $(this).parent('tr');
+            $killrow.addClass("danger");
+            $killrow.fadeOut(2000, function(){
+                $(this).remove();
+            });
+        });
+   
+    }
+        </script>    
     </body>
 </html>
