@@ -660,9 +660,49 @@ public class DbConnection {
     Denne metoden prøver å registrere en booking(tas som innparameter) og returnerer en boolean avhengig av resultatet
     Resultatet avhenger att bookingen ikke kræsjer med tidligere bookinger eller att brukertype forholdet mellom den nye og den gamle bookingen er gunstig
     */
-    public boolean regBooking(String brukernavn, Booking b, int brukerType) throws Exception, SQLException {
+    public boolean regBooking(String brukernavn, Booking b, int brukerType,ArrayList<Booking> personBook) throws Exception, SQLException {
+         int studentGrense =20;
+         
+         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+         Date fra = new Date(formatter.parse(b.getFratid()).getTime());
+         Date til = new Date(formatter.parse(b.getTiltid()).getTime());
+         Date idag = new Date();
+         
+         if(til.before(fra)){
+             return false;
+         }
+         
+         if(brukerType== 0){
+            if(fra.getMonth()>idag.getMonth()+1){
+                System.out.println("oops");
+                return false;
+            }
+            long total = 0;
+            for(int i = 0; i<personBook.size(); i++){
+                
+                
+                Date dateFra = new Date(formatter.parse(personBook.get(i).getFratid()).getTime());
+                Date dateTil = new Date(formatter.parse(personBook.get(i).getTiltid()).getTime());
+                Date bookingDag = new Date(formatter.parse(b.getFratid()).getTime());
+               if(dateFra.getYear() == bookingDag.getYear() && dateFra.getMonth()== bookingDag.getMonth() && dateFra.getDay()==bookingDag.getDay()){
+                   if(!b.getRomNummer().equals(personBook.get(i).getRomNummer())){
+                       return false;
+                   }
+               }
+                
+                long timer = (dateTil.getTime()-dateFra.getTime());
+                long nytid = (formatter.parse(b.getTiltid()).getTime()-bookingDag.getTime());
+                total += (int) (((timer+nytid)/ (1000*60*60)) % 24);
+                
+                
+            }
+            System.out.println("total = " + total);
+            if(total>studentGrense){
+                return false;
+            }
+         }
         ArrayList<Booking> booking = hentBooking(b.getRomNummer());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+        
         Date dateFra = formatter.parse(b.getFratid());
         Date dateTil = formatter.parse(b.getTiltid());
         

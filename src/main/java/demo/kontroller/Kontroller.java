@@ -608,7 +608,7 @@ public class Kontroller {
             nyBooking.setTiltid(tiltids);
             nyBooking.setBrukertype(person.getBrukertype());
             //nyBooking.setBookingId(NULL);
-            db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype());
+            db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype(),person.getBookingerListe());
             
             lastInnPerson(person);
             System.out.println("Dette er plassen");
