@@ -315,7 +315,7 @@ function visRomplan(romnummer){
     <script type="text/javascript">
         $('.input-daterange input').each(function() {
             $(this).datepicker({
-                format: 'yyyy-mm-dd'
+                format: 'dd-mm-yyyy'
             });
         });
     </script>

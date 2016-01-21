@@ -64,7 +64,7 @@
                                     <div class="btn-group" role="group" aria-label="...">
                                         <td><button class="btn btn-success" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk Inn</button></td>
                                         
-                                        <td><button type="button" class="btn btn-warning" onclick="onClickEndre(${brukere.getRomNummer()}, ${brukere.getFratid()}, ${brukere.getTiltid()})">Endre</button></td>
+                                        <td><button type="button" class="btn btn-warning" onclick="onClickEndre(${brukere.getBookingId()})">Endre</button></td>
                                         <td class="deleterow"><button type="button" class="btn btn-danger" id="${brukere.getBookingId()}" onclick="onClickSlett(${brukere.getBookingId()})">Slett</button></td>
                                     </div>
                                 
@@ -106,11 +106,81 @@
                         </div>
                         
                         <div class="modal-body">
-                            
-                            <label id="modalromnr"></label>
-                            <input type="date" id="modalfratid" disabled/>
-                            <input type="date" id="modaltiltid" disabled/>
-                            
+                            <div class="form-group">
+                                <div class="row">
+                                <label for="Romnr" class="col-lg-6 control-label">Romnr</label>
+                              
+                                <div class="col-lg-6">
+                                    <input type="text" id="modalromnr" disabled/>
+                                </div>
+                                 </div>
+                                <div class="row">
+                                <label for="tiltid" class="col-lg-6 control-label">Fratid</label>
+                                 
+                                <div class="col-lg-6">
+                                    <input type="text" id="modalfratid" disabled/>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <label for="fratid" class="col-lg-6 control-label">Tiltid</label>
+                                 
+                                <div class="col-lg-6">
+                                    <input type="text" id="modaltiltid" disabled/>
+                                </div>
+                                </div>
+                            </div>
+                
+                            <div class="row">
+                             <table class="table table-bordered table-hover pull-right" id="dagtab">
+                    <tbody>
+                    <tr>
+                    <td class="klokkeslett" id="1">06.00-06.30</td>
+
+                    <td class="klokkeslett" id="2">06.30-07.00</td>
+
+                    <td class="klokkeslett" id="3">07.00-07.30</td>
+
+                    <td class="klokkeslett" id="4">07.30-08.00</td>
+        
+                    <td class="klokkeslett" id="5">08.00-08.30</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="6">08.30-09.00</td>
+
+                    <td class="klokkeslett" id="7">09.00-09.30</td>
+
+                    <td class="klokkeslett" id="8">09.30-10.00</td>
+
+                    <td class="klokkeslett" id="9">10.00-10.30</td>
+
+                    <td class="klokkeslett" id="10">10.30-11.00</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="11">11.00-11.30</td>
+
+                    <td class="klokkeslett" id="12">11.30-12.00</td>
+
+                    <td class="klokkeslett" id="13">12.00-12.30</td>
+
+                    <td class="klokkeslett" id="14">12.30-13.00</td>
+
+                    <td class="klokkeslett" id="15">13.00-13.30</td>
+                    </tr>
+                    <tr>
+                    <td class="klokkeslett" id="16">13.30-14.00</td>
+ 
+                    <td class="klokkeslett" id="17">14.00-14.30</td>
+
+                    <td class="klokkeslett" id="18">14.30-15.00</td>
+
+                    <td class="klokkeslett" id="19">15.00-15.30</td>
+
+                    <td class="klokkeslett" id="20">15.30-16.00</td>
+                    </tr>
+      
+                    </tbody>
+                    </table>
+                            </div>    
                         </div>
                             
                             <div class="modal-footer">
@@ -164,13 +234,46 @@
    
     }
     
-    function onClickEndre(romnr, fratid, tiltid){
+ 
+   function onClickEndre(bookingId){
+        $.get("getBooking", {"data": bookingId}, function(Response){
+            
+            var array = $(JSON.parse(JSON.stringify(Response)));
+            var romnr = array[0];
+            var fratid = array[1];
+            var tiltid = array[2];  
+            var dato = fratid.substring(0, 10);
         $('#endreModal').modal('show');
-        $(".modal-body #modalromnr").text(romnr);
+        $(".modal-body #modalromnr").val(romnr);
         $(".modal-body #modalfratid").val(fratid);
-        $(".modal-body #modaltiltid").text(tiltid);
-        
+        $(".modal-body #modaltiltid").val(tiltid);
+           
+            visRomplan(romnr, dato);
+        });
     }
+    
+    
+    function visRomplan(romnummer, dato){
+    
+    var data = '{"romnr":"'+romnummer+'", "dato":"'+dato+'"}';
+    
+    $.get("books", {"data":data}, function(Response){
+       var obj = Response;
+        
+        obj.reverse();
+        
+        for(var i=1; i<21; i++){
+            if(obj.pop() === "Ledig"){
+            document.getElementById("" + i).style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("" + i).style.backgroundColor = "red";
+            }
+        }         
+      });  
+      
+}
+    
         </script>    
     </body>
 </html>

@@ -778,7 +778,7 @@ public class Kontroller {
            
            
            String[] stringdato = dato.split("-");
-           String fratids = stringdato[2] +"-"+ stringdato[1] + "-" + stringdato[0];
+           String fratids = stringdato[0] +"-"+ stringdato[1] + "-" + stringdato[2];
            
            //System.out.println(data);
            //System.out.println(romnr + " : " + dato);
@@ -900,6 +900,20 @@ public class Kontroller {
         studier = db.hentAlleStudier();
 
         return studier;
+    }
+    
+     @RequestMapping(value="getBooking", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getBooking(@RequestParam ("data") int bookingId) throws SQLException, Exception {
+        Booking booking = null;
+      //  int brukertypeInt = Integer.parseInt(brukertype);
+        booking = db.getBooking(bookingId);
+        String[] bookingArr = new String[3];
+        bookingArr[0] = booking.getRomNummer();
+        bookingArr[1] = booking.getFratid();
+        bookingArr[2] = booking.getTiltid();
+        
+        return bookingArr;
     }
 
 }
