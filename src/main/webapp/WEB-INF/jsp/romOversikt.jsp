@@ -25,7 +25,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 margin-bottom: -50px;
-                box-shadow: 0px 2px;
+                /* box-shadow: 0px 2px; */
             }
             
             .midt:hover {
