@@ -145,7 +145,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel(); minfunction();">Book rom</button>
+                            <button type="button" class="btn btn-primary pull-left" formaction="oppdater" data-toggle="collapse1" data-target="#book" onclick="visPanel(); visRomplan();">Book rom</button>
 
                             <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                         </div>
@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="form-group input-daterange" >
                                     <label>Dato</label>
-                                    <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="minfunction()"required/>
+                                    <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
                                     <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
                                     <label>Fra</label>
                                     <select id ="fratidtimer" name="fratidtimer" required>
@@ -283,7 +283,7 @@
    
      <script type="text/javascript">
 
-function minfunction(romnummer){
+function visRomplan(romnummer){
     var dato = $('#datoFra1').val();
     document.getElementById('romnr1').value = document.getElementById('romnr').value;
     document.getElementById('romnr1').text = document.getElementById('romnr').text;
