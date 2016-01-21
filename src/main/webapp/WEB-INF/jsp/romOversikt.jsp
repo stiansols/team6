@@ -54,6 +54,9 @@
                 width: 100%;
                 overflow: auto;
             }
+            .vert-offset-top-2{
+                margin-top: 2em;
+            }
 
         </style>
     </head>
@@ -80,8 +83,8 @@
 
         </div>
 
-            <div class="col-lg-3 col-lg-offset-3">
-                <div class="form-group pull-right">
+            <div class="col-lg-5 vert-offset-top-2">
+                <div class="form-group">
                     <input type="text" class="search form-control" placeholder="Søk...">
                 </div>
                 <span class="counter pull-right"></span>
@@ -96,6 +99,7 @@
                                 <th>Romnr</th>
                                 <th>Ledig</th>
                                 <th>Smartboard</th>
+                                <th>Skjerm</th>
                                 <th>Prosjektor</th>
                             </tr>
 
@@ -113,6 +117,9 @@
                                     <td><c:if test="${rom.getHarSmartboard() == true}">Ja</c:if>
                                         <c:if test="${rom.getHarSmartboard() == false}">Nei</c:if>
                                     </td>
+                                    <td><c:if test="${rom.getHarSkjerm() == true}">Ja</c:if>
+                                        <c:if test="${rom.getHarSkjerm() == false}">Nei</c:if>
+                                    </td>                                                                         
                                     <td><c:if test="${rom.getHarProsjektor() == true}">Ja</c:if>
                                         <c:if test="${rom.getHarProsjektor() == false}">Nei</c:if>
                                     </td>                                    
@@ -128,9 +135,10 @@
                 <div class="span3">
                         <div class="form-group input-daterange">
                             <div id="checkboxes">
-                                <label>Ledig<input type="checkbox" onclick="filter()" value="Ledig"></label>
-                                <label>Har Smartboard<input type="checkbox" onclick="filter()" value="Ja"></label>
-                                <label>Har Prosjektor<input type="checkbox" onclick="filter()" value="Ja"></label>
+                                <label>Ledig <input type="checkbox" onclick="filter()" value="Ledig"></label> 
+                                <label>Har Smartboard <input type="checkbox" onclick="filter()" value="Ja"></label> 
+                                <label>Har Skjerm <input type="checkbox" onclick="filter()" value="Ja"></label> 
+                                <label>Har Prosjektor <input type="checkbox" onclick="filter()" value="Ja"></label>
                             </div>
                             
                             <br>
