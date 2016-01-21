@@ -95,6 +95,7 @@
                             <tr>
                                 <th>Romnr</th>
                                 <th>Ledig</th>
+                                <th>Smartboard</th>
 
                             </tr>
 
@@ -109,6 +110,12 @@
                                 <tr>
                                     <td>${rom.getRomnr()}</td>
                                     <td></td>
+                                    <td><c:if test="${rom.getHarSmartboard() == true}">
+                                            Ja
+                                        </c:if>
+                                        <c:if test="${rom.getHarSmartboard() == false}">
+                                            Nei
+                                        </c:if>
                                 </tr>  
 
                             </c:forEach>           
@@ -120,8 +127,11 @@
                 
                 <div class="span3">
                         <div class="form-group input-daterange">
+                            <div id="checkboxes">
+                                <label>Ledig<input type="checkbox" onclick="filter()" value="Ledig"></label>
+                                <label>Har Smartboard<input type="checkbox" onclick="filter()" value="Ja"></label>
+                            </div>
                             
-                            <label>Ledig<input type="checkbox" onclick="filter()" value=""></label>
                             <br>
                             <label>Fra</label>
                             <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
@@ -153,6 +163,8 @@
             $(document).ready(function () {
                 var now = new Date();
                 document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
+
+                
 
                 $(".collapse1").collapse('hide');
                 
@@ -225,15 +237,16 @@
             function onChangeDato() {
                 var table = document.getElementById("romTabell");
                 var cells = table.getElementsByTagName("td");
-
+                var columns = table.rows[1].cells;
+                
                 var datoFraInput = document.getElementById("datoFra");
                 var tidFraInput = document.getElementById("tidFra");
                 var tidTilInput = document.getElementById("tidTil");
+                
                 var alleRomnr = "";
                 $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
                     var parsedData = JSON.parse(JSON.stringify(d));
-                    alert(JSON.stringify(d));
-                    for(i=3; i<cells.length; i+=2) {
+                    for(i=(columns.length); i<cells.length; i+=columns.length) {
                         for(j=0; j<parsedData.length; j++) {
                             
                             if(cells[i-1].innerHTML === parsedData[j]) {
@@ -257,17 +270,26 @@
                 var cells = table.getElementsByTagName("td");
                 var tbody = document.getElementById("romTbody");
                 var rows = tbody.getElementsByTagName("tr");
-                for(i=3, j=0; i<cells.length; i+=2, j++) {
-                    //3 - 1 5 -2 7 - 3
-                    if(cells[i].innerHTML !== "Ledig") {
-                        if (rows[j].style.display == '') {
-                            rows[j].style.display = 'none';
-                        }
-                        else {
-                            rows[j].style.display = '';
+                var columns = table.rows[1].cells;
+                var checkboxes = document.getElementById("checkboxes").getElementsByTagName("input");
+                
+                for(i=(columns.length), j=0; i<cells.length; i+=columns.length, j++) {
+                    for(k=0; k<checkboxes.length; k++) {
+                        var filterType = checkboxes[k].value;
+                        if(cells[i+k].innerHTML.trim() !== filterType) {
+                            if(checkboxes[k].checked) {
+                                rows[j].style.display = 'none';
+                                break;
+                            }
+                            else {
+                                rows[j].style.display = '';
+                            }
                         }
                     }
+                    
                 }
+                
+                
             }
             
             window.onload = onClickRomtabell();

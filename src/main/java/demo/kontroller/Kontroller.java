@@ -197,26 +197,15 @@ public class Kontroller {
         String tidFra = datoInf.get("fratid");
         String tidTil = datoInf.get("tiltid");
 
-        switch (etasje) {
-            case "1":
-                url = "https://lh3.googleusercontent.com/YxNLnTNjcBLaWXLrZvRkIx9lTz1NlIK2MIlZSegAEy9XGWUjtl8_bCo3qvdn9XD1SnO1WG2mHstKzES8_Usr11h0c6-sXALj2PjqYJLED7pd8-Q9hwJ9YSAuiOS5l91Urdd3S16P";
-                break;
-            case "2":
-                url = "https://lh4.googleusercontent.com/cSB8jU9YWCqGxilcgfcuyMHAmDHs8VG3-6qG8WZK_vIcXjlyjeS-59C3sECHgH0LxiIjqn_AJidQbWWEXfAEG4X77ryU2AjAIMFG5_qxrBNfig7v8Biz_sDDeFxhNg4lF3-0hkVa";
-                break;
-            case "3":
-                url = "https://lh5.googleusercontent.com/FG0cvtoPOzse_mOoo9iUl3oHctP7i6qyF2sNsjIjEqOaWuLwV82TL2c87g4UZHxChTqGzfiBrvbv2Y8fbzMgB08__nJJ7wUGY2bOjksfM9jNioERfbjvTDi3ZHgD4ySiX29D8j4Z";
-                break;
-            case "4":
-                url = "https://lh6.googleusercontent.com/dD6C0aQC0-iZsuG8do4Sras-8Q4oNsu5Hu_AHu8DiO1sKWmOn0zk4eq0GmS8JNC2Ws1yn7zGIL-Qpkzd0QugULk2cSuZhqE1_p6pIPfxFeJNbUjwY15JujSW2JUy5iMbgTns8R-2";
-                break;
-        }
+        url = db.hentPlanBilde("plan" + etasje);
+
         ArrayList<String> model = new ArrayList();
         model.add(url);
         model.add(datoFra);
         model.add(tidFra);
         model.add(tidTil);
         model.add(romnr);
+        model.add(etasje);
         ModelAndView etasjeMV = new ModelAndView("visEtasjePlan", "etasjeLink", model);
         return etasjeMV;
     }
@@ -885,9 +874,16 @@ public class Kontroller {
         String studenter[] = null;
         int brukertypeInt = Integer.parseInt(brukertype);
         studenter = db.hentAlleStudenter(brukertypeInt);
-   
-        
+
         return studenter;
+    }
+    
+    @RequestMapping(value="hentRessurs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String[] getRessurs(@RequestParam ("beskrivelse") String beskrivelse) throws SQLException, Exception {
+        String[] url = new String[1];
+        url[0] = db.hentPlanBilde(beskrivelse);
+        return url;
     }
   
     /**

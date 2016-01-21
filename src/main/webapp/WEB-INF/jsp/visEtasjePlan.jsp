@@ -18,21 +18,7 @@
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-
-
-<c:if test="${etasjeLink[0] == 'https://lh3.googleusercontent.com/YxNLnTNjcBLaWXLrZvRkIx9lTz1NlIK2MIlZSegAEy9XGWUjtl8_bCo3qvdn9XD1SnO1WG2mHstKzES8_Usr11h0c6-sXALj2PjqYJLED7pd8-Q9hwJ9YSAuiOS5l91Urdd3S16P'}">
-    <c:set var="etasje" value="1"/>
-</c:if>
-<c:if test="${etasjeLink[0] == 'https://lh4.googleusercontent.com/cSB8jU9YWCqGxilcgfcuyMHAmDHs8VG3-6qG8WZK_vIcXjlyjeS-59C3sECHgH0LxiIjqn_AJidQbWWEXfAEG4X77ryU2AjAIMFG5_qxrBNfig7v8Biz_sDDeFxhNg4lF3-0hkVa'}">
-    <c:set var="etasje" value="2"/>
-</c:if>
-<c:if test="${etasjeLink[0] == 'https://lh5.googleusercontent.com/FG0cvtoPOzse_mOoo9iUl3oHctP7i6qyF2sNsjIjEqOaWuLwV82TL2c87g4UZHxChTqGzfiBrvbv2Y8fbzMgB08__nJJ7wUGY2bOjksfM9jNioERfbjvTDi3ZHgD4ySiX29D8j4Z'}">
-    <c:set var="etasje" value="3"/>
-</c:if>
-<c:if test="${etasjeLink[0] == 'https://lh6.googleusercontent.com/dD6C0aQC0-iZsuG8do4Sras-8Q4oNsu5Hu_AHu8DiO1sKWmOn0zk4eq0GmS8JNC2Ws1yn7zGIL-Qpkzd0QugULk2cSuZhqE1_p6pIPfxFeJNbUjwY15JujSW2JUy5iMbgTns8R-2'}">
-    <c:set var="etasje" value="4"/>
-</c:if>
-
+<c:out value="${etasjeLink[0]}"/>
 <html>
     <style>
         .modal-backdrop {
@@ -58,7 +44,7 @@
                 <input type="text" name="tidTil" class="form-control" id="tidTil" value="${etasjeLink[3]}">
             </div>
             <button type="button" class="btn btn-default" onclick="onChangeDato()">OK</button>
-            <input id="etasje" type='hidden' name='etasje' value="${etasje}">
+            <input id="etasje" type='hidden' name='etasje' value="${etasjeLink[5]}">
             <input type='hidden' name='fradato'>
             <input type='hidden' name='fratid'>
             <input type='hidden' name='tiltid'>

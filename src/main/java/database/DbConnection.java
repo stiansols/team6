@@ -606,6 +606,13 @@ public class DbConnection {
          
       return tabellrod;
     }
+     
+    //returnerer url
+    public String hentPlanBilde(String plan) throws Exception, SQLException {
+        resultSet = statement.executeQuery("select * from ressurser where beskrivelse='" + plan + "'");
+        resultSet.next();
+        return resultSet.getString("link");
+    }
 
      /*
      Denne metoden returnerer en liste over samtlige bookinger på ett rom som er gitt som innparameter
