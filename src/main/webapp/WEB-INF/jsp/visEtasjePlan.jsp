@@ -18,7 +18,6 @@
 <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<c:out value="${etasjeLink[0]}"/>
 <html>
     <style>
         .modal-backdrop {
@@ -56,7 +55,7 @@
 
         <map name="rommap" id="map_ID">
             <c:forEach items="${alleRom}" var="rom">
-                <c:if test="${etasje == rom.getEtasje()}">
+                <c:if test="${etasjeLink[5] == rom.getEtasje()}">
                     <c:set var="mapData" value='{"fillColor":"00FF21"}'/>
                     <c:forEach items="${etasjeLink[4]}" var="romnummer">
                         <c:if test="${rom.getRomnr() == romnummer}">

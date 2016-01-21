@@ -12,9 +12,8 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        
+        <link rel="stylesheet" type="text/css" href="http://softwareambar.com/js/clockpicker/jquery-clockpicker.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
         <style>
 
 
@@ -64,6 +63,7 @@
                
     
     <body>
+
         <div container>
             <div class="col-lg-6">
              <div id="etasjer">
@@ -86,6 +86,12 @@
             <div class="col-lg-5 vert-offset-top-2">
                 <div class="form-group">
                     <input type="text" class="search form-control" placeholder="Søk...">
+                </div>
+                <div id="checkboxes">
+                    <label>Ledig <input type="checkbox" onclick="filter()" value="Ledig"></label> 
+                    <label>Har Smartboard <input type="checkbox" onclick="filter()" value="Ja"></label> 
+                    <label>Har Skjerm <input type="checkbox" onclick="filter()" value="Ja"></label> 
+                    <label>Har Prosjektor <input type="checkbox" onclick="filter()" value="Ja"></label>
                 </div>
                 <span class="counter pull-right"></span>
                 <div class="span3">
@@ -134,33 +140,41 @@
                 
                 <div class="span3">
                         <div class="form-group input-daterange">
-                            <div id="checkboxes">
-                                <label>Ledig <input type="checkbox" onclick="filter()" value="Ledig"></label> 
-                                <label>Har Smartboard <input type="checkbox" onclick="filter()" value="Ja"></label> 
-                                <label>Har Skjerm <input type="checkbox" onclick="filter()" value="Ja"></label> 
-                                <label>Har Prosjektor <input type="checkbox" onclick="filter()" value="Ja"></label>
-                            </div>
-                            
-                            <br>
-                            <label>Fra</label>
+                            <label>Dato</label>
                             <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
-                            <input type="text" name="tidFra" class="form-control" id="tidFra" value="09-00">
-
-                            <label>Til</label>
-                            <input type="text" name="tidTil" class="form-control" id="tidTil" value="15-00">
+                            <div class="form-inline">
+                                <br>
+                                <div class="input-group clockpicker">
+                                    Fra <input type="text" name="tidFra" class="form-control" id="tidFra" value="09:00">
+                                </div>
+                                <div class="input-group clockpicker">
+                                    Til <input type="text" name="tidTil" class="form-control" id="tidTil" value="15:00">
+                                </div>
+                                
+                            </div>
+                            <br>
                             <input type="button" value="OK" class="form-control" onclick="onChangeDato()">
                         </div>
+
                 </div>
             </div>
 
 
         </div>
 
-
-
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+        <script src="http://softwareambar.com/js/clockpicker/bootstrap-clockpicker.min.js"></script>
+        
 
+        
+        <script type="text/javascript">
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                default: 'now',
+                donetext: 'Velg'
+            });
+        </script>
+        
         <script type="text/javascript">
             
             $('#datoFra').datepicker({
@@ -249,13 +263,15 @@
                 var tbody = document.getElementById("romTbody");
                 var rows = tbody.getElementsByTagName("tr");
                 
-                var datoFraInput = document.getElementById("datoFra");
-                var tidFraInput = document.getElementById("tidFra");
-                var tidTilInput = document.getElementById("tidTil");
-                
+                var datoFraInput = document.getElementById("datoFra").value;
+                var tidFraInput = document.getElementById("tidFra").value;
+                var tidTilInput = document.getElementById("tidTil").value;
+                tidFraInput = tidFraInput.replace(":", "-");
+                tidTilInput = tidTilInput.replace(":", "-");
                 var alleRomnr = "";
-                $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
+                $.getJSON("getBig", {"dato": datoFraInput + "-" + tidFraInput + ":" + datoFraInput + "-" + tidTilInput}, function(d) {
                     var parsedData = JSON.parse(JSON.stringify(d));
+                    
                     for(i=0; i<rows.length; i++) {
                         for(j=0; j<parsedData.length; j++) {
                             
