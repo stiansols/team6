@@ -91,7 +91,7 @@
             </div>
             <div class="modal-body">
                 <i class="fa fa-question-circle"></i>
-                <p>Er du sikker pÃ¥ at du vil logge ut?</p>
+                <p>Er du sikker p� at du vil logge ut?</p>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-primary" href="<c:url value="logut"/>">Logg ut</a>

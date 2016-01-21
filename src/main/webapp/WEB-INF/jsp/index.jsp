@@ -28,7 +28,7 @@
     </head>
     <body>
         <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="IndexHandlerSupreme">
-            <h2>Velkommen ${person.getNavn()} håper du trives med det nye booking systemet<small>Work in progress</small></h2>
+            <h2>Velkommen ${person.getNavn()}</h2>
             <br>
             <div class="row">
                 <div class="col-sm-8">
