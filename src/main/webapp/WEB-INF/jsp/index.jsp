@@ -64,7 +64,7 @@
                                     <div class="btn-group" role="group" aria-label="...">
                                         <td><button class="btn btn-success" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk Inn</button></td>
                                         
-                                        <td><button type="button" class="btn btn-warning">Endre</button></td>
+                                        <td><button type="button" class="btn btn-warning" onclick="onClickEndre(${brukere.getRomNummer()}, ${brukere.getFratid()}, ${brukere.getTiltid()})">Endre</button></td>
                                         <td class="deleterow"><button type="button" class="btn btn-danger" id="${brukere.getBookingId()}" onclick="onClickSlett(${brukere.getBookingId()})">Slett</button></td>
                                     </div>
                                 
@@ -84,7 +84,7 @@
                         <h2 style="vertical-align: middle" class="text-center">Timeplan</h2>
                     </fieldset>
                     <div>Her <br> skal <br> det <br> være <br> en <br> liste <br> over <br> abonnement</div>
-                    <div>
+                    <div>           
                         <button>Legg til hendelse</button>
                         <button>Endre abonnementer</button>
                     </div>
@@ -93,6 +93,36 @@
                 </div>
             </div>
         </form:form>
+        <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="endreModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Endre Din Booking</h4>
+                        </div>
+                        
+                        <div class="modal-body">
+                            
+                            <label id="modalromnr"></label>
+                            <input type="date" id="modalfratid" disabled/>
+                            <input type="date" id="modaltiltid" disabled/>
+                            
+                        </div>
+                            
+                            <div class="modal-footer">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-success">Endre Booking</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <script>
             window.onload = function() {
@@ -132,6 +162,14 @@
             });
         });
    
+    }
+    
+    function onClickEndre(romnr, fratid, tiltid){
+        $('#endreModal').modal('show');
+        $(".modal-body #modalromnr").text(romnr);
+        $(".modal-body #modalfratid").val(fratid);
+        $(".modal-body #modaltiltid").text(tiltid);
+        
     }
         </script>    
     </body>
