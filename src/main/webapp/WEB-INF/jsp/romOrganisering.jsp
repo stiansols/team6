@@ -18,67 +18,37 @@
         <br>
         <div class="row">
             <div class="col-sm-8">
-                <fieldset class="ramme">
-                    <legend class="ramme">Romliste - Plasser, Smartboard, Skjerm, Prosjektor, Tilgang</legend>
-                    <ol class="tree">
-                        <li>
-                            <label for="folder1">1.Etasje</label> <input type="checkbox" id="folder1" />
-                            <ol id="tre">
-                                <c:forEach items="${romForste}" var="rom1">
-                                    <li class="file">
-                                        <button data-toggle="collapse" data-target="#${rom1.romnr}"><a href="#">${rom1.romnr}</a></button>
-                                        <div id="${rom1.romnr}" class="collapse">
-                                            <span>${rom1.romnr}</span>,
-                                            <span>${rom1.etasje}</span>,
-                                            <span>${rom1.plasser}</span>,
-                                            <span>${rom1.harSmartboard}</span>,
-                                            <span>${rom1.harSkjerm}</span>,
-                                            <span>${rom1.harProsjektor}</span>,
-                                            <span>${rom1.tilgang}</span>
-                                            <div class="btn btn-default" onclick="onClickEndreRom()" data-toggle="modal" data-target="#oppdaterRom">Endre</div>
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ol>
-
-                            <label for="folder2">2.Etasje</label> <input type="checkbox" id="folder2" />
-                            <ol>
-                                <c:forEach items="${romAndre}" var="rom2">
-                                    <li class="file">
-                                        <button data-toggle="collapse" data-target="#${rom2.romnr}"><a href="#">${rom2.romnr}</a></button>
-                                        <div id="${rom2.romnr}" class="collapse">
-                                                ${rom2.plasser}, ${rom2.harSmartboard}, ${rom2.harSkjerm}, ${rom2.harProsjektor}, ${rom2.tilgang}
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ol>
-
-                            <label for="folder3">3.Etasje</label> <input type="checkbox" id="folder3" />
-                            <ol>
-                                <c:forEach items="${romTredje}" var="rom3">
-                                    <li class="file">
-                                        <button data-toggle="collapse" data-target="#${rom3.romnr}"><a href="#">${rom3.romnr}</a></button>
-                                        <div id="${rom3.romnr}" class="collapse">
-                                                ${rom3.plasser}, ${rom3.harSmartboard}, ${rom3.harSkjerm}, ${rom3.harProsjektor}, ${rom3.tilgang}
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ol>
-
-                            <label for="folder4">4.Etasje</label> <input type="checkbox" id="folder4" />
-                            <ol>
-                                <c:forEach items="${romFjerde}" var="rom4">
-                                    <li class="file">
-                                        <button data-toggle="collapse" data-target="#${rom4.romnr}"><a href="#">${rom4.romnr}</a></button>
-                                        <div id="${rom4.romnr}" class="collapse">
-                                                ${rom4.plasser}, ${rom4.harSmartboard}, ${rom4.harSkjerm}, ${rom4.harProsjektor}, ${rom4.tilgang}
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ol>
-                        </li>
-                    </ol>
-                </fieldset>
+                <div>
+                    <fieldset class="ramme">
+                        <legend class="ramme">Romoversikt:</legend>
+                        <table id="romTabell" class="table table-hover table-bordered results">
+                            <thead>
+                            <tr>
+                                <th>Romnummer</th>
+                                <th>Etasje</th>
+                                <th>Plasser</th>
+                                <th>Har Smartboard</th>
+                                <th>Har Skjerm</th>
+                                <th>Har Prosjektor</th>
+                                <th>Har tilgang</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${alleRom}" var="rom">
+                                <tr>
+                                    <td>${rom.romnr}</td>
+                                    <td>${rom.etasje}</td>
+                                    <td>${rom.plasser}</td>
+                                    <td>${rom.harSmartboard}</td>
+                                    <td>${rom.harSkjerm}</td>
+                                    <td>${rom.harProsjektor}</td>
+                                    <td>${rom.tilgang}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
             </div>
             <div class="col-sm-4">
                 <div>
@@ -103,37 +73,6 @@
                 </fieldset>
                 <br>
                 <br>
-            </div>
-            <div>
-                <fieldset class="ramme">
-                    <legend class="ramme">Romoversikt:</legend>
-                    <table id="romTabell" class="table table-hover table-bordered results">
-                        <thead>
-                        <tr>
-                            <th>Romnummer</th>
-                            <th>Etasje</th>
-                            <th>Plasser</th>
-                            <th>Har Smartboard</th>
-                            <th>Har Skjerm</th>
-                            <th>Har Prosjektor</th>
-                            <th>Har tilgang</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${alleRom}" var="rom">
-                            <tr>
-                                <td>${rom.romnr}</td>
-                                <td>${rom.etasje}</td>
-                                <td>${rom.plasser}</td>
-                                <td>${rom.harSmartboard}</td>
-                                <td>${rom.harSkjerm}</td>
-                                <td>${rom.harProsjektor}</td>
-                                <td>${rom.tilgang}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </fieldset>
             </div>
         </div>
     </body>
@@ -233,22 +172,41 @@
                         <div class="Row"><label for="PlasserLabel" class="control-label">Plasser:</label>
                             <input type="text" name="plasser" id="plasser" value="">
                         </div>
-                        <div class="Row"><label for="SmartboardLabel" class="control-label">Smartboard:
-                            <input type="hidden" name="checked[1]" value="harSmartboard">
-                            <input type="checkbox" key="1" name="harSmartboard" id="harSmartboard" value="harSmartboard"></label>
+                        <div class="Row"><label class="control-label">Smartboard:
+                            <input type="checkbox" name="harSmartboard" id="smartboard"></label>
                         </div>
-                        <div class="Row"><label for="SkjermLabel" class="control-label">Skjerm:
-                            <input type="hidden" name="checked[2]" value="">
-                            <input type="checkbox" key="2" name="harSkjerm" id="harSkjerm" value=""></label>
+                        <div class="Row"><label class="control-label">Skjerm:
+                            <input type="checkbox" name="harSkjerm" id="skjerm"></label>
                         </div>
-                        <div class="Row"><label for="ProsjektorLabel" class="control-label">Prosjektor:
-                            <input type="hidden" name="checked[3]" value="">
-                            <input type="checkbox" key="3" name="harProsjektor" id="harProsjektor" value=""></label>
+                        <div class="Row"><label class="control-label">Prosjektor:
+                            <input type="checkbox" name="harProsjektor" id="prosjektor"></label>
                         </div>
-                        <div class="Row"><label for="TilgangLabel" class="control-label">Tilgang: </label>
+                        <div class="Row"><label class="control-label">Tilgang: </label>
                             <input type="text" name="tilgang" id="tilgang" value="">
                         </div>
                     </div>
+                    <script>
+
+                        function skj(harSmartboard){
+                            if (harSmartboard==true){
+                                document.getElementById("smartboard").checked = harSmartboard.checked;
+                            }
+                        }
+                        function smart(harSkjerm){
+                            if(harSkjerm==true){
+                                document.getElementById("skjerm").checked = harSkjerm.checked;
+                            }
+                        }
+                        function prosj(harProsjektor){
+                            if (harProsjektor==true){
+                                document.getElementById("prosjektor").checked = harProsjektor.checked;
+                            }
+                        }
+
+                        harSmartboard = $("#smartboard").is(":checked");
+                        harSkjerm = $("#skjerm").is(":checked");
+                        harProsjektor = $("#prosjektor").is(":checked");
+                    </script>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default" formaction="oppdaterrom">Oppdater rom</button>
                         <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>

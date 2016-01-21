@@ -253,6 +253,7 @@ public class DbConnection {
     Denne metoden oppdaterer all informanson om ett rom i databasen
     */
     public void oppdaterRom(String romnr, int etasje, int plasser, boolean harSmartboard, boolean harSkjerm, boolean harProsjektor, int tilgang)throws Exception, SQLException{
+        System.out.println("Romnr: " + romnr + " Etasje: " + etasje + " Plasser: " + plasser + " Smartboard: " + harSmartboard + " Skjerm: " + harSkjerm + " Prosjektor: " + harProsjektor + " Tilgang: " + tilgang);
         int smartboard = (harSmartboard) ? 1 : 0;
         int skjerm = (harSkjerm) ? 1 : 0;
         int prosjektor = (harProsjektor) ? 1 : 0;
