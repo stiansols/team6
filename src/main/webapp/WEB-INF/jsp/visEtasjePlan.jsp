@@ -406,12 +406,13 @@ function minfunction(romnummer){
 </html>
 
 <script>
-    function onClickRom(romnr, etasje, plasser, smartboard, skjerm) {
+    function onClickRom(romnr, etasje, plasser, smartboard, skjerm, prosjektor) {
         $(".modal-body #romnr").val(romnr);
         $(".modal-body #etasje").val(etasje);
         $(".modal-body #plasser").val(plasser);
         $(".modal-body #smartboard").val(smartboard);
         $(".modal-body #skjerm").val(skjerm);
+        $(".modal-body #prosjektor").val(prosjektor);
         $('#visRomModal').modal('show');
         $(".collapse1").collapse('hide');
     }
