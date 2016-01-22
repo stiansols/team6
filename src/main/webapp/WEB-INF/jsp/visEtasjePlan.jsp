@@ -24,6 +24,11 @@
         .modal-backdrop {
             z-index: 1020;
         }
+        .col-lg-8 > input {
+            border: 0px solid;
+            background-color: #FFFFFF;
+        }
+        
     </style>
     <body>
         <ul class="pager">
