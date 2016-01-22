@@ -32,7 +32,7 @@
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
             <div class="form-group">
                 <label for="datoFra">Fra:</label>
-                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
+                <input path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
             </div>
             <div class="form-group">
                 <label for="tidFra">Tid:</label>
@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="form-group input-daterange" >
                                         <label>Dato</label>
-                                        <input class="form-control" type="date" path="fratid" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
+                                        <input class="form-control" path="fratid" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
                                         <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
                                         <br>
                                         <div class="form-inline">

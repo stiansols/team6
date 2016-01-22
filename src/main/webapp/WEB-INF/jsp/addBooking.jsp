@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group input-daterange" >
                             <label>Fra</label>
-                            <input type="date" path="fratid" name = "fratid" class="form-control"  id="datoFra"  required/>  
+                            <input path="fratid" name = "fratid" class="form-control"  id="datoFra"  required/>  
                             <select id ="fratidtimer" name="fratidtimer" required>
                             <option value="06">06</option>
                             <option value="07">07</option>
