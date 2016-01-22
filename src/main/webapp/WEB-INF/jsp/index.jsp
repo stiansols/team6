@@ -38,23 +38,20 @@
     </head>
     <body>
         <form:form class = "form-horizontal" method="POST" modelAttribute="personForm" name="innlogging" action="IndexHandlerSupreme">
-            <h2>Velkommen ${person.getNavn()}</h2>
+            <h3>Velkommen ${person.getNavn()}</h3>
             <br>
             <div class="row">
                 <div class="col-sm-8">
-                    <h4>${person.printBrukerType()} NTNU</h4>
-                    <br>
-                    <br>
-                    <h2>Her er dine fremtidige bookinger</h2>
+                    <h4>Dine Bookinger</h4>
                     <table id="brukerTabell" class="table table-hover table-bordered results">
 
                         <thead>
                             <tr class="warning no-result">
                             </tr>
                             <tr>
-                                <th><h3>Romnr</h3></th>
-                                <th><h3>Fratid</h3></th>
-                                <th><h3>Tiltid</h3></th>
+                                <th>Romnr</th>
+                                <th>Fratid</th>
+                                <th>Tiltid</th>
 
                             </tr>
 
@@ -72,10 +69,8 @@
                                     <td><b>${brukere.getTiltid()}</b></td>
 
                             <div class="btn-group" role="group" aria-label="...">
-                                <td><button class="btn btn-success" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk Inn</button></td>
-
-                                <td><button type="button" class="btn btn-warning" onclick="onClickEndre(${brukere.getBookingId()})">Endre</button></td>
-                                <td class="deleterow"><button type="button" class="btn btn-danger" id="${brukere.getBookingId()}" onclick="onClickSlett(${brukere.getBookingId()})">Slett</button></td>
+                                <td><button class="btn btn-success col-lg-12" type="submit" disabled value="${brukere.getBookingId()}" name="buttonSupreme" formaction="sjekkInn">Sjekk Inn</button></td>
+                                <td class="deleterow"><button type="button" class="btn btn-danger col-lg-12" id="${brukere.getBookingId()}" onclick="onClickSlett(${brukere.getBookingId()})">Slett</button></td>
                             </div>
 
                             </tr>  
@@ -85,19 +80,6 @@
                         </tbody>
                     </table>   
         
-                </div>
-                <div class="col-sm-4">
-                    <br>
-                    <fieldset style="outline: 1px solid black">
-                        <h2 style="vertical-align: middle" class="text-center">Timeplan</h2>
-                    </fieldset>
-                    <div>Her <br> skal <br> det <br> være <br> en <br> liste <br> over <br> abonnement</div>
-                    <div>           
-                        <button>Legg til hendelse</button>
-                        <button>Endre abonnementer</button>
-                    </div>
-                    <br>
-                    <h2>StudyEasy</h2>
                 </div>
             </div>
         </form:form>
@@ -252,6 +234,11 @@
                 </form:form>
             </div>
         </div>
+        <div id="wrapper">
+            <h3>Din Kalender</h3>
+            <div id="myScheduler">     
+            </div>
+        </div>
                      
                      
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
@@ -273,23 +260,36 @@
                 format: 'dd-mm-yyyy'
             });
         });
-    </script>   
-      
-            <div id="wrapper">
-  <div id="myScheduler"></div>
-</div>
-            <script>
+    </script> 
+    
+<script>
 YUI().use(
   'aui-scheduler',
   function(Y) {
-    var events = [
-         {
-        content: 'Sondre',
-        endDate: new Date(2016, 1, 22, 5),
-        startDate: new Date(2016, 1, 22, 1)
-      }
-    ];
-     var agendaView = new Y.SchedulerAgendaView();
+      
+      var rows = document.getElementById("bookingTabell").getElementsByTagName("tr");
+      var events = [];
+      
+    for (i = 0; i < rows.length; i++) {
+        
+        var romnr = rows[i].getElementsByTagName("td")[0].getElementsByTagName("b")[0].innerHTML;
+        fratid = rows[i].getElementsByTagName("td")[1].getElementsByTagName("b")[0].innerHTML;
+        tiltid = rows[i].getElementsByTagName("td")[2].getElementsByTagName("b")[0].innerHTML;
+        
+        var aar = parseInt(fratid.substring(6,10));
+        var dag = parseInt(fratid.substring(0,2));
+        var mnd = parseInt(fratid.substring(3,5));
+        var frakl = parseInt(fratid.substring(11,13));
+        var tilkl = parseInt(tiltid.substring(11,13));
+        var fraklmin = parseInt(fratid.substring(14,16));
+        var tilklmin = parseInt(tiltid.substring(14,16));
+        
+        var hendelse = {content:'Booking Romnr: '+romnr,endDate:new Date(aar, mnd-1, dag, tilkl, tilklmin),startDate: new Date(aar, mnd-1, dag, frakl, fraklmin)};
+        
+        events.push(hendelse);
+    
+    }
+    var agendaView = new Y.SchedulerAgendaView();
     var dayView = new Y.SchedulerDayView();
     var weekView = new Y.SchedulerWeekView();
     var monthView = new Y.SchedulerMonthView();
@@ -298,7 +298,7 @@ YUI().use(
       {
         activeView: weekView,
         boundingBox: '#myScheduler',
-        date: new Date(2016, 1, 22),
+        date: new Date(),
         items: events,
         render: true,
         views: [dayView, weekView, monthView, agendaView]
@@ -306,7 +306,7 @@ YUI().use(
     );
   }
 );
-            </script>
+</script>
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
             <script type="text/javascript">
