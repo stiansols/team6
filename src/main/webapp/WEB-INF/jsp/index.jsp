@@ -42,7 +42,9 @@
             <br>
             <div class="row">
                 <div class="col-sm-8">
+                    <div>
                     <h4>Dine Bookinger</h4>
+                    <button type="button" class="btn btn-primary" onclick="regBookingModal()">Registrer ny booking</button></div>
                     <table id="brukerTabell" class="table table-hover table-bordered results">
 
                         <thead>
@@ -83,9 +85,16 @@
                 </div>
             </div>
         </form:form>
+            
          <div class="row">
-                <button type="button" class="btn btn-primary col-sm-offset-1" onclick="regBookingModal()">Registrer ny booking</button>
+             
             </div>
+            
+            <div id="wrapper">
+            <h3>Din Kalender</h3>
+            <div id="myScheduler">     
+            </div>
+        </div>
             <br>
         <form:form method="POST" modelAttribute="booking" action="nyBooking">    
         <div class="container">
@@ -234,11 +243,7 @@
                 </form:form>
             </div>
         </div>
-        <div id="wrapper">
-            <h3>Din Kalender</h3>
-            <div id="myScheduler">     
-            </div>
-        </div>
+        
                      
                      
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
