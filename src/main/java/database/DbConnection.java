@@ -693,6 +693,10 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
              return false;
          }
          
+         if(fra.before(idag)){
+             System.out.println("du kan ikke booke tilbake i tid din dust");
+             return false;
+         }
          if(brukerType== 0){
             if(fra.getMonth()>idag.getMonth()+1){
                 System.out.println("oops");
