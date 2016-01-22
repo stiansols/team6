@@ -486,42 +486,42 @@ public class Kontroller {
      */
     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
         public String leggTilBooking(Model model, @RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin, @ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+
             try{
             if(person.getBrukernavn() == null){
                 return "login";
             }
             int tilgang = db.hentSpesRom(nyBooking.getRomNummer());
-            
+             
             if(person.getBrukertype()<tilgang){
                 String meldingen = "Du har ikke tilgang til å booke dette rommet";
                 model.addAttribute("feilMelding", meldingen);
                 return "denied";
             }
             
-            String [] stringFratid = nyBooking.getFratid().split("-");
-            String fratids = stringFratid[0] +"-"+ stringFratid[1] + "-" + stringFratid[2] + "-" + fratidtimer + "-" + fratidmin;
-            String[] stringTiltid = nyBooking.getTiltid().split("-");
-            String tiltids = stringFratid[0] +"-"+ stringFratid[1] + "-" + stringFratid[2] + "-"+tiltidtimer + "-" + tiltidmin;
+         String fratids = nyBooking.getFratid() + "-" + fratidtimer + "-" + fratidmin;
+         String tiltids =  nyBooking.getFratid() + "-" + tiltidtimer + "-" + tiltidmin;
+     
             nyBooking.setFratid(fratids);
             nyBooking.setTiltid(tiltids);
             nyBooking.setBrukertype(person.getBrukertype());
             //nyBooking.setBookingId(NULL);
+     
             if(db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype(),person.getBookingerListe())== false){
                 String melding = "Du fikk ikke booket dette rommet <br> Mulige grunner: <br> Du har booket tilbake i tid <br> Du har Booket for langt frem i tid (Du kan booke til slutten av neste måned) <br> Du har prøvd å booke ett opptatt tidsrom <br> Du har brukt opp dine booking timer (max 20 timer på en gang)";
                 model.addAttribute("feilMelding", melding);
                 return "denied";
             }
-            
-            System.out.println("Dette er plassen");
-    
+     
             return "redirect:index";
             }
             
             catch(Exception e){
-                System.out.println("Feil " +e);
+                System.out.println("Feil!: " +e);
                 return "oppdaterPersonlig";
             }
     }
+
 
     /**
      *

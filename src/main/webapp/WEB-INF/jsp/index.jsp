@@ -42,9 +42,7 @@
             <br>
             <div class="row">
                 <div class="col-sm-8">
-                    <div>
                     <h4>Dine Bookinger</h4>
-                    <button type="button" class="btn btn-primary" onclick="regBookingModal()">Registrer ny booking</button></div>
                     <table id="brukerTabell" class="table table-hover table-bordered results">
 
                         <thead>
@@ -85,16 +83,9 @@
                 </div>
             </div>
         </form:form>
-            
          <div class="row">
-             
+                <button type="button" class="btn btn-primary col-sm-offset-1" onclick="regBookingModal()">Registrer ny booking</button>
             </div>
-            
-            <div id="wrapper">
-            <h3>Din Kalender</h3>
-            <div id="myScheduler">     
-            </div>
-        </div>
             <br>
         <form:form method="POST" modelAttribute="booking" action="nyBooking">    
         <div class="container">
@@ -132,8 +123,10 @@
                          <div class="form-group input-daterange col-lg-4" >
                                 <label>Dato</label>
                                 <input type="text" class="form-control" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
+                                 <input class="form-control" type="date" path="tiltid" name = "tiltid" id="datoTil" style="display:none"/>
                                 <div class="row">
-                                
+                     <!--           <input type="text" name="romNummer1" id="romnr" value="" style="display: none"/> -->
+                                <input path="romNummer" class="form-control" id="romnr" name ="romNummer" required style="display:none"/>
                                     <label>Fra</label>
                                     <select id ="fratidtimer" name="fratidtimer" required>
                                         <option value="06">06</option>
@@ -155,7 +148,7 @@
                                 </div>
                                 <div class="row">
                                     <label>Til </label>
-                                    <select id ="tiltidtimer" name="tiltidtimer">
+                                    <select id ="tiltidtimer" name="tiltidtimer" required>
                                         <option value="06">06</option>
                                         <option value="07">07</option>
                                         <option value="08">08</option>
@@ -243,7 +236,11 @@
                 </form:form>
             </div>
         </div>
-        
+        <div id="wrapper">
+            <h3>Din Kalender</h3>
+            <div id="myScheduler">     
+            </div>
+        </div>
                      
                      
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
@@ -270,7 +267,7 @@
 <script>
 YUI().use(
   'aui-scheduler',
-  function (Y) {
+  function(Y) {
       
       var rows = document.getElementById("bookingTabell").getElementsByTagName("tr");
       var events = [];
@@ -301,7 +298,7 @@ YUI().use(
 
     new Y.Scheduler(
       {
-        activeView: agendaView,
+        activeView: weekView,
         boundingBox: '#myScheduler',
         date: new Date(),
         items: events,
@@ -389,6 +386,8 @@ YUI().use(
            
             var dato = document.getElementById("datoFra1").value;
             var romnr = document.getElementById("romNrSelect").value;
+            document.getElementById('romnr').value = romnr;
+            
 
             var data = '{"romnr":"'+romnr+'", "dato":"'+dato+'"}';
 
