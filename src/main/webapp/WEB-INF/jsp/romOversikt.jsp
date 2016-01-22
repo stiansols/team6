@@ -144,7 +144,7 @@
                 <div class="span3">
                         <div class="form-group input-daterange">
                             <label>Dato</label>
-                            <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
+                            <input  path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
                             <div class="form-inline">
                                 <br>
                                 <div class="input-group clockpicker">
