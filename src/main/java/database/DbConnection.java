@@ -639,6 +639,7 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
             String fratid = resultSet.getString("fratid");
             String romNummer = resultSet.getString("romnr");
             String tiltid = resultSet.getString("tiltid");
+            int brukerType = resultSet.getInt("brukertype");
 
             Booking b = new Booking();
             b.setBookingId(bookingId);
@@ -646,6 +647,7 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
             b.setFratid(fratid);
             b.setRomNummer(romNummer);
             b.setTiltid(tiltid);
+            b.setBrukertype(brukerType);
             bookinger.add(b);
             System.out.println(b.getTiltid());
         }
@@ -732,74 +734,31 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
         String melding = "Noe med høyere bookingrettigheter har booket over en av dine bookinger <br> Bookingen det gjelder er<br> Romnummer: "+b.getRomNummer()+"<br>Fratid: "+b.getFratid()+"<br>Tiltid: "+b.getTiltid()+"<br> Ta kontakt med " +navn+" dersom du ønsker en forklaring.";
         String header = "Du har mistet en av dine bookinger";
 
-        
+        ArrayList<Integer> crash = new ArrayList();
         for (int i = 0; i < booking.size(); i++) {
             //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
             Date gammelFra = formatter.parse(booking.get(i).getFratid());
             Date gammelTil = formatter.parse(booking.get(i).getTiltid());
             
-            if ((dateFra.after(gammelFra) || dateFra.equals(gammelFra)) && dateFra.before(gammelTil) || (dateTil.after(gammelFra) || dateTil.equals(gammelFra)) && dateTil.before(gammelTil)) {
-                if (brukerType > booking.get(i).getBrukertype()) {
-                    preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = " + booking.get(i).getBookingId());
-                    preparedStatement.executeUpdate();
-                    preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
-                    preparedStatement.executeUpdate();
-                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
-                    return true;
-                }
-                if (brukerType == booking.get(i).getBrukertype()) {
+            if( dateFra.before(gammelTil) && dateTil.after(gammelFra)){
+                if (brukerType <= booking.get(i).getBrukertype()) {
                     return false;
                 }
-                return false;
-            } else if ((gammelFra.after(dateFra) || dateFra.equals(gammelFra)) && gammelTil.before(dateFra) || (gammelFra.after(dateTil) || dateTil.equals(gammelFra)) && gammelTil.before(dateTil)) {
-                if (brukerType > booking.get(i).getBrukertype()) {
-                    preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = " + booking.get(i).getBookingId());
-                    preparedStatement.executeUpdate();
-                    preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
-                    preparedStatement.executeUpdate();
-                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
-                    return true;
-                }
-                if (brukerType == booking.get(i).getBrukertype()) {
-                    return false;
-                }
-                return false;
-            } else if (dateFra.before(gammelFra) && dateTil.after(gammelTil)) {
-                if (brukerType > booking.get(i).getBrukertype()) {
-                    preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = " + booking.get(i).getBookingId());
-                    preparedStatement.executeUpdate();
-                    preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
-                    preparedStatement.executeUpdate();
-                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
-
-                    return true;
-                }
-                if (brukerType == booking.get(i).getBrukertype()) {
-                    return false;
-                }
-                return false;
-            } else if (dateFra.before(gammelFra) && dateTil.equals(gammelTil)) {
-                if (brukerType > booking.get(i).getBrukertype()) {
-                    preparedStatement = connection.prepareStatement("DELETE FROM booking WHERE bookingId = " + booking.get(i).getBookingId());
-                    preparedStatement.executeUpdate();
-                    preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
-                    preparedStatement.executeUpdate();
-                    generateAndSendEmail(booking.get(i).getBrukernavn(), melding, header);
-                    return true;
-                }
-                if (brukerType == booking.get(i).getBrukertype()) {
-                    return false;
-                } else {
-                    return false;
+                else{
+                    crash.add(i);
                 }
             }
-
         }
+        for(int i = 0; i < crash.size(); i++){
+            fjernBooking(booking.get(crash.get(i)).getBookingId());
+            generateAndSendEmail(booking.get(crash.get(i)).getBrukernavn(), melding, header);
+        }    
         preparedStatement = connection.prepareStatement("INSERT INTO booking (`bookingId`, `brukernavn`,`brukertype` ,`romnr`, `fratid`, `tiltid`) values ( NULL,'" + brukernavn + "' , " + b.getBrukertype() + "  , '" + b.getRomNummer() + "' , '" + b.getFratid() + "', '" + b.getTiltid() + "')");
         preparedStatement.executeUpdate();
 
         return true;
     }
+
 
       /*
     Denne metoden oppretter en forbindelse til gmail sin mail server og sender en mail bestående av subject og body avhengig av innparameterene 
