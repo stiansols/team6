@@ -509,7 +509,7 @@ public class Kontroller {
             lastInnPerson(person);
             System.out.println("Dette er plassen");
     
-            return "index";
+            return "romOversikt";
             }
             
             catch(Exception e){
