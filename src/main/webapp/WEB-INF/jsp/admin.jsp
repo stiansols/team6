@@ -1,9 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -438,11 +435,8 @@
                                             <legend class="ramme">Romoversikt:</legend>
                                             <table id="romTabell" class="table table-hover table-bordered results">
                                                 <thead>
-                                                    <tr class="warning no-result">
-                                                        <td colspan="4"><i class="fa fa-warning"></i> Fant ingen resultater</td>
-                                                    </tr>
                                                     <tr>
-                                                        <th>Romnummer</th>
+                                                        <th onclick="sortBy()">Romnr</th>
                                                         <th>Etasje</th>
                                                         <th>Plasser</th>
                                                         <th>Har Smartboard</th>
@@ -450,21 +444,24 @@
                                                         <th>Har Prosjektor</th>
                                                         <th>Har tilgang</th>
                                                     </tr>
-
-                                                    <tr class="warning no-result">
-                                                        <td colspan="5"><i class="fa fa-warning"></i> Ingen resultater</td>
-                                                    </tr>
                                                 </thead>
 
-                                                <tbody>
+                                                <tbody id="romTbody">
                                                 <c:forEach items="${alleRom}" var="rom">
                                                     <tr>
                                                         <td>${rom.romnr}</td>
                                                         <td>${rom.etasje}</td>
                                                         <td>${rom.plasser}</td>
-                                                        <td>${rom.harSmartboard}</td>
-                                                        <td>${rom.harSkjerm}</td>
-                                                        <td>${rom.harProsjektor}</td>
+                                                        <td>
+                                                            <c:if test="${rom.harSmartboard == true}">Ja</c:if>
+                                                            <c:if test="${rom.harSmartboard == false}">Nei</c:if>
+                                                        </td>
+                                                        <td><c:if test="${rom.harSkjerm == true}">Ja</c:if>
+                                                            <c:if test="${rom.harSkjerm == false}">Nei</c:if>
+                                                        </td>
+                                                        <td><c:if test="${rom.harProsjektor == true}">Ja</c:if>
+                                                            <c:if test="${rom.harProsjektor == false}">Nei</c:if>
+                                                        </td>
                                                         <td>${rom.tilgang}</td>
                                                     </tr>
                                                 </c:forEach>
@@ -473,28 +470,29 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                            <!--
-                                <div id="romSpesifikasjoner"class="col-sm-4">
-                                    <div>
+                                <div class="col-sm-4">
+                                    <div id="plass">
                                         <br>
                                         <h3>Antall plasser:</h3> <span id="range">0</span>
-                                        <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)" />
+                                        <input type="range" min="0" max="100" value="0" step="5" onchange=/>
                                     </div>
                                     <fieldset class="ramme">
                                         <legend class="ramme">Utstyr</legend>
-                                        <div id="checkboxes">
-                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Skjerm</label></div>
-                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Smartboard</label></div>
-                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</label></div>
+                                        <div id="utstyr">
+                                            <label><input type="checkbox" onclick="filter()" value="Ja">Smartboard</label>
+                                            <label><input type="checkbox" onclick="filter()" value="Ja">Skjerm</label>
+                                            <label><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</label>      //Denne sorterer Smartboard
                                         </div>
                                     </fieldset>
                                     <br>
                                     <fieldset class="ramme">
                                         <legend class="ramme">Etasje</legend>
-                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">1.Etasje</label></div>
-                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">2.Etasje</label></div>
-                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">3.Etasje</label></div>
-                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">4.Etasje</label></div>
+                                        <div id="etasjer">
+                                            <label><input type="checkbox" onclick="filter()" value="1">1.Etasje </label>
+                                            <label><input type="checkbox" onclick="filter()" value="2">2.Etasje</label>
+                                            <label><input type="checkbox" onclick="filter()" value="3">3.Etasje</label>
+                                            <label><input type="checkbox" onclick="filter()" value="4">4.Etasje</label>
+                                        </div>
                                     </fieldset>
                                     <br>
                                 </div>
@@ -994,13 +992,15 @@
         var tbody = document.getElementById("romTbody");
         var rows = tbody.getElementsByTagName("tr");
         var columns = table.rows[1].cells;
-        var checkboxes = document.getElementById("checkboxes").getElementsByTagName("input");
+        var etasjer = document.getElementById("etasjer").getElementsByTagName("input");
+        var utstyr = document.getElementById("utstyr").getElementsByTagName("input");
+        var plass = document.getElementById("plass").getElementsByTagName("input");
 
         for(i=0, j=0; i<rows.length; i++, j++) {
-            for(k=0; k<checkboxes.length; k++) {
-                var filterType = checkboxes[k].value;
+            for(k=0; k<utstyr.length; k++) {
+                var filterType = utstyr[k].value;
                 if(rows[i].cells[1+k].innerHTML.trim() !== filterType) {
-                    if(checkboxes[k].checked) {
+                    if(utstyr[k].checked) {
                         rows[i].style.display = 'none';
                         break;
                     }
@@ -1016,7 +1016,7 @@
     }
 
     function onClickEndreRom() {
-        var table = document.getElementById("romTabell");
+        var table = document.getElementById("romTbody");
         var rows = table.getElementsByTagName("tr");
         for (i = 0; i < rows.length; i++) {
             var currentRow = table.rows[i];
@@ -1039,21 +1039,23 @@
                     var harProsjektor = cell6.innerHTML;
                     var tilgang = cell7.innerHTML;
 
-                    if(harSmartboard == "true") {
-                        document.getElementById("smartboard").checked = "checked";
-                    }else if(harSmartboard == "false"){
+
+
+                    if(harSmartboard == "Ja") {
+                        document.getElementById("smartboard").checked;
+                    }else{
                         document.getElementById("smartboard").removeAttribute("checked");
                     }
 
-                    if(harSkjerm == "true") {
-                        document.getElementById("skjerm").checked = "checked";
-                    }else if(harSkjerm == "false"){
+                    if(harSkjerm == "Ja") {
+                        document.getElementById("skjerm").checked;
+                    }else{
                         document.getElementById("skjerm").removeAttribute("checked");
                     }
 
-                    if(harProsjektor == "true") {
-                        document.getElementById("prosjektor").checked = "checked";
-                    }else if(harProsjektor == "false"){
+                    if(harProsjektor == "Ja") {
+                        document.getElementById("prosjektor").checked;
+                    }else{
                         document.getElementById("prosjektor").removeAttribute("checked");
                     }
 
@@ -1070,18 +1072,13 @@
 
                 };
             };
-
             currentRow.onclick = createClickHandler(currentRow);
         }
     }
-    window.onload = onClickEndreRom();
 
     harSmartboard = $("#smartboard").is(":checked");                    //Sender verdi av checkboxen videre
     harSkjerm = $("#skjerm").is(":checked");
     harProsjektor = $("#prosjektor").is(":checked");
 
-    function showValue(newValue) {
-        document.getElementById("range").innerHTML=newValue;
-    }
-
+    window.onload = onClickEndreRom();
 </script>
