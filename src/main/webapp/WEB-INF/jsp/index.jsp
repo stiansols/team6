@@ -284,7 +284,7 @@ YUI().use(
         var fraklmin = parseInt(fratid.substring(14,16));
         var tilklmin = parseInt(tiltid.substring(14,16));
         
-        var hendelse = {content:'Booking Romnr: '+romnr,endDate:new Date(aar, mnd-1, dag, tilkl, tilklmin),startDate: new Date(aar, mnd-1, dag, frakl, fraklmin)};
+        var hendelse = {content:'Booking Romnr: '+romnr,endDate:new Date(aar, mnd-1, dag, tilkl, tilklmin),startDate: new Date(aar, mnd-1, dag, frakl, fraklmin), disabled:true};
         
         events.push(hendelse);
     
