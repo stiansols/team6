@@ -70,7 +70,6 @@
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Romoversikt og booking </a>
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater bruker </a>
-                    <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="innstillinger"/>" >Innstillinger </a>
                     <a data-toggle="modal" data-target="#logoff"><button id="loggut" class="btn btn-primary col-lg-11 col-xs-11">Logg ut </button></a>
 
                 </div>
