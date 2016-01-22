@@ -23,6 +23,7 @@
             #header {
                 max-width: 100%;
                 max-height: 100px;
+                min-width: 100%;
 
             }
         </style> 
