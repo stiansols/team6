@@ -265,7 +265,7 @@
 <script>
 YUI().use(
   'aui-scheduler',
-  function(Y) {
+  function (Y) {
       
       var rows = document.getElementById("bookingTabell").getElementsByTagName("tr");
       var events = [];
@@ -296,7 +296,7 @@ YUI().use(
 
     new Y.Scheduler(
       {
-        activeView: weekView,
+        activeView: agendaView,
         boundingBox: '#myScheduler',
         date: new Date(),
         items: events,
