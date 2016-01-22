@@ -592,6 +592,20 @@ public class Kontroller {
 
     /**
      *
+     * @param rom
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/slettRom", method = RequestMethod.POST)
+    public String slettRom(@ModelAttribute(value = "romForm") Rom rom) throws Exception {
+
+        db.slettRom(rom.getRomnr());
+
+        return "redirect:admin";
+    }
+
+    /**
+     *
      * @param email
      * @param person
      * @return

@@ -243,6 +243,15 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
     }
 
     /*
+    Denne metoden sletter et rom fra databasen
+    */
+    public void slettRom(String romnr) throws Exception, SQLException {
+        preparedStatement = connection.prepareStatement("DELETE FROM rom where romnr = '" + romnr + "'");
+        preparedStatement.executeUpdate();
+
+    }
+
+    /*
     Denne metoden oppdaterer all informasjon om en bruker i databasen
     */
     public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException {
