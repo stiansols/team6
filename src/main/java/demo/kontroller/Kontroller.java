@@ -322,7 +322,7 @@ public class Kontroller {
         }catch (Exception e){
             System.out.println("Noe gikk galt: " + e);
         }
-        return "admin";
+        return "redirect:admin";
     }
 
     /**

@@ -9,15 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
@@ -29,12 +23,9 @@
             }
 
             .results tr[visible='false'],
+
             .no-result{
                 display:none;
-            }
-
-            .results tr[visible='true']{
-                display:table-row;
             }
 
             .counter{
@@ -66,66 +57,6 @@
             }
 
             .top-buffer { margin-top:10px;}
-
-            ol.tree
-            {
-                padding: 0 0 0 30px;
-                width: 300px;
-            }
-            li
-            {
-                position: relative;
-                margin-left: -15px;
-                list-style: none;
-            }
-            li.file
-            {
-                margin-left: -1px !important;
-            }
-            li.file a
-            {
-                background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat;
-                padding-left: 21px;
-                text-decoration: none;
-                display: block;
-            }
-            li.file a[href *= '.pdf']	{ background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat; }
-            li input
-            {
-                position: absolute;
-                left: 0;
-                margin-left: 0;
-                opacity: 0;
-                z-index: 2;
-                cursor: pointer;
-                height: 1em;
-                width: 1em;
-                top: 0;
-            }
-            li input + ol
-            {
-                background: url(http://bildr.no/image/VEM5aXB1.jpeg) 40px 0 no-repeat;
-                margin: -0.938em 0 0 -44px; /* 15px */
-                height: 1em;
-            }
-            li input + ol > li { display: none; margin-left: -14px !important; padding-left: 1px; }
-            li label
-            {
-                background: url(http://bildr.no/image/aTVZTlB5.jpeg) 15px 1px no-repeat;
-                cursor: pointer;
-                display: block;
-                padding-left: 37px;
-            }
-
-            li input:checked + ol
-            {
-                background: url(http://bildr.no/image/REpiZ096.jpeg) 40px 5px no-repeat;
-                margin: -1.25em 0 0 -44px; /* 20px */
-                padding: 1.563em 0 0 80px;
-                height: auto;
-            }
-            li input:checked + ol > li { display: block; margin: 0 0 0.125em;  /* 2px */}
-            li input:checked + ol > li:last-child { margin: 0 0 0.063em; /* 1px */ }
 
             fieldset.ramme {
                 border: 1px groove #ddd !important;
@@ -164,7 +95,7 @@
                         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
 
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Søk...">
+                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -346,7 +277,7 @@
                                             <div class="col-md-10">
                                                 <div class="input-group">  
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
-                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk..." />
+                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
 
                                                 </div>
                                             </div>
@@ -390,7 +321,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group">
-                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Søk..." />
+                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                                 </div>
                                             </div>
@@ -422,130 +353,120 @@
 
                     <div id="romOrganiseringFane" class="tab-pane fade">
                         <div class="row">
-                                <div class="col-sm-8">
-                                    <div>
-                                        <fieldset class="ramme">
-
-                                            <div class="form-group pull-right">
-                                                <input type="text" class="search form-control" placeholder="Søk...">
-                                            </div>
-
-                                            <span class="counter pull-right"></span>
-
-                                            <legend class="ramme">Romoversikt:</legend>
-                                            <table id="romTabell" class="table table-hover table-bordered results">
-                                                <thead>
-                                                    <tr>
-                                                        <th onclick="sortBy()">Romnr</th>
-                                                        <th>Etasje</th>
-                                                        <th>Plasser</th>
-                                                        <th>Har Smartboard</th>
-                                                        <th>Har Skjerm</th>
-                                                        <th>Har Prosjektor</th>
-                                                        <th>Har tilgang</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody id="romTbody">
-                                                <c:forEach items="${alleRom}" var="rom">
-                                                    <tr>
-                                                        <td>${rom.romnr}</td>
-                                                        <td>${rom.etasje}</td>
-                                                        <td>${rom.plasser}</td>
-                                                        <td>
-                                                            <c:if test="${rom.harSmartboard == true}">Ja</c:if>
-                                                            <c:if test="${rom.harSmartboard == false}">Nei</c:if>
-                                                        </td>
-                                                        <td><c:if test="${rom.harSkjerm == true}">Ja</c:if>
-                                                            <c:if test="${rom.harSkjerm == false}">Nei</c:if>
-                                                        </td>
-                                                        <td><c:if test="${rom.harProsjektor == true}">Ja</c:if>
-                                                            <c:if test="${rom.harProsjektor == false}">Nei</c:if>
-                                                        </td>
-                                                        <td>${rom.tilgang}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                                </tbody>
-                                            </table>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div id="plass">
-                                        <br>
-                                        <h3>Antall plasser:</h3> <span id="range">0</span>
-                                        <input type="range" min="0" max="100" value="0" step="5" onchange=/>
-                                    </div>
+                            <div class="col-sm-8">
+                                <div>
                                     <fieldset class="ramme">
-                                        <legend class="ramme">Utstyr</legend>
-                                        <div id="utstyr">
-                                            <label><input type="checkbox" onclick="filter()" value="Ja">Smartboard</label>
-                                            <label><input type="checkbox" onclick="filter()" value="Ja">Skjerm</label>
-                                            <label><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</label>      //Denne sorterer Smartboard
+                                        <div class="form-group pull-right">
+                                            <input type="text" class="search form-control" placeholder="SÃ¸k...">
                                         </div>
+                                        <span class="counter pull-right"></span>
+                                        <legend class="ramme">Romoversikt:</legend>
+                                        <table id="romTabell" class="table table-hover table-bordered results">
+                                            <thead>
+                                                <tr>
+                                                    <th onclick="sortBy()">Romnr</th>
+                                                    <th>Etasje</th>
+                                                    <th>Plasser</th>
+                                                    <th>Har Smartboard</th>
+                                                    <th>Har Skjerm</th>
+                                                    <th>Har Prosjektor</th>
+                                                    <th>Har tilgang</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="romTbody">
+                                            <c:forEach items="${alleRom}" var="rom">
+                                                <tr>
+                                                    <td>${rom.romnr}</td>
+                                                    <td>${rom.etasje}</td>
+                                                    <td>${rom.plasser}</td>
+                                                    <td>
+                                                        <c:if test="${rom.harSmartboard == true}">Ja</c:if>
+                                                        <c:if test="${rom.harSmartboard == false}">Nei</c:if>
+                                                    </td>
+                                                    <td><c:if test="${rom.harSkjerm == true}">Ja</c:if>
+                                                        <c:if test="${rom.harSkjerm == false}">Nei</c:if>
+                                                    </td>
+                                                    <td><c:if test="${rom.harProsjektor == true}">Ja</c:if>
+                                                        <c:if test="${rom.harProsjektor == false}">Nei</c:if>
+                                                    </td>
+                                                    <td>${rom.tilgang}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
                                     </fieldset>
-                                    <br>
-                                    <fieldset class="ramme">
-                                        <legend class="ramme">Etasje</legend>
-                                        <div id="etasjer">
-                                            <label><input type="checkbox" onclick="filter()" value="1">1.Etasje </label>
-                                            <label><input type="checkbox" onclick="filter()" value="2">2.Etasje</label>
-                                            <label><input type="checkbox" onclick="filter()" value="3">3.Etasje</label>
-                                            <label><input type="checkbox" onclick="filter()" value="4">4.Etasje</label>
-                                        </div>
-                                    </fieldset>
-                                    <br>
-                                </div>
-                            -->
-                            </div>
-                        <div class="container">
-                                <!-- Modal -->
-                                <div class="modal fade" id="oppdaterRom" role="dialog" style="z-index: 1500">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Endre Rom</h4>
-                                            </div>
-                                            <form:form method="post" modelAttribute="form" name="romForm" action="admin">
-                                                <div class="modal-body">
-                                                    <div class="Row"><label class="control-label">Romnr:</label>
-                                                        <input type="text" name="romnr" id="romnr" value="" readonly>
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Etasje:</label>
-                                                        <input type="text" name="etasje" id="etasje" value="">
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Plasser:</label>
-                                                        <input type="text" name="plasser" id="plasser" value="">
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Smartboard:
-                                                        <input type="checkbox" name="harSmartboard" id="smartboard"></label>
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Skjerm:
-                                                        <input type="checkbox" name="harSkjerm" id="skjerm"></label>
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Prosjektor:
-                                                        <input type="checkbox" name="harProsjektor" id="prosjektor"></label>
-                                                    </div>
-                                                    <div class="Row"><label class="control-label">Tilgang: </label>
-                                                        <input type="text" name="tilgang" id="tilgang" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-default" formaction="oppdaterrom">Lagre rom</button>
-                                                    <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                                                </div>
-                                            </form:form>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <fieldset class="ramme">
+                                    <legend class="ramme">Utstyr</legend>
+                                    <div id="utstyr">
+                                        <input type="checkbox" onclick="filter()" value="" hidden>
+                                        <p><h3>Antall plasser:</h3> <span id="range">0</span>
+                                            <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)"></p>
+                                        <p><input type="checkbox" onclick="filter()" value="Ja">Smartboard</p>
+                                        <p><input type="checkbox" onclick="filter()" value="Ja">Skjerm</p>
+                                        <p><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</p>
+                                    </div>
+                                </fieldset>
+                                <br>
+                                <fieldset class="ramme">
+                                    <legend class="ramme">Etasje</legend>
+                                    <div id="etasjer">
+                                        <label><input type="checkbox" onclick="filter()" value="1">1.Etasje </label>
+                                        <label><input type="checkbox" onclick="filter()" value="2">2.Etasje</label>
+                                        <label><input type="checkbox" onclick="filter()" value="3">3.Etasje</label>
+                                        <label><input type="checkbox" onclick="filter()" value="4">4.Etasje</label>
+                                    </div>
+                                </fieldset>
+                                <br>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
+                <div class="container">
+                    <div class="modal fade" id="oppdaterRom" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Endre Rom</h4>
+                                </div>
+                                <form:form method="post" modelAttribute="form" name="romForm" action="admin">
+                                    <div class="modal-body">
+                                        <div class="Row"><label class="control-label">Romnr:</label>
+                                            <input type="text" name="romnr" id="romnr" value="" readonly>
+                                        </div>
+                                        <div class="Row"><label class="control-label">Etasje:</label>
+                                            <input type="text" name="etasje" id="etasje" value="">
+                                        </div>
+                                        <div class="Row"><label class="control-label">Plasser:</label>
+                                            <input type="text" name="plasser" id="plasser" value="">
+                                        </div>
+                                        <div class="Row"><label class="control-label">Smartboard:
+                                            <input type="checkbox" name="harSmartboard" id="smartboard"></label>
+                                        </div>
+                                        <div class="Row"><label class="control-label">Skjerm:
+                                            <input type="checkbox" name="harSkjerm" id="skjerm"></label>
+                                        </div>
+                                        <div class="Row"><label class="control-label">Prosjektor:
+                                            <input type="checkbox" name="harProsjektor" id="prosjektor"></label>
+                                        </div>
+                                        <div class="Row"><label class="control-label">Tilgang: </label>
+                                            <input type="text" name="tilgang" id="tilgang" value="">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-default" formaction="oppdaterrom">Lagre rom</button>
+                                        <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                                    </div>
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                     <!-- Modal -->
                     <div class="modal fade" id="leggTilFagModal" role="dialog">
@@ -994,7 +915,6 @@
         var columns = table.rows[1].cells;
         var etasjer = document.getElementById("etasjer").getElementsByTagName("input");
         var utstyr = document.getElementById("utstyr").getElementsByTagName("input");
-        var plass = document.getElementById("plass").getElementsByTagName("input");
 
         for(i=0, j=0; i<rows.length; i++, j++) {
             for(k=0; k<utstyr.length; k++) {
@@ -1009,14 +929,28 @@
                     }
                 }
             }
+        }
 
+        for(i=0; i<rows.length; i++) {
+            for(k=0; k<etasjer.length; k++) {
+                var filtertype = etasjer[k].value;
+                if(rows[i].cells[1+k].innerHTML.trim() !== filtertype) {
+                    if(etasjer[k].checked) {
+                        rows[i].style.display = 'none';
+                        break;
+                    }
+                    else {
+                        rows[i].style.display = '';
+                    }
+                }
+            }
         }
 
 
     }
 
     function onClickEndreRom() {
-        var table = document.getElementById("romTbody");
+        var table = document.getElementById("romTabell");
         var rows = table.getElementsByTagName("tr");
         for (i = 0; i < rows.length; i++) {
             var currentRow = table.rows[i];
@@ -1030,7 +964,6 @@
                     var cell6 = row.getElementsByTagName("td")[5];
                     var cell7 = row.getElementsByTagName("td")[6];
 
-
                     var romnr = cell.innerHTML;
                     var etasje = cell2.innerHTML;
                     var plasser = cell3.innerHTML;
@@ -1039,22 +972,20 @@
                     var harProsjektor = cell6.innerHTML;
                     var tilgang = cell7.innerHTML;
 
-
-
                     if(harSmartboard == "Ja") {
-                        document.getElementById("smartboard").checked;
+                        document.getElementById("smartboard").checked = "checked";
                     }else{
                         document.getElementById("smartboard").removeAttribute("checked");
                     }
 
                     if(harSkjerm == "Ja") {
-                        document.getElementById("skjerm").checked;
+                        document.getElementById("skjerm").checked = "checked";
                     }else{
                         document.getElementById("skjerm").removeAttribute("checked");
                     }
 
                     if(harProsjektor == "Ja") {
-                        document.getElementById("prosjektor").checked;
+                        document.getElementById("prosjektor").checked = "checked";
                     }else{
                         document.getElementById("prosjektor").removeAttribute("checked");
                     }
@@ -1075,10 +1006,13 @@
             currentRow.onclick = createClickHandler(currentRow);
         }
     }
+    window.onload = onClickEndreRom();
 
-    harSmartboard = $("#smartboard").is(":checked");                    //Sender verdi av checkboxen videre
+    function showValue(newValue) {
+        document.getElementById("range").innerHTML=newValue;
+    }
+
+    harSmartboard = $("#smartboard").is(":checked");
     harSkjerm = $("#skjerm").is(":checked");
     harProsjektor = $("#prosjektor").is(":checked");
-
-    window.onload = onClickEndreRom();
 </script>
