@@ -7,6 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script src="//code.jquery.com/jquery.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
@@ -32,7 +33,7 @@
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
             <div class="form-group">
                 <label for="datoFra">Fra:</label>
-                <input type="date" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
+                <input type="text" path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
             </div>
             <div class="form-group">
                 <label for="tidFra">Tid:</label>
@@ -148,7 +149,12 @@
                                             <label>Fra</label>
                                             <select id ="fratidtimer" name="fratidtimer" required>
                                                 <c:forEach items="${['06','07','08','09','10','11','12','13','14','15','16']}" var="k">
-                                                    <option value="${k}"><c:out value="${k}"/></option>
+                                                    <c:if test="${fn:contains(etasjeLink[2], k)}">
+                                                        <option selected="selected" value="${k}"><c:out value="${k}"/></option>
+                                                    </c:if>
+                                                    <c:if test="${!fn:contains(etasjeLink[2], k)}">
+                                                        <option value="${k}"><c:out value="${k}"/></option>
+                                                    </c:if>
                                                 </c:forEach>
                                             </select>
                                             <select id ="fratidmin" name = "fratidmin" required>
@@ -159,7 +165,12 @@
                                             <label>           Til</label>
                                             <select id ="tiltidtimer" name="tiltidtimer">
                                                 <c:forEach items="${['06','07','08','09','10','11','12','13','14','15','16']}" var="k">
-                                                    <option value="${k}"><c:out value="${k}"/></option>
+                                                    <c:if test="${fn:contains(etasjeLink[3], k)}">
+                                                        <option selected="selected" value="${k}"><c:out value="${k}"/></option>
+                                                    </c:if>
+                                                    <c:if test="${!fn:contains(etasjeLink[3], k)}">
+                                                        <option value="${k}"><c:out value="${k}"/></option>
+                                                    </c:if>
                                                 </c:forEach>
                                             </select>
                                             <select id ="tiltidmin" name ="tiltidmin" required>

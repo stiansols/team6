@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="http://softwareambar.com/js/clockpicker/jquery-clockpicker.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
         <style>
 
 
@@ -83,7 +84,7 @@
 
         </div>
 
-            <div class="col-lg-5 vert-offset-top-2">
+            <div class="col-lg-6 vert-offset-top-2">
                 <div class="form-group">
                     <input type="text" class="search form-control" placeholder="Søk...">
                 </div>
@@ -102,11 +103,12 @@
                                 <td colspan="4"><i class="fa fa-warning"></i> Fant ingen resultater</td>
                             </tr>
                             <tr>
-                                <th>Romnr</th>
+                                <th onclick="sortBy()">Romnr</th>
                                 <th>Ledig</th>
                                 <th>Smartboard</th>
                                 <th>Skjerm</th>
                                 <th>Prosjektor</th>
+                                <th>Antall Plasser</th>
                             </tr>
 
                             <tr class="warning no-result">
@@ -128,7 +130,8 @@
                                     </td>                                                                         
                                     <td><c:if test="${rom.getHarProsjektor() == true}">Ja</c:if>
                                         <c:if test="${rom.getHarProsjektor() == false}">Nei</c:if>
-                                    </td>                                    
+                                    </td>
+                                    <td>${rom.getPlasser()}</td>
                                 </tr>  
 
                             </c:forEach>           
@@ -161,10 +164,10 @@
 
 
         </div>
-
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
         <script src="http://softwareambar.com/js/clockpicker/bootstrap-clockpicker.min.js"></script>
-        
+
 
         
         <script type="text/javascript">
@@ -186,9 +189,9 @@
             $(document).ready(function () {
                 var now = new Date();
                 document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
-
-                
-
+                onChangeDato();
+                $('#example').DataTable();
+                alert("ok");
                 $(".collapse1").collapse('hide');
                 
                 $(".search").keyup(function () {
@@ -258,8 +261,8 @@
             }
             
             function onChangeDato() {
+                
                 var table = document.getElementById("romTabell");
-                var cells = table.getElementsByTagName("td");
                 var tbody = document.getElementById("romTbody");
                 var rows = tbody.getElementsByTagName("tr");
                 
@@ -271,10 +274,12 @@
                 var alleRomnr = "";
                 $.getJSON("getBig", {"dato": datoFraInput + "-" + tidFraInput + ":" + datoFraInput + "-" + tidTilInput}, function(d) {
                     var parsedData = JSON.parse(JSON.stringify(d));
-                    
                     for(i=0; i<rows.length; i++) {
+                        if(parsedData.length == 0) {
+                            rows[i].cells[1].innerHTML = "Ledig";
+                            continue;
+                        }
                         for(j=0; j<parsedData.length; j++) {
-                            
                             if(rows[i].cells[0].innerHTML === parsedData[j]) {
                                 rows[i].cells[1].innerHTML = "Ikke ledig";
                                 break;
@@ -293,10 +298,8 @@
             
             function filter() {
                 var table = document.getElementById("romTabell");
-                var cells = table.getElementsByTagName("td");
                 var tbody = document.getElementById("romTbody");
                 var rows = tbody.getElementsByTagName("tr");
-                var columns = table.rows[1].cells;
                 var checkboxes = document.getElementById("checkboxes").getElementsByTagName("input");
                 
                 for(i=0, j=0; i<rows.length; i++, j++) {
@@ -314,8 +317,6 @@
                     }
                     
                 }
-                
-                
             }
             
             window.onload = onClickRomtabell();
