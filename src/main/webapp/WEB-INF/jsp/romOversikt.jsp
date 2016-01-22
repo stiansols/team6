@@ -68,6 +68,7 @@
         <div container>
             <div class="col-lg-6">
              <div id="etasjer">
+                 <h3>Book gjennom etasjevisning </h3>
                 <form id='valg' name="valg" action='etasjeVis' method='POST'>
 
                 <img src="https://lh4.googleusercontent.com/Dt1riBRKubFPFL2BkNCfh8KLR7qWYEoXeXzmomxgAAoXVdcoDKaqIfShwrjKevjJOL9utKSgXj1Ya5yZTFhGhierov8izPZuqyvuAxN7LRAgSa8_Y5rjyHW3MfxYAqYTXzhSAbxk" alt="Fjerde etasje" class="midt" onclick='visEtasje(4)' style="z-index: 4">
@@ -85,6 +86,7 @@
         </div>
 
             <div class="col-lg-6 vert-offset-top-2">
+                <h3>...eller søk etter ledige rom her </h3>
                 <div class="form-group">
                     <input type="text" class="search form-control" placeholder="Søk...">
                 </div>
