@@ -21,7 +21,53 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+            
+<div class="container">
+  <h2>${person.getNavn()}</h2>
+  <p>Her kan du endre din brukerinformasjon:</p>
+    <div class="form-group">
+      <label for="usr">Brukernavn</label>
+      <input type="brukernavn" name="brukernavn" path="bruker.brukernavn" class="form-control" id="usr" readonly value="${person.getBrukernavn()}">
+    </div>
+    <div class="form-group">
+      <label for="pwd">E-Mail</label>
+      <input type="email" class="form-control" id="gammelmail" readonly placeholder="${person.getMail()}">
+    </div> 
+    <form:form method="POST" modelAttribute="personlig" action="oppdaterMail"> 
+    <div class="form-group">
+        <label for="nymail">Ny E-Mail</label>
+        <input type="email" name="email" path="bruker.mail" class="form-control" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Fyll inn ny mail her..">
+    </div> 
+    <div class="form-group">
+        <label for="nymail2">Gjenta Ny E-Mail</label>
+        <input type="email" class="form-control" id="nymail2" onfocus="validerMail(document.getElementById('mail'), this);" oninput="validerMail(document.getElementById('mail'), this);" required placeholder="Gjenta ny mail her..">
+    </div>
     
+    <div class="form-group">
+    <button class="btn btn-primary" type="submit">Oppdater E-Mail</button>
+    </div>  
+    </form:form>
+    
+    <br> 
+     <form:form method="POST" modelAttribute="personlig" action="oppdaterPassord"> 
+    <div class="form-group">
+        <label for="nyttpw">Nytt Passord</label>
+        <input type="password" path="bruker.passord" name="passord" class="form-control" id="passord" required placeholder="Fyll inn nytt passord her.." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Må inneholde minst en stor bokstav, ett tall og minst 8 tegn totalt">
+    </div>
+    
+    <div class="form-group">
+        <label for="nyttpw2">Gjenta Nytt Passord</label>
+        <input type="password" name="passord2" class="form-control" id="nyttpw2" placeholder="Gjenta nytt passord her.." onfocus="validerPassord(document.getElementById('passord'), this);" oninput="validerPassord(document.getElementById('passord'), this);" title="Må være identisk med det forrige" required>
+    </div>    
+    
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Oppdater Passord</button>
+    </div>
+     </form:form>   
+    </div>
+    
+        
     <style>
         .form-group{
             width:30%;
@@ -96,50 +142,6 @@ if (passord.value !== nyttpw2.value || passord.value === '' || nyttpw2.value ===
   }
 
 </style>
-            
-<div class="container">
-  <h2>${person.getNavn()}</h2>
-  <p>Her kan du endre din brukerinformasjon:</p>
-    <div class="form-group">
-      <label for="usr">Brukernavn</label>
-      <input type="brukernavn" name="brukernavn" path="bruker.brukernavn" class="form-control" id="usr" readonly value="${person.getBrukernavn()}">
-    </div>
-    <div class="form-group">
-      <label for="pwd">E-Mail</label>
-      <input type="email" class="form-control" id="gammelmail" readonly placeholder="${person.getMail()}">
-    </div> 
-    <form:form method="POST" modelAttribute="personlig" action="oppdaterMail"> 
-    <div class="form-group">
-        <label for="nymail">Ny E-Mail</label>
-        <input type="email" name="email" path="bruker.mail" class="form-control" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Fyll inn ny mail her..">
-    </div> 
-    <div class="form-group">
-        <label for="nymail2">Gjenta Ny E-Mail</label>
-        <input type="email" class="form-control" id="nymail2" onfocus="validerMail(document.getElementById('mail'), this);" oninput="validerMail(document.getElementById('mail'), this);" required placeholder="Gjenta ny mail her..">
-    </div>
-    
-    <div class="form-group">
-    <button class="btn btn-primary" type="submit">Oppdater E-Mail</button>
-    </div>  
-    </form:form>
-    
-    <br> 
-     <form:form method="POST" modelAttribute="personlig" action="oppdaterPassord"> 
-    <div class="form-group">
-        <label for="nyttpw">Nytt Passord</label>
-        <input type="password" path="bruker.passord" name="passord" class="form-control" id="passord" required placeholder="Fyll inn nytt passord her.." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Må inneholde minst en stor bokstav, ett tall og minst 8 tegn totalt">
-    </div>
-    
-    <div class="form-group">
-        <label for="nyttpw2">Gjenta Nytt Passord</label>
-        <input type="password" name="passord2" class="form-control" id="nyttpw2" placeholder="Gjenta nytt passord her.." onfocus="validerPassord(document.getElementById('passord'), this);" oninput="validerPassord(document.getElementById('passord'), this);" title="Må være identisk med det forrige" required>
-    </div>    
-    
-    <div class="form-group">
-        <button class="btn btn-primary" type="submit">Oppdater Passord</button>
-    </div>
-     </form:form>   
-    </div>
                            
 </body>
 </html>
