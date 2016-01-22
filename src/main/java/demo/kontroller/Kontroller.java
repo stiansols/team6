@@ -570,9 +570,9 @@ public class Kontroller {
     public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
         
         db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
-        /*String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
+        String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
         String header = "Endringer i din bruker på StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);*/
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
     }
 
@@ -606,9 +606,9 @@ public class Kontroller {
         bruker.setMail(email);
 
         db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
-        /*String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
+        String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
         String header = "Endringer i din bruker på StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);*/
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:index";
     }
 
@@ -628,9 +628,9 @@ public class Kontroller {
         bruker.setPassord(passord);
 
         db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
-        /*String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
+        String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
         String header = "Endringer i din bruker på StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);*/
+        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:index";
     }
 

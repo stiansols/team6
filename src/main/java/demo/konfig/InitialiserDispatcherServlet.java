@@ -17,7 +17,10 @@ public class InitialiserDispatcherServlet implements WebApplicationInitializer {
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
         registerDispatcherServlet(servletContext);
+        servletContext.addListener(new SessionListener());
     }
+    
+    
 
     private void registerDispatcherServlet(final ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();

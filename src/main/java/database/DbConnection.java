@@ -129,16 +129,19 @@ public class DbConnection {
     /*
     Denne metoden henter alle bookinger som ligger i databasen
     */
-    public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
+public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
         ArrayList bookinger = new ArrayList();
         resultSet = statement.executeQuery("SELECT * FROM booking");
         while(resultSet.next()) {
-            String brukernavn = resultSet.getString("brukernavn");
-            int brukertype = resultSet.getInt("brukertype");
-            String romnr = resultSet.getString("romnr");
-            String fratid = resultSet.getString("fratid");
-            String tiltid = resultSet.getString("tiltid");
-            Booking b = new Booking(brukernavn,romnr,fratid,tiltid,brukertype);
+            Booking b = new Booking();
+            b.setBrukernavn(resultSet.getString("brukernavn"));
+            b.setBrukertype(resultSet.getInt("brukertype"));
+            b.setBookingId(resultSet.getInt("bookingId"));
+            b.setRomNummer(resultSet.getString("romnr"));
+            b.setFratid(resultSet.getString("fratid"));
+            b.setTiltid(resultSet.getString("tiltid"));
+            b.setSjekketInn(resultSet.getBoolean("sjekketInn"));
+            
             bookinger.add(b);
         }
         return bookinger;
