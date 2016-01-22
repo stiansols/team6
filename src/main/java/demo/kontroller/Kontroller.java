@@ -572,7 +572,20 @@ public class Kontroller {
      * @throws Exception
      */
     @RequestMapping(value = "/oppdater", method = RequestMethod.POST)
-    public String oppdaterBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
+    public String oppdaterBruker(@RequestParam(value="brukertypen") String brukertypen, @ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
+        
+        if (brukertypen.equals("Student")) {
+            bruker.setBrukertype(0);
+        }
+        if (brukertypen.equals("Ansatt")) {
+            bruker.setBrukertype(1);
+        }
+        if (brukertypen.equals("TimeplanAnsvarlig")) {
+            bruker.setBrukertype(2);
+        }
+        if (brukertypen.equals("Administrator")) {
+            bruker.setBrukertype(3);
+        }
         
         db.oppdaterBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
         String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
