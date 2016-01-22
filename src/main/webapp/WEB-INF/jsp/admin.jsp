@@ -11,7 +11,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -70,7 +70,6 @@
 
             .top-buffer { margin-top:10px;}
 
-            body { font-size: 2em; /* Sets base font size to 16px */ }
             ol.tree
             {
                 padding: 0 0 0 30px;
@@ -168,7 +167,7 @@
                         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
 
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
+                            <input type="text" class="search form-control" placeholder="Søk...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -350,7 +349,7 @@
                                             <div class="col-md-10">
                                                 <div class="input-group">  
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
-                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k" />
+                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk..." />
 
                                                 </div>
                                             </div>
@@ -394,7 +393,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group">
-                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="sï¿½k" />
+                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Søk..." />
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                                 </div>
                                             </div>
@@ -431,7 +430,7 @@
                                         <fieldset class="ramme">
 
                                             <div class="form-group pull-right">
-                                                <input type="text" class="search form-control" placeholder="SÃ¸k...">
+                                                <input type="text" class="search form-control" placeholder="Søk...">
                                             </div>
 
                                             <span class="counter pull-right"></span>
@@ -474,7 +473,8 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                            <!--
+                                <div id="romSpesifikasjoner"class="col-sm-4">
                                     <div>
                                         <br>
                                         <h3>Antall plasser:</h3> <span id="range">0</span>
@@ -498,6 +498,7 @@
                                     </fieldset>
                                     <br>
                                 </div>
+                            -->
                             </div>
                         <div class="container">
                                 <!-- Modal -->
