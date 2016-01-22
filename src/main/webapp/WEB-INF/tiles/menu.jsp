@@ -67,9 +67,6 @@
                     <c:if test="${person.getBrukertype() == 3}">                
                         <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>" id="adminKnapp">Admin </a>
                     </c:if>
-                    <c:if test="${person.getBrukertype() >= 2}">
-                        <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOrganisering"/>" >Fagbooking </a>
-                    </c:if>
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="romOversikt"/>" >Romoversikt og booking </a>
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="bruker"/>">Bruker </a>
                     <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="oppdaterPersonlig"/>" >Oppdater bruker </a>
