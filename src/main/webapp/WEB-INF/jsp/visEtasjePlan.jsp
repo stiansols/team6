@@ -32,7 +32,7 @@
     </style>
     <body>
         <ul class="pager">
-            <li><a href="/StudyEasy/romOversikt">Tilbake til etasjevisning</a></li>
+            <li><a href="/romOversikt">Tilbake til etasjevisning</a></li>
         </ul>
         
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
