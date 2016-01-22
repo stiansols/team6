@@ -37,9 +37,12 @@
                 <div>Brukernavn: ${person.getBrukernavn()} </div>
                 <div>E-post: ${person.getMail()} </div>
                 <div>Brukertype: ${person.printBrukerType()}</div>
-                <div hidden="true">Passord:<input type="password" disabled="true" placeholder="*************"></div>
                 <br>
                 <br>
+                <div class="panel-group">
+                    <a href="/StudyEasy/oppdaterPersonlig" id="ab" class="btn btn-default col-lg-offset-3">  Oppdater personlig informasjon  </a>
+                    <br/>
+                </div>
             </div>
         </div>
     </body>
