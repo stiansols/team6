@@ -63,7 +63,7 @@
             <div class="collapse navbar-collapse col-lg-12" id="liste">
                 <div id="knapper">
 
-                    <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Index </a>
+                    <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="index"/>" >Hjem </a>
                     <c:if test="${person.getBrukertype() == 3}">                
                         <a class="btn btn-primary col-lg-11 col-xs-11" role="button" href="<c:url value="admin"/>" id="adminKnapp">Admin </a>
                     </c:if>
