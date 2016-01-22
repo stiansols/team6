@@ -64,7 +64,84 @@
                 margin-bottom: 20px;
             }
 
+            #myTab > li{
+                margin-right: 15px;
+            }
+
             .top-buffer { margin-top:10px;}
+
+            body { font-size: 2em; /* Sets base font size to 16px */ }
+            ol.tree
+            {
+                padding: 0 0 0 30px;
+                width: 300px;
+            }
+            li
+            {
+                position: relative;
+                margin-left: -15px;
+                list-style: none;
+            }
+            li.file
+            {
+                margin-left: -1px !important;
+            }
+            li.file a
+            {
+                background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat;
+                padding-left: 21px;
+                text-decoration: none;
+                display: block;
+            }
+            li.file a[href *= '.pdf']	{ background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat; }
+            li input
+            {
+                position: absolute;
+                left: 0;
+                margin-left: 0;
+                opacity: 0;
+                z-index: 2;
+                cursor: pointer;
+                height: 1em;
+                width: 1em;
+                top: 0;
+            }
+            li input + ol
+            {
+                background: url(http://bildr.no/image/VEM5aXB1.jpeg) 40px 0 no-repeat;
+                margin: -0.938em 0 0 -44px; /* 15px */
+                height: 1em;
+            }
+            li input + ol > li { display: none; margin-left: -14px !important; padding-left: 1px; }
+            li label
+            {
+                background: url(http://bildr.no/image/aTVZTlB5.jpeg) 15px 1px no-repeat;
+                cursor: pointer;
+                display: block;
+                padding-left: 37px;
+            }
+
+            li input:checked + ol
+            {
+                background: url(http://bildr.no/image/REpiZ096.jpeg) 40px 5px no-repeat;
+                margin: -1.25em 0 0 -44px; /* 20px */
+                padding: 1.563em 0 0 80px;
+                height: auto;
+            }
+            li input:checked + ol > li { display: block; margin: 0 0 0.125em;  /* 2px */}
+            li input:checked + ol > li:last-child { margin: 0 0 0.063em; /* 1px */ }
+
+            fieldset.ramme {
+                border: 1px groove #ddd !important;
+                padding: 0 1.4em 1.4em 1.4em !important;
+                margin: 0 0 1.5em 0 !important;
+            }
+
+            legend.ramme {
+                width:inherit;
+                padding:0 10px;
+                border-bottom:none;
+            }
 
         </style>
         <style type="text/css">
@@ -349,257 +426,124 @@
 
                     <div id="romOrganiseringFane" class="tab-pane fade">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <div>
+                                <div class="col-sm-8">
+                                    <div>
+                                        <fieldset class="ramme">
+
+                                            <div class="form-group pull-right">
+                                                <input type="text" class="search form-control" placeholder="Søk...">
+                                            </div>
+
+                                            <span class="counter pull-right"></span>
+
+                                            <legend class="ramme">Romoversikt:</legend>
+                                            <table id="romTabell" class="table table-hover table-bordered results">
+                                                <thead>
+                                                    <tr class="warning no-result">
+                                                        <td colspan="4"><i class="fa fa-warning"></i> Fant ingen resultater</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Romnummer</th>
+                                                        <th>Etasje</th>
+                                                        <th>Plasser</th>
+                                                        <th>Har Smartboard</th>
+                                                        <th>Har Skjerm</th>
+                                                        <th>Har Prosjektor</th>
+                                                        <th>Har tilgang</th>
+                                                    </tr>
+
+                                                    <tr class="warning no-result">
+                                                        <td colspan="5"><i class="fa fa-warning"></i> Ingen resultater</td>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                <c:forEach items="${alleRom}" var="rom">
+                                                    <tr>
+                                                        <td>${rom.romnr}</td>
+                                                        <td>${rom.etasje}</td>
+                                                        <td>${rom.plasser}</td>
+                                                        <td>${rom.harSmartboard}</td>
+                                                        <td>${rom.harSkjerm}</td>
+                                                        <td>${rom.harProsjektor}</td>
+                                                        <td>${rom.tilgang}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div>
+                                        <br>
+                                        <h3>Antall plasser:</h3> <span id="range">0</span>
+                                        <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)" />
+                                    </div>
                                     <fieldset class="ramme">
-                                        <legend class="ramme">Romoversikt:</legend>
-                                        <table id="romTabell" class="table table-hover table-bordered results">
-                                            <thead>
-                                            <tr>
-                                                <th>Romnummer</th>
-                                                <th>Etasje</th>
-                                                <th>Plasser</th>
-                                                <th>Har Smartboard</th>
-                                                <th>Har Skjerm</th>
-                                                <th>Har Prosjektor</th>
-                                                <th>Har tilgang</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${alleRom}" var="rom">
-                                                <tr>
-                                                    <td>${rom.romnr}</td>
-                                                    <td>${rom.etasje}</td>
-                                                    <td>${rom.plasser}</td>
-                                                    <td>${rom.harSmartboard}</td>
-                                                    <td>${rom.harSkjerm}</td>
-                                                    <td>${rom.harProsjektor}</td>
-                                                    <td>${rom.tilgang}</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div>
-                                    <form>
-                                        <input type="text" size="30" placeholder="Søk romnr" onkeyup="showResult(this.value)">
-                                        <div id="livesearch"></div>
-                                    </form>
-                                    <br>
-                                    <h3>Antall plasser:</h3> <span id="range">0</span>
-                                    <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)" />
-                                </div>
-                                <fieldset class="ramme">
-                                    <legend class="ramme">Utstyr</legend>
-                                    <div class="check-box"><label><input type="checkbox" value="">Skjerm</label></div>
-                                    <div class="check-box"><label><input type="checkbox" value="">Smartboard</label></div>
-                                    <div class="check-box"><label><input type="checkbox" value="">Prosjektor</label></div>
-                                </fieldset>
-                                <br>
-                                <fieldset class="ramme">
-                                    <legend class="ramme">Etasje</legend>
-                                    <div class="check-box"><label><input type="checkbox" value="">1.Etasje</label></div>
-                                    <div class="check-box"><label><input type="checkbox" value="">2.Etasje</label></div>
-                                    <div class="check-box"><label><input type="checkbox" value="">3.Etasje</label></div>
-                                    <div class="check-box"><label><input type="checkbox" value="">4.Etasje</label></div>
-                                </fieldset>
-                                <br>
-                            </div>
-                        </div>
-                        <style>
-                            body { font-size: 2em; /* Sets base font size to 16px */ }
-                            ol.tree
-                            {
-                                padding: 0 0 0 30px;
-                                width: 300px;
-                            }
-                            li
-                            {
-                                position: relative;
-                                margin-left: -15px;
-                                list-style: none;
-                            }
-                            li.file
-                            {
-                                margin-left: -1px !important;
-                            }
-                            li.file a
-                            {
-                                background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat;
-                                padding-left: 21px;
-                                text-decoration: none;
-                                display: block;
-                            }
-                            li.file a[href *= '.pdf']	{ background: url(http://bildr.no/image/YjFDVlJq.jpeg) 0 0 no-repeat; }
-                            li input
-                            {
-                                position: absolute;
-                                left: 0;
-                                margin-left: 0;
-                                opacity: 0;
-                                z-index: 2;
-                                cursor: pointer;
-                                height: 1em;
-                                width: 1em;
-                                top: 0;
-                            }
-                            li input + ol
-                            {
-                                background: url(http://bildr.no/image/VEM5aXB1.jpeg) 40px 0 no-repeat;
-                                margin: -0.938em 0 0 -44px; /* 15px */
-                                height: 1em;
-                            }
-                            li input + ol > li { display: none; margin-left: -14px !important; padding-left: 1px; }
-                            li label
-                            {
-                                background: url(http://bildr.no/image/aTVZTlB5.jpeg) 15px 1px no-repeat;
-                                cursor: pointer;
-                                display: block;
-                                padding-left: 37px;
-                            }
-
-                            li input:checked + ol
-                            {
-                                background: url(http://bildr.no/image/REpiZ096.jpeg) 40px 5px no-repeat;
-                                margin: -1.25em 0 0 -44px; /* 20px */
-                                padding: 1.563em 0 0 80px;
-                                height: auto;
-                            }
-                            li input:checked + ol > li { display: block; margin: 0 0 0.125em;  /* 2px */}
-                            li input:checked + ol > li:last-child { margin: 0 0 0.063em; /* 1px */ }
-
-                            fieldset.ramme {
-                                border: 1px groove #ddd !important;
-                                padding: 0 1.4em 1.4em 1.4em !important;
-                                margin: 0 0 1.5em 0 !important;
-                            }
-
-                            legend.ramme {
-                                width:inherit;
-                                padding:0 10px;
-                                border-bottom:none;
-                            }
-                        </style>
-                        <div class="container">
-                            <!-- Modal -->
-                            <div class="modal fade" id="oppdaterRom" role="dialog" style="z-index: 1500">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Endre Rom</h4>
+                                        <legend class="ramme">Utstyr</legend>
+                                        <div id="checkboxes">
+                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Skjerm</label></div>
+                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Smartboard</label></div>
+                                            <div class="check-box"><label><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</label></div>
                                         </div>
-                                        <form:form method="post" modelAttribute="form" name="romForm" action="admin">
-                                            <div class="modal-body">
-                                                <div class="Row"><label class="control-label">Romnr:</label>
-                                                    <input type="text" name="romnr" id="romnr" value="" readonly>
-                                                </div>
-                                                <div class="Row"><label class="control-label">Etasje:</label>
-                                                    <input type="text" name="etasje" id="etasje" value="">
-                                                </div>
-                                                <div class="Row"><label class="control-label">Plasser:</label>
-                                                    <input type="text" name="plasser" id="plasser" value="">
-                                                </div>
-                                                <div class="Row"><label class="control-label">Smartboard:
-                                                    <input type="checkbox" name="harSmartboard" id="smartboard"></label>
-                                                </div>
-                                                <div class="Row"><label class="control-label">Skjerm:
-                                                    <input type="checkbox" name="harSkjerm" id="skjerm"></label>
-                                                </div>
-                                                <div class="Row"><label class="control-label">Prosjektor:
-                                                    <input type="checkbox" name="harProsjektor" id="prosjektor"></label>
-                                                </div>
-                                                <div class="Row"><label class="control-label">Tilgang: </label>
-                                                    <input type="text" name="tilgang" id="tilgang" value="">
-                                                </div>
+                                    </fieldset>
+                                    <br>
+                                    <fieldset class="ramme">
+                                        <legend class="ramme">Etasje</legend>
+                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">1.Etasje</label></div>
+                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">2.Etasje</label></div>
+                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">3.Etasje</label></div>
+                                        <div class="check-box"><label><input type="checkbox" onclick="filter()">4.Etasje</label></div>
+                                    </fieldset>
+                                    <br>
+                                </div>
+                            </div>
+                        <div class="container">
+                                <!-- Modal -->
+                                <div class="modal fade" id="oppdaterRom" role="dialog" style="z-index: 1500">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Endre Rom</h4>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-default" formaction="oppdaterrom">Oppdater rom</button>
-                                                <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                                            </div>
-                                        </form:form>
+                                            <form:form method="post" modelAttribute="form" name="romForm" action="admin">
+                                                <div class="modal-body">
+                                                    <div class="Row"><label class="control-label">Romnr:</label>
+                                                        <input type="text" name="romnr" id="romnr" value="" readonly>
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Etasje:</label>
+                                                        <input type="text" name="etasje" id="etasje" value="">
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Plasser:</label>
+                                                        <input type="text" name="plasser" id="plasser" value="">
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Smartboard:
+                                                        <input type="checkbox" name="harSmartboard" id="smartboard"></label>
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Skjerm:
+                                                        <input type="checkbox" name="harSkjerm" id="skjerm"></label>
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Prosjektor:
+                                                        <input type="checkbox" name="harProsjektor" id="prosjektor"></label>
+                                                    </div>
+                                                    <div class="Row"><label class="control-label">Tilgang: </label>
+                                                        <input type="text" name="tilgang" id="tilgang" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-default" formaction="oppdaterrom">Lagre rom</button>
+                                                    <button type="submit" class="btn btn-default" formaction="slettRom">Slett rom</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                                                </div>
+                                            </form:form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <script>
-                            function onClickEndreRom() {
-                                var table = document.getElementById("romTabell");
-                                var rows = table.getElementsByTagName("tr");
-                                for (i = 0; i < rows.length; i++) {
-                                    var currentRow = table.rows[i];
-                                    var createClickHandler = function (row) {
-                                        return function () {
-                                            var cell = row.getElementsByTagName("td")[0];
-                                            var cell2 = row.getElementsByTagName("td")[1];
-                                            var cell3 = row.getElementsByTagName("td")[2];
-                                            var cell4 = row.getElementsByTagName("td")[3];
-                                            var cell5 = row.getElementsByTagName("td")[4];
-                                            var cell6 = row.getElementsByTagName("td")[5];
-                                            var cell7 = row.getElementsByTagName("td")[6];
-
-
-                                            var romnr = cell.innerHTML;
-                                            var etasje = cell2.innerHTML;
-                                            var plasser = cell3.innerHTML;
-                                            var harSmartboard = cell4.innerHTML;
-                                            var harSkjerm = cell5.innerHTML;
-                                            var harProsjektor = cell6.innerHTML;
-                                            var tilgang = cell7.innerHTML;
-
-                                            if(harSmartboard == "true") {
-                                                document.getElementById("smartboard").checked = "checked";
-                                            }else if(harSmartboard == "false"){
-                                                document.getElementById("smartboard").removeAttribute("checked");
-                                            }
-
-                                            if(harSkjerm == "true") {
-                                                document.getElementById("skjerm").checked = "checked";
-                                            }else if(harSkjerm == "false"){
-                                                document.getElementById("skjerm").removeAttribute("checked");
-                                            }
-
-                                            if(harProsjektor == "true") {
-                                                document.getElementById("prosjektor").checked = "checked";
-                                            }else if(harProsjektor == "false"){
-                                                document.getElementById("prosjektor").removeAttribute("checked");
-                                            }
-
-                                            //alert("id:" + id);
-                                            $(".modal-body #romnr").val( romnr );
-                                            $(".modal-body #etasje").val( etasje );
-                                            $(".modal-body #plasser").val( plasser );
-                                            $(".modal-body #harSmartboard").val( harSmartboard );
-                                            $(".modal-body #harSkjerm").val( harSkjerm );
-                                            $(".modal-body #harProsjektor").val( harProsjektor );
-                                            $(".modal-body #tilgang").val( tilgang );
-                                            $('#oppdaterRom').modal('show');
-
-
-                                        };
-                                    };
-
-                                    currentRow.onclick = createClickHandler(currentRow);
-                                }
-                            }
-                            window.onload = onClickEndreRom();
-
-                            harSmartboard = $("#smartboard").is(":checked");                    //Sender verdi av checkboxen videre
-                            harSkjerm = $("#skjerm").is(":checked");
-                            harProsjektor = $("#prosjektor").is(":checked");
-
-                            function showValue(newValue) {
-                                document.getElementById("range").innerHTML=newValue;
-                            }
-
-                        </script>
                     </div>
-
                 </div>
 
 
@@ -700,348 +644,443 @@
     </body>
 </html>
 <script>
-                                    $(document).ready(function () {
-                                        /*   $.get("test2", {"data":"TDAT-1000"}, function(Response){
-                                         alert(JSON.stringify(Response));
-                                         
-                                         });
-                                         */
+    $(document).ready(function () {
+        /*   $.get("test2", {"data":"TDAT-1000"}, function(Response){
+         alert(JSON.stringify(Response));
 
-                                        $(".search").keyup(function () {
-                                            var searchTerm = $(".search").val();
-                                            var listItem = $('.results tbody').children('tr');
-                                            var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
+         });
+         */
 
-                                            $.extend($.expr[':'], {'containsi': function (elem, i, match, array) {
-                                                    return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-                                                }
-                                            });
+        $(".search").keyup(function () {
+            var searchTerm = $(".search").val();
+            var listItem = $('.results tbody').children('tr');
+            var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
 
-                                            $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
-                                                $(this).attr('visible', 'false');
-                                            });
+            $.extend($.expr[':'], {'containsi': function (elem, i, match, array) {
+                    return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                }
+            });
 
-                                            $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
-                                                $(this).attr('visible', 'true');
-                                            });
+            $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
+                $(this).attr('visible', 'false');
+            });
 
-                                            var jobCount = $('.results tbody tr[visible="true"]').length;
-                                            $('.counter').text(jobCount + ' elementer');
+            $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
+                $(this).attr('visible', 'true');
+            });
 
-                                            if (jobCount === '0') {
-                                                $('.no-result').show();
-                                            } else {
-                                                $('.no-result').hide();
-                                            }
-                                        });
+            var jobCount = $('.results tbody tr[visible="true"]').length;
+            $('.counter').text(jobCount + ' elementer');
 
-                                        $('body').on('click', '.list-group .list-group-item', function () {
-                                            $(this).toggleClass('active');
-                                        });
-                                        $('.list-arrows button').click(function () {
-                                            var $button = $(this), actives = '';
-                                            if ($button.hasClass('move-left')) {
-                                                actives = $('.list-right ul li.active');
-                                                actives.clone().appendTo('.list-left ul');
-                                                actives.remove();
-                                            } else if ($button.hasClass('move-right')) {
-                                                actives = $('.list-left ul li.active');
-                                                actives.clone().appendTo('.list-right ul');
-                                                actives.remove();
-                                            }
-                                        });
-                                        $('.dual-list .selector').click(function () {
-                                            var $checkBox = $(this);
-                                            if (!$checkBox.hasClass('selected')) {
-                                                $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-                                                $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-                                            } else {
-                                                $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-                                                $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
-                                            }
-                                        });
-                                        $('[name="SearchDualList"]').keyup(function (e) {
-                                            var code = e.keyCode || e.which;
-                                            if (code === '9')
-                                                return;
-                                            if (code === '27')
-                                                $(this).val(null);
-                                            var $rows = $(this).closest('.dual-list').find('.list-group li');
-                                            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-                                            $rows.show().filter(function () {
-                                                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                                                return !~text.indexOf(val);
-                                            }).hide();
-                                        });
+            if (jobCount === '0') {
+                $('.no-result').show();
+            } else {
+                $('.no-result').hide();
+            }
+        });
+
+        $('body').on('click', '.list-group .list-group-item', function () {
+            $(this).toggleClass('active');
+        });
+        $('.list-arrows button').click(function () {
+            var $button = $(this), actives = '';
+            if ($button.hasClass('move-left')) {
+                actives = $('.list-right ul li.active');
+                actives.clone().appendTo('.list-left ul');
+                actives.remove();
+            } else if ($button.hasClass('move-right')) {
+                actives = $('.list-left ul li.active');
+                actives.clone().appendTo('.list-right ul');
+                actives.remove();
+            }
+        });
+        $('.dual-list .selector').click(function () {
+            var $checkBox = $(this);
+            if (!$checkBox.hasClass('selected')) {
+                $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+            } else {
+                $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+            }
+        });
+        $('[name="SearchDualList"]').keyup(function (e) {
+            var code = e.keyCode || e.which;
+            if (code === '9')
+                return;
+            if (code === '27')
+                $(this).val(null);
+            var $rows = $(this).closest('.dual-list').find('.list-group li');
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
 
 
 
 
 //tab bytteren
-                                        $("#myTab a").click(function (e) {
-                                            e.preventDefault();
-                                            $(this).tab('show');
-                                        });
+        $("#myTab a").click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
 
 
 
-                                    });
-                                    var valgteStud;
-                                    var studiekode;
-                                    var studienavn;
+    });
+    var valgteStud;
+    var studiekode;
+    var studienavn;
 
-                                    function lagreStudent() {
-                                        var data = '{ ';
+    function lagreStudent() {
+        var data = '{ ';
 
-                                        var liste1 = document.getElementById("tarIkkeStudieListe").getElementsByTagName("li");
-                                        for (var i = 0; i < liste1.length; i++) {
-                                            data += '"slettbruker' + i + '":' + '"' + liste1[i].innerHTML + '",';
-                                        }
-                                        if (liste1.length > 0) {
-                                            data += '"lengde1":' + liste1.length + ',';
+        var liste1 = document.getElementById("tarIkkeStudieListe").getElementsByTagName("li");
+        for (var i = 0; i < liste1.length; i++) {
+            data += '"slettbruker' + i + '":' + '"' + liste1[i].innerHTML + '",';
+        }
+        if (liste1.length > 0) {
+            data += '"lengde1":' + liste1.length + ',';
 
-                                        }
+        }
 
-                                        var liste2 = document.getElementById("tarStudieListe").getElementsByTagName("li");
-                                        //    var data2 = '{"brukernavn0": "nybruker","studiekode0": "studiekode0", "studienavn0": "studienavn0",  "brukernavn1": "Nybruker2","studiekode1": "studiekode1", "studienavn1": "studienavn1", "lengde": 2}';
-                                        for (var i = 0; i < liste2.length; i++) {
-                                            data += '"brukernavn' + i + '":' + '"' + liste2[i].innerHTML + '","studiekode": "' + studiekode + '", "studienavn' + i + '": "' + studienavn + '", ';
-                                        }
-                                        if (liste2.length === 0) {
-                                            data += '"studiekode": "' + studiekode + '",';
-                                        }
-                                        data += '"lengde2":' + liste2.length + '}';
+        var liste2 = document.getElementById("tarStudieListe").getElementsByTagName("li");
+        //    var data2 = '{"brukernavn0": "nybruker","studiekode0": "studiekode0", "studienavn0": "studienavn0",  "brukernavn1": "Nybruker2","studiekode1": "studiekode1", "studienavn1": "studienavn1", "lengde": 2}';
+        for (var i = 0; i < liste2.length; i++) {
+            data += '"brukernavn' + i + '":' + '"' + liste2[i].innerHTML + '","studiekode": "' + studiekode + '", "studienavn' + i + '": "' + studienavn + '", ';
+        }
+        if (liste2.length === 0) {
+            data += '"studiekode": "' + studiekode + '",';
+        }
+        data += '"lengde2":' + liste2.length + '}';
 
-                                        $.get("lagreStud", {"data": data}, function (Response) {
-                                            //alert(JSON.stringify(Response));
+        $.get("lagreStud", {"data": data}, function (Response) {
+            //alert(JSON.stringify(Response));
 
-                                        });
+        });
 
-                                    }
+    }
 
-                                    function velgStudium() {
+    function velgStudium() {
 
 //{"data":$('#selectStudium').val()}
-                                        var selectString = $('#selectStudium').val();
-                                        var firstIndex = selectString.indexOf("-") + 2;
-                                        var lastIndex = selectString.lastIndexOf("");
+        var selectString = $('#selectStudium').val();
+        var firstIndex = selectString.indexOf("-") + 2;
+        var lastIndex = selectString.lastIndexOf("");
 
-                                        studienavn = selectString.substring(firstIndex, lastIndex);
-                                        lastIndex = selectString.lastIndexOf("-") - 1;
-                                        studiekode = selectString.substring(0, lastIndex);
+        studienavn = selectString.substring(firstIndex, lastIndex);
+        lastIndex = selectString.lastIndexOf("-") - 1;
+        studiekode = selectString.substring(0, lastIndex);
 
-                                        $.get("studStudium", {"data": studienavn}, function (Response) {
-                                            //  alert(JSON.stringify(Response));
-                                            // alert()
-                                            var ul = document.getElementById("tarStudieListe");
-                                            $('#tarStudieListe').empty();
-                                            valgteStud = $(JSON.parse(JSON.stringify(Response)));
+        $.get("studStudium", {"data": studienavn}, function (Response) {
+            //  alert(JSON.stringify(Response));
+            // alert()
+            var ul = document.getElementById("tarStudieListe");
+            $('#tarStudieListe').empty();
+            valgteStud = $(JSON.parse(JSON.stringify(Response)));
 
-                                            for (var i = 0; i < valgteStud.length; i++) {
-                                                // alert(myArr[i]);
-                                                /*   var li = document.createElement("li");
-                                                 li.className = li.className + " list-group";
-                                                 li.appendChild(document.createTextNode(valgteStud[i]));
-                                                 ul.appendChild(li);
-                                                 */
+            for (var i = 0; i < valgteStud.length; i++) {
+                // alert(myArr[i]);
+                /*   var li = document.createElement("li");
+                 li.className = li.className + " list-group";
+                 li.appendChild(document.createTextNode(valgteStud[i]));
+                 ul.appendChild(li);
+                 */
 
-                                                $("#tarStudieListe").append('<li class="list-group-item">' + valgteStud[i] + '</li>');
-                                            }
-                                            var myArr;
+                $("#tarStudieListe").append('<li class="list-group-item">' + valgteStud[i] + '</li>');
+            }
+            var myArr;
 
-                                            $.get("alleStud", {"data": "0"}, function (Response) {
-                                                //  alert(JSON.stringify(Response));
-                                                // alert()
-                                                var ul = document.getElementById("tarIkkeStudieListe");
-                                                $('#tarIkkeStudieListe').empty();
-                                                myArr = $(JSON.parse(JSON.stringify(Response)));
-
-
-                                                for (var i = 0; i < valgteStud.length; i++) {
-
-                                                    for (var j = 0; j < myArr.length; j++) {
-
-                                                        if (myArr[j] === valgteStud[i]) {
-                                                            myArr.splice(j, 1);
-                                                        }
-
-                                                    }
-
-                                                }
-
-                                                for (var i = 0; i < myArr.length; i++) {
-                                                    /* var li = document.createElement("li");
-                                                     li.className = li.className + " list-group";
-                                                     li.appendChild(document.createTextNode(myArr[i]));
-                                                     ul.appendChild(li);
-                                                     */
-                                                    $("#tarIkkeStudieListe").append('<li class="list-group-item">' + myArr[i] + '</li>');
-                                                }
-
-                                            });
-
-                                        });
-
-                                    }
-
-                                    function sendData() {
-                                        var liste = document.getElementById("tarStudieListe").getElementsByTagName("li");
-
-                                        for (var i = 0; i < liste.length; i++) {
-                                            alert(liste[i].innerHTML);
-                                        }
-                                    }
+            $.get("alleStud", {"data": "0"}, function (Response) {
+                //  alert(JSON.stringify(Response));
+                // alert()
+                var ul = document.getElementById("tarIkkeStudieListe");
+                $('#tarIkkeStudieListe').empty();
+                myArr = $(JSON.parse(JSON.stringify(Response)));
 
 
-                                    function visLeggTilFagModal() {
-                                        $('#leggTilFagModal').modal('show');
+                for (var i = 0; i < valgteStud.length; i++) {
 
-                                    }
+                    for (var j = 0; j < myArr.length; j++) {
 
-                                    function byttTab() {
-                                        $('#myTab a[href="#fagFane"]').tab('show');
-                                    }
+                        if (myArr[j] === valgteStud[i]) {
+                            myArr.splice(j, 1);
+                        }
 
-                                    function onClickBrukertabell() {
-                                        var table = document.getElementById("brukerTabell");
-                                        var rows = table.getElementsByTagName("tr");
-                                        for (i = 0; i < rows.length; i++) {
-                                            var currentRow = table.rows[i];
-                                            var createClickHandler =
-                                                    function (row)
-                                                    {
-                                                        return function () {
-                                                            var cell = row.getElementsByTagName("td")[0];
-                                                            var cell2 = row.getElementsByTagName("td")[1];
-                                                            var cell3 = row.getElementsByTagName("td")[2];
-                                                            // var cell4 = row.getElementsByTagName("td")[3];
-                                                            var cell5 = row.getElementsByTagName("td")[4];
+                    }
 
+                }
 
-                                                            var id = cell.innerHTML;
-                                                            var bType = cell2.innerHTML;
-                                                            var navn = cell3.innerHTML;
-                                                            // var passord = cell4.innerHTML;
-                                                            var mail = cell5.innerHTML;
+                for (var i = 0; i < myArr.length; i++) {
+                    /* var li = document.createElement("li");
+                     li.className = li.className + " list-group";
+                     li.appendChild(document.createTextNode(myArr[i]));
+                     ul.appendChild(li);
+                     */
+                    $("#tarIkkeStudieListe").append('<li class="list-group-item">' + myArr[i] + '</li>');
+                }
 
-                                                            //alert("id:" + id);
-                                                            $(".modal-body #brukernavn").val(id);
-                                                            $(".modal-body #brukertype").val(bType);
-                                                            $(".modal-body #navn").val(navn);
-                                                            // $(".modal-body #passord").val( passord );
-                                                            $(".modal-body #mail").val(mail);
-                                                            $('#visBrukerModal').modal('show');
+            });
+
+        });
+
+    }
+
+    function sendData() {
+        var liste = document.getElementById("tarStudieListe").getElementsByTagName("li");
+
+        for (var i = 0; i < liste.length; i++) {
+            alert(liste[i].innerHTML);
+        }
+    }
 
 
-                                                        };
-                                                    };
+    function visLeggTilFagModal() {
+        $('#leggTilFagModal').modal('show');
 
-                                            currentRow.onclick = createClickHandler(currentRow);
-                                        }
-                                    }
-                                    window.onload = onClickBrukertabell();
+    }
 
+    function byttTab() {
+        $('#myTab a[href="#fagFane"]').tab('show');
+    }
 
-                                    function onClickFagtabell() {
-                                        var table = document.getElementById("fagTabell");
-                                        var rows = table.getElementsByTagName("tr");
-                                        for (i = 0; i < rows.length; i++) {
-                                            var currentRow = table.rows[i];
-                                            var createClickHandler =
-                                                    function (row)
-                                                    {
-                                                        return function () {
-                                                            var cell = row.getElementsByTagName("td")[0];
-                                                            var cell2 = row.getElementsByTagName("td")[1];
-
-                                                            var fagkode = cell.innerHTML;
-                                                            var navn = cell2.innerHTML;
-
-                                                            $(".modal-body #fagkode").val(fagkode);
-                                                            $(".modal-body #navn").val(navn);
-
-                                                            $('#slettFagModal').modal('show');
+    function onClickBrukertabell() {
+        var table = document.getElementById("brukerTabell");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler =
+                    function (row)
+                    {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[0];
+                            var cell2 = row.getElementsByTagName("td")[1];
+                            var cell3 = row.getElementsByTagName("td")[2];
+                            // var cell4 = row.getElementsByTagName("td")[3];
+                            var cell5 = row.getElementsByTagName("td")[4];
 
 
-                                                        };
-                                                    };
+                            var id = cell.innerHTML;
+                            var bType = cell2.innerHTML;
+                            var navn = cell3.innerHTML;
+                            // var passord = cell4.innerHTML;
+                            var mail = cell5.innerHTML;
 
-                                            currentRow.onclick = createClickHandler(currentRow);
-                                        }
-                                    }
-                                    window.onload = onClickFagtabell();
+                            //alert("id:" + id);
+                            $(".modal-body #brukernavn").val(id);
+                            $(".modal-body #brukertype").val(bType);
+                            $(".modal-body #navn").val(navn);
+                            // $(".modal-body #passord").val( passord );
+                            $(".modal-body #mail").val(mail);
+                            $('#visBrukerModal').modal('show');
 
 
+                        };
+                    };
+
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = onClickBrukertabell();
 
 
-                                    function onClickFagtabell2() {
-                                        var table = document.getElementById("fagTabell2");
-                                        var rows = table.getElementsByTagName("tr");
-                                        for (i = 0; i < rows.length; i++) {
-                                            var currentRow = table.rows[i];
-                                            var createClickHandler =
-                                                    function (row)
-                                                    {
-                                                        return function () {
-                                                            var cell = row.getElementsByTagName("td")[0];
+    function onClickFagtabell() {
+        var table = document.getElementById("fagTabell");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler =
+                    function (row)
+                    {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[0];
+                            var cell2 = row.getElementsByTagName("td")[1];
 
-                                                            var fagkode = cell.innerHTML;
-                                                            $('#SearchDualList').val("Stians");
-                                                            //   alert(fagkode);
+                            var fagkode = cell.innerHTML;
+                            var navn = cell2.innerHTML;
+
+                            $(".modal-body #fagkode").val(fagkode);
+                            $(".modal-body #navn").val(navn);
+
+                            $('#slettFagModal').modal('show');
+
+
+                        };
+                    };
+
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = onClickFagtabell();
 
 
 
-                                                        };
-                                                    };
 
-                                            currentRow.onclick = createClickHandler(currentRow);
-                                        }
-                                    }
-                                    window.onload = onClickFagtabell2();
+    function onClickFagtabell2() {
+        var table = document.getElementById("fagTabell2");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler =
+                    function (row)
+                    {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[0];
 
-
-                                    function sendNyStudListe() {
-                                        /*  var unorderedList = document.getElementById('tarFagListe'); 
-                                         var ListItems = unorderedList.getElementsByTagName('li');  
-                                         
-                                         for(var i = 0; i < ListItems.length; i++){
-                                         var test = ListItems[i].innerHTML;
-                                         alert(test);
-                                         */
-                                        var date = new Date();
-                                        // for(var i=0; i< 20; i++){
-                                        date.setHours(6);
-                                        date.setMinutes(61);
-
-                                        alert(date);
-                                        //sjekker fag i selecten
-
-                                        // }
-
-
-                                    }
-
-                                    function onClickTest() {
-
-                                        //  $('.search').val("Stians");
-                                        $('#SearchDualListId').val("Stians");
-                                        //   $('#SearchDualListId').focus();
-                                        /*    var e = $.Event('keypress');
-                                         e.which = 13; // 
-                                         $('#SearchDualListId').trigger(e);
-                                         */
-
-                                        /*   $('#SearchDualListId').keyup();
-                                         $('#SearchDualListId').focus();
-                                         // $('#SearchDualListId').click();
-                                         var e = $.Event( "keypress", { which: 13 } );
-                                         $("#SearchDualListId").trigger(e);
-                                         */
+                            var fagkode = cell.innerHTML;
+                            $('#SearchDualList').val("Stians");
+                            //   alert(fagkode);
 
 
 
-                                    }
-                                    window.onload = onClickTest();
+                        };
+                    };
 
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = onClickFagtabell2();
+
+
+    function sendNyStudListe() {
+        /*  var unorderedList = document.getElementById('tarFagListe');
+         var ListItems = unorderedList.getElementsByTagName('li');
+
+         for(var i = 0; i < ListItems.length; i++){
+         var test = ListItems[i].innerHTML;
+         alert(test);
+         */
+        var date = new Date();
+        // for(var i=0; i< 20; i++){
+        date.setHours(6);
+        date.setMinutes(61);
+
+        alert(date);
+        //sjekker fag i selecten
+
+        // }
+
+
+    }
+
+    function onClickTest() {
+
+        //  $('.search').val("Stians");
+        $('#SearchDualListId').val("Stians");
+        //   $('#SearchDualListId').focus();
+        /*    var e = $.Event('keypress');
+         e.which = 13; //
+         $('#SearchDualListId').trigger(e);
+         */
+
+        /*   $('#SearchDualListId').keyup();
+         $('#SearchDualListId').focus();
+         // $('#SearchDualListId').click();
+         var e = $.Event( "keypress", { which: 13 } );
+         $("#SearchDualListId").trigger(e);
+         */
+
+
+
+    }
+    window.onload = onClickTest();
+
+    function filter() {
+        var table = document.getElementById("romTabell");
+        var cells = table.getElementsByTagName("td");
+        var tbody = document.getElementById("romTbody");
+        var rows = tbody.getElementsByTagName("tr");
+        var columns = table.rows[1].cells;
+        var checkboxes = document.getElementById("checkboxes").getElementsByTagName("input");
+
+        for(i=0, j=0; i<rows.length; i++, j++) {
+            for(k=0; k<checkboxes.length; k++) {
+                var filterType = checkboxes[k].value;
+                if(rows[i].cells[1+k].innerHTML.trim() !== filterType) {
+                    if(checkboxes[k].checked) {
+                        rows[i].style.display = 'none';
+                        break;
+                    }
+                    else {
+                        rows[i].style.display = '';
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
+    function onClickEndreRom() {
+        var table = document.getElementById("romTabell");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = function (row) {
+                return function () {
+                    var cell = row.getElementsByTagName("td")[0];
+                    var cell2 = row.getElementsByTagName("td")[1];
+                    var cell3 = row.getElementsByTagName("td")[2];
+                    var cell4 = row.getElementsByTagName("td")[3];
+                    var cell5 = row.getElementsByTagName("td")[4];
+                    var cell6 = row.getElementsByTagName("td")[5];
+                    var cell7 = row.getElementsByTagName("td")[6];
+
+
+                    var romnr = cell.innerHTML;
+                    var etasje = cell2.innerHTML;
+                    var plasser = cell3.innerHTML;
+                    var harSmartboard = cell4.innerHTML;
+                    var harSkjerm = cell5.innerHTML;
+                    var harProsjektor = cell6.innerHTML;
+                    var tilgang = cell7.innerHTML;
+
+                    if(harSmartboard == "true") {
+                        document.getElementById("smartboard").checked = "checked";
+                    }else if(harSmartboard == "false"){
+                        document.getElementById("smartboard").removeAttribute("checked");
+                    }
+
+                    if(harSkjerm == "true") {
+                        document.getElementById("skjerm").checked = "checked";
+                    }else if(harSkjerm == "false"){
+                        document.getElementById("skjerm").removeAttribute("checked");
+                    }
+
+                    if(harProsjektor == "true") {
+                        document.getElementById("prosjektor").checked = "checked";
+                    }else if(harProsjektor == "false"){
+                        document.getElementById("prosjektor").removeAttribute("checked");
+                    }
+
+                    //alert("id:" + id);
+                    $(".modal-body #romnr").val( romnr );
+                    $(".modal-body #etasje").val( etasje );
+                    $(".modal-body #plasser").val( plasser );
+                    $(".modal-body #harSmartboard").val( harSmartboard );
+                    $(".modal-body #harSkjerm").val( harSkjerm );
+                    $(".modal-body #harProsjektor").val( harProsjektor );
+                    $(".modal-body #tilgang").val( tilgang );
+                    $('#oppdaterRom').modal('show');
+
+
+                };
+            };
+
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = onClickEndreRom();
+
+    harSmartboard = $("#smartboard").is(":checked");                    //Sender verdi av checkboxen videre
+    harSkjerm = $("#skjerm").is(":checked");
+    harProsjektor = $("#prosjektor").is(":checked");
+
+    function showValue(newValue) {
+        document.getElementById("range").innerHTML=newValue;
+    }
 
 </script>

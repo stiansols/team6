@@ -17,7 +17,6 @@ public class InitialiserDispatcherServlet implements WebApplicationInitializer {
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
         registerDispatcherServlet(servletContext);
-        servletContext.addListener(new SessionListener());
     }
     
     

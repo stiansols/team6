@@ -15,15 +15,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        
+         
+         
+          <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        
+        
+       
+       
         <title>Hjem</title>
     </head>
     <body>
@@ -239,8 +248,40 @@
                 </div>
             </div>
         </div>
+            <div id="wrapper">
+  <div id="myScheduler"></div>
+</div>
+            <script>
+YUI().use(
+  'aui-scheduler',
+  function(Y) {
+    var events = [
+         {
+        content: 'Sondre',
+        endDate: new Date(2016, 1, 22, 5),
+        startDate: new Date(2016, 1, 22, 1)
+      }
+    ];
+     var agendaView = new Y.SchedulerAgendaView();
+    var dayView = new Y.SchedulerDayView();
+    var weekView = new Y.SchedulerWeekView();
+    var monthView = new Y.SchedulerMonthView();
 
+    new Y.Scheduler(
+      {
+        activeView: weekView,
+        boundingBox: '#myScheduler',
+        date: new Date(2016, 1, 22),
+        items: events,
+        render: true,
+        views: [dayView, weekView, monthView, agendaView]
+      }
+    );
+  }
+);
+            </script>
         <script>
+            
             window.onload = function () {
 
                 var currentdate = new Date();

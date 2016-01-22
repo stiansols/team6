@@ -485,7 +485,7 @@ public class Kontroller {
      * @throws Exception
      */
     @RequestMapping(value = "/nyBooking", method = RequestMethod.POST)
-        public String leggTilBooking(@RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin,@ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
+        public String leggTilBooking(Model model, @RequestParam String fratidtimer,String fratidmin,String tiltidtimer,String tiltidmin, @ModelAttribute(value = "booking") Booking nyBooking, @ModelAttribute(value = "person") Bruker person) throws Exception {
             try{
             if(person.getBrukernavn() == null){
                 return "login";
@@ -506,10 +506,9 @@ public class Kontroller {
             //nyBooking.setBookingId(NULL);
             db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype(),person.getBookingerListe());
             
-            lastInnPerson(person);
             System.out.println("Dette er plassen");
     
-            return "romOversikt";
+            return "redirect:index";
             }
             
             catch(Exception e){
@@ -586,6 +585,20 @@ public class Kontroller {
     public String slettBruker(@ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
         
         db.slettBruker(bruker.getBrukernavn());
+
+        return "redirect:admin";
+    }
+
+    /**
+     *
+     * @param rom
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/slettRom", method = RequestMethod.POST)
+    public String slettRom(@ModelAttribute(value = "romForm") Rom rom) throws Exception {
+
+        db.slettRom(rom.getRomnr());
 
         return "redirect:admin";
     }
