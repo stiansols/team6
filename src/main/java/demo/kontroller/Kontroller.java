@@ -493,7 +493,9 @@ public class Kontroller {
             int tilgang = db.hentSpesRom(nyBooking.getRomNummer());
             
             if(person.getBrukertype()<tilgang){
-                return "index";
+                String meldingen = "Du har ikke tilgang til å booke dette rommet";
+                model.addAttribute("feilMelding", meldingen);
+                return "denied";
             }
             
             String [] stringFratid = nyBooking.getFratid().split("-");
@@ -504,7 +506,11 @@ public class Kontroller {
             nyBooking.setTiltid(tiltids);
             nyBooking.setBrukertype(person.getBrukertype());
             //nyBooking.setBookingId(NULL);
-            db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype(),person.getBookingerListe());
+            if(db.regBooking(person.getBrukernavn(), nyBooking, person.getBrukertype(),person.getBookingerListe())== false){
+                String melding = "Du fikk ikke booket dette rommet <br> Mulige grunner: <br> Du har booket tilbake i tid <br> Du har Booket for langt frem i tid (Du kan booke til slutten av neste måned) <br> Du har prøvd å booke ett opptatt tidsrom <br> Du har brukt opp dine booking timer (max 20 timer på en gang)";
+                model.addAttribute("feilMelding", melding);
+                return "denied";
+            }
             
             System.out.println("Dette er plassen");
     
@@ -820,6 +826,11 @@ public class Kontroller {
         studier = db.hentAlleStudier();
 
         return studier;
+    }
+    
+    @ModelAttribute("feilMelding")
+    public String setFeilMelding(String feilMelding) throws SQLException, Exception {
+        return feilMelding;
     }
     
      @RequestMapping(value="getBooking", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

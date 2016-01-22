@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Du kan ikke logge inn før bookingen har begynt!</h1>
+        <h1>${feilMelding}</h1>
     </body>
 </html>
