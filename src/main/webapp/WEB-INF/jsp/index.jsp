@@ -15,23 +15,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        
-         
-         
-          <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
-
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <!-- Optional theme -->
         
-        
-       
+        <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">     
+          <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+  
        
         <title>Hjem</title>
     </head>
@@ -83,9 +84,7 @@
 
                         </tbody>
                     </table>   
-                    <br>
-                    <br>
-                    Her skal det være en kalender
+        
                 </div>
                 <div class="col-sm-4">
                     <br>
@@ -102,47 +101,48 @@
                 </div>
             </div>
         </form:form>
+         <div class="row">
+                <button type="button" class="btn btn-primary col-sm-offset-1" onclick="regBookingModal()">Registrer ny booking</button>
+            </div>
+            <br>
+        <form:form method="POST" modelAttribute="booking" action="nyBooking">    
         <div class="container">
             <!-- Modal -->
-            <div class="modal fade" id="endreModal" role="dialog">
+            <div class="modal fade" id="regBookingModal" role="dialog">
                 <div class="modal-dialog">
-
+                  
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Endre Din Booking</h4>
+                            <h4 class="modal-title">Registrer ny booking</h4>
                         </div>
 
                         <div class="modal-body">
                             <div class="form-group">
                                 <div class="row">
+                                    
                                     <label for="Romnr" class="col-lg-6 control-label">Romnr</label>
 
                                     <div class="col-lg-6">
-                                        <input type="text" id="modalromnr" disabled/>
+                                        <select id ="romNrSelect" name="romNrSelect" onchange="visRomplan()" required>
+                                            <c:forEach items="${alleRom}" var="rom">   
+                                                     <option>${rom.getRomnr()}</option>
+                                            </c:forEach>
+                                            
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <label for="tiltid" class="col-lg-6 control-label">Fratid</label>
-
-                                    <div class="col-lg-6">
-                                        <input type="text" id="modalfratid" disabled/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label for="fratid" class="col-lg-6 control-label">Tiltid</label>
-
-                                    <div class="col-lg-6">
-                                        <input type="text" id="modaltiltid" disabled/>
-                                    </div>
-                                </div>
+                                
+                                
                             </div>
 
-                            <div class="form-group input-daterange col-sm-offset-1" >
+                           
+                         <div class="form-group input-daterange col-lg-4" >
                                 <label>Dato</label>
+                                <input type="text" class="form-control" name = "fratid" id="datoFra1" onchange="visRomplan()"required/>
                                 <div class="row">
-
+                                
                                     <label>Fra</label>
                                     <select id ="fratidtimer" name="fratidtimer" required>
                                         <option value="06">06</option>
@@ -240,14 +240,41 @@
 
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-success">Endre Booking</button>
+                                <button type="submit" class="btn btn-success" >Registrer booking</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                             </div>
                         </div>
+                        
                     </div>
+                    
+                   
                 </div>
+                </form:form>
             </div>
         </div>
+                     
+                     
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+            <script type="text/javascript">
+ 
+     
+        $('#datoFra1').datepicker({
+                format: 'dd-mm-yyyy'
+                
+            });
+            
+        
+            
+              </script>
+
+    <script type="text/javascript">
+        $('.input-daterange input').each(function() {
+            $(this).datepicker({
+                format: 'dd-mm-yyyy'
+            });
+        });
+    </script>   
+      
             <div id="wrapper">
   <div id="myScheduler"></div>
 </div>
@@ -280,6 +307,29 @@ YUI().use(
   }
 );
             </script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+            <script type="text/javascript">
+ 
+     
+        $('#datoFra1').datepicker({
+                format: 'dd-mm-yyyy'
+                
+            });
+            
+        
+            
+              </script>
+
+    <script type="text/javascript">
+        $('.input-daterange input').each(function() {
+            $(this).datepicker({
+                format: 'dd-mm-yyyy'
+            });
+        });
+    </script>
+            
+            
         <script>
             
             window.onload = function () {
@@ -322,43 +372,38 @@ YUI().use(
             }
 
 
-            function onClickEndre(bookingId) {
-                $.get("getBooking", {"data": bookingId}, function (Response) {
-
-                    var array = $(JSON.parse(JSON.stringify(Response)));
-                    var romnr = array[0];
-                    var fratid = array[1];
-                    var tiltid = array[2];
-                    var dato = fratid.substring(0, 10);
-                    $('#endreModal').modal('show');
-                    $(".modal-body #modalromnr").val(romnr);
-                    $(".modal-body #modalfratid").val(fratid);
-                    $(".modal-body #modaltiltid").val(tiltid);
-
-                    visRomplan(romnr, dato);
-                });
+            function regBookingModal(){    
+              var now = new Date();
+                 $('#datoFra1').val(now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear());
+                $('#regBookingModal').modal('show');
+                 visRomplan();
+            
             }
 
+ function visRomplan(){
+           
+            var dato = document.getElementById("datoFra1").value;
+            var romnr = document.getElementById("romNrSelect").value;
 
-            function visRomplan(romnummer, dato) {
+            var data = '{"romnr":"'+romnr+'", "dato":"'+dato+'"}';
 
-                var data = '{"romnr":"' + romnummer + '", "dato":"' + dato + '"}';
+            $.get("books", {"data":data}, function(Response){
+                //alert(JSON.stringify(Response));
+                var obj = Response;
 
-                $.get("books", {"data": data}, function (Response) {
-                    var obj = Response;
+                obj.reverse();
 
-                    obj.reverse();
-
-                    for (var i = 1; i < 21; i++) {
-                        if (obj.pop() === "Ledig") {
-                            document.getElementById("" + i).style.backgroundColor = "green";
-                        } else {
-                            document.getElementById("" + i).style.backgroundColor = "red";
-                        }
+                for(var i=1; i<21; i++){
+                    if(obj.pop() === "Ledig"){
+                    document.getElementById("" + i).style.backgroundColor = "green";
                     }
-                });
-
-            }
+                    else{
+                        document.getElementById("" + i).style.backgroundColor = "red";
+                    }
+                }         
+              });  
+}
+            
 
         </script>    
     </body>
