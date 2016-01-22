@@ -64,7 +64,7 @@
                         </c:if>
                     </c:forEach>
                     
-                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="${rom.getRomnr()}" onclick="onClickRom(${rom.getRomnr()}, ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()}, ${rom.getHarProsjektor()})">
+                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="'${rom.getRomnr()}'" onclick="onClickRom('${rom.getRomnr()}', ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()}, ${rom.getHarProsjektor()})">
                 </c:if>
             </c:forEach>
         </map>
