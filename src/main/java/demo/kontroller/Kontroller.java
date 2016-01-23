@@ -28,6 +28,7 @@ import java.util.Map;
 @Controller
 @SessionAttributes("person")
 public class Kontroller {
+    private static String pologgetBruker = "";
 
     private DbConnection db = new DbConnection();
 
@@ -57,7 +58,7 @@ public class Kontroller {
      * @throws Exception
      */
     public void lastInnPerson(@ModelAttribute(value="person")Bruker person) throws Exception{
-        Bruker b = db.hentBruker(person.getBrukernavn());
+        Bruker b = db.hentBruker(pologgetBruker);
         person.fjernAvtaler();
         person.fjernBookinger();
             
@@ -338,13 +339,14 @@ public class Kontroller {
     @RequestMapping("/spam")
     public String loggInn(Model model, @RequestParam String brukernavn, String passord, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
         Bruker bruker = null;
+        pologgetBruker = brukernavn;
         
         try {
-            bruker = db.loggInn(brukernavn, passord);
+            bruker = db.loggInn(pologgetBruker, passord);
             if (bruker != null) {
                 
                 
-                Bruker b = db.hentBruker(brukernavn);
+                Bruker b = db.hentBruker(pologgetBruker);
                 person.setBrukernavn(b.getBrukernavn());
                 person.setNavn(b.getNavn());
                 person.setMail(b.getMail());
