@@ -69,7 +69,7 @@
                         </c:if>
                     </c:forEach>
                     
-                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="'${rom.getRomnr()}'" onclick="onClickRom('${rom.getRomnr()}', ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()}, ${rom.getHarProsjektor()})">
+                    <area data-maphilight='${mapData}' shape="${rom.getShape()}" class="romskisse"  coords="${rom.getCoords()}" alt="'${rom.getRomnr()}'" onclick="onClickRom('${rom.getRomnr()}', ${rom.getEtasje()}, ${rom.getPlasser()}, ${rom.getHarSmartboard()}, ${rom.getHarSkjerm()}, ${rom.getHarProsjektor()},${rom.getTilgang()})">
                 </c:if>
             </c:forEach>
         </map>
@@ -128,6 +128,13 @@
                                 <label for="proskeltorLabel" class="col-lg-4 control-label">Har Prosjektor</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="prosjektor" id="prosjektor" value="" disabled/>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label for="tilgangLabel" class="col-lg-4 control-label">Romtype</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="tilgang" id="tilgang" value="" disabled/>
                                 </div>
                             </div>
 
@@ -386,15 +393,26 @@ function visRomplan(romnummer){
 </html>
 
 <script>
-    function onClickRom(romnr, etasje, plasser, smartboard, skjerm, prosjektor) {
+    function onClickRom(romnr, etasje, plasser, smartboard, skjerm, prosjektor, tilgang) {
         $(".modal-body #romnr").val(romnr);
         $(".modal-body #etasje").val(etasje);
         $(".modal-body #plasser").val(plasser);
         $(".modal-body #smartboard").val(smartboard ? "ja" : "nei");
         $(".modal-body #skjerm").val(skjerm? "ja" : "nei");
         $(".modal-body #prosjektor").val(prosjektor? "ja" : "nei");
+        if(tilgang === 0){
+           $(".modal-body #tilgang").val("Grupperom"); 
+        }
+        if(tilgang === 1){
+           $(".modal-body #tilgang").val("Møterom"); 
+        }
+        if(tilgang === 2){
+           $(".modal-body #tilgang").val("Klasserom"); 
+        }
+        
         $('#visRomModal').modal('show');
         $(".collapse1").collapse('hide');
+
         
         document.getElementById("datoFra1").value = document.getElementById("datoFra").value;
     }
