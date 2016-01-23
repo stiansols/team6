@@ -32,7 +32,7 @@
     </style>
     <body>
         <ul class="pager">
-            <li><a href="/romOversikt">Tilbake til etasjevisning</a></li>
+            <li><a href="/StudyEasy/romOversikt">Tilbake til etasjevisning</a></li>
         </ul>
         
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
@@ -135,6 +135,9 @@
                                 <label for="tilgangLabel" class="col-lg-4 control-label">Romtype</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="tilgang" id="tilgang" value="" disabled/>
+                                    <input type="text" name="brukertypene" id="brukertypene" value="${person.getBrukertype()}" style="display:none"/>
+                                    <i><p id="sjekktilgang" style="color: crimson"></p></i>
+                                    
                                 </div>
                             </div>
 
@@ -394,6 +397,8 @@ function visRomplan(romnummer){
 
 <script>
     function onClickRom(romnr, etasje, plasser, smartboard, skjerm, prosjektor, tilgang) {
+        $(".modal-body #sjekktilgang").text("");
+        var brukertilgang = $(".modal-body #brukertypene").val();
         $(".modal-body #romnr").val(romnr);
         $(".modal-body #etasje").val(etasje);
         $(".modal-body #plasser").val(plasser);
@@ -404,10 +409,16 @@ function visRomplan(romnummer){
            $(".modal-body #tilgang").val("Grupperom"); 
         }
         if(tilgang === 1){
-           $(".modal-body #tilgang").val("Møterom"); 
+           $(".modal-body #tilgang").val("Møterom");
+           if(brukertilgang < 1){
+               $(".modal-body #sjekktilgang").text("Du har ikke tilgang til å booke dette rommet");
+           }
         }
         if(tilgang === 2){
-           $(".modal-body #tilgang").val("Klasserom"); 
+           $(".modal-body #tilgang").val("Klasserom");
+           if(brukertilgang < 2){
+               $(".modal-body #sjekktilgang").text("Du har ikke tilgang til å booke dette rommet");
+           }
         }
         
         $('#visRomModal').modal('show');
@@ -416,5 +427,6 @@ function visRomplan(romnummer){
         
         document.getElementById("datoFra1").value = document.getElementById("datoFra").value;
     }
+    
 
 </script>
