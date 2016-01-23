@@ -78,14 +78,13 @@
                         </c:forEach>
 
                         </tbody>
-                    </table>   
+                    </table>
+                    <button type="button" class="btn btn-primary col-sm-offset-0" onclick="regBookingModal()">Registrer ny booking</button>
         
                 </div>
             </div>
         </form:form>
-         <div class="row">
-                <button type="button" class="btn btn-primary col-sm-offset-1" onclick="regBookingModal()">Registrer ny booking</button>
-            </div>
+       
             <br>
         <form:form method="POST" modelAttribute="booking" action="nyBooking">    
         <div class="container">
@@ -298,7 +297,7 @@ YUI().use(
 
     new Y.Scheduler(
       {
-        activeView: weekView,
+        activeView: agendaView,
         boundingBox: '#myScheduler',
         date: new Date(),
         items: events,
