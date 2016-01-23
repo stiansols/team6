@@ -37,15 +37,15 @@
         
         <form id="endreDato" class="form-inline" role="form" action="etasjeVis" method="POST" >
             <div class="form-group">
-                <label for="datoFra">Fra:</label>
+                <label for="datoFra">Dato:</label>
                 <input path="fratid" name = "datoFra" class="form-control"  id="datoFra" for="datoFra" value="${etasjeLink[1]}"/>
             </div>
             <div class="form-group">
-                <label for="tidFra">Tid:</label>
+                <label for="tidFra">Fra:</label>
                 <input type="text" name="tidFra" class="form-control" id="tidFra" value="${etasjeLink[2]}">
             </div>
             <div class="form-group">
-                <label for="tidTil">Tid:</label>
+                <label for="tidTil">Til:</label>
                 <input type="text" name="tidTil" class="form-control" id="tidTil" value="${etasjeLink[3]}">
             </div>
             <button type="button" class="btn btn-default" onclick="onChangeDato()">OK</button>
