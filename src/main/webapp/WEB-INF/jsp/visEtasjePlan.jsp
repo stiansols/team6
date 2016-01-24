@@ -339,12 +339,15 @@ function visRomplan(romnummer){
     <script>
         
         function onChangeDato() { 
-            var datoFraInput = document.getElementById("datoFra");
-            var tidFraInput = document.getElementById("tidFra");
-            var tidTilInput = document.getElementById("tidTil");
-            $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
+            
+            var datoFraInput = document.getElementById("datoFra").value;
+            var tidFraInput = document.getElementById("tidFra").value;
+            var tidTilInput = document.getElementById("tidTil").value;
+            tidFraInput = tidFraInput.split(":")[0] + "-" + tidFraInput.split(":")[1];
+            tidTilInput = tidTilInput.split(":")[0] + "-" + tidTilInput.split(":")[1];
+            
+            $.getJSON("getBig", {"dato": datoFraInput + "-" + tidFraInput + ":" + datoFraInput + "-" + tidTilInput}, function(d) {
                 var parsedData = JSON.parse(JSON.stringify(d));
-
                 var alleRomnr = "";
                 for(j=0; j<parsedData.length; j++) {
                     alleRomnr = alleRomnr + parsedData[j] + ",";
