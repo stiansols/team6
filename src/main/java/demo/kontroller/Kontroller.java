@@ -357,6 +357,9 @@ public class Kontroller {
                 for (int i = 0; i < b.getAvtaler().size(); i++) {
                     person.setAvtaler(b.getAvtaler().get(i));
                 }
+                for (int i = 0; i < b.getUndervisningsTimer().size(); i++) {
+                    person.setUndervisningsTime(b.getUndervisningsTimer().get(i));
+                }
                 LagSjekketInnListe(model, person);
                 if(person.getBrukertype()== 4){
                 Tidsintervall spamMail = new Tidsintervall();

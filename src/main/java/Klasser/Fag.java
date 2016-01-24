@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Fag {
     private String fagkode;
     private String navn;
+    private ArrayList<UndervisningsTime> timeliste = new ArrayList();
     
     /**
      *
@@ -62,4 +63,13 @@ public class Fag {
     public String getNavn() {
         return navn;
     }
+
+    public ArrayList<UndervisningsTime> getTimeliste() {
+        return timeliste;
+    }
+
+    public void setTimeliste(ArrayList<UndervisningsTime> timeliste) {
+        this.timeliste = timeliste;
+    }
+    
 }

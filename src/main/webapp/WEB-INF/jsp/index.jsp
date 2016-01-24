@@ -240,6 +240,58 @@
             <div id="myScheduler">     
             </div>
         </div>
+            
+            
+            
+            
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4>Dine Bookinger</h4>
+                    <table id="brukerTabell" class="table table-hover table-bordered results">
+
+                        <thead>
+                            <tr class="warning no-result">
+                            </tr>
+                            <tr>
+                                <th>fagkode</th>
+                                <th>Fratid</th>
+                                <th>Tiltid</th>
+                                 <th>Dato</th>
+                                  <th>Romnr</th>
+
+                            </tr>
+
+                            <tr class="warning no-result">
+                            </tr>        
+
+                        </thead>
+
+                        <tbody id="bookingTabell">
+
+                            <c:forEach items="${person.getUndervisningsTimer()}" var="timer">                 
+                                <tr>
+                                    <td><b>${timer.getFagKode()}</b></td>
+                                    <td><b>${timer.getFratid()}</b></td>
+                                    <td><b>${timer.getTiltid()}</b></td>
+                                    <td><b>${timer.getDato()}</b></td>
+                                    <td><b>${timer.getRomNr()}</b></td>
+
+                           
+
+                            </tr>  
+
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary col-sm-offset-0" onclick="regBookingModal()">Registrer ny booking</button>
+        
+                </div>
+            </div>
+            
+            
+            
                      
                      
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>

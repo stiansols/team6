@@ -342,8 +342,10 @@ function visRomplan(romnummer){
             var datoFraInput = document.getElementById("datoFra");
             var tidFraInput = document.getElementById("tidFra");
             var tidTilInput = document.getElementById("tidTil");
+            
             $.getJSON("getBig", {"dato": datoFraInput.value + "-" + tidFraInput.value + ":" + datoFraInput.value + "-" + tidTilInput.value}, function(d) {
-                var parsedData = JSON.parse(JSON.stringify(d));
+               alert(JSON.stringify(d));
+            /*     var parsedData = JSON.parse(JSON.stringify(d));
 
                 var alleRomnr = "";
                 for(j=0; j<parsedData.length; j++) {
@@ -355,6 +357,7 @@ function visRomplan(romnummer){
                 document.forms["endreDato"]["fratid"].value = document.getElementById("tidFra").value;
                 document.forms["endreDato"]["tiltid"].value = document.getElementById("tidTil").value;
                 document.forms["endreDato"].submit();
+               */ 
             });
 
         }

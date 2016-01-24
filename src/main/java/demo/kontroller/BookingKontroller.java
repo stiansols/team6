@@ -43,22 +43,30 @@ public class BookingKontroller {
     @RequestMapping(value="getBig", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getAlleBookinger(@RequestParam ("dato") String datoInput) throws SQLException, Exception {
+System.out.println("test1");
         ArrayList<Booking> bookinger = db.hentAlleBookinger();
         ArrayList<String> ikkeLedigRomnr = new ArrayList();
-        
+    System.out.println("test2");
+    try{
         Date fraDatoInput = convertToDate(datoInput.split(":")[0]);
         Date tilDatoInput = convertToDate(datoInput.split(":")[1]);
-        
+      System.out.println("test3");
         for(Booking b: bookinger) {
             Date fraDatoBooking = convertToDate(b.getFratid());
             Date tilDatoBooking = convertToDate(b.getTiltid());
-            
+   System.out.println("test4");
             if(isBetween(fraDatoInput, fraDatoBooking, tilDatoBooking) || isBetween(tilDatoInput, fraDatoBooking, tilDatoBooking) 
                     || isBetween(fraDatoBooking, fraDatoInput, tilDatoInput) || isBetween(tilDatoBooking, fraDatoInput, tilDatoInput)) {
                 ikkeLedigRomnr.add(b.getRomNummer());
+ System.out.println("test5");
             }
-        }
         
+        }
+    } catch(Exception e){
+        System.out.println("Feilmelding: " + e);
+    }
+        
+        System.out.println("ikkeledigromnr.size"+ikkeLedigRomnr.size() );
         return ikkeLedigRomnr.toArray(new String[ikkeLedigRomnr.size()]);
     }
 }

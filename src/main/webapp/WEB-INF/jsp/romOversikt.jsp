@@ -277,7 +277,7 @@
                 $.getJSON("getBig", {"dato": datoFraInput + "-" + tidFraInput + ":" + datoFraInput + "-" + tidTilInput}, function(d) {
                     var parsedData = JSON.parse(JSON.stringify(d));
                     for(i=0; i<rows.length; i++) {
-                        if(parsedData.length == 0) {
+                        if(parsedData.length === 0) {
                             rows[i].cells[1].innerHTML = "Ledig";
                             continue;
                         }
@@ -294,7 +294,7 @@
                     for(j=0; j<parsedData.length; j++) {
                         alleRomnr = alleRomnr + parsedData[j] + ",";
                     }
-                    document.forms["valg"]["romnr"].value = alleRomnr;
+                    document.forms["valg"]["romnr"].value = alleRomnr; 
                 });  
             }
             
