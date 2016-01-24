@@ -95,7 +95,7 @@
                         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
 
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
+                            <input type="text" class="search form-control" placeholder="Søk...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -455,7 +455,8 @@
                                     <legend class="ramme">Utstyr</legend>
                                     <div id="utstyr">
                                         <input type="checkbox" onclick="filter()" value="" hidden>
-                                        <input type="checkbox" onclick="filter()" value="" hidden>
+                                        <p><h3>Antall plasser:</h3> <span id="range">0</span>
+                                            <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)"></p>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Smartboard</p>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Skjerm</p>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</p>
@@ -956,7 +957,7 @@
         var etasjer = document.getElementById("etasjer").getElementsByTagName("input");
         var utstyr = document.getElementById("utstyr").getElementsByTagName("input");
 
-        for(i=0; i<rows.length; i++) {
+        for(i=0, j=0; i<rows.length; i++, j++) {
             for(k=0; k<utstyr.length; k++) {
                 var filterType = utstyr[k].value;
                 if(rows[i].cells[1+k].innerHTML.trim() !== filterType) {
@@ -967,21 +968,26 @@
                     else {
                         rows[i].style.display = '';
                     }
-                    for (m = 0; m < etasjer.length; m++) {
-                        var filtertype = etasjer[m].value;
-                        if (rows[i].cells[1].innerHTML.trim() !== filtertype) {
-                            if (etasjer[m].checked) {
-                                rows[i].style.display = 'none';
-                                break;
-                            }
-                            else {
-                                rows[i].style.display = '';
-                            }
-                        }
+                }
+            }
+        }
+
+        for(i=0; i<rows.length; i++) {
+            for(k=0; k<etasjer.length; k++) {
+                var filtertype = etasjer[k].value;
+                if(rows[i].cells[1+k].innerHTML.trim() !== filtertype) {
+                    if(etasjer[k].checked) {
+                        rows[i].style.display = 'none';
+                        break;
+                    }
+                    else {
+                        rows[i].style.display = '';
                     }
                 }
             }
         }
+
+
     }
 
     function onClickEndreRom() {
