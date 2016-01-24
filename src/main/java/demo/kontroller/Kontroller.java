@@ -616,7 +616,12 @@ public class Kontroller {
      * @throws Exception
      */
     @RequestMapping(value = "/oppdater", method = RequestMethod.POST)
-    public String oppdaterBruker(@RequestParam(value="brukertypen") String brukertypen, @ModelAttribute(value = "brukerForm") Bruker bruker) throws Exception {
+    public String oppdaterBruker(@ModelAttribute(value = "person") Bruker person, @RequestParam String brukertypen, String brukernavn, String navn, String passord, String mail) throws Exception {
+        Bruker bruker = new Bruker();
+        bruker.setBrukernavn(brukernavn);
+        bruker.setMail(mail);
+        bruker.setNavn(navn);
+        bruker.setPassord(passord);
         
         if (brukertypen.equals("Student")) {
             bruker.setBrukertype(0);
@@ -635,6 +640,7 @@ public class Kontroller {
         String melding = "Dine brukeropplysninger har blitt endret <br><br> Nåværende verdier: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+"";
         String header = "Endringer i din bruker på StudyEasy";
         db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
+        lastInnPerson(person);
         return "redirect:admin";
     }
 

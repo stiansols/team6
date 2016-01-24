@@ -273,7 +273,14 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
     */
     public void oppdaterBruker(String brukernavn, int brukertype, String navn, String passord, String mail) throws Exception, SQLException {
         preparedStatement = null;
+        if(passord.trim().equals("")){
+        preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '" + navn + "', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");
+
+        }
+        else{
         preparedStatement = connection.prepareStatement("UPDATE bruker SET brukertype = '" + brukertype + "', navn = '" + navn + "', passord = '" + sha1(passord) + "', mail = '" + mail + "' where brukernavn = '" + brukernavn + "'");
+
+        }
         preparedStatement.executeUpdate();
 
     }
