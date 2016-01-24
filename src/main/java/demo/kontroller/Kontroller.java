@@ -33,6 +33,7 @@ public class Kontroller {
     private DbConnection db = new DbConnection();
 
     /**
+     * Lager et tomt brukerobjekt og returnerer det
      *
      * @return
      */
@@ -41,6 +42,13 @@ public class Kontroller {
         return new Bruker();
     }
 
+    /**
+     * Utfører sha1-kryptering på inputstrengen som sendes inn, or returnerer
+     * den ferdigkryptert.
+     *
+     * @param input
+     * @return String
+     */
     static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());
@@ -53,7 +61,8 @@ public class Kontroller {
     }
     
     /**
-     *
+     * Laster inn bruker-
+     * 
      * @param person
      * @throws Exception
      */
@@ -76,6 +85,7 @@ public class Kontroller {
     }
     
     /**
+     * Laster inn brukerens fremtidige bookinger som ikke er sjekket inn på.
      *
      * @param model
      * @param person
@@ -94,6 +104,8 @@ public class Kontroller {
     }
 
     /**
+     * Returnerer til login-siden. Kalles dersom url-en viser til en side som
+     * ikke er mappet til.
      *
      * @param person
      * @return
@@ -105,6 +117,7 @@ public class Kontroller {
     }
     
     /**
+     * Omdirigerer til index-siden. Utfører en sjekk om en bruker er innlogget.
      *
      * @param model
      * @param person
@@ -122,6 +135,8 @@ public class Kontroller {
     }
     
     /**
+     * Logger ut. Fjerner brukerinfo fra session, og omdirigerer til
+     * login-siden.
      *
      * @param person
      * @param session
@@ -136,6 +151,9 @@ public class Kontroller {
     } 
     
     /**
+     * Sjekker om en booking kan sjekkes inn på. Dersom det stemmer, sjekker den
+     * inn, og omdirigerer til index. Om ikke, omdirigerer den til en nettside
+     * med feilmelding.
      *
      * @param model
      * @param buttonSupreme
@@ -159,6 +177,8 @@ public class Kontroller {
     }
 
     /**
+     * Omdirigerer til etasjevisning. Sjekker om bruker er logget inn først. Om
+     * det ikke stemmer, omdiriger til login-siden.
      *
      * @param person
      * @return
@@ -172,6 +192,9 @@ public class Kontroller {
     }
 
     /**
+     * Henter inn et bilde av planvisningen til etasjen som er etterspurt
+     * gjennom POST-forespørsel, og omdirigerer til visEtasjePlan-siden sammen
+     * med imagemapping-koordinater for hvert rom.
      *
      * @param datoInf
      * @return
@@ -200,6 +223,7 @@ public class Kontroller {
     }
 
     /**
+     * Returnerer etasje siden
      *
      * @param person
      * @return
@@ -213,7 +237,7 @@ public class Kontroller {
     }
 
     /**
-     *
+     * Returnerer test siden
      * @param person
      * @return
      */
@@ -226,6 +250,9 @@ public class Kontroller {
     }
 
     /**
+     * Omdirigerer til registrerBruker-siden. Må være administrator-bruker
+     * (brukertype = 3), ellers returnerer den til indeks. Sjekker om bruker er
+     * logget inn først. Om det ikke stemmer, omdiriger til login-siden.
      *
      * @param person
      * @return
@@ -242,6 +269,8 @@ public class Kontroller {
     }
 
     /**
+     * Omdirigerer til oppdaterPersonlig-siden. Sjekker om bruker er logget inn
+     * først. Om det ikke stemmer, omdiriger til login-siden.
      *
      * @param person
      * @return
@@ -255,6 +284,8 @@ public class Kontroller {
     }
 
     /**
+     * Omdirigerer til siden med bruker/studium/rom-administrative funksjoner.
+     * Må være administrator, ellers returnerer den til indeks.
      *
      * @param person
      * @return
@@ -271,6 +302,8 @@ public class Kontroller {
     }
 
     /**
+     * Omdirigerer til bruker-siden. Sjekker om bruker er logget inn først. Om
+     * det ikke stemmer, omdiriger til login-siden.
      *
      * @param person
      * @return
@@ -284,32 +317,9 @@ public class Kontroller {
     }
 
     /**
-     *
-     * @param person
-     * @return
-     */
-    @RequestMapping("/innstillinger")
-    public String innstillinger(@ModelAttribute(value = "person") Bruker person) {
-        if(person.getBrukernavn() == null){
-            return "login";
-        }
-        return "innstillinger";
-    }
-
-    /**
-     *
-     * @param person
-     * @return
-     */
-    @RequestMapping("/hjem")
-    public String home(@ModelAttribute(value = "person") Bruker person) {
-        if(person.getBrukernavn() == null){
-            return "login";
-        }
-        return "hjem";
-    }
-
-    /**
+     * Utfører en forespørsel som sender inn nye rom-attributter til databasen.
+     * Om feil eller kollisjon i inndata/andre feil med SQL-spørringen skrives
+     * det ut feilmelding i konsollen. Om vellykket returnerer den til admin.
      *
      * @param rom
      * @param person
@@ -327,6 +337,13 @@ public class Kontroller {
     }
 
     /**
+     * Logg-inn-metoden. Sender spørring til databasen med data fra brukernavn-
+     * og passordfeltene om en slik bruker fins. Om det stemmer, henter den inn
+     * brukerens informasjon (mail, bookinger, avtaler), og viser disse i
+     * indeks-siden. Om brukeren som logger inn er av brukertype 4
+     * (epost-utsenderkonto), startes spamMail-funksjonen. Dersom den innsendte
+     * informasjonen ikke stemmer med en bruker i databasen, omdirigeres det
+     * tilbake til login-siden, og skriver ut feilmeldinger i konsollen.
      *
      * @param model
      * @param brukernavn
@@ -378,6 +395,8 @@ public class Kontroller {
     }
 
     /**
+     * Returnerer rom-koordinater og rom-objekter som en ArrayList for den
+     * etasjen som er etterspurt.
      *
      * @return
      * @throws SQLException
@@ -399,6 +418,7 @@ public class Kontroller {
     }
     
     /**
+     * Returnerer studentene som tilhører den innsendte fagkoden.
      *
      * @param fagkode
      * @return
@@ -417,6 +437,7 @@ public class Kontroller {
       }
 
     /**
+     * Returnerer alle brukere i StudyEasy-systemet i en ArrayList.
      *
      * @return
      * @throws SQLException
@@ -430,6 +451,7 @@ public class Kontroller {
     }
 
     /**
+     * Returnerer alle registrerte fag i en ArrayList.
      *
      * @return
      * @throws SQLException
@@ -444,6 +466,7 @@ public class Kontroller {
     }
     
     /**
+     * Metode som fjerner en booking etter man har sjekket inn på den.
      *
      * @param person
      * @return
@@ -463,6 +486,7 @@ public class Kontroller {
     }
 
     /**
+     * Legger til en booking .Sjekker om bruker er logget inn først. Om det ikke stemmer, omdiriger til login-siden
      *
      * @param model
      * @param nyBooking
@@ -479,6 +503,9 @@ public class Kontroller {
     }
     
     /**
+     * Henter brukertypen som er loggen inn fra databasen, og sjekker om brukeren har tilgang til å booke rommet. Slår dette feil, omdirigeres det til en side med feilmelding.
+     * Om brukeren har tilgang, kall en funksjon fra databaseklassen om å legge til en booking med de innsendte parameterene. Om det returneres en exception, send til samme side med feilmelding.
+     * Om alt gikk bra, omdiriger til indeks siden. Eventuelle feil blir pålyst i konsollen.
      *
      * @param fratidtimer
      * @param fratidmin
@@ -529,6 +556,7 @@ public class Kontroller {
 
 
     /**
+     * Sender parameterene innsendt inn mot lagBruker()-metoden i databaseklassen. Lager en bruker basert på disse.
      *
      * @param brukertypen
      * @param bruker
@@ -552,13 +580,23 @@ public class Kontroller {
         }
 
         db.lagBruker(bruker.getBrukernavn(), bruker.getBrukertype(), bruker.getNavn(), bruker.getPassord(), bruker.getMail());
-         /*String melding = "Det er opprettet en bruker konto på StudEasy for deg <br> Du kan logge inn for å endre mail og passord hvis du ønsker det <br><br> Dine opplysninger er: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+" <br>Velkomen til StudyEasy";
+        String melding = "Det er opprettet en bruker konto på StudEasy for deg <br> Du kan logge inn for å endre mail og passord hvis du ønsker det <br><br> Dine opplysninger er: <br> Brukernavn: "+bruker.getBrukernavn()+" <br> Brukertype: "+bruker.printBrukerType()+" <br> Navn: "+ bruker.getNavn()+" <br> Passord: "+bruker.getPassord()+" <br> mail: "+bruker.getMail()+" <br>Velkomen til StudyEasy";
         String header = "Det er opprettet en brukerkonto på StudyEasy";
-         db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);*/
+         db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
         return "redirect:admin";
 
     }
     
+    /**
+     * Fjerner en booking. Sjekker om bruker er logget inn først. Om det ikke stemmer, omdiriger til login-siden.
+     *
+     * @param model
+     * @param bookingId
+     * @param person
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     @RequestMapping(value = "slettbooking", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String slettBooking(Model model, @RequestParam ("data") int bookingId, @ModelAttribute(value = "person") Bruker person) throws SQLException, Exception {
         if(person.getBrukernavn() == null){
@@ -571,6 +609,7 @@ public class Kontroller {
     }  
 
     /**
+     * Endrer en bruker med de innsendte verdiene. Sender en epost til brukeren (den eposten som ble innsendt, samme som før eller ny) om endringene. Omdirigerer til admin-siden.
      *
      * @param bruker
      * @return
@@ -600,6 +639,7 @@ public class Kontroller {
     }
 
     /**
+     * Sletter innsendte bruker.
      *
      * @param bruker
      * @return
@@ -614,6 +654,7 @@ public class Kontroller {
     }
 
     /**
+     * Sletter innsendt rom.
      *
      * @param rom
      * @return
@@ -628,6 +669,7 @@ public class Kontroller {
     }
 
     /**
+     * Oppdaterer en brukers epostadredde med den som blir sendt inn. Sender en epost til den nye epostadressen med tilhørende informasjon. Sjekker om bruker er logget inn først. Om det ikke stemmer, omdiriger til login-siden.
      *
      * @param model
      * @param email
@@ -660,6 +702,7 @@ public class Kontroller {
     }
 
     /**
+     * Oppdaterer en brukers passord, men det kreves att verifisering av det gamle passordet for å få lov, mail vill bli sendt til brukeren ved vellyket passord endring
      *
      * @param model
      * @param npassord
@@ -696,6 +739,7 @@ public class Kontroller {
     }
 
     /**
+     * Legger til ett nytt fag i databasen
      *
      * @param fag
      * @return
@@ -711,6 +755,7 @@ public class Kontroller {
     }
 
     /**
+     * Sletter ett fag fra databasen basert på innsendt fagkode
      *
      * @param fag
      * @return
@@ -726,6 +771,7 @@ public class Kontroller {
     }
    
     /**
+     * Henter ut alle bookinger knyttet til romnummeret som blir sendt inn
      *
      * @param data
      * @return
@@ -759,6 +805,7 @@ public class Kontroller {
     }
       
     /**
+     * Henter ut alle studenter som tar ett gitt studium
      *
      * @param studienavn
      * @return
@@ -778,6 +825,7 @@ public class Kontroller {
     }
     
     /**
+     * Knytter en bruker til ett studium
      *
      * @param data
      * @return
@@ -829,6 +877,7 @@ public class Kontroller {
     }
     
     /**
+     * Henter ut alle brukere med brukertype lik student
      *
      * @param brukertype
      * @return
@@ -845,6 +894,14 @@ public class Kontroller {
         return studenter;
     }
     
+    /**
+     * Henter ut linken til bildene som brukes for å vise planoversiktene
+     * 
+     * @param beskrivelse
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
     @RequestMapping(value="hentRessurs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getRessurs(@RequestParam ("beskrivelse") String beskrivelse) throws SQLException, Exception {
@@ -854,6 +911,7 @@ public class Kontroller {
     }
   
     /**
+     * Henter ut en liste som inneholder alle studier
      *
      * @param fagkode
      * @return
@@ -869,11 +927,27 @@ public class Kontroller {
         return studier;
     }
     
+    /**
+     * Oppdaterer innholdet i feilmelding 
+     * 
+     * @param feilMelding
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
     @ModelAttribute("feilMelding")
     public String setFeilMelding(String feilMelding) throws SQLException, Exception {
         return feilMelding;
     }
     
+    /**
+     * Henter ut en booking og lagrer den i ett tabell format
+     * 
+     * @param bookingId
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
      @RequestMapping(value="getBooking", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String[] getBooking(@RequestParam ("data") int bookingId) throws SQLException, Exception {
@@ -887,6 +961,18 @@ public class Kontroller {
         
         return bookingArr;
     }
+    
+    /**
+     * Legger en undervisningstime inn i databasen
+     * 
+     * @param fagkode
+     * @param fratid
+     * @param tiltid
+     * @param dato
+     * @param romnr
+     * @return
+     * @throws Exception 
+     */
     
        @RequestMapping(value = "/nyTime", method = RequestMethod.POST)
     public String leggTilTime(@RequestParam String fagkode, String fratid, String tiltid, String dato, String romnr) throws Exception {
