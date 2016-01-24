@@ -92,10 +92,8 @@
                 </ul>
                 <div class="tab-content">
                     <div id="brukerFane" class="tab-pane fade in active">
-                        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
-
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Søk...">
+                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -207,15 +205,9 @@
 
                                 </div>
                             </div>
-
                         </div>
-
-                        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
-
                     </div>
                     <div id="fagFane" class="tab-pane fade">
-
-                        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->  
                         <div container>
                             <table id="fagTabell" class="table table-hover table-bordered results col-lg-12">
 
@@ -282,7 +274,7 @@
                                             <div class="col-md-10">
                                                 <div class="input-group">  
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
-                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk..." />
+                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
 
                                                 </div>
                                             </div>
@@ -326,7 +318,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group">
-                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Søk..." />
+                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                                 </div>
                                             </div>
@@ -377,7 +369,7 @@
                          <div class="form-group">
                             <label for="BrukernavnLabel" class="col-lg-2 control-label">Dato</label>
                             <div class="col-lg-10">
-                                <input path="undervisningstime.dato" name="dato" class="form-control" id="inputBruker" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" placeholder="dd-mm-åååå" required>
+                                <input path="undervisningstime.dato" name="dato" class="form-control" id="inputBruker" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" placeholder="dd-mm-ï¿½ï¿½ï¿½ï¿½" required>
                             </div>
                         </div>
                          <div class="form-group">
@@ -455,8 +447,7 @@
                                     <legend class="ramme">Utstyr</legend>
                                     <div id="utstyr">
                                         <input type="checkbox" onclick="filter()" value="" hidden>
-                                        <p><h3>Antall plasser:</h3> <span id="range">0</span>
-                                            <input type="range" min="0" max="100" value="0" step="5" onchange="showValue(this.value)"></p>
+                                        <input type="checkbox" onclick="filter()" value="" hidden>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Smartboard</p>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Skjerm</p>
                                         <p><input type="checkbox" onclick="filter()" value="Ja">Prosjektor</p>
@@ -948,6 +939,7 @@
     }
     window.onload = onClickTest();
 
+
     function filter() {
         var table = document.getElementById("romTabell");
         var cells = table.getElementsByTagName("td");
@@ -957,37 +949,32 @@
         var etasjer = document.getElementById("etasjer").getElementsByTagName("input");
         var utstyr = document.getElementById("utstyr").getElementsByTagName("input");
 
-        for(i=0, j=0; i<rows.length; i++, j++) {
-            for(k=0; k<utstyr.length; k++) {
+        for (i = 0; i < rows.length; i++) {
+            for (k = 0; k < utstyr.length; k++) {
                 var filterType = utstyr[k].value;
-                if(rows[i].cells[1+k].innerHTML.trim() !== filterType) {
-                    if(utstyr[k].checked) {
+                if (rows[i].cells[1 + k].innerHTML.trim() !== filterType) {
+                    if (utstyr[k].checked) {
                         rows[i].style.display = 'none';
                         break;
                     }
                     else {
                         rows[i].style.display = '';
                     }
-                }
-            }
-        }
-
-        for(i=0; i<rows.length; i++) {
-            for(k=0; k<etasjer.length; k++) {
-                var filtertype = etasjer[k].value;
-                if(rows[i].cells[1+k].innerHTML.trim() !== filtertype) {
-                    if(etasjer[k].checked) {
-                        rows[i].style.display = 'none';
-                        break;
-                    }
-                    else {
-                        rows[i].style.display = '';
+                    for (m = 0; m < etasjer.length; m++) {
+                        var filtertype = etasjer[m].value;
+                        if (rows[i].cells[1].innerHTML.trim() !== filtertype) {
+                            if (etasjer[m].checked) {
+                                rows[i].style.display = 'none';
+                                break;
+                            }
+                            else {
+                                rows[i].style.display = '';
+                            }
+                        }
                     }
                 }
             }
         }
-
-
     }
 
     function onClickEndreRom() {
