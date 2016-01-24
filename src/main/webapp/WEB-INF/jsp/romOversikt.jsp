@@ -144,7 +144,7 @@
                 <div class="span3">
                         <div class="form-group input-daterange">
                             <label>Dato</label>
-                            <input  path="fratid" name = "datoFra" class="form-control"  id="datoFra" value="20-01-2016"/>
+                            <input  path="fratid" name = "datoFra" class="form-control"  id="datoFra"/>
                             <div class="form-inline">
                                 <br>
                                 <div class="input-group clockpicker">
@@ -170,20 +170,7 @@
 
 
         
-        <script type="text/javascript">
-            $('.clockpicker').clockpicker({
-                placement: 'top',
-                default: 'now',
-                donetext: 'Velg'
-            });
-        </script>
-        
-        <script type="text/javascript">
-            
-            $('#datoFra').datepicker({
-                    format: 'dd-mm-yyyy'
-                });
-        </script>
+
 
         <script>
             $(document).ready(function () {
@@ -213,16 +200,18 @@
             } else {
                 $('.no-result').hide();
             }
+            
+
         });
                 
-                var now = new Date();
+
+                
+                                    var now = new Date();
                 document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
                 onChangeDato();
                 $('#example').DataTable();
                 alert("ok");
-                $(".collapse1").collapse('hide');
-                
-             
+                $(".collapse1").collapse('hide');     
 
 
 
@@ -326,6 +315,22 @@
 
 
         </script>
-
+        
+        <script type="text/javascript">
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                default: 'now',
+                donetext: 'Velg'
+            });
+        </script>
+        
+        <script type="text/javascript">
+            
+            $('#datoFra').datepicker({
+                    format: 'dd-mm-yyyy',
+                    startDate: new Date()
+                });
+        </script>
+        
     </body>
 </html>
