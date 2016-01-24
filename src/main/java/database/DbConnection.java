@@ -6,6 +6,7 @@ import Klasser.Bruker;
 import Klasser.Fag;
 import Klasser.Rom;
 import Klasser.Studium;
+import Klasser.UndervisningsTime;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -174,6 +175,22 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
             nyBooking.setSjekketInn(resultSet.getBoolean("sjekketInn"));
             b.setBookinger(nyBooking);
         }
+        
+        
+        resultSet = statement.executeQuery("select undervisningstime.fagkode ,fratid, tiltid,dato,romnr from studiestudent, fagstudium, undervisningstime where brukernavn ='" + brukernavn + "' and studiestudent.studiekode = fagstudium.studiekode and fagstudium.fagkode = undervisningstime.fagkode");
+
+        while (resultSet.next()) {
+            UndervisningsTime time = new UndervisningsTime();
+            time.setFagKode(resultSet.getString("fagkode"));
+            time.setFratid(resultSet.getString("fratid"));
+            time.setTiltid(resultSet.getString("tiltid"));
+            time.setDato(resultSet.getString("dato"));
+            time.setRomNr(resultSet.getString("romnr"));
+            
+            b.setUndervisningsTime(time);
+        }
+        
+        
         resultSet = statement.executeQuery("SELECT * FROM personligavtale where brukernavn = '" + brukernavn + "'");
         while (resultSet.next()) {
             Avtale nyAvtale = new Avtale();
@@ -867,5 +884,27 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
         preparedStatement.executeUpdate();
 
     }
+    
+    public String[] hentTimerForBruker(String brukernavn){
+      /*  ArrayList<String> timer = new ArrayList();
+        resultSet = statement.executeQuery("SELECT * FROM undervisningstime where brukertype = " + brukertype);
+        while(resultSet.next()){
+            String brukernavn = resultSet.getString("brukernavn");
+            studenter.add(brukernavn);
+        }
+        return studenter.toArray(new String[studenter.size()]);
+*/ return null;
+    }
+    
+     public boolean leggTilTime(String fagkode, String fratid, String tiltid, String dato, String romnr) throws Exception, SQLException{
+         try{
+              preparedStatement = connection.prepareStatement("Insert into undervisningstime values (null, '" + fagkode + "', '" + fratid + "', '"+ tiltid + "', '" + dato + "', '"+ romnr + "')");
+              preparedStatement.executeUpdate();
 
+         }catch(SQLException e){
+             System.out.println("Feil: " + e);
+             return false;
+         }
+       return true;
+    }
 }

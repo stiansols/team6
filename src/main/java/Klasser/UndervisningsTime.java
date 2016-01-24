@@ -10,11 +10,13 @@ package Klasser;
  *
  * @author Eirik Saur
  */
-public class UndervisningsTime extends Hendelse{
+public class UndervisningsTime{
     
     private String romNr;
-    private String lærer;
     private String fagKode;
+    private String fratid;
+    private String tiltid;
+    private String dato;
 
     /**
      *
@@ -36,22 +38,6 @@ public class UndervisningsTime extends Hendelse{
      *
      * @return
      */
-    public String getLærer() {
-        return lærer;
-    }
-
-    /**
-     *
-     * @param lærer
-     */
-    public void setLærer(String lærer) {
-        this.lærer = lærer;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getFagKode() {
         return fagKode;
     }
@@ -62,6 +48,30 @@ public class UndervisningsTime extends Hendelse{
      */
     public void setFagKode(String fagKode) {
         this.fagKode = fagKode;
+    }
+
+    public String getFratid() {
+        return fratid;
+    }
+
+    public String getTiltid() {
+        return tiltid;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setFratid(String fratid) {
+        this.fratid = fratid;
+    }
+
+    public void setTiltid(String tiltid) {
+        this.tiltid = tiltid;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
     }
     
 }

@@ -14,6 +14,7 @@ public class Studium {
     private int studieId;
     private String studiekode;
     private String studienavn;
+    private ArrayList<Fag> fagliste = new ArrayList();
     
     /**
      *
@@ -80,6 +81,14 @@ public class Studium {
      */
     public void setStudienavn(String studienavn) {
         this.studienavn = studienavn;
+    }
+
+    public ArrayList<Fag> getFagliste() {
+        return fagliste;
+    }
+
+    public void setFagliste(ArrayList<Fag> fagliste) {
+        this.fagliste = fagliste;
     }
 
     

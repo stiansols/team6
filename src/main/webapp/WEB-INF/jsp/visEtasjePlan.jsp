@@ -358,6 +358,7 @@ function visRomplan(romnummer){
                 document.forms["endreDato"]["fratid"].value = document.getElementById("tidFra").value;
                 document.forms["endreDato"]["tiltid"].value = document.getElementById("tidTil").value;
                 document.forms["endreDato"].submit();
+               */ 
             });
 
         }

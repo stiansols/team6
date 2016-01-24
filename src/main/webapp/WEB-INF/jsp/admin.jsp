@@ -86,7 +86,7 @@
                     <li class="active"><a href="#brukerFane">Brukere</a></li>
                     <li><a href="#fagFane">Fag</a></li>
                     <li><a href="#studiumFane">Studium</a></li>
-                    <li><a href="#fagStudFane">Oversikt</a></li>
+                    <li><a href="#fagStudFane">Ny time</a></li>
                     <li><a href="#romOrganiseringFane">Romorganisering</a> </li>
 
                 </ul>
@@ -282,7 +282,7 @@
                                             <div class="col-md-10">
                                                 <div class="input-group">  
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
-                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
+                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk..." />
 
                                                 </div>
                                             </div>
@@ -326,7 +326,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group">
-                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
+                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Søk..." />
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                                 </div>
                                             </div>
@@ -346,8 +346,60 @@
                     </div>
 
                     <div id="fagStudFane" class="tab-pane fade">
-                        <h1>Oversikt</h1>
+                    
 
+                         <form:form class = "form-horizontal" method="POST" modelAttribute="nyTimeForm" action="nyTime">
+            
+            
+            <div class="container ">
+                <div class="row col-lg-8">
+                    <h1 class="col-lg-12">Registrer ny time</h1>
+                    <div class ="col-lg-12 well">
+                        <div class="form-group">
+                            <label for="BrukernavnLabel" class="col-lg-2 control-label">Fagkode</label>
+                            <div class="col-lg-10">
+                                <input path="undervisningstime.fagKode" name="fagkode" class="form-control" id="inputBruker" placeholder="Fagkode" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="BrukernavnLabel" class="col-lg-2 control-label">Fratid</label>
+                            <div class="col-lg-10">
+                                <input path="undervisningstime.fratid" name="fratid" class="form-control" id="inputBruker"  placeholder="Fratid" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="BrukernavnLabel" class="col-lg-2 control-label">Tiltid</label>
+                            <div class="col-lg-10">
+                                <input path="undervisningstime.tiltid" name="tiltid" class="form-control" id="inputBruker" placeholder="Tiltid" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="BrukernavnLabel" class="col-lg-2 control-label">Dato</label>
+                            <div class="col-lg-10">
+                                <input path="undervisningstime.dato" name="dato" class="form-control" id="inputBruker" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" placeholder="dd-mm-åååå" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="BrukernavnLabel" class="col-lg-2 control-label">Romnr</label>
+                            <div class="col-lg-10">
+                                <input path="undervisningstime.romNr" name="romnr" class="form-control" id="inputBruker" placeholder="Romnr" required>
+                            </div>
+                        </div>
+  
+
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-2">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+
+
+                    </form:form>
+                        
 
                     </div>
 

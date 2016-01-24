@@ -240,6 +240,56 @@
             <div id="myScheduler">     
             </div>
         </div>
+            
+            
+            
+            
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <table id="fagTabell" class="table table-hover table-bordered results" style="display:none">
+
+                        <thead>
+                            <tr class="warning no-result">
+                            </tr>
+                            <tr>
+                                <th>fagkode</th>
+                                <th>Fratid</th>
+                                <th>Tiltid</th>
+                                 <th>Dato</th>
+                                  <th>Romnr</th>
+
+                            </tr>
+
+                            <tr class="warning no-result">
+                            </tr>        
+
+                        </thead>
+
+                        <tbody id="timeTabell">
+
+                            <c:forEach items="${person.getUndervisningsTimer()}" var="timer">                 
+                                <tr>
+                                    <td><b>${timer.getFagKode()}</b></td>
+                                    <td><b>${timer.getFratid()}</b></td>
+                                    <td><b>${timer.getTiltid()}</b></td>
+                                    <td><b>${timer.getDato()}</b></td>
+                                    <td><b>${timer.getRomNr()}</b></td>
+
+                           
+
+                                </tr>
+
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+        
+                </div>
+            </div>
+            
+            
+            
                      
                      
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
@@ -269,6 +319,7 @@ YUI().use(
   function(Y) {
       
       var rows = document.getElementById("bookingTabell").getElementsByTagName("tr");
+      var timeliste = document.getElementById("timeTabell").getElementsByTagName("tr");
       var events = [];
       
     for (i = 0; i < rows.length; i++) {
@@ -290,6 +341,31 @@ YUI().use(
         events.push(hendelse);
     
     }
+    
+    
+    for(var x = 0; x < timeliste.length; x++){
+        var fagkode = timeliste[x].getElementsByTagName("td")[0].getElementsByTagName("b")[0].innerHTML;
+        var fratid1 = timeliste[x].getElementsByTagName("td")[1].getElementsByTagName("b")[0].innerHTML;
+        var tiltid1 = timeliste[x].getElementsByTagName("td")[2].getElementsByTagName("b")[0].innerHTML;
+        var dato = timeliste[x].getElementsByTagName("td")[3].getElementsByTagName("b")[0].innerHTML;
+        var romnr1 = timeliste[x].getElementsByTagName("td")[4].getElementsByTagName("b")[0].innerHTML;
+        
+        var fratidkl = parseInt(fratid1.substring(0,2));
+        var fratidmin = parseInt(fratid1.substring(3,5));
+        var tiltidkl = parseInt(tiltid1.substring(0,2));
+        var tiltidmin = parseInt(tiltid1.substring(3,5));
+        var dag1 = parseInt(dato.substring(0,2));
+        var mnd1 = parseInt(dato.substring(3,5));
+        var aar1 = parseInt(dato.substring(6,10));
+        
+      
+        for(var y = 0; y < 52; y++){
+            var hendelse = {content:'Forelesning i ' +fagkode  +' på romnr: '+romnr1,endDate:new Date(aar1, mnd1-1, dag1 ,tiltidkl ,tiltidmin),startDate: new Date(aar1, mnd1-1, dag1 , fratidkl, fratidmin), disabled:true, color:'#FC0511'};
+            events.push(hendelse);
+            dag1 += 7;
+        }
+    }
+    
     var agendaView = new Y.SchedulerAgendaView();
     var dayView = new Y.SchedulerDayView();
     var weekView = new Y.SchedulerWeekView();
