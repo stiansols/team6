@@ -68,7 +68,6 @@ public class Etasje {
         boolean harSkjerm;
         boolean harProsjektor;
         int tilgang;
-        System.out.println("kkkk");
         
   /*      String q = conn.executeQueryString("SELECT romnr FROM rom LIMIT 0,1");
         

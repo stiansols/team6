@@ -713,7 +713,6 @@ public class Kontroller {
            JSONParser parser = new JSONParser();
            js = (JSONObject)parser.parse((String)data);
            String romnr = (String)js.get("romnr");
-           System.out.println(romnr);
            String dato = (String)js.get("dato");
            String[] bookinger = null;
            

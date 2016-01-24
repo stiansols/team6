@@ -649,7 +649,6 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
             b.setTiltid(tiltid);
             b.setBrukertype(brukerType);
             bookinger.add(b);
-            System.out.println(b.getTiltid());
         }
         return bookinger;
 
@@ -670,7 +669,6 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
 
         while (resultSet.next()) {
             String romnr = resultSet.getString("romnr");
-            System.out.println("romnr: " + romnr);
             bookinger.add(romnr);
         }
         return bookinger;
@@ -694,12 +692,10 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
          }
          
          if(fra.before(idag)){
-             System.out.println("du kan ikke booke tilbake i tid din dust");
              return false;
          }
          if(brukerType== 0){
             if(fra.getMonth()>idag.getMonth()+1){
-                System.out.println("oops");
                 return false;
             }
             long total = 0;
@@ -721,7 +717,6 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
                 
                 
             }
-            System.out.println("total = " + total);
             if(total>studentGrense){
                 return false;
             }
@@ -740,7 +735,6 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
 
         ArrayList<Integer> crash = new ArrayList();
         for (int i = 0; i < booking.size(); i++) {
-            //System.out.println(b.getFratid().after(booking.get(0).getFratid()) + "" + b.getTiltid().before(booking.get(0).getTiltid()));
             Date gammelFra = formatter.parse(booking.get(i).getFratid());
             Date gammelTil = formatter.parse(booking.get(i).getTiltid());
             
