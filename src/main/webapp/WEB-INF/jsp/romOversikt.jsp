@@ -27,28 +27,26 @@
                 margin-bottom: -20px;
                 /* box-shadow: 0px 2px; */
             }
-            
-            .midt:hover {
-                width: 540px;
-            }
-            
-            .results tr[visible='false'],
+             .results tr[visible='false'],
+
             .no-result{
                 display:none;
-            }
-            
-            #etasjer {
-                margin-top: 50px;
-            }
-            
-            .results tr[visible='true']{
-                display:table-row;
             }
 
             .counter{
                 padding:8px; 
                 color:#ccc;
             }  
+
+            
+            .midt:hover {
+                width: 540px;
+            }
+   
+            #etasjer {
+                margin-top: 50px;
+            }
+            
             .span3 {  
                 height: 300px !important;
                 width: 100%;
@@ -189,6 +187,34 @@
 
         <script>
             $(document).ready(function () {
+                 $(".search").keyup(function () {
+            var searchTerm = $(".search").val();
+            var listItem = $('.results tbody').children('tr');
+            var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
+
+            $.extend($.expr[':'], {'containsi': function (elem, i, match, array) {
+                    return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                }
+            });
+
+            $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
+                $(this).attr('visible', 'false');
+            });
+
+            $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
+                $(this).attr('visible', 'true');
+            });
+
+            var jobCount = $('.results tbody tr[visible="true"]').length;
+            $('.counter').text(jobCount + ' elementer');
+
+            if (jobCount === '0') {
+                $('.no-result').show();
+            } else {
+                $('.no-result').hide();
+            }
+        });
+                
                 var now = new Date();
                 document.getElementById("datoFra").value = now.getDate() + "-" + now.getMonth() + 1 + "-" + now.getFullYear();
                 onChangeDato();
@@ -196,33 +222,7 @@
                 alert("ok");
                 $(".collapse1").collapse('hide');
                 
-                $(".search").keyup(function () {
-                    var searchTerm = $(".search").val();
-                    var listItem = $('.results tbody').children('tr');
-                    var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
-                    $.extend($.expr[':'], {'containsi': function (elem, i, match, array) {
-                            return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-                        }
-                    });
-
-                    $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
-                        $(this).attr('visible', 'false');
-                    });
-
-                    $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
-                        $(this).attr('visible', 'true');
-                    });
-
-                    var jobCount = $('.results tbody tr[visible="true"]').length;
-                    $('.counter').text(jobCount + ' elementer');
-
-                    if (jobCount === '0') {
-                        $('.no-result').show();
-                    }
-                    else {
-                        $('.no-result').hide();
-                    }
-                });
+             
 
 
 

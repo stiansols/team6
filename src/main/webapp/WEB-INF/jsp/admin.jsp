@@ -95,7 +95,7 @@
                         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
 
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
+                            <input type="text" class="search form-control" placeholder="Søk...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -342,11 +342,6 @@
                         </div>
 
 
-
-
-
-
-                        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->   
 
                     </div>
 
@@ -690,7 +685,6 @@
 
     function velgStudium() {
 
-//{"data":$('#selectStudium').val()}
         var selectString = $('#selectStudium').val();
         var firstIndex = selectString.indexOf("-") + 2;
         var lastIndex = selectString.lastIndexOf("");
@@ -870,22 +864,12 @@
 
 
     function sendNyStudListe() {
-        /*  var unorderedList = document.getElementById('tarFagListe');
-         var ListItems = unorderedList.getElementsByTagName('li');
-
-         for(var i = 0; i < ListItems.length; i++){
-         var test = ListItems[i].innerHTML;
-         alert(test);
-         */
         var date = new Date();
         // for(var i=0; i< 20; i++){
         date.setHours(6);
         date.setMinutes(61);
 
-        alert(date);
-        //sjekker fag i selecten
-
-        // }
+        
 
 
     }
@@ -977,19 +961,19 @@
                     var harProsjektor = cell6.innerHTML;
                     var tilgang = cell7.innerHTML;
 
-                    if(harSmartboard == "Ja") {
+                    if(harSmartboard === "Ja") {
                         document.getElementById("smartboard").checked = "checked";
                     }else{
                         document.getElementById("smartboard").removeAttribute("checked");
                     }
 
-                    if(harSkjerm == "Ja") {
+                    if(harSkjerm === "Ja") {
                         document.getElementById("skjerm").checked = "checked";
                     }else{
                         document.getElementById("skjerm").removeAttribute("checked");
                     }
 
-                    if(harProsjektor == "Ja") {
+                    if(harProsjektor === "Ja") {
                         document.getElementById("prosjektor").checked = "checked";
                     }else{
                         document.getElementById("prosjektor").removeAttribute("checked");
