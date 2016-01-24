@@ -691,6 +691,10 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
              return false;
          }
          
+         if(til.equals(fra)){
+             return false;
+         }
+         
          if(fra.before(idag)){
              return false;
          }

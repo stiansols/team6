@@ -626,46 +626,70 @@ public class Kontroller {
 
     /**
      *
+     * @param model
      * @param email
+     * @param gpassord
      * @param person
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/oppdaterMail", method = RequestMethod.POST)
-    public String oppdaterMail(@RequestParam String email, @ModelAttribute(value = "person") Bruker person) throws Exception {
+    public String oppdaterMail(Model model,@RequestParam String email, String gpassord, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
             return "login";
         }
-        Bruker bruker = new Bruker();
-        bruker.setMail(email);
-
-        db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
-        String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
-        String header = "Endringer i din bruker på StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
-        return "redirect:index";
+        
+        String beskjed = "Siden du ikke har tastet inn riktig gammelt passord, fikk du ikke endret din mail"; 
+        
+        if(sha1(gpassord).equals(person.getPassord())){
+            Bruker bruker = new Bruker();
+            bruker.setMail(email);
+            
+            db.oppdaterMail(person.getBrukernavn(), bruker.getMail());
+            String melding = "Gratulerer <br><br> Du har lyktes med å endre din mail <br> Din nye mail er: "+email+"";
+            String header = "Endringer i din bruker på StudyEasy";
+            db.generateAndSendEmail(person.getBrukernavn(), melding, header);
+            return "redirect:index";
+        }
+        model.addAttribute("feilMelding", beskjed);
+        return "denied";
+        
     }
 
     /**
      *
-     * @param passord
+     * @param model
+     * @param npassord
+     * @param gpassord
      * @param person
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/oppdaterPassord", method = RequestMethod.POST)
-    public String oppdaterPassord(@RequestParam String passord, @ModelAttribute(value = "person") Bruker person) throws Exception {
+    public String oppdaterPassord(Model model, @RequestParam(value="npassord") String npassord, @RequestParam(value="gpassord") String gpassord, @ModelAttribute(value = "person") Bruker person) throws Exception {
         if(person.getBrukernavn() == null){
             return "login";
         }
-        Bruker bruker = new Bruker();
-        bruker.setPassord(passord);
+   
+        
+        String beskjed = "Siden du ikke har tastet inn riktig gammelt passord, fikk du ikke endret passordet"; 
+        
+        System.out.println(gpassord + "\n"+ person.getPassord());
+        if(sha1(gpassord).equals(person.getPassord())){
+            Bruker bruker = new Bruker();
+            bruker.setPassord(npassord);
+        
 
-        db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
-        String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+passord+"";
-        String header = "Endringer i din bruker på StudyEasy";
-        db.generateAndSendEmail(bruker.getBrukernavn(), melding, header);
-        return "redirect:index";
+            db.oppdaterPassord(person.getBrukernavn(), bruker.getPassord());
+            String melding = "Gratulerer <br><br> Du har lyktes med å endre ditt passord <br> Ditt nye passord er: "+bruker.getPassord()+"";
+            String header = "Endringer i din bruker på StudyEasy";
+            db.generateAndSendEmail(person.getBrukernavn(), melding, header);
+            return "redirect:index";
+        }
+        model.addAttribute("feilMelding", beskjed);
+        return "denied";
+        
+          
     }
 
     /**
