@@ -887,6 +887,15 @@ public class Kontroller {
         
         return bookingArr;
     }
+    
+       @RequestMapping(value = "/nyTime", method = RequestMethod.POST)
+    public String leggTilTime(@RequestParam String fagkode, String fratid, String tiltid, String dato, String romnr) throws Exception {
+  
+        db.leggTilTime(fagkode, fratid, tiltid, dato, romnr);
+        
+        return "redirect:admin";
+
+    }
 
 }
 

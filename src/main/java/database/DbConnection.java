@@ -895,5 +895,16 @@ public ArrayList<Booking> hentAlleBookinger() throws Exception, SQLException {
         return studenter.toArray(new String[studenter.size()]);
 */ return null;
     }
+    
+     public boolean leggTilTime(String fagkode, String fratid, String tiltid, String dato, String romnr) throws Exception, SQLException{
+         try{
+              preparedStatement = connection.prepareStatement("Insert into undervisningstime values (null, '" + fagkode + "', '" + fratid + "', '"+ tiltid + "', '" + dato + "', '"+ romnr + "')");
+              preparedStatement.executeUpdate();
 
+         }catch(SQLException e){
+             System.out.println("Feil: " + e);
+             return false;
+         }
+       return true;
+    }
 }
