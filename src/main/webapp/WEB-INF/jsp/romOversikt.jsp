@@ -263,7 +263,9 @@
                 tidFraInput = tidFraInput.replace(":", "-");
                 tidTilInput = tidTilInput.replace(":", "-");
                 var alleRomnr = "";
+               
                 $.getJSON("getBig", {"dato": datoFraInput + "-" + tidFraInput + ":" + datoFraInput + "-" + tidTilInput}, function(d) {
+                    
                     var parsedData = JSON.parse(JSON.stringify(d));
                     for(i=0; i<rows.length; i++) {
                         if(parsedData.length === 0) {
@@ -285,6 +287,7 @@
                     }
                     document.forms["valg"]["romnr"].value = alleRomnr; 
                 });  
+                
             }
             
             function filter() {
