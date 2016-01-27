@@ -847,7 +847,11 @@ public class Kontroller {
          JSONObject json = new JSONObject();
          json = (JSONObject) parser.parse((String)data);
          Long lengde1 = (Long) json.get("lengde1");
+         if(lengde1 == null){
+             lengde1 = 0L;
+         }
          Long lengde2 =  (Long) json.get("lengde2");
+         
   
          for(int i = 0; i < lengde1; i++){
              String index = Integer.toString(i);
