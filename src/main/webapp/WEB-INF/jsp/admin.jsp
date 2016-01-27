@@ -93,7 +93,7 @@
                 <div class="tab-content">
                     <div id="brukerFane" class="tab-pane fade in active">
                         <div class="form-group pull-right">
-                            <input type="text" class="search form-control" placeholder="Sï¿½k...">
+                            <input type="text" class="search form-control" placeholder="Søk...">
                         </div>
                         <span class="counter pull-right"></span>
 
@@ -274,7 +274,7 @@
                                             <div class="col-md-10">
                                                 <div class="input-group">  
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
-                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
+                                                    <input type="text" id="SearchDualListId" name="SearchDualList" class="form-control" placeholder="Søk..." />
 
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group">
-                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Sï¿½k..." />
+                                                    <input type="text" name="SearchDualList" class="form-control" placeholder="Søk..." />
                                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                                 </div>
                                             </div>
@@ -369,7 +369,7 @@
                          <div class="form-group">
                             <label for="BrukernavnLabel" class="col-lg-2 control-label">Dato</label>
                             <div class="col-lg-10">
-                                <input path="undervisningstime.dato" name="dato" class="form-control" id="inputBruker" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" placeholder="dd-mm-ï¿½ï¿½ï¿½ï¿½" required>
+                                <input path="undervisningstime.dato" name="dato" class="form-control" id="inputBruker" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" placeholder="dd-mm-åååå" required>
                             </div>
                         </div>
                          <div class="form-group">
@@ -401,7 +401,7 @@
                                 <div>
                                     <fieldset class="ramme">
                                         <div class="form-group pull-right">
-                                            <input type="text" class="search form-control" placeholder="SÃ¸k...">
+                                            <input type="text" class="search form-control" placeholder="Søk...">
                                         </div>
                                         <span class="counter pull-right"></span>
                                         <legend class="ramme">Romoversikt:</legend>
